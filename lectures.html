@@ -139,6 +139,21 @@ body{padding-bottom:70px}
 *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 html{scroll-behavior:auto}
 }
+
+/*CHAP*/
+.chapgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px}
+.chap{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 16px}
+.chap h4{font-size:16.5px;line-height:1.35;margin:5px 0 4px}
+.chap .st{font-size:13.5px;color:var(--mut)}
+.chap .num{font-size:12px;font-weight:700;color:#0a7a4b;letter-spacing:.6px}
+.papertitle{font-size:21px;margin:24px 0 10px}
+
+/*VID*/
+.vidwrap{transition:transform .3s ease,max-width .45s ease}
+@media(hover:hover){.card:hover .vidwrap{transform:scale(1.03)}}
+.card.expanded{grid-column:1/-1!important}
+.card.expanded .vidwrap{max-width:1140px!important;width:100%;margin-left:auto;margin-right:auto}
+.expandbtn{margin-top:10px}
 </style><link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/lectures.html">
 <meta property="og:title" content="A Physicist's Perspective — Meskat">
 <meta property="og:description" content="HSC ও Admission MCQ পরীক্ষা ও ফিজিক্স লেকচার — ২৩টি সেট, ৪৯৫টি প্রশ্ন।">
@@ -152,7 +167,12 @@ html{scroll-behavior:auto}
 <h1>🎬 লেকচার ও ভিডিও</h1>
 <p class="sub">ছাত্রদের জন্য বানানো নতুন ভিডিওগুলো এখানে অধ্যায় অনুযায়ী সাজানো থাকবে — প্রতিটি ভিডিওর পাশে সেই অধ্যায়ের পরীক্ষা, যাতে দেখেই সাথে সাথে নিজেকে যাচাই করা যায়।</p>
 </div></header>
-<main class="wrap">
+<main class="wrap"><section id="book-chapters" style="padding-top:34px">
+<div class="sec-head"><div class="k">Book Chapters • NCTB</div><h2>📚 বইয়ের অধ্যায় অনুযায়ী লেকচার</h2><p>বাংলাদেশি পাঠ্যবই (NCTB) অনুযায়ী সব অধ্যায় — টপিকভিত্তিক লেকচার ভিডিও ধাপে ধাপে যুক্ত হবে। যেসব অধ্যায়ের ভিডিও এখনো আসেনি, সেখানে “আসছে শীঘ্রই” লেখা আছে।</p></div>
+<h3 class="papertitle">পদার্থবিজ্ঞান ১ম পত্র</h3><div class="chapgrid"><div class="chap"><div class="num">অধ্যায় ১</div><h4>ভৌত জগৎ ও পরিমাপ</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ২</div><h4>ভেক্টর</h4><div class="st">✅ লাইভ — Physics Admission Program সিরিজ, ৬ পর্ব</div><p style="margin-top:8px"><a class="chipbtn" href="series-physics-admission.html" style="display:inline-block">সিরিজ দেখো →</a></p></div><div class="chap"><div class="num">অধ্যায় ৩</div><h4>গতিবিদ্যা</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৪</div><h4>নিউটনীয় বলবিদ্যা</h4><div class="st">🟡 টপিক ভিডিও আছে — <b>কেন্দ্রমুখী বল</b> (বৃত্তাকার গতি) Short নিচের কার্ডে; পূর্ণ লেকচার আসছে শীঘ্রই</div></div><div class="chap"><div class="num">অধ্যায় ৫</div><h4>কাজ, শক্তি ও ক্ষমতা</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৬</div><h4>মহাকর্ষ ও অভিকর্ষ</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৭</div><h4>পদার্থের গাঠনিক ধর্ম</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৮</div><h4>পর্যাবৃত্ত গতি</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৯</div><h4>তরঙ্গ</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ১০</div><h4>আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div></div>
+<h3 class="papertitle">পদার্থবিজ্ঞান ২য় পত্র</h3><div class="chapgrid"><div class="chap"><div class="num">অধ্যায় ১</div><h4>তাপগতিবিদ্যা</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ২</div><h4>স্থির তড়িৎ</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৩</div><h4>চল তড়িৎ</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৪</div><h4>তড়িৎ প্রবাহের চৌম্বক ক্রিয়া ও চুম্বকত্ব</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৫</div><h4>তাড়িতচুম্বকীয় আবেশ ও পরিবর্তী প্রবাহ</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৬</div><h4>জ্যামিতিক আলোকবিজ্ঞান</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৭</div><h4>ভৌত আলোকবিজ্ঞান</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৮</div><h4>আধুনিক পদার্থবিজ্ঞানের সূচনা</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ৯</div><h4>পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ১০</div><h4>সেমিকন্ডাক্টর ও ইলেকট্রনিক্স</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div><div class="chap"><div class="num">অধ্যায় ১১</div><h4>জ্যোতির্বিজ্ঞান</h4><div class="st">🔜 টপিকভিত্তিক লেকচার ভিডিও — আসছে শীঘ্রই (Coming Soon)</div></div></div>
+</section>
+
 <section style="padding-top:30px"><div class="panel" style="text-align:center"><span class="badge b-y">🎓 লেকচার সিরিজ</span><h3 style="font-size:24px;margin:8px 0">Physics Admission Program — ভেক্টর (৬ পর্ব)</h3><p style="color:var(--mut);max-width:640px;margin:0 auto 12px">ক্রমানুসারে সাজানো পুরো সিরিজটা এক পেজে — প্রতিটি পর্বের নিচে তার প্রশ্ন সেট। নিচে পর্বগুলো আলাদাভাবেও দেওয়া আছে।</p><a class="btn btn-y" href="series-physics-admission.html">সিরিজের পেজে যাও →</a></div></section>
 <section style="padding-top:26px"><div class="grid" id="videoGrid"></div></section>
 <section><div class="sec-head"><div class="k">Series</div><h2>Level Up Cognitive Skills সিরিজ</h2>
@@ -204,5 +224,23 @@ if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add(
 var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.06,rootMargin:"0px 0px -4% 0px"});
 els.forEach(function(e){io.observe(e)});
 }catch(err){}})();
+</script>
+<script>
+/*VID*/
+(function(){try{
+function wrapOf(f){return f.closest(".vidwrap")||f.parentElement}
+document.querySelectorAll('iframe[src*="youtube"]').forEach(function(f){wrapOf(f).classList.add("vidwrap")});
+document.querySelectorAll(".vidwrap").forEach(function(w){
+ var card=w.closest(".card")||w.parentElement;
+ if(card.querySelector(".expandbtn"))return;
+ var b=document.createElement("button");b.type="button";b.className="chipbtn expandbtn";b.textContent="⤢ বড় করে দেখো";b.setAttribute("aria-expanded","false");
+ w.insertAdjacentElement("afterend",b);
+ b.addEventListener("click",function(){var ex=card.classList.toggle("expanded");b.textContent=ex?"⤡ ছোট করো":"⤢ বড় করে দেখো";b.setAttribute("aria-expanded",String(ex));if(ex){card.scrollIntoView({block:"center",behavior:"smooth"})}});
+});
+window.addEventListener("blur",function(){setTimeout(function(){var a=document.activeElement;
+ if(a&&a.tagName==="IFRAME"&&a.src.indexOf("youtube")>-1){var card=wrapOf(a).closest(".card");
+  if(card&&!card.classList.contains("expanded")){card.classList.add("expanded");var b=card.querySelector(".expandbtn");if(b){b.textContent="⤡ ছোট করো";b.setAttribute("aria-expanded","true")}}}
+},60)});
+}catch(e){}})();
 </script>
 </body></html>
