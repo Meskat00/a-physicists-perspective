@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>বৃত্তাকার গতি — বহুনির্বাচনি প্রশ্ন</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#000;
+    --paper:#fff;
+    --body:11pt;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  body{
+    font-family:'Noto Serif Bengali','Tiro Bangla','SolaimanLipi','Nirmala UI',serif;
+    background:#e9e9e9; color:var(--ink);
+    font-size:var(--body); line-height:1.45;
+  }
+  /* ---------- page ---------- */
+  .page{
+    width:210mm; height:297mm; background:var(--paper);
+    margin:14px auto; border:1px solid #cfcfcf;
+    box-shadow:0 1px 5px rgba(0,0,0,.14);
+    overflow:hidden;
+  }
+  .pin{padding:15mm; height:297mm; display:flex; flex-direction:column;}
+  /* ---------- headers ---------- */
+  .hdr.main{border-bottom:0.8pt solid #000; margin-bottom:5mm;}
+  .hdr.main .topic{font-size:20pt; font-weight:700; text-align:center; padding:1mm 0 3mm;}
+  .hdr.cont{border-bottom:0.5pt solid #000; margin-bottom:4mm;}
+  .hdr.cont .topic{font-size:11pt; text-align:center; padding-bottom:2mm;}
+  /* ---------- columns ---------- */
+  .cols{flex:1 1 auto; min-height:0; display:flex; gap:8mm;}
+  .col{flex:1 1 0; min-width:0; overflow:hidden;}
+  .sep{flex:0 0 auto; width:0; border-left:0.6pt solid #000;}
+  /* ---------- question block ---------- */
+  .qblock{margin-bottom:3.5mm;}
+  .qtext{padding-left:7mm; text-indent:-7mm; text-align:left;}
+  .qnum{font-weight:700;}
+  .opts{padding-left:7mm; margin-top:1.2mm;}
+  .opts.grid{display:grid; grid-template-columns:1fr 1fr; column-gap:4mm; row-gap:1mm;}
+  .opts.stack{display:block;}
+  .opts.stack .opt{margin-bottom:1mm;}
+  .opt{white-space:normal;}
+  .olab{white-space:nowrap;}
+  /* ---------- footer ---------- */
+  .ftr{font-size:9pt; text-align:center; padding-top:3mm;}
+  /* ---------- answer key ---------- */
+  .akhdr{text-align:center; margin-bottom:6mm;}
+  .akhdr .akt{font-size:16pt; font-weight:700; margin-bottom:2mm;}
+  .akhdr .aks{font-size:11pt;}
+  table.ak{border-collapse:collapse; margin:0 auto; font-size:11pt;}
+  table.ak th, table.ak td{border:0.5pt solid #000; padding:2mm 4mm; text-align:center;}
+  table.ak th{font-weight:700;}
+  /* ---------- measurer ---------- */
+  #measurer{position:absolute; left:-9999px; top:0; width:86mm; visibility:hidden;
+    font-size:var(--body); line-height:1.45;
+    font-family:'Noto Serif Bengali','Tiro Bangla','SolaimanLipi','Nirmala UI',serif;}
+  #scrOnlyNote{display:none;}
+  /* ---------- print ---------- */
+  @page{size:A4 portrait; margin:0;}
+  @media print{
+    body{background:#fff;}
+    .page{margin:0; border:none; box-shadow:none; page-break-after:always;}
+    .page:last-child{page-break-after:auto;}
+  }
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<div id="measurer" aria-hidden="true"></div>
+<noscript><p id="scrOnlyNote" style="display:block;text-align:center;padding:20px;">এই প্রশ্নপত্র দেখতে JavaScript চালু করুন।</p></noscript>
+
+<script>
+(function(){
+  "use strict";
+  var BN_D = '০১২৩৪৫৬৭৮৯';
+  function bn(n){ return String(n).replace(/[0-9]/g, function(c){ return BN_D[+c]; }); }
+
+  /* ============ ৩০টি প্রশ্ন (বাংলাদেশি পাঠ্যবইয়ের ভাষায় রূপান্তরিত) ============ */
+  var questions = [
+    {t:'সুষম বৃত্তাকার গতিতে নিচের কোন রাশিটি ধ্রুব থাকে?',
+     o:['বেগ','ত্বরণ','দ্রুতি','সরণ'], l:'grid'},
+    {t:'কৌণিক বেগের SI একক কোনটি?',
+     o:['m/s','rad/s','m/s<sup>2</sup>','rev/min'], l:'grid'},
+    {t:'r ব্যাসার্ধের বৃত্তাকার পথে v সমদ্রুতিতে গতিশীল বস্তুর কেন্দ্রমুখী ত্বরণের মান—',
+     o:['v<sup>2</sup>/r','vr','v/r<sup>2</sup>','ω/r'], l:'grid'},
+    {t:'m ভরের একটি বস্তু r ব্যাসার্ধের বৃত্তাকার পথে ω কৌণিক বেগে ঘুরলে কেন্দ্রমুখী বলের মান—',
+     o:['mωr','mω<sup>2</sup>r','mω<sup>2</sup>/r','m<sup>2</sup>ωr'], l:'grid'},
+    {t:'পর্যায়কাল T ও কম্পাঙ্ক f-এর মধ্যে সম্পর্ক কোনটি?',
+     o:['T = f','T = 1/f','T = f<sup>2</sup>','T = 2f'], l:'grid'},
+    {t:'বৃত্তাকার পথে ঘূর্ণায়মান বস্তুর রৈখিক দ্রুতি v ও কৌণিক বেগ ω-এর মধ্যে সম্পর্ক—',
+     o:['v = ω/r','v = ωr','v = ω<sup>2</sup>r','v = r/ω'], l:'grid'},
+    {t:'সুষম বৃত্তাকার গতিতে বেগ ও ত্বরণের মধ্যবর্তী কোণ—',
+     o:['0°','45°','90°','180°'], l:'grid'},
+    {t:'বৃত্তাকার পথে গতিশীল বস্তুর কোনো মুহূর্তে বেগের দিক কোন দিকে হয়?',
+     o:['বৃত্তের কেন্দ্রের দিকে','কেন্দ্র থেকে বাইরের দিকে ব্যাসার্ধ বরাবর','ওই বিন্দুতে অঙ্কিত স্পর্শক বরাবর','ঘূর্ণন অক্ষ বরাবর'], l:'stack'},
+    {t:'বস্তুকে বৃত্তাকার পথে ঘোরাতে যে বলের প্রয়োজন হয়, তার দিক—',
+     o:['কেন্দ্র থেকে বাইরের দিকে','বৃত্তের স্পর্শক বরাবর','কেন্দ্রের দিকে','ঘূর্ণন তলের লম্ব বরাবর'], l:'grid'},
+    {t:'সুষম বৃত্তাকার গতিতে কেন্দ্রমুখী বল দ্বারা কৃতকাজ—',
+     o:['ধনাত্মক','শূন্য','ঋণাত্মক','অসীম'], l:'grid'},
+    {t:'নিজ অক্ষের চারদিকে পৃথিবীর ঘূর্ণনের কৌণিক বেগ প্রায়—',
+     o:['7.3×10<sup>-5</sup> rad/s','7.3×10<sup>-4</sup> rad/s','1.2×10<sup>-5</sup> rad/s','2π rad/s'], l:'grid'},
+    {t:'ঘড়ির সেকেন্ডের কাঁটার কৌণিক বেগ—',
+     o:['π/30 rad/s','π/60 rad/s','2π rad/s','π rad/s'], l:'grid'},
+    {t:'ঘড়ির ঘণ্টার কাঁটার কৌণিক বেগ—',
+     o:['π/30 rad/s','π/1800 rad/s','π/21600 rad/s','2π rad/s'], l:'grid'},
+    {t:'যদি ω = 3i − 4j + k এবং r = 5i − 6j + 6k হয়, তবে রৈখিক বেগের মান কত?',
+     o:['6i + 2j − 3k','−18i − 13j + 2k','4i − 13j + 6k','6i − 2j + 8k'], l:'grid'},
+    {t:'দড়িতে বাঁধা পাথরকে অনুভূমিক বৃত্তাকার পথে ঘোরানোর সময় দড়ি হঠাৎ ছিঁড়ে গেলে পাথরটি—',
+     o:['বৃত্তের কেন্দ্রের দিকে চলে যাবে','ব্যাসার্ধ বরাবর বাইরের দিকে চলে যাবে','ছেঁড়ার মুহূর্তে স্পর্শক বরাবর চলে যাবে','সঙ্গে সঙ্গে থেমে যাবে'], l:'stack'},
+    {t:'ব্যাসার্ধ অপরিবর্তিত রেখে দ্রুতি দ্বিগুণ করলে কেন্দ্রমুখী বল—',
+     o:['দ্বিগুণ হবে','অর্ধেক হবে','চারগুণ হবে','অপরিবর্তিত থাকবে'], l:'grid'},
+    {t:'দ্রুতি অপরিবর্তিত রেখে বৃত্তপথের ব্যাসার্ধ দ্বিগুণ করলে কেন্দ্রমুখী ত্বরণ—',
+     o:['দ্বিগুণ হবে','অর্ধেক হবে','চারগুণ হবে','অপরিবর্তিত থাকবে'], l:'grid'},
+    {t:'সমান পর্যায়কালে দুটি ভিন্ন ব্যাসার্ধের বৃত্তাকার পথে ঘূর্ণায়মান দুটি বস্তুর কৌণিক বেগের অনুপাত—',
+     o:['r<sub>1</sub> : r<sub>2</sub>','r<sub>2</sub> : r<sub>1</sub>','1 : 1','m<sub>1</sub> : m<sub>2</sub>'], l:'grid'},
+    {t:'ব্যাংকিং করা রাস্তায় θ নতিকোণ হলে—',
+     o:['tanθ = rg/v<sup>2</sup>','tanθ = v<sup>2</sup>/(rg)','tanθ = v/(rg)','tanθ = rg/v'], l:'grid'},
+    {t:'μ ঘর্ষণ গুণাঙ্কবিশিষ্ট অনুভূমিক বাঁকে গাড়ির সর্বোচ্চ নিরাপদ দ্রুতি—',
+     o:['√(μrg)','μrg','√(μr/g)','μ<sup>2</sup>rg'], l:'grid'},
+    {t:'শঙ্কু দোলকের (conical pendulum) পর্যায়কাল—',
+     o:['2π√(l/g)','2π√(l cosθ/g)','2π√(g/l)','2π√(l sinθ/g)'], l:'grid'},
+    {t:'বৃত্তাকার পথে ঘোরার জন্য কোন বল দায়ী?',
+     o:['কেন্দ্রমুখী বল','কেন্দ্রবিমুখী বল','স্পর্শকীয় বল','ঘর্ষণ বল'], l:'grid'},
+    {t:'বৃত্তাকার পথে বস্তুর গতির মান পরিবর্তনের জন্য কোন বল দায়ী?',
+     o:['কেন্দ্রমুখী বল','কেন্দ্রবিমুখী বল','স্পর্শকীয় বল','অভিকর্ষ বল'], l:'grid'},
+    {t:'2 m ব্যাসার্ধের বৃত্তাকার পথে একটি কণা 5 m/s সমদ্রুতিতে গতিশীল। কণাটি অর্ধেক ঘূর্ণন সম্পন্ন করলে বেগের পরিবর্তন কত হবে?',
+     o:['শূন্য','10 m/s','10√2 m/s','10/√2 m/s'], l:'grid'},
+    {t:'কেন্দ্রবিমুখী বল কোন ধরনের বল?',
+     o:['বাস্তব বল','অপভ্রম (ছদ্ম) বল','মহাকর্ষ বল','তড়িৎ-চুম্বকীয় বল'], l:'grid'},
+    {t:'একই কৌণিক বেগে ঘূর্ণায়মান দুটি বস্তুর মধ্যে যার ব্যাসার্ধ বেশি, তার রৈখিক দ্রুতি—',
+     o:['কম','বেশি','সমান','শূন্য'], l:'grid'},
+    {t:'0.5 m ব্যাসার্ধের বৃত্তাকার পথে একটি বস্তু 2 s-এ একবার পূর্ণ ঘূর্ণন সম্পন্ন করলে এর দ্রুতি—',
+     o:['π/2 m/s','π m/s','2π m/s','π/4 m/s'], l:'grid'},
+    {t:'1000 kg ভরের একটি গাড়ি 50 m ব্যাসার্ধের বাঁকে 20 m/s দ্রুতিতে চললে প্রয়োজনীয় কেন্দ্রমুখী বল—',
+     o:['4000 N','8000 N','20000 N','40000 N'], l:'grid'},
+    {t:'চাঁদ পৃথিবীকে প্রায় 27.3 দিনে একবার প্রদক্ষিণ করে। কক্ষপথের ব্যাসার্ধ 3.84×10<sup>8</sup> m হলে চাঁদের কেন্দ্রমুখী ত্বরণ প্রায়—',
+     o:['2.7×10<sup>-3</sup> m/s<sup>2</sup>','9.8 m/s<sup>2</sup>','1.6 m/s<sup>2</sup>','2.7×10<sup>-2</sup> m/s<sup>2</sup>'], l:'grid'},
+    {t:'কৌণিক সরণের দিক নির্ণয় করা হয়—',
+     o:['বাম-হস্ত নিয়মে','ডান-হস্ত নিয়মে','ফ্লেমিং-এর বাম-হস্ত নিয়মে','লেঞ্জের নিয়মে'], l:'grid'}
+  ];
+
+  /* ============ উত্তরমালা (প্রশ্নের ক্রমানুসারে, বাংলা লেবেলে) ============ */
+  var answers = ['গ','খ','ক','খ','খ',  'খ','গ','গ','গ','খ',
+                 'ক','ক','গ','খ','গ',  'গ','খ','গ','খ','ক',
+                 'খ','ক','গ','খ','খ',  'খ','ক','খ','ক','খ'];
+
+  var TOPIC = 'বৃত্তাকার গতি';
+  var LABELS = ['ক)','খ)','গ)','ঘ)'];
+
+  var pagesEl = document.getElementById('pages');
+  var measurer = document.getElementById('measurer');
+  var pageNo = 0;
+
+  function buildBlock(q, idx){
+    var div = document.createElement('div');
+    div.className = 'qblock';
+    var t = document.createElement('div');
+    t.className = 'qtext';
+    t.innerHTML = '<span class="qnum">' + bn(idx+1) + '।</span> ' + q.t;
+    div.appendChild(t);
+    var o = document.createElement('div');
+    o.className = 'opts ' + q.l;
+    for (var i=0;i<4;i++){
+      var s = document.createElement('div');
+      s.className = 'opt';
+      s.innerHTML = '<span class="olab">' + LABELS[i] + '</span> ' + q.o[i];
+      o.appendChild(s);
+    }
+    div.appendChild(o);
+    return div;
+  }
+
+  function newPage(first){
+    pageNo++;
+    var p = document.createElement('div'); p.className = 'page';
+    var pin = document.createElement('div'); pin.className = 'pin';
+    var hdr = document.createElement('div');
+    hdr.className = 'hdr ' + (first ? 'main' : 'cont');
+    hdr.innerHTML = '<div class="topic">' + TOPIC + '</div>';
+    var cols = document.createElement('div'); cols.className = 'cols';
+    var left = document.createElement('div'); left.className = 'col';
+    var sep = document.createElement('div'); sep.className = 'sep';
+    var right = document.createElement('div'); right.className = 'col';
+    cols.appendChild(left); cols.appendChild(sep); cols.appendChild(right);
+    var ftr = document.createElement('div'); ftr.className = 'ftr';
+    ftr.textContent = 'পৃষ্ঠা ' + bn(pageNo);
+    pin.appendChild(hdr); pin.appendChild(cols); pin.appendChild(ftr);
+    p.appendChild(pin); pagesEl.appendChild(p);
+    return {left:left, right:right};
+  }
+
+  function tryPlace(page, block){
+    var cols = [page.left, page.right];
+    for (var i=0;i<cols.length;i++){
+      cols[i].appendChild(block);
+      if (cols[i].scrollHeight <= cols[i].clientHeight + 1){ return true; }
+      cols[i].removeChild(block);
+    }
+    return false;
+  }
+
+  /* প্রশ্ন-ব্লক তৈরি */
+  var blocks = questions.map(function(q,i){ return buildBlock(q,i); });
+
+  /* পৃষ্ঠায় বসানো: বাম কলাম ওপর→নিচ, তারপর ডান কলাম, তারপর পরের পৃষ্ঠা */
+  var cur = newPage(true);
+  blocks.forEach(function(b){
+    if (!tryPlace(cur, b)){ cur = newPage(false); cur.left.appendChild(b); }
+  });
+
+  /* ============ উত্তরমালা: বাধ্যতামূলক নতুন পৃষ্ঠা ============ */
+  pageNo++;
+  (function(){
+    var p = document.createElement('div'); p.className = 'page';
+    var pin = document.createElement('div'); pin.className = 'pin';
+    var hd = document.createElement('div'); hd.className = 'akhdr';
+    hd.innerHTML = '<div class="akt">উত্তরমালা</div><div class="aks">' + TOPIC + '</div>';
+    pin.appendChild(hd);
+    var tbl = document.createElement('table'); tbl.className = 'ak';
+    var thead = document.createElement('tr');
+    for (var k=0;k<5;k++){ thead.innerHTML += '<th>প্রশ্ন</th><th>উত্তর</th>'; }
+    tbl.appendChild(thead);
+    for (var r=0;r<6;r++){
+      var tr = document.createElement('tr');
+      for (var c=0;c<5;c++){
+        var qi = r*5 + c;
+        tr.innerHTML += '<td>' + bn(qi+1) + '</td><td>' + answers[qi] + '</td>';
+      }
+      tbl.appendChild(tr);
+    }
+    pin.appendChild(tbl);
+    var ftr = document.createElement('div'); ftr.className = 'ftr';
+    ftr.textContent = 'পৃষ্ঠা ' + bn(pageNo);
+    pin.appendChild(ftr);
+    /* উত্তরমালার টেবিল নিচে না ঝুলে থাকার জন্য ফাঁকা জায়গা */
+    var spacer = document.createElement('div'); spacer.style.flex = '1 1 auto';
+    pin.insertBefore(spacer, ftr);
+    p.appendChild(pin); pagesEl.appendChild(p);
+  })();
+})();
+</script>
+</body>
+</html>
