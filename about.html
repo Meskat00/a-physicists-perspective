@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="bn"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>শিক্ষক সম্পর্কে — A Physicist's Perspective | Meskat</title>
-<meta name="description" content="Meskat — ফিজিক্স শিক্ষক ও গবেষক। HSC ও Admission ছাত্রদের জন্য ফ্রি MCQ পরীক্ষা ও লেকচার।">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>সম্পর্কে — Meskat | A Physicist's Perspective</title>
+<meta name="description" content="Meskat — Aspiring Physicist, Learner, Explainer. Quantum Computing ও Density Functional Theory নিয়ে কাজ করেন; SSC, HSC ও Admission শিক্ষার্থীদের জন্য সম্পূর্ণ ফ্রি লেকচার ও MCQ পরীক্ষা।">
+<link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/about.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Caveat:wght@700&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
@@ -107,6 +108,11 @@ footer{padding:36px 0 90px;text-align:center;color:var(--mut);font-size:14.5px}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .empty{display:none;text-align:center;color:var(--mut);padding:28px}
 
+.paper{background:#f6faf7;border:1.5px dashed #9fd8bd;border-radius:12px;padding:12px 14px;font-size:14.5px}
+.paper a{color:#0a7a4b;font-weight:700;text-decoration:underline}
+.crumb{color:var(--mut);font-size:14px;margin:22px 0 4px}.crumb a{color:#0a7a4b;font-weight:600}
+details.ans{margin-top:10px}details.ans summary{cursor:pointer;font-weight:700;color:#0a7a4b}
+
 /*UX2*/
 html{scroll-padding-top:86px}
 nav{backdrop-filter:none;-webkit-backdrop-filter:none}
@@ -135,36 +141,89 @@ body{padding-bottom:70px}
 *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 html{scroll-behavior:auto}
 }
-</style><link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/about.html">
-<meta property="og:title" content="A Physicist's Perspective — Meskat">
-<meta property="og:description" content="HSC ও Admission MCQ পরীক্ষা ও ফিজিক্স লেকচার — ২৩টি সেট, ৪৯৫টি প্রশ্ন।">
-<meta property="og:url" content="https://meskat00.github.io/a-physicists-perspective/about.html">
-</head><body><nav><div class="wrap nav-in">
+
+/*ABOUT*/
+.ahero{background:radial-gradient(1100px 480px at 50% -10%,#177a4c 0%,#0d5a38 45%,#083d27 100%);color:#eafff3;text-align:center;padding:64px 20px 58px;border-bottom:4px solid #ffd93b;position:relative;overflow:hidden}
+.ahero::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.ring{width:236px;height:236px;margin:0 auto;border-radius:50%;border:5px solid #ffd93b;box-shadow:0 0 0 10px rgba(255,217,59,.16),0 24px 60px rgba(0,0,0,.45);overflow:hidden;position:relative;background:radial-gradient(circle at 50% 32%,#1c8a57,#0a4a2e 78%)}
+.ring img{position:absolute;left:50%;bottom:0;height:118%;width:auto;max-width:none;transform:translate(-50%,0);animation:riseUp 1.15s cubic-bezier(.22,.9,.3,1) both .15s}
+@keyframes riseUp{from{transform:translate(-50%,46%);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+.ahero h1{font-family:Inter,sans-serif;font-weight:900;font-size:52px;color:#fff;margin:22px 0 2px;letter-spacing:.5px;min-height:62px}
+.caret{display:inline-block;color:#ffd93b;animation:blink 1s steps(1) infinite;font-weight:400}
+@keyframes blink{50%{opacity:0}}
+.tagline{font-size:17px;color:#c9f5da;letter-spacing:2.5px;text-transform:uppercase;font-weight:600}
+.ahero .mini{margin-top:14px;display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:999px;font-size:13.5px;color:#eafff3}
+.bio{font-size:17.5px;line-height:1.85;color:#233729;max-width:820px;margin:0 auto}
+.aud{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.aud .card{text-align:center}
+.aud .ic{font-size:34px}
+.free{background:linear-gradient(120deg,#0e7a43,#12a150);color:#fff;border-radius:18px;padding:26px;text-align:center;box-shadow:0 14px 34px rgba(14,122,67,.28)}
+.free .big{font-family:Inter,sans-serif;font-weight:900;font-size:34px;letter-spacing:1px}
+.howline{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;font-size:16.5px;font-weight:600}
+.pay{display:inline-flex;align-items:center;font-family:Inter,sans-serif;font-weight:800;font-style:italic;padding:7px 18px;border-radius:10px;color:#fff;font-size:17px;letter-spacing:.3px}
+.pay.bkash{background:linear-gradient(120deg,#e2136e,#c40e5c);box-shadow:0 8px 20px rgba(226,19,110,.35)}
+.pay.nagad{background:linear-gradient(120deg,#f6921e,#ee4023);box-shadow:0 8px 20px rgba(238,64,35,.32);font-style:normal}
+.dnum{font-family:Inter,sans-serif;font-weight:900;font-size:clamp(30px,6vw,44px);letter-spacing:2px;background:linear-gradient(90deg,#e2136e,#f6921e,#0e7a43,#e2136e);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradMove 5s linear infinite,pulseGlow 2.4s ease-in-out infinite}
+@keyframes gradMove{to{background-position:300% 0}}
+@keyframes pulseGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(226,19,110,0))}50%{filter:drop-shadow(0 3px 10px rgba(226,19,110,.35))}}
+.socials{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.soc{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-decoration:none;color:var(--ink);transition:transform .25s ease,box-shadow .25s ease}
+.soc:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.soc svg{width:30px;height:30px;flex:none}
+.soc b{font-size:15.5px;display:block}
+.soc small{color:var(--mut);font-size:12.5px}
+@media (prefers-reduced-motion:reduce){.ring img{animation:none}.dnum{animation:none}}
+</style></head><body>
+<nav><div class="wrap nav-in">
 <a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>by Meskat • SSC • HSC • Admission</small></a>
 <div class="nav-links"><a href="index.html">🏠 হোম</a><a href="exams.html">📝 পরীক্ষা</a><a href="lectures.html">🎬 লেকচার</a><a href="problems.html">🧩 সমস্যা</a><a href="about.html">👨‍🏫 সম্পর্কে</a></div>
 </div></nav>
-<header class="hero"><div class="wrap hero-in">
-<span class="chalk">Hello, I am your teacher ✎</span>
-<h1>👨‍🏫 Meskat সম্পর্কে</h1>
-<p class="sub">ফিজিক্স নিয়ে গবেষণা করি, আর ছাত্রদের জন্য বানাই এমন পরীক্ষা ও লেকচার যেখানে কনসেপ্টটা সত্যিই পরিষ্কার হয় — মুখস্থ নয়।</p>
-</div></header>
+<header class="ahero">
+  <div class="ring"><img src="meskat.png" alt="Meskat — Aspiring Physicist" width="760" height="428"></div>
+  <h1><span id="typed">Meskat</span><span class="caret">|</span></h1>
+  <div class="tagline">Aspiring Physicist | Learner | Explainer</div>
+  <div><span class="mini">🎓 SSC • HSC • Admission — Physics &amp; Higher Math</span></div>
+</header>
 <main class="wrap">
-<section style="padding-top:34px"><div class="steps">
-<div class="step"><div class="n">✎</div><h3>আমার পদ্ধতি</h3><p style="color:var(--mut)">আগে intuition, তারপর ফর্মুলা। প্রতিটি প্রশ্ন যাচাই করা, প্রতিটি উত্তর ব্যাখ্যাসহ।</p></div>
-<div class="step"><div class="n">🎯</div><h3>কার জন্য</h3><p style="color:var(--mut)">HSC শিক্ষার্থী ও বিশ্ববিদ্যালয় ভর্তিচ্ছুদের জন্য — পদার্থবিজ্ঞান ও উচ্চতর গণিত।</p></div>
-<div class="step"><div class="n">🆓</div><h3>সব ফ্রি</h3><p style="color:var(--mut)">সব পরীক্ষা ও লেকচার সম্পূর্ণ ফ্রি। উপকৃত হলে ইচ্ছানুযায়ী সাপোর্ট করা যায় (নিচে)।</p></div>
-</div></section>
-<section><div class="sec-head"><div class="k">How it works</div><h2>সাইটটা কীভাবে ব্যবহার করবে?</h2></div>
-<div class="steps">
-<div class="step"><div class="n">1</div><h3>লেকচার দেখো</h3><p style="color:var(--mut)">নতুন চ্যানেলের ভিডিও লেকচার পেজে সাজানো থাকবে।</p></div>
-<div class="step"><div class="n">2</div><h3>পরীক্ষা দাও</h3><p style="color:var(--mut)">একই অধ্যায়ের MCQ সেটে পরীক্ষা — সাথে সাথে স্কোর ও সঠিক উত্তর।</p></div>
-<div class="step"><div class="n">3</div><h3>প্রোগ্রেস রাখো</h3><p style="color:var(--mut)">শেষ করা সেটে ✓ দাও, হোমপেজে তোমার প্রোগ্রেস রিং ভরবে।</p></div>
+<section><div class="sec-head"><div class="k">About Me</div><h2>👋 আমার সম্পর্কে</h2></div>
+<p class="bio">Hello সবাইকে! আমি মেসকাত — প্রকৃতিকে সঠিকভাবে জানার নেশায় পদার্থবিজ্ঞান নিয়ে পড়ালেখা করছি। আমি Quantum Computing ও Density Functional Theory (DFT) নিয়ে কাজ করি, পাশাপাশি কয়েকজন শিক্ষার্থীকে বিজ্ঞান শেখাই। অবসর সময়ে যেসব বিষয়ে আমি confident, সেগুলোর ওপর ভিডিও বানাই; শিক্ষার্থীরা কোনো topic আসলেই বুঝেছে কি না, তা যাচাই করতে প্রশ্ন তৈরি করি; অসাধারণ কিছু বই পড়ি, movie দেখি, আর animation শেখার চেষ্টা করি।</p></section>
+
+<section><div class="sec-head"><div class="k">Who &amp; How</div><h2>🎯 এটি কার জন্য — আর আমার পদ্ধতি</h2></div>
+<div class="aud">
+ <div class="card"><div class="ic">🎒</div><h3>SSC শিক্ষার্থী</h3><p style="color:var(--mut)">মাধ্যমিকের ভিত্তিটা মজবুত করার জন্য — ধারণা পরিষ্কার করে, ধাপে ধাপে।</p></div>
+ <div class="card"><div class="ic">🎓</div><h3>HSC শিক্ষার্থী</h3><p style="color:var(--mut)">বোর্ড পরীক্ষার জন্য concept-ভিত্তিক প্রস্তুতি — মুখস্থ নয়, বোঝা।</p></div>
+ <div class="card"><div class="ic">🏛</div><h3>ভর্তি পরীক্ষার্থী</h3><p style="color:var(--mut)">বিশ্ববিদ্যালয় ভর্তির জন্য গভীর ধারণা আর যাচাই করা shortcut — দুটোই।</p></div>
 </div>
-<div class="donate"><h2 style="font-size:26px">সাপোর্ট করতে চাও? 💛</h2>
-<p style="color:#d9efe5;margin:8px auto 14px;max-width:560px">পরীক্ষা দিয়ে উপকৃত হলে, ইচ্ছানুযায়ী Donate করতে পারো — তোমাদের সাপোর্টেই নতুন অধ্যায় আসবে দ্রুত।</p>
-<div>bKash / Nagad<br><b class="num">01731454792</b></div></div>
-</section></main><footer><div class="wrap"><p><b style="color:var(--ink)">A PHYSICIST'S PERSPECTIVE</b> — by Meskat</p>
-<p>HSC • Admission • Concept-first Physics &amp; Higher Math</p></div></footer><nav class="tabbar" aria-label="দ্রুত নেভিগেশন">
+<div class="grid" style="margin-top:16px">
+ <div class="card"><span class="badge b-g">ধাপ ১</span><h3>আশেপাশের ঘটনা পর্যবেক্ষণ</h3><p style="color:var(--mut)">শুরুটা বই থেকে নয় — চারপাশের বাস্তব ঘটনা খেয়াল করা থেকে।</p></div>
+ <div class="card"><span class="badge b-y">ধাপ ২</span><h3>Intuition তৈরি</h3><p style="color:var(--mut)">ঘটনাটা কেন ঘটছে — সেই অনুভূতিটা আগে গড়ে তুলি।</p></div>
+ <div class="card"><span class="badge b-b">ধাপ ৩</span><h3>গাণিতিক সম্পর্ক</h3><p style="color:var(--mut)">তারপর সেই intuition-এর ওপর দাঁড় করাই সূত্র ও গণিত — তাই সূত্র আর মুখস্থ করতে হয় না।</p></div>
+</div>
+<div class="free" style="margin-top:16px"><div class="big">সবকিছু 100% FREE</div>
+<p style="margin:6px 0 0;opacity:.95">ক্লাস, পরীক্ষা আর সাপোর্ট — সবই সম্পূর্ণ ফ্রি। কোনো লুকানো চার্জ নেই; শেখাটাই একমাত্র লক্ষ্য।</p></div>
+</section>
+
+<section><div class="sec-head"><div class="k">How to Use</div><h2>🧭 সাইটটি কীভাবে ব্যবহার করবে</h2></div>
+<div class="howline"><span>🎬 লেকচার দেখো</span><span aria-hidden="true">→</span><span>📝 পরীক্ষা দাও</span><span aria-hidden="true">→</span><span>✅ ভুলগুলো শুধরে নাও</span></div>
+<p style="text-align:center;margin-top:14px"><a class="btn btn-g" href="lectures.html">লেকচার শুরু করো</a> <a class="btn btn-y" href="exams.html">পরীক্ষা দাও</a></p>
+</section>
+
+<section><div class="sec-head"><div class="k">Connect</div><h2>🔗 আমার সাথে যুক্ত হও</h2></div>
+<div class="socials"><a class="soc" href="https://www.facebook.com/smtmeskatbeswas1234/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.22-1.36 1.39-1.36h1.48V6.25c-.26-.03-1.14-.11-2.16-.11-2.14 0-3.61 1.3-3.61 3.7v2.06H8.16v2.8h2.44v7.2a10 10 0 0 0 2.9 0Z"/></svg><span><b>Facebook</b><small>ব্যক্তিগত প্রোফাইল</small></span></a><a class="soc" href="https://www.facebook.com/profile.php?id=61595333556382" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.22-1.36 1.39-1.36h1.48V6.25c-.26-.03-1.14-.11-2.16-.11-2.14 0-3.61 1.3-3.61 3.7v2.06H8.16v2.8h2.44v7.2a10 10 0 0 0 2.9 0Z"/></svg><span><b>Facebook Page</b><small>অফিসিয়াল পেজ</small></span></a><a class="soc" href="https://www.facebook.com/profile.php?id=61574192983675" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.22-1.36 1.39-1.36h1.48V6.25c-.26-.03-1.14-.11-2.16-.11-2.14 0-3.61 1.3-3.61 3.7v2.06H8.16v2.8h2.44v7.2a10 10 0 0 0 2.9 0Z"/></svg><span><b>Facebook Page — Animated Video</b><small>অ্যানিমেশন ভিডিওর পেজ</small></span></a><a class="soc" href="https://www.youtube.com/@physicistsperspective" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.2" width="20" height="13.6" rx="4" fill="#FF0000"/><path d="M10.2 9.4v5.2l4.6-2.6z" fill="#fff"/></svg><span><b>YouTube — A Physicist's Perspective</b><small>নতুন চ্যানেল: শিক্ষার্থীদের লেকচার</small></span></a><a class="soc" href="https://www.youtube.com/channel/UChwqTnIUZraoczDCgtTgvAA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.2" width="20" height="13.6" rx="4" fill="#FF0000"/><path d="M10.2 9.4v5.2l4.6-2.6z" fill="#fff"/></svg><span><b>YouTube — Disorderness</b><small>আগের চ্যানেল</small></span></a></div></section>
+
+<section><div class="donate">
+<span class="badge b-y">💝 সাপোর্ট</span>
+<h3 style="font-size:24px;margin:8px 0 4px">ভালো লাগলে পাশে থাকো</h3>
+<p style="color:var(--mut);margin:0 auto 12px;max-width:520px">পরীক্ষা দিয়ে উপকৃত হলে, ইচ্ছানুযায়ী Donate করতে পারো। তোমাদের সাপোর্টই এই ফ্রি কাজটা চালিয়ে যাওয়ার শক্তি।</p>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px"><span class="pay bkash">bKash</span><span class="pay nagad">Nagad</span></div>
+<div class="dnum" id="dnum">01731454792</div>
+<p style="margin-top:12px"><button class="chipbtn" id="copyNum" type="button">📋 নম্বরটা কপি করো</button> <span id="copyFb" style="font-weight:700;color:#0a7a4b"></span></p>
+</div></section>
+</main>
+<footer><div class="wrap"><p><b style="color:var(--ink)">A PHYSICIST'S PERSPECTIVE</b> — by Meskat</p>
+<p>SSC • HSC • Admission • Concept-first Physics &amp; Higher Math</p></div></footer>
+<button class="sharefab" id="shareBtn" aria-label="Share">↗</button>
+<nav class="tabbar" aria-label="দ্রুত নেভিগেশন">
 <a href="index.html">🏠<br>হোম</a><a href="exams.html">📝<br>পরীক্ষা</a><a href="lectures.html">🎬<br>লেকচার</a><a href="problems.html">🧩<br>সমস্যা</a><a href="about.html">👨‍🏫<br>সম্পর্কে</a>
 </nav>
 <script>
@@ -177,5 +236,19 @@ if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add(
 var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.06,rootMargin:"0px 0px -4% 0px"});
 els.forEach(function(e){io.observe(e)});
 }catch(err){}})();
+</script>
+<script>
+(function(){try{
+var el=document.getElementById("typed"),name="Meskat";
+var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(el&&!reduced){el.textContent="";var i=0;(function tick(){if(i<=name.length){el.textContent=name.slice(0,i);i++;setTimeout(tick,140)}})();}
+var b=document.getElementById("copyNum");
+if(b){b.addEventListener("click",function(){var n="01731454792";
+function done(){document.getElementById("copyFb").textContent="✓ কপি হয়েছে";}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(n).then(done).catch(done);}else{done();}});}
+var s=document.getElementById("shareBtn");
+if(s){s.addEventListener("click",function(){var d={title:document.title,text:"A Physicist's Perspective — by Meskat",url:location.href};
+if(navigator.share){navigator.share(d).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(location.href);s.textContent="✓";setTimeout(function(){s.textContent="↗";},1600);}});}
+}catch(e){}})();
 </script>
 </body></html>
