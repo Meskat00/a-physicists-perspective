@@ -373,6 +373,12 @@ body.has-cursor #curDot{display:block}
 .portrait .ph{border-color:rgba(255,110,150,.38);box-shadow:0 34px 90px rgba(214,51,104,.28),0 24px 60px rgba(0,0,0,.5)}
 
 .gianttext .gline1{display:block;font-size:31%;font-weight:800;letter-spacing:.045em;line-height:1.15;margin-bottom:.05em}
+
+/*BIO1COL*/
+.story-cols{columns:1;max-width:780px}
+.story-cols p{font-size:19.5px;line-height:1.95;margin-bottom:20px}
+.story-cols p:first-child::first-letter{font:inherit;color:inherit;float:none;padding:0}
+.story-cols mark{background:linear-gradient(100deg,rgba(255,140,26,.32),rgba(255,90,31,.30));color:#fff;padding:1px 6px;border-radius:5px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 </style>
 </head>
 
@@ -487,7 +493,7 @@ body.has-cursor #curDot{display:block}
         </div>
         <div>
           <div class="story-cols rv" id="storyCols"></div>
-          <div class="stats" id="statsRow"></div>
+          
           
         </div>
       </div>
@@ -607,9 +613,9 @@ const CONFIG = {
   ],
   services: ["Physics Lectures","MCQ Exams","Problem Solving","Concept First","DFT Research","Free For Every Student"],
   story: [
-    "Hello সবাইকে! আমি মেসকাত — প্রকৃতিকে সঠিকভাবে জানার নেশায় পদার্থবিজ্ঞান নিয়ে পড়াশোনা করছি। আমি <b>Quantum Computing</b> ও <b>Density Functional Theory (DFT)</b> নিয়ে কাজ করি, পাশাপাশি কয়েকজন শিক্ষার্থীকে বিজ্ঞান শেখাই।",
-    "অবসর সময়ে যেসব বিষয়ে আমি confident, সেগুলোর ওপর ভিডিও বানাই; শিক্ষার্থীরা কোনো topic আসলেই বুঝেছে কি না, তা যাচাই করতে প্রশ্ন তৈরি করি।",
-    "অসাধারণ কিছু বই পড়ি, movie দেখি, আর animation শেখার চেষ্টা করি।"
+    "Hello সবাইকে! আমি মেসকাত — <mark>প্রকৃতিকে সঠিকভাবে জানার নেশায়</mark> পদার্থবিজ্ঞান নিয়ে পড়াশোনা করছি। আমি <mark>Quantum Computing</mark> ও <mark>Density Functional Theory (DFT)</mark> নিয়ে কাজ করি, পাশাপাশি কয়েকজন শিক্ষার্থীকে বিজ্ঞান শেখাই।",
+    "অবসর সময়ে যেসব বিষয়ে আমি confident, সেগুলোর ওপর <mark>ভিডিও বানাই</mark>; শিক্ষার্থীরা কোনো topic আসলেই বুঝেছে কি না, তা যাচাই করতে <mark>প্রশ্ন তৈরি করি</mark>।",
+    "অসাধারণ কিছু <mark>বই পড়ি</mark>, movie দেখি, আর <mark>animation শেখার চেষ্টা</mark> করি।"
   ],
   stats: [
     {value:495, suffix:"+", label:"MCQ questions published"},
@@ -762,15 +768,7 @@ let setFilter = null;
 /* STORY / STATS / SKILLS */
 (function(){
   $("#storyCols").innerHTML = CONFIG.story.map(p=>`<p>${p}</p>`).join("");
-  $("#statsRow").innerHTML = CONFIG.stats.map(s=>
-    `<div class="stat"><b><span class="num" data-v="${s.value}">0</span><i>${s.suffix}</i></b><small>${s.label}</small></div>`).join("");
-    const io = new IntersectionObserver(es=>{ es.forEach(e=>{ if(!e.isIntersecting) return;
-    const el = e.target, v = +el.dataset.v; io.unobserve(el);
-    if(REDUCED){ el.textContent = v; return; }
-    const t0 = performance.now(), D = 1800;
-    (function step(t){ const p = Math.min(1,(t-t0)/D); el.textContent = Math.round(v * (1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); })(t0);
-  });}, {threshold:.5});
-  document.querySelectorAll("#statsRow .num").forEach(n=>io.observe(n));
+  
 })();
 
 /* JOURNEY */
