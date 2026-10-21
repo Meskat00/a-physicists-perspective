@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://meskat00.github.io/a-physicists-perspective/sitemap.xml
