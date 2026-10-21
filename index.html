@@ -110,14 +110,22 @@ footer{padding:36px 0 90px;text-align:center;color:var(--mut);font-size:14.5px}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(80px);background:var(--board);color:#fff;padding:13px 22px;border-radius:999px;font-weight:600;z-index:70;transition:transform .35s;box-shadow:var(--shadow)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .empty{display:none;text-align:center;color:var(--mut);padding:28px}
+
+.paper{background:#f6faf7;border:1.5px dashed #9fd8bd;border-radius:12px;padding:12px 14px;font-size:14.5px}
+.paper a{color:#0a7a4b;font-weight:700;text-decoration:underline}
+details.ans summary{cursor:pointer;font-weight:700;color:#0a7a4b}
 </style>
+<link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/">
+<meta property="og:title" content="A Physicist's Perspective — Meskat">
+<meta property="og:description" content="HSC ও Admission MCQ পরীক্ষা ও ফিজিক্স লেকচার — ২৩টি সেট, ৪৯৫টি প্রশ্ন।">
+<meta property="og:url" content="https://meskat00.github.io/a-physicists-perspective/">
 </head>
 <body>
 
 <nav><div class="wrap nav-in">
   <a class="logo" href="#top">A Physicist's <b>Perspective</b><small>by Meskat • HSC • Admission</small></a>
   <div class="nav-links">
-    <a href="exams.html">📝 পরীক্ষা</a><a href="#practice">⚡ প্র্যাকটিস</a><a href="lectures.html">🎬 লেকচার</a><a href="about.html">👨‍🏫 সম্পর্কে</a><a href="#resources">📚 রিসোর্স</a>
+    <a href="exams.html">📝 পরীক্ষা</a><a href="#practice">⚡ প্র্যাকটিস</a><a href="lectures.html">🎬 লেকচার</a><a href="problems.html">🧩 সমস্যা</a><a href="about.html">👨‍🏫 সম্পর্কে</a><a href="#resources">📚 রিসোর্স</a>
     <a class="nav-cta" href="#exams">পরীক্ষা শুরু করো</a>
   </div>
 </div></nav>
@@ -177,6 +185,7 @@ footer{padding:36px 0 90px;text-align:center;color:var(--mut);font-size:14.5px}
 <section id="exams">
   <div class="sec-head"><div class="k">MCQ Exams</div><h2>📝 সব পরীক্ষা — অধ্যায় ধরে সাজানো</h2>
   <p>পরীক্ষা দিলে Google Forms-এ খুলবে। নাম দাও, উত্তর দাও, সাবমিট — স্কোর সাথে সাথে। শেষ হলে এখানে <b>✓ শেষ</b> চেপে নিজের প্রোগ্রেস ট্র্যাক করো।</p></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px"><a class="fbtn" href="chapter-vector.html">📚 অধ্যায়: ভেক্টর (২০ সেট)</a><a class="fbtn" href="chapter-circular-motion.html">📚 অধ্যায়: বৃত্তাকার গতি</a><a class="fbtn" href="chapter-straight-line.html">📚 অধ্যায়: সরলরেখা</a><a class="fbtn" href="problems.html">🧩 সমস্যা অনুশীলনী</a></div>
   <div class="filters" id="filters"></div>
   <div class="count-line" id="countLine"></div>
   <div class="grid" id="examGrid"></div>
@@ -191,16 +200,18 @@ footer{padding:36px 0 90px;text-align:center;color:var(--mut);font-size:14.5px}
     <div class="card lec"><div class="thumb t1">🧠<small>⏱ প্রায় ১১ মিনিট • মূল লেকচার</small></div>
       <h3>Level Up Your Problem Solving Skills — 5-Move Method</h3>
       <p style="color:var(--mut);font-size:14.5px">ট্রেন-আর-মাছির ধাঁধা, গাড়িতে বেলুন, Fermi estimation — সমস্যা সমাধানের ৫ ধাপের পদ্ধতি, ক্যালকুলাস ছাড়াই।</p>
-      <span class="badge b-g" style="align-self:flex-start">স্ক্রিপ্ট তৈরি • ভিডিও আসছে শীঘ্রই</span></div>
+      <span class="badge b-g" style="align-self:flex-start">স্ক্রিপ্ট তৈরি • ভিডিও আসছে শীঘ্রই</span><div class="paper">📄 <b>এই লেসনের প্রশ্নপত্র:</b> এখনো যুক্ত হয়নি — লেসন প্রকাশের সাথে সাথেই এখানে যুক্ত হবে।</div></div>
     <div class="card lec"><div class="thumb t2">🌀<small>⏱ ৬০ সেকেন্ড • Short</small></div>
       <h3>কেন্দ্রমুখী বল — ৬০ সেকেন্ডে</h3>
       <p style="color:var(--mut);font-size:14.5px">৪টি বাস্তব উদাহরণ দিয়ে ΣF<sub>c</sub> = mv²/r — বৃত্তাকার গতি অধ্যায়ের সবচেয়ে জরুরি ধারণা, এক মিনিটে পরিষ্কার।</p>
       <span class="badge b-y" style="align-self:flex-start">দেখে তারপর বৃত্তাকার গতির পরীক্ষাটা দাও ↓</span>
+      <div class="paper">📄 <b>এই লেসনের প্রশ্নপত্র:</b> <a href="circular-motion-mcq-30.html">প্রিন্ট পেপার (৩০ MCQ)</a> • <a href="chapter-circular-motion.html">অধ্যায় পেজ</a></div>
       <div class="acts"><a class="go" href="#exams" data-goto="বৃত্তাকার">পরীক্ষায় যাও →</a></div></div>
     <div class="card lec"><div class="thumb t3">➡️<small>HSC 1st Year • ভেক্টর</small></div>
       <h3>ভেক্টর — প্রশ্ন সমাধান সিরিজ</h3>
       <p style="color:var(--mut);font-size:14.5px">HSC ১ম বর্ষের ভেক্টর অধ্যায়ের বাছাই প্রশ্ন ধাপে ধাপে সমাধান — থাম্বনেইল সিরিজ থেকে।</p>
-      <span class="badge b-b" style="align-self:flex-start">ভেক্টরের ২১টি সেট নিচে রেডি ✓</span>
+      <span class="badge b-b" style="align-self:flex-start">ভেক্টরের ২০টি সেট নিচে রেডি ✓</span>
+      <div class="paper">📄 <b>এই লেসনের প্রশ্নপত্র:</b> ভেক্টর অধ্যায়ের ২০টি সেট — <a href="chapter-vector.html">অধ্যায় পেজে সব সেট</a></div>
       <div class="acts"><a class="go" href="#exams" data-goto="ভেক্টর">ভেক্টর পরীক্ষাগুলো →</a></div></div>
   </div>
 </section>
@@ -334,7 +345,7 @@ function renderVideos(){const g=$("#videoGrid");if(!g)return;
  g.innerHTML=VIDEOS.map(v=>{const ex=EXAMS.find(e=>e.id===v.exam);
   return `<article class="card lec"><div style="border-radius:14px;overflow:hidden;aspect-ratio:16/9;background:#000">
    <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${v.yt}" title="${v.title}" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer;encrypted-media;picture-in-picture"></iframe></div>
-   <span class="badge b-b" style="align-self:flex-start">${v.chapter||"লেকচার"}</span><h3>${v.title}</h3>
+   <h3>${v.title}</h3><div class="paper">📄 <b>এই লেসনের প্রশ্নপত্র:</b> ${v.paper?`<a href="${v.paper}" target="_blank" rel="noopener">পেপারটি খোলো →</a>`:`এখনো যুক্ত হয়নি`}</div>
    ${ex?`<div class="acts"><a class="go" href="${ex.link}" target="_blank" rel="noopener">দেখে পরীক্ষা দাও → ${ex.q} MCQ</a></div>`:""}</article>`}).join("")}
 renderVideos();
 /* counters */
