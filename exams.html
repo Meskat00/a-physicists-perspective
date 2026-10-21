@@ -106,9 +106,13 @@ footer{padding:36px 0 90px;text-align:center;color:var(--mut);font-size:14.5px}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(80px);background:var(--board);color:#fff;padding:13px 22px;border-radius:999px;font-weight:600;z-index:70;transition:transform .35s;box-shadow:var(--shadow)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .empty{display:none;text-align:center;color:var(--mut);padding:28px}
-</style></head><body><nav><div class="wrap nav-in">
+</style><link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/exams.html">
+<meta property="og:title" content="A Physicist's Perspective — Meskat">
+<meta property="og:description" content="HSC ও Admission MCQ পরীক্ষা ও ফিজিক্স লেকচার — ২৩টি সেট, ৪৯৫টি প্রশ্ন।">
+<meta property="og:url" content="https://meskat00.github.io/a-physicists-perspective/exams.html">
+</head><body><nav><div class="wrap nav-in">
 <a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>by Meskat • HSC • Admission</small></a>
-<div class="nav-links"><a href="index.html">🏠 হোম</a><a href="exams.html">📝 পরীক্ষা</a><a href="lectures.html">🎬 লেকচার</a><a href="about.html">👨‍🏫 সম্পর্কে</a></div>
+<div class="nav-links"><a href="index.html">🏠 হোম</a><a href="exams.html">📝 পরীক্ষা</a><a href="lectures.html">🎬 লেকচার</a><a href="problems.html">🧩 সমস্যা</a><a href="about.html">👨‍🏫 সম্পর্কে</a></div>
 </div></nav>
 <header class="hero"><div class="wrap hero-in">
 <span class="chalk">All exams in one place ✎</span>
@@ -149,18 +153,21 @@ const EXAMS=[
 {id:"sl2",title:"সরলরেখা — সমত্রিখণ্ডক ও অক্ষ দ্বারা বিভক্ত",chapter:"সরলরেখা",subject:"উচ্চতর গণিত",level:"HSC",q:10,link:F+"1FAIpQLSdGqagc1ELZOvku3U-x0AEu_4gk5dPd1WweUkRMlclGmMS_gQ/viewform"},
 ];
 const FILTERS=["সব","পদার্থবিজ্ঞান","উচ্চতর গণিত","HSC","Admission","ভেক্টর","বৃত্তাকার গতি","সরলরেখা","শেষ করেছি ✓"];
-let activeFilter="সব", query="";
+const _p=new URLSearchParams(location.search);
+let activeFilter=_p.get("filter")||"সব", query=(_p.get("q")||"").toLowerCase();
+function syncURL(){const u=new URL(location);activeFilter==="সব"?u.searchParams.delete("filter"):u.searchParams.set("filter",activeFilter);query?u.searchParams.set("q",query):u.searchParams.delete("q");history.replaceState(null,"",u)}
 const done=new Set(JSON.parse(localStorage.getItem("lup_done")||"[]"));
 const $=s=>document.querySelector(s);
 function saveDone(){localStorage.setItem("lup_done",JSON.stringify([...done]))}
-function renderFilters(){$("#filters").innerHTML=FILTERS.map(f=>`<button class="fbtn ${f===activeFilter?'on':''}" data-f="${f}">${f}</button>`).join("");
- document.querySelectorAll(".fbtn").forEach(b=>b.onclick=()=>{activeFilter=b.dataset.f;renderFilters();renderExams()})}
+function renderFilters(){$("#filters").innerHTML=FILTERS.map(f=>`<button class="fbtn ${f===activeFilter?'on':''}" data-f="${f}">${f}</button>`).join("")+`<button class="fbtn" id="clearAll">✕ সব মুছো</button>`;
+ document.querySelectorAll(".fbtn[data-f]").forEach(b=>b.onclick=()=>{activeFilter=b.dataset.f;renderFilters();renderExams()});
+ const ca=document.querySelector("#clearAll"); if(ca) ca.onclick=()=>{activeFilter="সব";query="";document.querySelector("#heroQ").value="";renderFilters();renderExams()}}
 function match(e){const hay=(e.title+e.chapter+e.subject+e.level).toLowerCase();
  if(query&&!hay.includes(query))return false;
  if(activeFilter==="সব")return true;
  if(activeFilter==="শেষ করেছি ✓")return done.has(e.id);
  return e.subject===activeFilter||e.level===activeFilter||e.chapter===activeFilter}
-function renderExams(){const list=EXAMS.filter(match);
+function renderExams(){syncURL();const list=EXAMS.filter(match);
  $("#examGrid").innerHTML=list.map(e=>`<article class="card ${done.has(e.id)?'is-done':''}">
  <div class="row"><span class="badge ${e.subject==='পদার্থবিজ্ঞান'?'b-b':'b-p'}">${e.subject}</span><span class="badge ${e.level==='HSC'?'b-g':'b-y'}">${e.level}</span>${e.tag?`<span class="badge b-y">${e.tag}</span>`:''}</div>
  <h3>${e.title}</h3><div class="meta"><span>❓ ${e.q}টি MCQ</span><span>⏱ ~${e.q} মিনিট</span><span>📊 তাৎক্ষণিক স্কোর</span></div>
@@ -170,5 +177,6 @@ function renderExams(){const list=EXAMS.filter(match);
  $("#emptyMsg").style.display=list.length?"none":"block";
  document.querySelectorAll("[data-done]").forEach(b=>b.onclick=()=>{const id=b.dataset.done;done.has(id)?done.delete(id):done.add(id);saveDone();renderExams()})}
 $("#heroSearch").onsubmit=ev=>{ev.preventDefault();query=$("#heroQ").value.trim().toLowerCase();renderExams()};
+if(query)document.querySelector("#heroQ").value=query;
 renderFilters();renderExams();
 </script></body></html>
