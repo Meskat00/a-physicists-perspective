@@ -153,7 +153,8 @@ html{scroll-behavior:auto}
 <p class="sub">ছাত্রদের জন্য বানানো নতুন ভিডিওগুলো এখানে অধ্যায় অনুযায়ী সাজানো থাকবে — প্রতিটি ভিডিওর পাশে সেই অধ্যায়ের পরীক্ষা, যাতে দেখেই সাথে সাথে নিজেকে যাচাই করা যায়।</p>
 </div></header>
 <main class="wrap">
-<section style="padding-top:34px"><div class="grid" id="videoGrid"></div></section>
+<section style="padding-top:30px"><div class="panel" style="text-align:center"><span class="badge b-y">🎓 লেকচার সিরিজ</span><h3 style="font-size:24px;margin:8px 0">Physics Admission Program — ভেক্টর (৬ পর্ব)</h3><p style="color:var(--mut);max-width:640px;margin:0 auto 12px">ক্রমানুসারে সাজানো পুরো সিরিজটা এক পেজে — প্রতিটি পর্বের নিচে তার প্রশ্ন সেট। নিচে পর্বগুলো আলাদাভাবেও দেওয়া আছে।</p><a class="btn btn-y" href="series-physics-admission.html">সিরিজের পেজে যাও →</a></div></section>
+<section style="padding-top:26px"><div class="grid" id="videoGrid"></div></section>
 <section><div class="sec-head"><div class="k">Series</div><h2>Level Up Cognitive Skills সিরিজ</h2>
 <p>কনসেপ্ট আগে, ফর্মুলা পরে — intuition-first পদ্ধতিতে শেখা।</p></div>
 <div class="grid">
@@ -174,7 +175,14 @@ html{scroll-behavior:auto}
 <script>
 /* নতুন চ্যানেলের ভিডিও এলে এখানে block যোগ হবে:
    {title:"...", chapter:"ভেক্টর", yt:"VIDEO_ID", exam:"vh1"} */
-const VIDEOS=[];
+const VIDEOS=[
+{title:"(Order - 1/100) ভেক্টর নিয়ে সম্পর্কে যা জানতেই হবে। Admission Physics", chapter:"ভেক্টর", yt:"0_El8Puf2qA", exam:"va1", paper:"https://docs.google.com/forms/d/e/1FAIpQLSe2V3w664p8JO1evSF7srSsTtooC9RIXbw92psSbCVSHSkQew/viewform"},
+{title:"(Order - 2/100) ভেক্টর যোগ বিয়োগ নিয়ে যত Shortcut দরকার । Admission Physics", chapter:"ভেক্টর", yt:"mHkw0tYgbe4", exam:"va2", paper:"https://docs.google.com/forms/d/e/1FAIpQLSeyaOlETZZw6bCPWUTruHNirVBR2aENf2NFrJbIQyPvOcPSKQ/viewform"},
+{title:"(Order - 3/100) ভেক্টরকে যেকোন কোণে বিভাজন সহ অনেক কিছু || উপাংশ ও অভিক্ষেপ| Admission Physics", chapter:"ভেক্টর", yt:"qljBhENsYEQ", exam:"va3", paper:"https://docs.google.com/forms/d/e/1FAIpQLSd51pvQTsPqn-WZfbB0GaazPfEgNTLaKGjGOrLkKaaYiXLwTA/viewform"},
+{title:"(Order - 4/100) ভেক্টরের বিভিন্ন প্রকার গুণ ও সম্পর্কিত 10+ Shortcut  |Admission Physics", chapter:"ভেক্টর", yt:"eaerd7rBli8", exam:"va3", paper:"https://docs.google.com/forms/d/e/1FAIpQLSd51pvQTsPqn-WZfbB0GaazPfEgNTLaKGjGOrLkKaaYiXLwTA/viewform"},
+{title:"(Order - 4/100) নদী ও নৌকা || Build Intuition with Shortcut  |Admission Physics", chapter:"ভেক্টর", yt:"Ax9SFyCB5js", exam:"va5", paper:"https://docs.google.com/forms/d/e/1FAIpQLScBz__MOEYk3ONkn0IfaWaVWsONoT63vdS5m6kH-BbsSKpPtg/viewform"},
+{title:"(Order - 5/100) আপেক্ষিক বেগ | ছাতা সম্পর্কিত ৪ টা Case | বাসের কোন কাঁচ ভিজবে | Admission Physics", chapter:"ভেক্টর", yt:"lIZDc0OcxMw", exam:"va5", paper:"https://docs.google.com/forms/d/e/1FAIpQLScBz__MOEYk3ONkn0IfaWaVWsONoT63vdS5m6kH-BbsSKpPtg/viewform"}
+];
 const g=document.querySelector("#videoGrid");
 if(!VIDEOS.length){g.innerHTML=`<div class="card lec" style="grid-column:1/-1;text-align:center;padding:30px">
 <div style="font-size:40px">🎬</div><h3>নতুন চ্যানেলের প্রথম ভিডিও শীঘ্রই আসছে</h3>

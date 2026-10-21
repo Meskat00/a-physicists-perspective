@@ -8,6 +8,7 @@ Plain HTML/CSS/JS — no build step, no framework. Just upload and enable Pages.
 |---|---|
 | `index.html` | Home — hero, progress tracker, Daily Challenge, mini-quiz, all exams, lectures, resources |
 | `exams.html` | Dedicated exams page — all 23 sets, search + filters, progress syncs with home (same browser storage) |
+| `series-physics-admission.html` | Lecture series 'Physics Admission Program' — 6 Vector episodes in playlist order, paper/set block directly under each player, YouTube fallback links |
 | `lectures.html` | Lectures & videos — new-channel videos land here as embedded players, each paired with its chapter's exam |
 | `problems.html` | Problem-wise practice — 15 real vector problems with answers in disclosure, source-set links, honest video-explanation status |
 | `chapter-vector.html` / `chapter-circular-motion.html` / `chapter-straight-line.html` | Chapter pages — every set of the chapter on one direct URL, with lesson + paper links |
