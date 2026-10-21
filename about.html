@@ -11,7 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230B0B0C'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23FF5A1F' font-family='Georgia'>φ</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,800;0,900;1,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Caveat+Brush&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,800;0,900;1,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Caveat+Brush&family=Patrick+Hand&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -329,6 +329,14 @@ body.has-cursor #curDot{display:block}
 .tabbar a.on{color:var(--color-accent)}
 @media(max-width:820px){.tabbar{display:flex}body{padding-bottom:64px}}
 .donate-chip{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;border:1px dashed rgba(255,90,31,.6);color:var(--color-text);font-weight:600;font-size:15px;background:rgba(255,90,31,.06)}
+
+/*BN*/
+.hero .sub,.story-cols p{font-family:'Hind Siliguri',var(--font-body)}
+.hero .sub{font-size:18.5px;line-height:1.75}
+.story-cols p{font-size:16.8px;line-height:1.85}
+
+.titleline{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:.18em;font-size:clamp(13px,1.5vw,17px);color:var(--color-text);margin-top:20px}
+.titleline span{color:var(--color-accent);padding:0 6px}
 </style>
 </head>
 
@@ -376,7 +384,8 @@ body.has-cursor #curDot{display:block}
           <span class="line"><span class="accent">Nature,</span></span>
           <span class="line"><span>Explaining <span class="blur-in">It.</span></span></span>
         </h1>
-        <p class="sub">I'm <b>Meskat</b> — I research how crystals behave at the quantum level, and I teach <b>SSC, HSC and Admission</b> students to understand physics deeply, not memorise it.</p>
+        <div class="titleline">Aspiring Physicist <span>|</span> Learner <span>|</span> Explainer</div>
+        <p class="sub">আমি <b>মেসকাত</b> — প্রকৃতিকে সঠিকভাবে জানার নেশায় পদার্থবিজ্ঞান নিয়ে পড়াশোনা করি। <b>Quantum Computing</b> ও <b>Density Functional Theory (DFT)</b> নিয়ে কাজ করি, আর <b>SSC, HSC ও Admission</b> শিক্ষার্থীদের বিজ্ঞান শেখাই।</p>
         <div class="hero-meta mono"><span>📍 Bangladesh</span><span>🔬 DFT · CASTEP</span><span>🎓 Concept-first teaching</span></div>
         <div class="socials" id="heroSocials"></div>
       </div>
@@ -536,10 +545,9 @@ const CONFIG = {
   ],
   services: ["Physics Lectures","MCQ Exams","Problem Solving","Concept First","DFT Research","Free For Every Student"],
   story: [
-    "By day, I am a <b>researcher</b>: I use Density Functional Theory (CASTEP) to model crystals atom by atom — most recently the halide double perovskites Rb₂LiRhCl₆ and Cs₂LiRhCl₆, the subject of my first manuscript.",
-    "By heart, I am a <b>teacher</b>. I make concept-first lectures and exam sets for <b>SSC, HSC and university Admission</b> students across Bangladesh — every question written, solved and verified by me, and everything completely free.",
-    "I am also a builder: my personal research command centre, <b>Habitus OS</b>, keeps my calculations, notes and goals in one place — and this website is where my teaching lives.",
-    "Next stop: the <b>GRE Physics</b> — my target is a 950–990 score, on the road to a research career spent doing the thing I love most: understanding nature, and passing that understanding on."
+    "Hello সবাইকে! আমি মেসকাত — প্রকৃতিকে সঠিকভাবে জানার নেশায় পদার্থবিজ্ঞান নিয়ে পড়াশোনা করছি। আমি <b>Quantum Computing</b> ও <b>Density Functional Theory (DFT)</b> নিয়ে কাজ করি, পাশাপাশি কয়েকজন শিক্ষার্থীকে বিজ্ঞান শেখাই।",
+    "অবসর সময়ে যেসব বিষয়ে আমি confident, সেগুলোর ওপর ভিডিও বানাই; শিক্ষার্থীরা কোনো topic আসলেই বুঝেছে কি না, তা যাচাই করতে প্রশ্ন তৈরি করি।",
+    "অসাধারণ কিছু বই পড়ি, movie দেখি, আর animation শেখার চেষ্টা করি।"
   ],
   stats: [
     {value:495, suffix:"+", label:"MCQ questions published"},
