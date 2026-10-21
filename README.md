@@ -34,6 +34,9 @@ Plain HTML/CSS/JS — no build step, no framework. Just upload and enable Pages.
 - Exams page filters/search are shareable: `exams.html?filter=ভেক্টর&q=লব্ধি` — plus a clear-all (✕ সব মুছো) button.
 - Chapter counts are generated from the real catalog: Vector 20 sets/445 MCQ, Circular Motion 1/30, Straight Line 2/20 = 23 sets/495.
 
+## Standing owner rule (2026-10-21)
+Whenever a new MCQ Google Form is created for Meskat, it is added to this website in the **same task** (EXAMS lists in `index.html` + `exams.html`, the matching `chapter-*.html` page, verified counts) and pushed + live-verified. The form is not finished until it is on the site.
+
 ## Adding content later
 - **New exam:** copy one block in the `EXAMS` list (bottom of `index.html` AND `exams.html`),
   change `id` (unique), `title`, `q`, Form link. Give the link to Muse and it can do both files for you.
