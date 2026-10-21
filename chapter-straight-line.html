@@ -147,6 +147,16 @@ html{scroll-behavior:auto}
 #secpill{position:fixed;top:12px;right:12px;z-index:1190;background:rgba(7,43,24,.88);color:#eafff3;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;display:none;backdrop-filter:none;box-shadow:0 6px 16px rgba(0,0,0,.25)}
 .fclock{font-weight:600}
 .fsign{font-family:Galada,'Hind Siliguri',cursive;font-size:27px;color:#0a7a4b;margin-top:2px;letter-spacing:.3px}
+
+/*MOUSE*/
+#cursorGlow{position:fixed;top:0;left:0;width:540px;height:540px;margin:-270px 0 0 -270px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(255,217,59,.15),rgba(18,161,80,.09) 42%,transparent 66%);opacity:0;transition:opacity .6s ease;will-change:transform}
+.card,.soc,.step,.chap,.panel{position:relative}
+.card::after,.soc::after,.step::after,.chap::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(230px circle at var(--mx,50%) var(--my,50%),rgba(255,217,59,.17),rgba(18,161,80,.06) 55%,transparent 70%);opacity:0;transition:opacity .35s ease;pointer-events:none}
+.card:hover::after,.soc:hover::after,.step:hover::after,.chap:hover::after{opacity:1}
+.btn,.chipbtn,.soc,.card,.step{transition:transform .35s cubic-bezier(.22,.9,.3,1),box-shadow .35s ease}
+::selection{background:#ffd93b;color:#123}
+.ring{transition:transform .45s cubic-bezier(.22,.9,.3,1);transform-style:preserve-3d;will-change:transform}
+@media(hover:none){#cursorGlow{display:none}}
 </style></head><body>
 <div id="pbar"></div><nav><div class="wrap nav-in">
 <a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>by Meskat • SSC • HSC • Admission</small></a>
@@ -193,6 +203,33 @@ pill.style.display=y>240?"block":"none";}}
 window.addEventListener("scroll",function(){requestAnimationFrame(upd)},{passive:true});upd();
 var c=document.querySelector(".dhakaclock");
 if(c){var tick=function(){try{c.textContent=new Date().toLocaleTimeString("bn-BD",{timeZone:"Asia/Dhaka",hour:"2-digit",minute:"2-digit",second:"2-digit"})}catch(e){c.textContent=new Date().toLocaleTimeString()}};tick();setInterval(tick,1000);}
+}catch(e){}})();
+</script>
+<script>
+/*MOUSE*/
+(function(){try{
+if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+if(!(window.matchMedia&&window.matchMedia("(hover: hover) and (pointer: fine)").matches))return;
+var glow=document.createElement("div");glow.id="cursorGlow";document.body.appendChild(glow);
+var tx=innerWidth/2,ty=innerHeight/2,x=tx,y=ty,shown=false;
+document.addEventListener("pointermove",function(e){tx=e.clientX;ty=e.clientY;if(!shown){shown=true;glow.style.opacity="1";}},{passive:true});
+(function loop(){x+=(tx-x)*.13;y+=(ty-y)*.13;glow.style.transform="translate("+x+"px,"+y+"px)";requestAnimationFrame(loop);})();
+document.addEventListener("pointermove",function(e){
+var t=e.target&&e.target.closest?e.target.closest(".card,.soc,.step,.chap"):null;
+if(t){var r=t.getBoundingClientRect();t.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");t.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%");}
+},{passive:true});
+document.querySelectorAll(".btn").forEach(function(b){
+b.addEventListener("pointermove",function(e){var r=b.getBoundingClientRect();
+var dx=(e.clientX-r.left)/r.width-.5,dy=(e.clientY-r.top)/r.height-.5;
+b.style.transform="translate("+(dx*7)+"px,"+(dy*5)+"px)";});
+b.addEventListener("pointerleave",function(){b.style.transform="";});
+});
+var ring=document.querySelector(".ahero .ring");
+if(ring){var hero=ring.closest(".ahero");
+hero.addEventListener("pointermove",function(e){var r=hero.getBoundingClientRect();
+var dx=(e.clientX-r.left)/r.width-.5,dy=(e.clientY-r.top)/r.height-.5;
+ring.style.transform="perspective(800px) rotateY("+(dx*10)+"deg) rotateX("+(-dy*8)+"deg)";});
+hero.addEventListener("pointerleave",function(){ring.style.transform="";});}
 }catch(e){}})();
 </script>
 </body></html>
