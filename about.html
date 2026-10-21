@@ -337,6 +337,10 @@ body.has-cursor #curDot{display:block}
 
 .titleline{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:.18em;font-size:clamp(13px,1.5vw,17px);color:var(--color-text);margin-top:20px}
 .titleline span{color:var(--color-accent);padding:0 6px}
+
+/*GIANT*/
+.giantwrap{overflow:hidden;text-align:center;padding:64px 0 6px}
+.gianttext{font-family:var(--font-display);font-weight:900;font-size:clamp(64px,14.2vw,240px);line-height:.92;letter-spacing:-.02em;white-space:nowrap;color:transparent;background-image:radial-gradient(360px circle at var(--gx,50%) var(--gy,55%),rgba(255,90,31,.95) 0%,rgba(255,120,50,.45) 42%,rgba(255,90,31,0) 70%),linear-gradient(#1d1d21,#1d1d21);-webkit-background-clip:text;background-clip:text;user-select:none}
 </style>
 </head>
 
@@ -499,6 +503,7 @@ body.has-cursor #curDot{display:block}
   </section>
 </main>
 
+<div class="giantwrap" aria-hidden="true"><div class="gianttext" id="giantText">Perspective</div></div>
 <footer class="site">
   <div class="wrap">
     <a class="brand" href="index.html" style="font-size:17px">A Physicist's<em> Perspective</em></a>
@@ -874,6 +879,19 @@ addEventListener("keydown", e=>{
     ring.style.transform = `translate(${rx}px,${ry}px)`;
     requestAnimationFrame(loop); })();
 })();
+</script>
+<script>
+/*GIANTFX*/
+(function(){try{
+var g=document.getElementById("giantText");if(!g)return;
+var wrap=g.parentElement,tick=false;
+wrap.addEventListener("pointermove",function(e){if(tick)return;tick=true;
+var r=g.getBoundingClientRect(),x=e.clientX,y=e.clientY;
+requestAnimationFrame(function(){
+g.style.setProperty("--gx",((x-r.left)/r.width*100)+"%");
+g.style.setProperty("--gy",((y-r.top)/r.height*100)+"%");
+tick=false;});},{passive:true});
+}catch(e){}})();
 </script>
 </body>
 </html>
