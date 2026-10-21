@@ -394,11 +394,7 @@ body.has-cursor #curDot{display:block}
           <svg class="gridlines" viewBox="0 0 800 560" preserveAspectRatio="none" aria-hidden="true"><g stroke="#2a2a30" stroke-width="1"><path d="M0 112h800M0 224h800M0 336h800M0 448h800M160 0v560M320 0v560M480 0v560M640 0v560"/></g><circle cx="620" cy="130" r="90" fill="#FF5A1F" opacity=".10"/></svg>
           <img class="photo" src="meskat.png" alt="Meskat — physics teacher and researcher">
           <div class="hudbar mono"><span><span class="rec"></span>LIVE</span><span id="artTc">00:00:00:00</span></div>
-          <div class="hero-actions">
-            <a class="btn btn-solid" href="#works">▶ Watch my videos</a>
-            <a class="btn btn-ghost" href="exams.html">📝 Take an exam</a>
-          </div>
-        </div>
+                  </div>
       </div>
     </div>
     <div class="hero-foot">
@@ -456,7 +452,7 @@ body.has-cursor #curDot{display:block}
         <div>
           <div class="story-cols rv" id="storyCols"></div>
           <div class="stats" id="statsRow"></div>
-          <div class="skills" id="skillsRow"></div>
+          
         </div>
       </div>
     </div>
@@ -703,9 +699,7 @@ let setFilter = null;
   $("#storyCols").innerHTML = CONFIG.story.map(p=>`<p>${p}</p>`).join("");
   $("#statsRow").innerHTML = CONFIG.stats.map(s=>
     `<div class="stat"><b><span class="num" data-v="${s.value}">0</span><i>${s.suffix}</i></b><small>${s.label}</small></div>`).join("");
-  $("#skillsRow").innerHTML = CONFIG.skills.map(g=>
-    `<div class="skillbox"><h3>${g.title}</h3><ul>${g.items.map(i=>`<li>${i}</li>`).join("")}</ul></div>`).join("");
-  const io = new IntersectionObserver(es=>{ es.forEach(e=>{ if(!e.isIntersecting) return;
+    const io = new IntersectionObserver(es=>{ es.forEach(e=>{ if(!e.isIntersecting) return;
     const el = e.target, v = +el.dataset.v; io.unobserve(el);
     if(REDUCED){ el.textContent = v; return; }
     const t0 = performance.now(), D = 1800;
