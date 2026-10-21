@@ -379,6 +379,9 @@ body.has-cursor #curDot{display:block}
 .story-cols p{font-size:19.5px;line-height:1.95;margin-bottom:20px}
 .story-cols p:first-child::first-letter{font:inherit;color:inherit;float:none;padding:0}
 .story-cols mark{background:linear-gradient(100deg,rgba(255,140,26,.32),rgba(255,90,31,.30));color:#fff;padding:1px 6px;border-radius:5px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+.pcard .thumb{display:block}
+.pcard .timg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 </style>
 </head>
 
@@ -420,7 +423,7 @@ body.has-cursor #curDot{display:block}
   <section class="hero" aria-label="Introduction">
     <div class="wrap">
       <div class="hero-copy">
-        <span class="kicker mono"><span class="dot"></span> Physics teacher · DFT researcher</span>
+        
         <h1>
           <span class="line"><span>Knowing</span></span>
           <span class="line"><span class="accent">Nature,</span></span>
@@ -458,17 +461,9 @@ body.has-cursor #curDot{display:block}
     </div>
   </section>
 
-  <div class="marquee" aria-hidden="true"><div class="track" id="mqTrack"></div></div>
+  
 
-  <section class="strip-sec" aria-label="Filmstrip of most-watched videos">
-    <div class="wrap strip-head rv">
-      <h2>Most-watched lessons</h2>
-      <p>Drag the strip, or click any frame to watch it here.</p>
-    </div>
-    <div class="filmstrip" id="filmstrip">
-      <div class="strip-viewport"><div class="strip-track" id="stripTrack"></div></div>
-    </div>
-  </section>
+  
 
   <section class="mission" aria-label="Mission statement">
     <div class="mission-sticky">
@@ -488,7 +483,7 @@ body.has-cursor #curDot{display:block}
       <div class="story">
         <div class="portrait rv">
           <svg viewBox="0 0 930 1200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="pglow2" cx=".5" cy=".28" r=".65"><stop offset="0" stop-color="#FF5A1F" stop-opacity=".30"/><stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/></radialGradient></defs><rect width="930" height="1200" fill="#101013"/><rect width="930" height="1200" fill="url(#pglow2)"/><g stroke="#26262b"><path d="M0 300h930M0 600h930M0 900h930M232 0v1200M465 0v1200M697 0v1200"/></g></svg>
-          <img class="photo" src="meskat-cutout.webp" alt="Portrait of Meskat">
+          <img class="photo" src="meskat.png" alt="Portrait of Meskat">
           
         </div>
         <div>
@@ -732,21 +727,6 @@ let setFilter = null;
   }));
 })();
 
-/* MARQUEE */
-(function(){
-  const items = CONFIG.services.map(s=>`<span>${s}</span><b>✦</b>`).join("");
-  $("#mqTrack").innerHTML = `<div style="display:flex">${items.repeat(3)}</div><div style="display:flex" aria-hidden="true">${items.repeat(3)}</div>`;
-  if(!REDUCED){
-    let lastY = scrollY, dur = 26;
-    addEventListener("scroll", ()=>{
-      const v = Math.abs(scrollY-lastY); lastY = scrollY;
-      const target = Math.max(9, Math.min(30, 26 - v*.35));
-      dur += (target-dur)*.2;
-      $("#mqTrack").style.animationDuration = dur.toFixed(1)+"s";
-    }, {passive:true});
-  }
-})();
-
 /* MISSION */
 (function(){
   const el = $("#missionText");
@@ -846,8 +826,7 @@ addEventListener("keydown", e=>{
   const matching = ()=> current==="All" ? [...PROJECTS] : PROJECTS.filter(p=>p.cats.includes(current));
   function card(p){
     return `<button class="pcard" data-id="${p.id}" aria-label="Play video: ${p.title.replace(/"/g,"&quot;")}">
-      <span class="thumb r169">
-        <span class="fg" style="background:${grad(p)}"><img src="${thumb(p)}" alt="" loading="lazy" onerror="this.remove()"></span>
+      <span class="thumb r169" style="background:${grad(p)}"><img class="timg" src="${thumb(p)}" alt="" loading="lazy" referrerpolicy="no-referrer">
         <span class="yr2">${p.dur}</span>
         <span class="playb">▶</span>
       </span>
@@ -877,43 +856,6 @@ addEventListener("keydown", e=>{
     else { shown = PAGE; render(); document.getElementById("works").scrollIntoView({behavior: REDUCED?"auto":"smooth"}); moreBtn.focus(); }
   });
   render();
-})();
-
-/* FILMSTRIP */
-(function(){
-  const track = $("#stripTrack"), strip = $("#filmstrip");
-  const frameHTML = (p,i,clone)=>`<button class="frame" data-id="${p.id}" ${clone? 'tabindex="-1" aria-hidden="true"':""} aria-label="Play video: ${p.title.replace(/"/g,"&quot;")}">
-      <span class="art" style="background:${grad(p)}"><img src="${thumb(p)}" alt="" loading="lazy" onerror="this.remove()"></span>
-      <span class="fno">TOP ${i+1} · ${p.views.toUpperCase()}</span><span class="play">▶</span>
-      <span class="ftitle">${p.title}<small>${p.cats.join(" · ")} — ${p.dur}</small></span></button>`;
-  track.innerHTML = PROJECTS.map((p,i)=>frameHTML(p,i,false)).join("") + PROJECTS.map((p,i)=>frameHTML(p,i,true)).join("");
-  track.querySelectorAll(".frame").forEach(f=>{
-    f.addEventListener("click", ()=>{ if(strip.dataset.dragged==="1") return;
-      const p = PROJECTS.find(x=>x.id===f.dataset.id); if(p) openViewer(p, f); });
-  });
-  let x = 0, dragging = false, startX = 0, startTx = 0, moved = 0, hovering = false, inView = true, lastInteract = 0;
-  const half = ()=> track.scrollWidth/2;
-  function loop(){
-    if(!REDUCED && !dragging && !hovering && inView && !document.hidden && performance.now()-lastInteract>2600){
-      x -= .45; if(-x >= half()) x += half();
-      track.style.transform = `translateX(${x}px)`;
-    }
-    requestAnimationFrame(loop);
-  }
-  if(!REDUCED) requestAnimationFrame(loop);
-  strip.addEventListener("pointerenter", ()=>hovering = true);
-  strip.addEventListener("pointerleave", ()=>{ hovering = false; dragging = false; strip.classList.remove("dragging"); });
-  strip.addEventListener("pointerdown", e=>{ dragging = true; moved = 0; startX = e.clientX; startTx = x; strip.classList.add("dragging"); });
-  addEventListener("pointermove", e=>{ if(!dragging) return;
-    const dx = e.clientX - startX; moved = Math.max(moved, Math.abs(dx));
-    if(moved>5){ x = startTx + dx; if(-x>=half()) x += half(); if(x>0) x -= half(); track.style.transform = `translateX(${x}px)`; }
-  });
-  addEventListener("pointerup", ()=>{ if(!dragging) return; dragging = false; lastInteract = performance.now();
-    strip.classList.remove("dragging");
-    strip.dataset.dragged = moved>5 ? "1" : "0";
-    if(moved>5) setTimeout(()=>strip.dataset.dragged="0", 60);
-  });
-  new IntersectionObserver(es=>es.forEach(e=>inView = e.isIntersecting), {threshold:.05}).observe(strip);
 })();
 
 /* REVEALS */
