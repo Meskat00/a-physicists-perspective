@@ -207,7 +207,7 @@ html{scroll-behavior:auto}
 .stat small{color:var(--mut);font-size:13.5px}
 
 /*MOUSE*/
-#cursorGlow{position:fixed;top:0;left:0;width:540px;height:540px;margin:-270px 0 0 -270px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(255,217,59,.15),rgba(18,161,80,.09) 42%,transparent 66%);opacity:0;transition:opacity .6s ease;will-change:transform}
+#cursorGlow{display:none;position:fixed;top:0;left:0;width:540px;height:540px;margin:-270px 0 0 -270px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(255,217,59,.15),rgba(18,161,80,.09) 42%,transparent 66%);opacity:0;transition:opacity .6s ease;will-change:transform}
 .card,.soc,.step,.chap,.panel{position:relative}
 .card::after,.soc::after,.step::after,.chap::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(230px circle at var(--mx,50%) var(--my,50%),rgba(255,217,59,.17),rgba(18,161,80,.06) 55%,transparent 70%);opacity:0;transition:opacity .35s ease;pointer-events:none}
 .card:hover::after,.soc:hover::after,.step:hover::after,.chap:hover::after{opacity:1}
@@ -215,12 +215,33 @@ html{scroll-behavior:auto}
 ::selection{background:#ffd93b;color:#123}
 .ring{transition:transform .45s cubic-bezier(.22,.9,.3,1);transform-style:preserve-3d;will-change:transform}
 @media(hover:none){#cursorGlow{display:none}}
+
+/*MOUSE2*/
+#curDot{position:fixed;top:0;left:0;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#ff8c1a;z-index:1301;pointer-events:none;will-change:transform}
+#curRing{position:fixed;top:0;left:0;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;border:1.5px solid rgba(14,122,67,.65);z-index:1300;pointer-events:none;transition:width .25s ease,height .25s ease,margin .25s ease,background-color .25s ease,border-color .25s ease;will-change:transform}
+#curRing.big{width:60px;height:60px;margin:-30px 0 0 -30px;background:rgba(255,217,59,.16);border-color:rgba(255,140,26,.85)}
+@media(hover:hover) and (pointer:fine){body,a,button,.fbtn,[role="button"]{cursor:none}input,textarea,select{cursor:auto}}
+@media(hover:none){#curDot,#curRing{display:none}}
+
+/*MEET*/
+.meetwrap{padding:64px 0 8px;text-align:center}
+.meet{font-family:Inter,sans-serif;font-weight:900;font-size:clamp(44px,8.5vw,92px);letter-spacing:-1.5px;line-height:1.02;color:var(--ink)}
+.meet span{background:linear-gradient(92deg,#0e7a43,#ffb703);-webkit-background-clip:text;background-clip:text;color:transparent}
+.meetsub{color:var(--mut);font-size:17px;margin-top:10px}
+.meetwrap .cue{display:inline-block;margin-top:16px;font-size:22px;animation:cueBob 1.8s ease-in-out infinite}
+@keyframes cueBob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+.ring{border-radius:38px;width:252px;height:302px}
+.bio{font-size:19.5px;line-height:1.9}
+.bio .bw{transition:opacity .3s ease}
+.giantwrap{overflow:hidden;text-align:center;padding:34px 0 4px}
+.giant{font-family:Inter,sans-serif;font-weight:900;font-size:clamp(34px,7.1vw,118px);line-height:.98;letter-spacing:-2px;white-space:nowrap;background:linear-gradient(180deg,#0d5a38 20%,#8fd0ab);-webkit-background-clip:text;background-clip:text;color:transparent}
 </style></head><body>
 <div id="pbar"></div><div id="secpill"></div>
 <nav><div class="wrap nav-in">
 <a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>by Meskat • SSC • HSC • Admission</small></a>
 <div class="nav-links"><a href="index.html">🏠 হোম</a><a href="exams.html">📝 পরীক্ষা</a><a href="lectures.html">🎬 লেকচার</a><a href="problems.html">🧩 সমস্যা</a><a href="about.html">👨‍🏫 সম্পর্কে</a></div>
 </div></nav>
+<section class="meetwrap"><div class="wrap"><h2 class="meet">Meet Your <span>Brother</span></h2><p class="meetsub">তোমাদের শিক্ষক — আর তার চেয়েও বেশি, তোমাদের বড় ভাই।</p><span class="cue" aria-hidden="true">↓</span></div></section>
 <header class="ahero">
   <div class="ring"><img src="meskat.png" alt="Meskat — Aspiring Physicist" width="760" height="428"></div>
   <h1><span id="typed">Meskat</span><span class="caret">|</span></h1>
@@ -231,7 +252,7 @@ html{scroll-behavior:auto}
 <section data-secname="মূলমন্ত্র" style="padding-top:42px"><p class="motto" id="motto"><span class="mw">পদার্থবিজ্ঞান</span> <span class="mw">মুখস্থ</span> <span class="mw">নয়</span> <span class="mw">—</span> <span class="mw">বোঝার</span> <span class="mw">বিষয়।</span></p><div class="stats"><div class="stat"><b>৪৯৫+</b><small>MCQ প্রশ্ন</small></div><div class="stat"><b>২৩টি</b><small>পরীক্ষা সেট</small></div><div class="stat"><b>৩৫টি</b><small>অধ্যায়ের ম্যাপ (HSC ২১ + SSC ১৪)</small></div><div class="stat"><b>১০০%</b><small>সম্পূর্ণ ফ্রি</small></div></div></section>
 
 <section data-secname="আমার সম্পর্কে"><div class="sec-head"><div class="k">About Me</div><h2>👋 আমার সম্পর্কে</h2></div>
-<p class="bio">Hello সবাইকে! আমি মেসকাত — প্রকৃতিকে সঠিকভাবে জানার নেশায় পদার্থবিজ্ঞান নিয়ে পড়ালেখা করছি। আমি <mark class="hl">Quantum Computing</mark> ও <mark class="hl">Density Functional Theory (DFT)</mark> নিয়ে কাজ করি, পাশাপাশি কয়েকজন শিক্ষার্থীকে বিজ্ঞান শেখাই। অবসর সময়ে যেসব বিষয়ে আমি confident, সেগুলোর ওপর ভিডিও বানাই; শিক্ষার্থীরা কোনো topic আসলেই বুঝেছে কি না, তা যাচাই করতে প্রশ্ন তৈরি করি; অসাধারণ কিছু বই পড়ি, movie দেখি, আর animation শেখার চেষ্টা করি।</p></section>
+<p class="bio" id="bioText">Hello সবাইকে! আমি মেসকাত — প্রকৃতিকে সঠিকভাবে জানার নেশায় পদার্থবিজ্ঞান নিয়ে পড়ালেখা করছি। আমি <mark class="hl">Quantum Computing</mark> ও <mark class="hl">Density Functional Theory (DFT)</mark> নিয়ে কাজ করি, পাশাপাশি কয়েকজন শিক্ষার্থীকে বিজ্ঞান শেখাই। অবসর সময়ে যেসব বিষয়ে আমি confident, সেগুলোর ওপর ভিডিও বানাই; শিক্ষার্থীরা কোনো topic আসলেই বুঝেছে কি না, তা যাচাই করতে প্রশ্ন তৈরি করি; অসাধারণ কিছু বই পড়ি, movie দেখি, আর animation শেখার চেষ্টা করি।</p></section>
 
 <section data-secname="কার জন্য ও পদ্ধতি"><div class="sec-head"><div class="k">Who &amp; How</div><h2>🎯 এটি কার জন্য — আর আমার পদ্ধতি</h2></div>
 <div class="aud">
@@ -265,6 +286,7 @@ html{scroll-behavior:auto}
 <p style="margin-top:12px"><button class="chipbtn" id="copyNum" type="button">📋 নম্বরটা কপি করো</button> <span id="copyFb" style="font-weight:700;color:#0a7a4b"></span></p>
 </div></section>
 </main>
+<div class="giantwrap" aria-hidden="true"><div class="giant">A Physicist’s Perspective</div></div>
 <footer><div class="wrap"><p><b style="color:var(--ink)">A PHYSICIST'S PERSPECTIVE</b> — by Meskat</p>
 <p>SSC • HSC • Admission • Concept-first Physics &amp; Higher Math</p><p class="fclock">🕙 ঢাকা সময়: <span class="dhakaclock">—</span></p><p class="fsign">পড়া শেষ? এবার পরীক্ষা দাও ∞</p></div></footer>
 <button class="sharefab" id="shareBtn" aria-label="Share">↗</button>
@@ -331,10 +353,6 @@ window.addEventListener("scroll",function(){requestAnimationFrame(mu)},{passive:
 (function(){try{
 if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
 if(!(window.matchMedia&&window.matchMedia("(hover: hover) and (pointer: fine)").matches))return;
-var glow=document.createElement("div");glow.id="cursorGlow";document.body.appendChild(glow);
-var tx=innerWidth/2,ty=innerHeight/2,x=tx,y=ty,shown=false;
-document.addEventListener("pointermove",function(e){tx=e.clientX;ty=e.clientY;if(!shown){shown=true;glow.style.opacity="1";}},{passive:true});
-(function loop(){x+=(tx-x)*.13;y+=(ty-y)*.13;glow.style.transform="translate("+x+"px,"+y+"px)";requestAnimationFrame(loop);})();
 document.addEventListener("pointermove",function(e){
 var t=e.target&&e.target.closest?e.target.closest(".card,.soc,.step,.chap"):null;
 if(t){var r=t.getBoundingClientRect();t.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");t.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%");}
@@ -351,6 +369,56 @@ hero.addEventListener("pointermove",function(e){var r=hero.getBoundingClientRect
 var dx=(e.clientX-r.left)/r.width-.5,dy=(e.clientY-r.top)/r.height-.5;
 ring.style.transform="perspective(800px) rotateY("+(dx*10)+"deg) rotateX("+(-dy*8)+"deg)";});
 hero.addEventListener("pointerleave",function(){ring.style.transform="";});}
+}catch(e){}})();
+</script>
+<script>
+/*MOUSE2*/
+(function(){try{
+if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+if(!(window.matchMedia&&window.matchMedia("(hover: hover) and (pointer: fine)").matches))return;
+var dot=document.createElement("div");dot.id="curDot";
+var ring=document.createElement("div");ring.id="curRing";
+document.body.appendChild(ring);document.body.appendChild(dot);
+var mx=innerWidth/2,my=innerHeight/2,dx=mx,dy=my,rx=mx,ry=my,lx=mx,ly=my,hovering=false;
+document.addEventListener("pointermove",function(e){mx=e.clientX;my=e.clientY;
+var t=e.target&&e.target.closest?e.target.closest("a,button,.card,.soc,.step,.chap,.vidwrap,input,select,.fbtn,.expandbtn"):null;
+var h=!!t;if(h!==hovering){hovering=h;ring.classList.toggle("big",h);}
+},{passive:true});
+(function loop(){
+dx+=(mx-dx)*.45;dy+=(my-dy)*.45;
+rx+=(mx-rx)*.16;ry+=(my-ry)*.16;
+var vx=rx-lx,vy=ry-ly;lx=rx;ly=ry;
+var sp=Math.min(26,Math.hypot(vx,vy));
+var ang=Math.atan2(vy,vx)*180/Math.PI;
+var st=Math.min(.3,sp*.012);
+dot.style.transform="translate("+dx+"px,"+dy+"px)";
+ring.style.transform="translate("+rx+"px,"+ry+"px) rotate("+ang+"deg) scale("+(1+st)+","+(1-st*.55)+")";
+requestAnimationFrame(loop);})();
+}catch(e){}})();
+</script>
+<script>
+/*BIOFX*/
+(function(){try{
+var p=document.getElementById("bioText");if(!p)return;
+if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+var units=[];
+(function split(node){
+[].slice.call(node.childNodes).forEach(function(ch){
+if(ch.nodeType===3){
+var frag=document.createDocumentFragment();
+ch.textContent.split(/(\s+)/).forEach(function(w){
+if(!w)return;
+if(/^\s+$/.test(w)){frag.appendChild(document.createTextNode(" "));}
+else{var sp=document.createElement("span");sp.className="bw";sp.textContent=w;frag.appendChild(sp);units.push(sp);}});
+node.replaceChild(frag,ch);
+}else if(ch.nodeType===1){ch.classList.add("bw");units.push(ch);split(ch);}});
+})(p);
+units.forEach(function(u){u.style.opacity=.15});
+function upd(){var r=p.getBoundingClientRect();var vh=window.innerHeight;
+var pr=(vh*.9-r.top)/(vh*.75);pr=Math.max(0,Math.min(1,pr));
+var n=Math.round(pr*units.length);
+units.forEach(function(u,i){u.style.opacity=i<n?"1":".15"});}
+window.addEventListener("scroll",function(){requestAnimationFrame(upd)},{passive:true});upd();
 }catch(e){}})();
 </script>
 </body></html>
