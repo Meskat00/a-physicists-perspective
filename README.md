@@ -13,7 +13,7 @@ Plain HTML/CSS/JS — no build step, no framework. Just upload and enable Pages.
 | `problems.html` | Problem-wise practice — 15 real vector problems with answers in disclosure, source-set links, honest video-explanation status |
 | `chapter-vector.html` / `chapter-circular-motion.html` / `chapter-straight-line.html` | Chapter pages — every set of the chapter on one direct URL, with lesson + paper links |
 | `sitemap.xml` / `robots.txt` | SEO — all published pages listed |
-| `about.html` | About Meskat, how the site works, support/Donate (bKash/Nagad 01731454792) |
+| `about.html` | About Meskat, how the site works, support/Donate (bKash/Nagad 01731871692) |
 | `circular-motion-mcq-30.html` | Printable A4 MCQ paper — বৃত্তাকার গতি, 30 questions, answer key on separate page |
 | `404.html` | Branded not-found page (GitHub Pages uses it automatically) |
 | `.nojekyll` | Tells GitHub Pages to serve the files as-is |

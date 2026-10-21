@@ -173,6 +173,24 @@ html{scroll-behavior:auto}
 .soc b{font-size:15.5px;display:block}
 .soc small{color:var(--mut);font-size:12.5px}
 @media (prefers-reduced-motion:reduce){.ring img{animation:none}.dnum{animation:none}}
+
+/*PREMIUM*/
+.card{background:linear-gradient(180deg,#ffffff,#f2f8f3);border:1px solid #d9ecdf;box-shadow:0 12px 28px rgba(9,60,34,.09),inset 0 1px 0 #ffffff;transition:transform .3s ease,box-shadow .3s ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 38px rgba(9,60,34,.14),inset 0 1px 0 #ffffff}
+.soc{background:linear-gradient(180deg,#ffffff,#f4faf5);box-shadow:0 8px 20px rgba(9,60,34,.07)}
+.hl{background:linear-gradient(transparent 60%,rgba(255,217,59,.6) 60%);padding:0 3px;border-radius:3px;font-weight:700;color:inherit}
+.donate{background:radial-gradient(700px 300px at 50% -60px,rgba(255,217,59,.16),transparent 60%),linear-gradient(165deg,#0e5233,#07301d);border:1px solid rgba(255,217,59,.4);box-shadow:0 24px 50px rgba(4,40,22,.35);color:#eafff3}
+.donate h3{color:#ffffff}
+.dtext{color:#e6f7ec;font-size:17.5px;line-height:1.7;margin:0 auto 14px;max-width:540px}
+.donate .hl{color:#fff;background:linear-gradient(transparent 58%,rgba(255,217,59,.5) 58%)}
+.dwrap{position:relative;display:inline-block;padding:20px 36px 16px;border-radius:20px;background:rgba(255,255,255,.055);border:1px dashed rgba(255,217,59,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 14px 30px rgba(0,0,0,.25)}
+.fd{position:absolute;width:7px;height:7px;border-radius:50%;background:#ffd93b;opacity:.75;animation:floatDot 3.8s ease-in-out infinite alternate;pointer-events:none}
+.fd:nth-child(2){background:#ff8fab}.fd:nth-child(3){background:#9ff0c0}.fd:nth-child(4){background:#ffd93b}.fd:nth-child(5){background:#8fd0ff}.fd:nth-child(6){background:#ff8fab}
+@keyframes floatDot{from{transform:translateY(0);opacity:.45}to{transform:translateY(-9px);opacity:.95}}
+.dnum{font-family:Inter,sans-serif;font-weight:900;font-size:clamp(32px,6vw,46px);letter-spacing:2.5px;background:linear-gradient(92deg,#ffe259 0%,#ffa751 48%,#ff5e8a 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmerTx 6s ease-in-out infinite alternate;filter:none}
+@keyframes shimmerTx{from{background-position:0% 0}to{background-position:100% 0}}
+.free{background:linear-gradient(120deg,#0e7a43,#16b364 55%,#0e7a43);box-shadow:0 18px 40px rgba(14,122,67,.3),inset 0 1px 0 rgba(255,255,255,.35)}
+@media (prefers-reduced-motion:reduce){.fd,.dnum{animation:none}}
 </style></head><body>
 <nav><div class="wrap nav-in">
 <a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>by Meskat • SSC • HSC • Admission</small></a>
@@ -186,7 +204,7 @@ html{scroll-behavior:auto}
 </header>
 <main class="wrap">
 <section><div class="sec-head"><div class="k">About Me</div><h2>👋 আমার সম্পর্কে</h2></div>
-<p class="bio">Hello সবাইকে! আমি মেসকাত — প্রকৃতিকে সঠিকভাবে জানার নেশায় পদার্থবিজ্ঞান নিয়ে পড়ালেখা করছি। আমি Quantum Computing ও Density Functional Theory (DFT) নিয়ে কাজ করি, পাশাপাশি কয়েকজন শিক্ষার্থীকে বিজ্ঞান শেখাই। অবসর সময়ে যেসব বিষয়ে আমি confident, সেগুলোর ওপর ভিডিও বানাই; শিক্ষার্থীরা কোনো topic আসলেই বুঝেছে কি না, তা যাচাই করতে প্রশ্ন তৈরি করি; অসাধারণ কিছু বই পড়ি, movie দেখি, আর animation শেখার চেষ্টা করি।</p></section>
+<p class="bio">Hello সবাইকে! আমি মেসকাত — প্রকৃতিকে সঠিকভাবে জানার নেশায় পদার্থবিজ্ঞান নিয়ে পড়ালেখা করছি। আমি <mark class="hl">Quantum Computing</mark> ও <mark class="hl">Density Functional Theory (DFT)</mark> নিয়ে কাজ করি, পাশাপাশি কয়েকজন শিক্ষার্থীকে বিজ্ঞান শেখাই। অবসর সময়ে যেসব বিষয়ে আমি confident, সেগুলোর ওপর ভিডিও বানাই; শিক্ষার্থীরা কোনো topic আসলেই বুঝেছে কি না, তা যাচাই করতে প্রশ্ন তৈরি করি; অসাধারণ কিছু বই পড়ি, movie দেখি, আর animation শেখার চেষ্টা করি।</p></section>
 
 <section><div class="sec-head"><div class="k">Who &amp; How</div><h2>🎯 এটি কার জন্য — আর আমার পদ্ধতি</h2></div>
 <div class="aud">
@@ -196,8 +214,8 @@ html{scroll-behavior:auto}
 </div>
 <div class="grid" style="margin-top:16px">
  <div class="card"><span class="badge b-g">ধাপ ১</span><h3>আশেপাশের ঘটনা পর্যবেক্ষণ</h3><p style="color:var(--mut)">শুরুটা বই থেকে নয় — চারপাশের বাস্তব ঘটনা খেয়াল করা থেকে।</p></div>
- <div class="card"><span class="badge b-y">ধাপ ২</span><h3>Intuition তৈরি</h3><p style="color:var(--mut)">ঘটনাটা কেন ঘটছে — সেই অনুভূতিটা আগে গড়ে তুলি।</p></div>
- <div class="card"><span class="badge b-b">ধাপ ৩</span><h3>গাণিতিক সম্পর্ক</h3><p style="color:var(--mut)">তারপর সেই intuition-এর ওপর দাঁড় করাই সূত্র ও গণিত — তাই সূত্র আর মুখস্থ করতে হয় না।</p></div>
+ <div class="card"><span class="badge b-y">ধাপ ২</span><h3><mark class="hl">Intuition</mark> তৈরি</h3><p style="color:var(--mut)">ঘটনাটা কেন ঘটছে — সেই অনুভূতিটা আগে গড়ে তুলি।</p></div>
+ <div class="card"><span class="badge b-b">ধাপ ৩</span><h3><mark class="hl">গাণিতিক সম্পর্ক</mark></h3><p style="color:var(--mut)">তারপর সেই intuition-এর ওপর দাঁড় করাই সূত্র ও গণিত — তাই সূত্র আর মুখস্থ করতে হয় না।</p></div>
 </div>
 <div class="free" style="margin-top:16px"><div class="big">সবকিছু 100% FREE</div>
 <p style="margin:6px 0 0;opacity:.95">ক্লাস, পরীক্ষা আর সাপোর্ট — সবই সম্পূর্ণ ফ্রি। কোনো লুকানো চার্জ নেই; শেখাটাই একমাত্র লক্ষ্য।</p></div>
@@ -209,14 +227,14 @@ html{scroll-behavior:auto}
 </section>
 
 <section><div class="sec-head"><div class="k">Connect</div><h2>🔗 আমার সাথে যুক্ত হও</h2></div>
-<div class="socials"><a class="soc" href="https://www.facebook.com/smtmeskatbeswas1234/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.22-1.36 1.39-1.36h1.48V6.25c-.26-.03-1.14-.11-2.16-.11-2.14 0-3.61 1.3-3.61 3.7v2.06H8.16v2.8h2.44v7.2a10 10 0 0 0 2.9 0Z"/></svg><span><b>Facebook</b><small>ব্যক্তিগত প্রোফাইল</small></span></a><a class="soc" href="https://www.facebook.com/profile.php?id=61595333556382" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.22-1.36 1.39-1.36h1.48V6.25c-.26-.03-1.14-.11-2.16-.11-2.14 0-3.61 1.3-3.61 3.7v2.06H8.16v2.8h2.44v7.2a10 10 0 0 0 2.9 0Z"/></svg><span><b>Facebook Page</b><small>অফিসিয়াল পেজ</small></span></a><a class="soc" href="https://www.facebook.com/profile.php?id=61574192983675" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.22-1.36 1.39-1.36h1.48V6.25c-.26-.03-1.14-.11-2.16-.11-2.14 0-3.61 1.3-3.61 3.7v2.06H8.16v2.8h2.44v7.2a10 10 0 0 0 2.9 0Z"/></svg><span><b>Facebook Page — Animated Video</b><small>অ্যানিমেশন ভিডিওর পেজ</small></span></a><a class="soc" href="https://www.youtube.com/@physicistsperspective" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.2" width="20" height="13.6" rx="4" fill="#FF0000"/><path d="M10.2 9.4v5.2l4.6-2.6z" fill="#fff"/></svg><span><b>YouTube — A Physicist's Perspective</b><small>নতুন চ্যানেল: শিক্ষার্থীদের লেকচার</small></span></a><a class="soc" href="https://www.youtube.com/channel/UChwqTnIUZraoczDCgtTgvAA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.2" width="20" height="13.6" rx="4" fill="#FF0000"/><path d="M10.2 9.4v5.2l4.6-2.6z" fill="#fff"/></svg><span><b>YouTube — Disorderness</b><small>আগের চ্যানেল</small></span></a></div></section>
+<div class="socials"><a class="soc" href="https://www.facebook.com/smtmeskatbeswas1234/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.22-1.36 1.39-1.36h1.48V6.25c-.26-.03-1.14-.11-2.16-.11-2.14 0-3.61 1.3-3.61 3.7v2.06H8.16v2.8h2.44v7.2a10 10 0 0 0 2.9 0Z"/></svg><span><b>Facebook</b><small>ব্যক্তিগত প্রোফাইল</small></span></a><a class="soc" href="https://www.facebook.com/profile.php?id=61595333556382" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.22-1.36 1.39-1.36h1.48V6.25c-.26-.03-1.14-.11-2.16-.11-2.14 0-3.61 1.3-3.61 3.7v2.06H8.16v2.8h2.44v7.2a10 10 0 0 0 2.9 0Z"/></svg><span><b>Facebook Page</b><small>অফিসিয়াল পেজ</small></span></a><a class="soc" href="https://www.facebook.com/profile.php?id=61574192983675" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.22-1.36 1.39-1.36h1.48V6.25c-.26-.03-1.14-.11-2.16-.11-2.14 0-3.61 1.3-3.61 3.7v2.06H8.16v2.8h2.44v7.2a10 10 0 0 0 2.9 0Z"/></svg><span><b>Facebook Page — Animated Video</b><small>অ্যানিমেশন ভিডিওর পেজ</small></span></a><a class="soc" href="https://www.youtube.com/@physicistsperspective" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.2" width="20" height="13.6" rx="4" fill="#FF0000"/><path d="M10.2 9.4v5.2l4.6-2.6z" fill="#fff"/></svg><span><b>YouTube — A Physicist's Perspective</b></span></a><a class="soc" href="https://www.youtube.com/channel/UChwqTnIUZraoczDCgtTgvAA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.2" width="20" height="13.6" rx="4" fill="#FF0000"/><path d="M10.2 9.4v5.2l4.6-2.6z" fill="#fff"/></svg><span><b>YouTube — Disorderness</b></span></a></div></section>
 
 <section><div class="donate">
 <span class="badge b-y">💝 সাপোর্ট</span>
 <h3 style="font-size:24px;margin:8px 0 4px">ভালো লাগলে পাশে থাকো</h3>
-<p style="color:var(--mut);margin:0 auto 12px;max-width:520px">পরীক্ষা দিয়ে উপকৃত হলে, ইচ্ছানুযায়ী Donate করতে পারো। তোমাদের সাপোর্টই এই ফ্রি কাজটা চালিয়ে যাওয়ার শক্তি।</p>
+<p class="dtext"><mark class="hl">পরীক্ষা দিয়ে উপকৃত হলে</mark>, ইচ্ছানুযায়ী <b>Donate</b> করতে পারো।</p>
 <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px"><span class="pay bkash">bKash</span><span class="pay nagad">Nagad</span></div>
-<div class="dnum" id="dnum">01731454792</div>
+<div class="dwrap"><span class="fd" style="left:6%;top:10px;animation-delay:0s"></span><span class="fd" style="left:16%;top:44px;animation-delay:0.7s"></span><span class="fd" style="left:30%;top:6px;animation-delay:1.3s"></span><span class="fd" style="left:70%;top:8px;animation-delay:0.4s"></span><span class="fd" style="left:84%;top:40px;animation-delay:1.0s"></span><span class="fd" style="left:93%;top:14px;animation-delay:1.6s"></span><div class="dnum" id="dnum">01731871692</div></div>
 <p style="margin-top:12px"><button class="chipbtn" id="copyNum" type="button">📋 নম্বরটা কপি করো</button> <span id="copyFb" style="font-weight:700;color:#0a7a4b"></span></p>
 </div></section>
 </main>
@@ -243,7 +261,7 @@ var el=document.getElementById("typed"),name="Meskat";
 var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if(el&&!reduced){el.textContent="";var i=0;(function tick(){if(i<=name.length){el.textContent=name.slice(0,i);i++;setTimeout(tick,140)}})();}
 var b=document.getElementById("copyNum");
-if(b){b.addEventListener("click",function(){var n="01731454792";
+if(b){b.addEventListener("click",function(){var n="01731871692";
 function done(){document.getElementById("copyFb").textContent="✓ কপি হয়েছে";}
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(n).then(done).catch(done);}else{done();}});}
 var s=document.getElementById("shareBtn");
