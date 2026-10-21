@@ -401,11 +401,11 @@ body.has-cursor #curDot{display:block}
     </div>
   </section>
 
-  <section class="reel" aria-label="What I teach">
+  <section class="reel" aria-label="My four worlds">
     <div class="wrap">
       <div class="reel-head rv">
-        <h2>What I teach, on camera.</h2>
-        <p>Pick a lane — it filters my most-watched videos below.</p>
+        <h2>One person, four worlds.</h2>
+        <p>Research, teaching, animation — and the books behind it all.</p>
       </div>
       <div class="reel-track" id="reelTrack"></div>
     </div>
@@ -549,7 +549,7 @@ const CONFIG = {
   ],
   skills: [
     {title:"Teaching", items:["Concept-first physics","Problem solving","Question design","Lecture scripting","Higher Math"]},
-    {title:"Research & Tools", items:["DFT · CASTEP","Materials Studio","Quantum ESPRESSO","Data analysis","Habitus OS"]}
+    {title:"Research & Tools", items:["DFT · CASTEP","Materials Studio","Quantum ESPRESSO","Quantum Computing","Data analysis","Habitus OS"]}
   ],
   journey: [
     {yr:"Curiosity", title:"Falling for physics", text:"Quantum mechanics and the big questions got me first — I have been chasing 'why' ever since.", tag:"the start"},
@@ -633,21 +633,27 @@ const catCount = c => c==="All" ? PROJECTS.length : PROJECTS.filter(p=>p.cats.in
   ].join("");
 })();
 
-/* CATEGORY REEL */
+/* CATEGORY REEL — MY FOUR WORLDS */
 let setFilter = null;
 (function(){
   const rots = [-7,-2,3,8];
-  $("#reelTrack").innerHTML = REEL_CATS.map((c,i)=>{
-    const rep = PROJECTS.find(p=>p.cats.includes(c));
-    return `<button class="cat" style="--rot:${rots[i]}deg" data-cat="${c}" aria-label="Show ${c} videos">
-      <span class="art" style="background:${grad(rep)}"></span>
-      <span class="num">0${i+1} / VIDEO</span><span class="count">${catCount(c)} videos</span>
-      <span class="lbl"><span><b>${c}</b><small>${rep.views} — top video</small></span><span class="arrow">↗</span></span>
-    </button>`;
-  }).join("");
+  const LANES = [
+    {t:"Research", sub:"Quantum Computing · Density Functional Theory", chip:"DFT · QC", g:["#1d3557","#4cc9f0"], go:"about"},
+    {t:"Teaching", sub:"SSC · HSC · Admission", chip:"495+ MCQs", g:["#5a1f10","#FF5A1F"], go:"works"},
+    {t:"Animation", sub:"Animated videos — my Facebook Page", chip:"Watch ↗", g:["#3d2b52","#f72585"], go:"https://www.facebook.com/profile.php?id=61574192983675"},
+    {t:"Book Lover", sub:"The books behind the lectures", chip:"📚 always", g:["#6b3410","#ffd93b"], go:"experience"}
+  ];
+  $("#reelTrack").innerHTML = LANES.map((L,i)=>
+    `<button class="cat" style="--rot:${rots[i]}deg" data-go="${L.go}" aria-label="${L.t} — ${L.sub}">
+      <span class="art" style="background:linear-gradient(150deg, ${L.g[0]}, ${L.g[1]})"></span>
+      <span class="num">0${i+1} / WORLD</span><span class="count">${L.chip}</span>
+      <span class="lbl"><span><b>${L.t}</b><small>${L.sub}</small></span><span class="arrow">↗</span></span>
+    </button>`).join("");
   document.querySelectorAll(".cat").forEach(b=>b.addEventListener("click", ()=>{
-    if(setFilter) setFilter(b.dataset.cat);
-    document.getElementById("works").scrollIntoView({behavior: REDUCED?"auto":"smooth"});
+    const go = b.dataset.go;
+    if(go.startsWith("http")){ window.open(go, "_blank", "noopener"); return; }
+    if(go==="works" && setFilter) setFilter("All");
+    const el = document.getElementById(go); if(el) el.scrollIntoView({behavior: REDUCED?"auto":"smooth"});
   }));
 })();
 
@@ -697,7 +703,7 @@ let setFilter = null;
     const t0 = performance.now(), D = 1800;
     (function step(t){ const p = Math.min(1,(t-t0)/D); el.textContent = Math.round(v * (1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); })(t0);
   });}, {threshold:.5});
-  document.querySelectorAll(".num").forEach(n=>io.observe(n));
+  document.querySelectorAll("#statsRow .num").forEach(n=>io.observe(n));
 })();
 
 /* JOURNEY */
