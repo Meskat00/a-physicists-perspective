@@ -150,6 +150,12 @@ html{scroll-behavior:auto}
 .card.expanded{grid-column:1/-1!important}
 .card.expanded .vidwrap{max-width:1140px!important;width:100%;margin-left:auto;margin-right:auto}
 .expandbtn{margin-top:10px}
+
+/*PBAR*/
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#ffd93b,#12a150);z-index:1200;box-shadow:0 1px 6px rgba(18,161,80,.45)}
+#secpill{position:fixed;top:12px;right:12px;z-index:1190;background:rgba(7,43,24,.88);color:#eafff3;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;display:none;backdrop-filter:none;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.fclock{font-weight:600}
+.fsign{font-family:Caveat,cursive;font-size:24px;color:#0a7a4b;margin-top:2px}
 </style>
 <link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/">
 <meta property="og:title" content="A Physicist's Perspective — Meskat">
@@ -157,6 +163,7 @@ html{scroll-behavior:auto}
 <meta property="og:url" content="https://meskat00.github.io/a-physicists-perspective/">
 </head>
 <body>
+<div id="pbar"></div><div id="secpill"></div>
 
 <nav><div class="wrap nav-in">
   <a class="logo" href="#top">A Physicist's <b>Perspective</b><small>by Meskat • SSC • HSC • Admission</small></a>
@@ -195,7 +202,7 @@ html{scroll-behavior:auto}
 </div>
 
 <main class="wrap">
-<section id="start" style="padding-top:38px">
+<section data-secname="শুরু" id="start" style="padding-top:38px">
  <div class="sec-head"><div class="k">Start Here</div><h2>🧭 কোথা থেকে শুরু করবে?</h2><p>লক্ষ্য অনুযায়ী পথ বেছে নাও — প্রতিটা পথেই অধ্যায় ধরে সাজানো সেট।</p></div>
  <div class="steps">
   <div class="step"><div class="n">🎓</div><h3>HSC পদার্থবিজ্ঞান</h3><p style="color:var(--mut)">বোর্ড-প্রস্তুতির অধ্যায়ভিত্তিক সেট — ভেক্টর ও বৃত্তাকার গতি।</p><p style="margin-top:10px"><a class="chipbtn" href="exams.html?filter=পদার্থবিজ্ঞান" style="display:inline-block">সেটগুলো দেখো →</a></p></div>
@@ -206,7 +213,7 @@ html{scroll-behavior:auto}
 </section>
 
 
-<section id="daily"><div class="two">
+<section data-secname="আজকের চ্যালেঞ্জ" id="daily"><div class="two">
   <div class="panel">
     <span class="badge b-y">🎯 প্রতিদিন নতুন</span>
     <h3>আজকের চ্যালেঞ্জ</h3>
@@ -228,7 +235,7 @@ html{scroll-behavior:auto}
   </div>
 </div></section>
 
-<section id="exams">
+<section data-secname="পরীক্ষা" id="exams">
   <div class="sec-head"><div class="k">MCQ Exams</div><h2>📝 সব পরীক্ষা — অধ্যায় ধরে সাজানো</h2>
   <p>পরীক্ষা দিলে Google Forms-এ খুলবে। নাম দাও, উত্তর দাও, সাবমিট — স্কোর সাথে সাথে। শেষ হলে এখানে <b>✓ শেষ</b> চেপে নিজের প্রোগ্রেস ট্র্যাক করো।</p></div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px"><a class="fbtn" href="chapter-vector.html">📚 অধ্যায়: ভেক্টর (২০ সেট)</a><a class="fbtn" href="chapter-circular-motion.html">📚 অধ্যায়: বৃত্তাকার গতি</a><a class="fbtn" href="chapter-straight-line.html">📚 অধ্যায়: সরলরেখা</a><a class="fbtn" href="problems.html">🧩 সমস্যা অনুশীলনী</a></div>
@@ -238,7 +245,7 @@ html{scroll-behavior:auto}
   <div class="empty" id="emptyMsg">😕 এই খোঁজে কিছু পাওয়া যায়নি — অন্য শব্দ দিয়ে চেষ্টা করো, বা ফিল্টার বদলাও।</div>
 </section>
 
-<section id="lectures">
+<section data-secname="লেকচার" id="lectures">
   <div class="sec-head"><div class="k">Lectures & Videos</div><h2>🎬 লেকচার ও ভিডিও</h2>
   <p>কনসেপ্ট আগে, ফর্মুলা পরে — intuition-first লেকচার সিরিজ <b>Level Up Cognitive Skills</b> থেকে। ছাত্রদের জন্য বানানো নতুন ভিডিওগুলো নতুন YouTube চ্যানেল থেকে এখানেই আসবে — প্রতিটি ভিডিওর সাথে তার অধ্যায়ের পরীক্ষা লিংক করা থাকবে, যাতে দেখেই সাথে সাথে প্র্যাকটিস করা যায়।</p></div>
   <p style="text-align:center;margin-bottom:14px"><a class="fbtn" href="series-physics-admission.html" style="display:inline-block">🎓 Physics Admission Program — পুরো সিরিজ এক পেজে (৬ পর্ব) →</a></p>
@@ -263,7 +270,7 @@ html{scroll-behavior:auto}
   </div>
 </section>
 
-<section id="how"><div class="sec-head"><div class="k">How it works</div><h2>কীভাবে কাজ করে?</h2></div>
+<section data-secname="কীভাবে কাজ করে" id="how"><div class="sec-head"><div class="k">How it works</div><h2>কীভাবে কাজ করে?</h2></div>
   <div class="steps">
     <div class="step"><div class="n">1</div><h3>অধ্যায় বেছে নাও</h3><p style="color:var(--mut)">ফিল্টার বা সার্চ দিয়ে তোমার অধ্যায়ের সেট খুঁজে নাও।</p></div>
     <div class="step"><div class="n">2</div><h3>পরীক্ষা দাও</h3><p style="color:var(--mut)">Google Forms-এ পরীক্ষা — কোনো অ্যাকাউন্ট লাগবে না, নাম-ইমেইলই যথেষ্ট।</p></div>
@@ -272,7 +279,7 @@ html{scroll-behavior:auto}
   </div>
 </section>
 
-<section id="resources">
+<section data-secname="রিসোর্স" id="resources">
   <div class="sec-head"><div class="k">Resources</div><h2>📚 প্রিন্ট ও প্র্যাকটিস রিসোর্স</h2></div>
   <div class="grid">
     <div class="card"><span class="badge b-p" style="align-self:flex-start">🖨 প্রিন্ট-রেডি পেপার</span>
@@ -305,6 +312,7 @@ html{scroll-behavior:auto}
   <p><b style="color:var(--ink)">A PHYSICIST'S PERSPECTIVE</b> — by Meskat</p>
   <p>SSC • HSC • Admission • Concept-first Physics & Higher Math<br>প্রশ্ন ও লেকচার তৈরি ও যাচাই: Meskat — Muse-এর সহায়তায় নির্মিত।</p>
   <p style="margin-top:8px">নতুন অধ্যায়ের পরীক্ষা চাও? শিক্ষককে জানাও — সবার আগে এখানেই পাবলিশ হবে।</p>
+<p class="fclock">🕙 ঢাকা সময়: <span class="dhakaclock">—</span></p><p class="fsign">পড়া শেষ? এবার MCQ দাও ∞</p>
 </div></footer>
 
 <button class="share-fab" id="shareBtn">📤 বন্ধুদের পাঠাও</button>
@@ -475,6 +483,21 @@ window.addEventListener("blur",function(){setTimeout(function(){var a=document.a
  if(a&&a.tagName==="IFRAME"&&a.src.indexOf("youtube")>-1){var card=wrapOf(a).closest(".card");
   if(card&&!card.classList.contains("expanded")){card.classList.add("expanded");var b=card.querySelector(".expandbtn");if(b){b.textContent="⤡ ছোট করো";b.setAttribute("aria-expanded","true")}}}
 },60)});
+}catch(e){}})();
+</script>
+<script>
+/*PBAR*/
+(function(){try{
+var bar=document.getElementById("pbar"),pill=document.getElementById("secpill");
+var secs=[].slice.call(document.querySelectorAll("[data-secname]"));
+function upd(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;var y=h.scrollTop||document.body.scrollTop;
+if(bar)bar.style.width=(max>0?(y/max*100):0)+"%";
+if(pill&&secs.length){var cur=0;secs.forEach(function(s,i){if(s.getBoundingClientRect().top<=150)cur=i;});
+pill.textContent=(cur+1)+" / "+secs.length+" \u2022 "+secs[cur].getAttribute("data-secname");
+pill.style.display=y>240?"block":"none";}}
+window.addEventListener("scroll",function(){requestAnimationFrame(upd)},{passive:true});upd();
+var c=document.querySelector(".dhakaclock");
+if(c){var tick=function(){try{c.textContent=new Date().toLocaleTimeString("bn-BD",{timeZone:"Asia/Dhaka",hour:"2-digit",minute:"2-digit",second:"2-digit"})}catch(e){c.textContent=new Date().toLocaleTimeString()}};tick();setInterval(tick,1000);}
 }catch(e){}})();
 </script>
 </body>

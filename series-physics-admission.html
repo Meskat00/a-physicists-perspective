@@ -148,7 +148,14 @@ html{scroll-behavior:auto}
 .card.expanded{grid-column:1/-1!important}
 .card.expanded .vidwrap{max-width:1140px!important;width:100%;margin-left:auto;margin-right:auto}
 .expandbtn{margin-top:10px}
+
+/*PBAR*/
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#ffd93b,#12a150);z-index:1200;box-shadow:0 1px 6px rgba(18,161,80,.45)}
+#secpill{position:fixed;top:12px;right:12px;z-index:1190;background:rgba(7,43,24,.88);color:#eafff3;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;display:none;backdrop-filter:none;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.fclock{font-weight:600}
+.fsign{font-family:Caveat,cursive;font-size:24px;color:#0a7a4b;margin-top:2px}
 </style></head><body>
+<div id="pbar"></div>
 <nav><div class="wrap nav-in">
 <a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>by Meskat • SSC • HSC • Admission</small></a>
 <div class="nav-links"><a href="index.html">🏠 হোম</a><a href="exams.html">📝 পরীক্ষা</a><a href="lectures.html">🎬 লেকচার</a><a href="problems.html">🧩 সমস্যা</a><a href="about.html">👨‍🏫 সম্পর্কে</a></div>
@@ -205,7 +212,7 @@ html{scroll-behavior:auto}
     </article></div></section>
 </main>
 <footer><div class="wrap"><p><b style="color:var(--ink)">A PHYSICIST'S PERSPECTIVE</b> — by Meskat</p>
-<p>HSC • Admission • Concept-first Physics &amp; Higher Math</p></div></footer>
+<p>HSC • Admission • Concept-first Physics &amp; Higher Math</p><p class="fclock">🕙 ঢাকা সময়: <span class="dhakaclock">—</span></p><p class="fsign">পড়া শেষ? এবার MCQ দাও ∞</p></div></footer>
 <nav class="tabbar" aria-label="দ্রুত নেভিগেশন">
 <a href="index.html">🏠<br>হোম</a><a href="exams.html">📝<br>পরীক্ষা</a><a href="lectures.html">🎬<br>লেকচার</a><a href="problems.html">🧩<br>সমস্যা</a><a href="about.html">👨‍🏫<br>সম্পর্কে</a>
 </nav>
@@ -236,6 +243,21 @@ window.addEventListener("blur",function(){setTimeout(function(){var a=document.a
  if(a&&a.tagName==="IFRAME"&&a.src.indexOf("youtube")>-1){var card=wrapOf(a).closest(".card");
   if(card&&!card.classList.contains("expanded")){card.classList.add("expanded");var b=card.querySelector(".expandbtn");if(b){b.textContent="⤡ ছোট করো";b.setAttribute("aria-expanded","true")}}}
 },60)});
+}catch(e){}})();
+</script>
+<script>
+/*PBAR*/
+(function(){try{
+var bar=document.getElementById("pbar"),pill=document.getElementById("secpill");
+var secs=[].slice.call(document.querySelectorAll("[data-secname]"));
+function upd(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;var y=h.scrollTop||document.body.scrollTop;
+if(bar)bar.style.width=(max>0?(y/max*100):0)+"%";
+if(pill&&secs.length){var cur=0;secs.forEach(function(s,i){if(s.getBoundingClientRect().top<=150)cur=i;});
+pill.textContent=(cur+1)+" / "+secs.length+" \u2022 "+secs[cur].getAttribute("data-secname");
+pill.style.display=y>240?"block":"none";}}
+window.addEventListener("scroll",function(){requestAnimationFrame(upd)},{passive:true});upd();
+var c=document.querySelector(".dhakaclock");
+if(c){var tick=function(){try{c.textContent=new Date().toLocaleTimeString("bn-BD",{timeZone:"Asia/Dhaka",hour:"2-digit",minute:"2-digit",second:"2-digit"})}catch(e){c.textContent=new Date().toLocaleTimeString()}};tick();setInterval(tick,1000);}
 }catch(e){}})();
 </script>
 </body></html>
