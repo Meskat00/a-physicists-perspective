@@ -206,7 +206,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 
 /* ===== Cascade explorer (Exam / Lectures / Study Materials) ===== */
 @property --xp-a{syntax:'<angle>';initial-value:0deg;inherits:false}
-.xp{max-width:880px;margin:0 auto;--g1:#0a2a20;--g2:#0e5c3f;--g3:#12b76a;--shine:#ffc800;--ink2:#cfe9dc}
+.xp{max-width:880px;margin:0 auto;min-height:102px;--g1:#0a2a20;--g2:#0e5c3f;--g3:#12b76a;--shine:#ffc800;--ink2:#cfe9dc}
 .xp[data-xp="lectures"]{--g1:#1d1440;--g2:#4326a8;--g3:#7c5cff;--shine:#c4b5fd;--ink2:#ded6ff}
 .xp[data-xp="materials"]{--g1:#33200a;--g2:#96650c;--g3:#f59e0b;--shine:#fde68a;--ink2:#ffedc2}
 .xp-root{position:relative;overflow:hidden;width:100%;display:flex;align-items:center;gap:16px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px;cursor:pointer;box-shadow:var(--shadow);font-family:inherit;transition:transform .3s,box-shadow .3s,border-color .3s}
@@ -477,53 +477,15 @@ ring.style.transform="perspective(800px) rotateY("+(dx*10)+"deg) rotateX("+(-dy*
 hero.addEventListener("pointerleave",function(){ring.style.transform="";});}
 }catch(e){}})();
 </script>
-<script>
-/*MOUSE2*/
-(function(){try{
-if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-if(!(window.matchMedia&&window.matchMedia("(hover: hover) and (pointer: fine)").matches))return;
-var dot=document.createElement("div");dot.id="curDot";
-var ring=document.createElement("div");ring.id="curRing";
-document.body.appendChild(ring);document.body.appendChild(dot);
-var mx=innerWidth/2,my=innerHeight/2,dx=mx,dy=my,rx=mx,ry=my,lx=mx,ly=my,hovering=false,bs=1;
-document.addEventListener("pointermove",function(e){mx=e.clientX;my=e.clientY;
-var t=e.target&&e.target.closest?e.target.closest("a,button,.card,.soc,.step,.chap,.vidwrap,input,select,.fbtn,.expandbtn"):null;
-var h=!!t;if(h!==hovering){hovering=h;ring.classList.toggle("big",h);}
-},{passive:true});
-(function loop(){
-dx+=(mx-dx)*.45;dy+=(my-dy)*.45;
-rx+=(mx-rx)*.16;ry+=(my-ry)*.16;
-var vx=rx-lx,vy=ry-ly;lx=rx;ly=ry;
-var sp=Math.min(26,Math.hypot(vx,vy));
-var ang=Math.atan2(vy,vx)*180/Math.PI;
-var st=Math.min(.3,sp*.012);bs+=((hovering?1.58:1)-bs)*.18;
-dot.style.transform="translate("+dx+"px,"+dy+"px)";
-ring.style.transform="translate("+rx+"px,"+ry+"px) rotate("+ang+"deg) scale("+(bs*(1+st))+","+(bs*(1-st*.55))+")";
-requestAnimationFrame(loop);})();
-}catch(e){}})();
-</script>
-<script>
-/*DOTFX*/
-(function(){try{
-if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-var tick=false;
-document.addEventListener("pointermove",function(e){
-if(tick)return;tick=true;
-var x=e.clientX,y=e.clientY;
-requestAnimationFrame(function(){
-document.documentElement.style.setProperty("--mx",x+"px");
-document.documentElement.style.setProperty("--my",y+"px");
-tick=false;});
-},{passive:true});
-}catch(e){}})();
-</script>
+<script src="cursor.js" defer></script>
+
 
 <script>
 /* Lazy-load Firebase: login is optional, so the page must not pay the SDK cost upfront.
    Loads on first interaction, on idle, or immediately for a returning signed-in student. */
 (function(){var done=false;function go(){if(done)return;done=true;
 var urls=["https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js","https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js","https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"];
-(function next(i){if(i>=urls.length){var m=document.getElementById("lupMod");if(m){var c=document.createElement("script");c.textContent=m.textContent;document.body.appendChild(c);}return;}
+(function next(i){if(i>=urls.length){var c=document.createElement("script");c.src="login.js";document.body.appendChild(c);return;}
 var sc=document.createElement("script");sc.src=urls[i];sc.onload=function(){next(i+1)};sc.onerror=function(){next(i+1)};document.head.appendChild(sc);})(0);}
 var was=false;try{was=Object.keys(localStorage).some(function(k){return k.indexOf("firebase:authUser")===0})}catch(e){}
 if(was){go();}else{["pointerdown","keydown","focusin"].forEach(function(ev){window.addEventListener(ev,go,{once:true,passive:true})});
@@ -531,66 +493,8 @@ if("requestIdleCallback" in window){requestIdleCallback(go,{timeout:3000});}else
 </script>
 
 
-<style>
-.lup-auth{font-family:inherit;font-weight:700;font-size:14px;background:#fff;color:#20301d;border:1px solid rgba(0,0,0,.18);border-radius:999px;padding:8px 16px;cursor:pointer;margin-left:8px;white-space:nowrap}
-.lup-auth:hover{box-shadow:0 2px 10px rgba(0,0,0,.25)}
-.lup-chip{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:700;font-size:14px;background:#fff;color:#20301d;border:1px solid rgba(0,0,0,.18);border-radius:999px;padding:5px 14px 5px 6px;cursor:pointer;margin-left:8px;white-space:nowrap}
-.lup-chip img{width:24px;height:24px;border-radius:50%}
-.lup-toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(20px);background:#12261a;color:#eafff3;font-family:'Hind Siliguri',sans-serif;font-size:15px;font-weight:600;padding:11px 20px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.35s;z-index:9999;max-width:92vw;text-align:center}
-.lup-toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-</style>
-<script id="lupMod">
-/* Optional student login (Firebase) — site works fully without it. Progress (lup_done) syncs to the student's own account. */
-(function(){ "use strict";
-if(!window.firebase) return;
-try{
-var CFG={apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists-perspective.firebaseapp.com",projectId:"physicists-perspective",storageBucket:"physicists-perspective.firebasestorage.app",messagingSenderId:"186707877920",appId:"1:186707877920:web:38f757b3016e1af3539c45"};
-if(!firebase.apps.length) firebase.initializeApp(CFG);
-var auth=firebase.auth(), db=firebase.firestore();
-var host=document.querySelector(".nav-links")||document.querySelector("nav.main");
-if(!host) return;
-var btn=document.createElement("button"); btn.type="button"; btn.className="lup-auth"; btn.textContent="Login";
-host.appendChild(btn);
-var tst=document.createElement("div"); tst.className="lup-toast"; document.body.appendChild(tst);
-function toast(m){ tst.textContent=m; tst.classList.add("on"); setTimeout(function(){tst.classList.remove("on")},3600); }
-function localDone(){ try{ return JSON.parse(localStorage.getItem("lup_done")||"[]"); }catch(e){ return []; } }
-var user=null, lastSnap=localStorage.getItem("lup_done")||"[]";
-function pushCloud(){
-  if(!user) return;
-  lastSnap=localStorage.getItem("lup_done")||"[]";
-  db.collection("users").doc(user.uid).set({done:localDone(),name:user.displayName||"",email:user.email||"",photo:user.photoURL||"",updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true}).catch(function(){});
-}
-auth.getRedirectResult().catch(function(){});
-auth.onAuthStateChanged(function(u){
-  user=u;
-  if(u){
-    btn.className="lup-chip"; btn.title="Logout";
-    btn.innerHTML=(u.photoURL?'<img src="'+u.photoURL+'" alt="" referrerpolicy="no-referrer">':"")+"<span>"+(u.displayName?u.displayName.split(" ")[0]:"Account")+"</span>";
-    db.collection("users").doc(u.uid).get().then(function(snap){
-      var cloud=(snap.exists&&snap.data().done)?snap.data().done:[];
-      var local=localDone();
-      var union=Array.from(new Set([].concat(cloud,local)));
-      var changed=JSON.stringify(union.slice().sort())!==JSON.stringify(local.slice().sort());
-      if(changed){ localStorage.setItem("lup_done",JSON.stringify(union)); }
-      pushCloud();
-      if(!sessionStorage.getItem("lup_welcomed")){ sessionStorage.setItem("lup_welcomed","1"); toast("স্বাগতম! তোমার record এখন সব device-এ sync হবে ✓"); }
-      if(changed&&!sessionStorage.getItem("lup_merged")){ sessionStorage.setItem("lup_merged","1"); location.reload(); }
-    }).catch(function(){});
-  }else{
-    btn.className="lup-auth"; btn.textContent="Login"; btn.title="Google দিয়ে login করলে তোমার record সব device-এ sync হবে";
-  }
-});
-btn.addEventListener("click",function(){
-  if(user){ auth.signOut().then(function(){ toast("Logout হয়েছে — এই device-এর record রয়ে গেছে।"); }); return; }
-  var prov=new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(prov).catch(function(e){
-    if(e&&(e.code==="auth/popup-blocked"||e.code==="auth/operation-not-supported-in-this-environment"||e.code==="auth/cancelled-popup-request")){ auth.signInWithRedirect(prov); }
-    else if(e&&e.code!=="auth/popup-closed-by-user"){ toast("Login হয়নি — আবার চেষ্টা করো।"); }
-  });
-});
-setInterval(function(){ var now=localStorage.getItem("lup_done")||"[]"; if(user&&now!==lastSnap){ pushCloud(); } },4000);
-}catch(e){}})();
-</script>
+<link rel="stylesheet" href="login.css">
+
 
 <script>
 (function(){var dn=document.getElementById("donateNum"),dh=document.getElementById("donateHint");if(!dn)return;dn.addEventListener("click",function(){var num=dn.textContent.trim();function done(){dh.textContent="Copied ✓ "+num;setTimeout(function(){dh.textContent="নম্বরে tap করলেই copy হয়ে যাবে 📋";},2200);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(num).then(done).catch(done);}else{var ta=document.createElement("textarea");ta.value=num;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}ta.remove();done();}});})();
@@ -654,7 +558,7 @@ document.querySelectorAll("[data-xp]").forEach(function(mount){
   var cfg=XP[mount.getAttribute("data-xp")]; if(!cfg)return;
   mount.innerHTML='<button class="xp-root" type="button" aria-expanded="false"><span class="xp-ic">'+cfg.icon+'</span><span class="xp-rt"><b>'+cfg.name+'</b><small>'+cfg.bn+' • '+cfg.meta+'</small></span><span class="xp-arrow">▾</span></button>'
    +'<div class="xp-levels" hidden>'+cfg.order.map(function(L){var lc=cfg.levels[L].chapters.filter(function(c){return c.href&&!c.soon}).length;return '<button class="xp-level" type="button" data-lv="'+L+'"><b>'+L+'</b><small>'+cfg.levels[L].desc+'</small>'+(lc?'<span class="xp-live"><i></i>'+BN(lc)+'টি অধ্যায় live</span>':'')+'</button>'}).join("")+'</div>'
-   +'<div class="xp-chaps" hidden></div>';
+   +'<div class="xp-chaps" hidden aria-live="polite"></div>';
   var root=mount.querySelector(".xp-root"),levels=mount.querySelector(".xp-levels"),chaps=mount.querySelector(".xp-chaps");
   var open=false,curLv=null;
   function showChaps(L){
@@ -681,6 +585,7 @@ document.querySelectorAll("[data-xp]").forEach(function(mount){
   root.addEventListener("click",function(ev){if(hoverable&&ev.detail!==0)return;open?closeXp():openXp();});
   mount.addEventListener("focusin",function(){openXp();});
   mount.addEventListener("focusout",function(e){if(!pointerInside&&!mount.contains(e.relatedTarget))closeXp();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&open)closeXp();});
   levels.querySelectorAll(".xp-level").forEach(function(b){b.addEventListener("click",function(){showChaps(b.getAttribute("data-lv"))});if(hoverable)b.addEventListener("pointerenter",function(){showChaps(b.getAttribute("data-lv"))});});
 });
 })();

@@ -1,0 +1,6 @@
+.lup-auth{font-family:inherit;font-weight:700;font-size:14px;background:#fff;color:#20301d;border:1px solid rgba(0,0,0,.18);border-radius:999px;padding:8px 16px;cursor:pointer;margin-left:8px;white-space:nowrap}
+.lup-auth:hover{box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.lup-chip{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:700;font-size:14px;background:#fff;color:#20301d;border:1px solid rgba(0,0,0,.18);border-radius:999px;padding:5px 14px 5px 6px;cursor:pointer;margin-left:8px;white-space:nowrap}
+.lup-chip img{width:24px;height:24px;border-radius:50%}
+.lup-toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(20px);background:#12261a;color:#eafff3;font-family:'Hind Siliguri',sans-serif;font-size:15px;font-weight:600;padding:11px 20px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.35s;z-index:9999;max-width:92vw;text-align:center}
+.lup-toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
