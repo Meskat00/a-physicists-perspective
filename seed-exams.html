@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Seed Exams (Owner) — A Physicist's Perspective</title>
+<meta name="robots" content="noindex,nofollow">
+<style>body{font-family:system-ui,sans-serif;max-width:760px;margin:24px auto;padding:0 16px;line-height:1.55}button{padding:12px 22px;border-radius:10px;border:0;background:#0e7a43;color:#fff;font-weight:700;cursor:pointer;font-size:16px}button[disabled]{opacity:.5}#log{background:#0a2a20;color:#d9efe5;border-radius:12px;padding:16px;white-space:pre-wrap;font-family:ui-monospace,monospace;font-size:13px;min-height:200px;margin-top:16px}</style></head>
+<body>
+<h2>🌱 Exam Seeder — শুধু মালিকের জন্য</h2>
+<p>34টি অধ্যায় সেট Firestore-এর <b>exams</b> কালেকশনে লেখা হবে (প্রতিটি ডকুমেন্ট: title, chapter, level, minutes, qjson)। আগে Google দিয়ে লগইন করো (মালিকের অ্যাকাউন্ট), তারপর Seed বোতাম চাপো।</p>
+<p id="who">লগইন অবস্থা যাচাই হচ্ছে…</p>
+<button id="btnLogin">Google দিয়ে লগইন</button>
+<button id="btnSeed" disabled>সব সেট সিড করো (34)</button>
+<div id="log">অপেক্ষা করো…</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="seed-data.js"></script>
+<script>
+(function(){ "use strict";
+var CFG={apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists-perspective.firebaseapp.com",projectId:"physicists-perspective",storageBucket:"physicists-perspective.firebasestorage.app",messagingSenderId:"186707877920",appId:"1:186707877920:web:38f757b3016e1af3539c45"};
+if(!firebase.apps.length) firebase.initializeApp(CFG);
+try{ firebase.appCheck().activate("6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T", true); }catch(e){}
+var auth=firebase.auth(), db=firebase.firestore();
+var logEl=document.getElementById("log"), who=document.getElementById("who"), btnSeed=document.getElementById("btnSeed"), user=null;
+function log(m){ logEl.textContent+=m+"\n"; }
+logEl.textContent="";
+auth.onAuthStateChanged(function(u){
+  user=u;
+  if(u){ who.textContent="লগইন আছো: "+(u.email||u.uid); btnSeed.disabled=false; log("প্রস্তুত — সেট সংখ্যা: "+Object.keys(window.SEED_ALL||{}).length); }
+  else { who.textContent="লগইন নেই।"; btnSeed.disabled=true; }
+});
+document.getElementById("btnLogin").addEventListener("click",function(){
+  var prov=new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(prov).catch(function(e){ log("লগইন ব্যর্থ: "+(e&&e.code?e.code:e)); if(e&&(e.code==="auth/popup-blocked"||e.code==="auth/operation-not-supported-in-this-environment")) auth.signInWithRedirect(prov); });
+});
+btnSeed.addEventListener("click",function(){
+  if(!user){ log("আগে লগইন করো।"); return; }
+  btnSeed.disabled=true;
+  var ids=Object.keys(window.SEED_ALL).sort(), ok=0, fail=0, chain=Promise.resolve();
+  log("সিড শুরু — মোট "+ids.length+"টি সেট…");
+  ids.forEach(function(id){
+    chain=chain.then(function(){
+      var d=window.SEED_ALL[id];
+      return db.collection("exams").doc(id).set({title:d.title,chapter:d.chapter,level:d.level,minutes:d.minutes,qjson:d.qjson})
+        .then(function(){ ok++; log("✓ "+id); })
+        .catch(function(e){ fail++; log("✗ "+id+" — "+(e&&e.code?e.code:e)); });
+    });
+  });
+  chain.then(function(){ log("শেষ — সফল "+ok+", ব্যর্থ "+fail); });
+});
+})();
+</script>
+</body></html>

@@ -126,7 +126,8 @@ footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
 <script>
 (function(){ "use strict";
 var CFG={apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists-perspective.firebaseapp.com",projectId:"physicists-perspective",storageBucket:"physicists-perspective.firebasestorage.app",messagingSenderId:"186707877920",appId:"1:186707877920:web:38f757b3016e1af3539c45"};
-var EXAM_ID="hsc1-physical-world";
+var EXAM_ID=(new URLSearchParams(location.search).get("exam")||"hsc1-physical-world").toLowerCase();
+if(!/^[a-z0-9-]+$/.test(EXAM_ID)) EXAM_ID="hsc1-physical-world";
 var BN="০১২৩৪৫৬৭৮৯";
 function bn(n){ return String(n).replace(/[0-9]/g,function(d){return BN[+d]}); }
 function renderMath(el){ try{ if(el&&window.renderMathInElement){ renderMathInElement(el,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"$$",right:"$$",display:true}],throwOnError:false}); } }catch(e){} }
@@ -144,6 +145,7 @@ db.collection("exams").doc(EXAM_ID).get().then(function(snap){
   try{ qs=JSON.parse(d.qjson); }catch(e){ fail("প্রশ্নের ডেটা পড়া যায়নি (qjson নষ্ট)।"); return; }
   if(!Array.isArray(qs)||!qs.length){ fail("প্রশ্নের তালিকা খালি।"); return; }
   EXAM={title:d.title||"বহুনির্বাচনি পরীক্ষা", chapter:d.chapter||"", level:d.level||"", minutes:(+d.minutes)||25, questions:qs};
+  document.title=EXAM.title+" | A Physicist's Perspective";
   answers=new Array(qs.length).fill(-1);
   document.getElementById("exTitle").textContent=EXAM.title;
   document.getElementById("exMeta").textContent=(EXAM.chapter?EXAM.chapter+" • ":"")+(EXAM.level?EXAM.level+" • ":"")+bn(qs.length)+"টি প্রশ্ন • "+bn(EXAM.minutes)+" মিনিট • পূর্ণমান "+bn(qs.length);
