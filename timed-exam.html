@@ -7,6 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Caveat:wght@700&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="login.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <style>
 :root{--board:#0a2a20;--board2:#0e3a2c;--ink:#12211c;--mut:#5b6b65;--yellow:#ffc800;--yellow2:#ffdf5e;--green:#12b76a;--red:#f04438;--bg:#f4f7f5;--line:#e2eae6;--radius:18px;--shadow:0 10px 30px rgba(10,42,32,.10)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -56,6 +59,15 @@ input.name:focus{outline:2px solid var(--green);border-color:transparent}
 .opt.wrong{border-color:var(--red);background:#fef1f0}
 .opt[disabled]{cursor:default}
 .score-big{font-family:Inter;font-weight:900;font-size:56px;color:var(--board)}
+.board{margin-top:26px;text-align:left}
+.board h3{font-size:20px;text-align:center;margin-bottom:4px}
+.board .cnt{text-align:center;color:var(--mut);font-size:14px;margin-bottom:12px}
+.brow{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;margin-bottom:8px;background:#fff}
+.brow .rk{font-family:Inter;font-weight:900;font-size:17px;min-width:38px;text-align:center}
+.brow .nm{flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brow .sc{font-family:Inter;font-weight:800}
+.brow.me{border-color:var(--yellow);background:#fffbe8;box-shadow:0 4px 14px rgba(255,200,0,.25)}
+.katex{font-size:1.06em}
 .save-note{margin-top:12px;font-weight:600}
 footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
 .modal{position:fixed;inset:0;background:rgba(10,42,32,.55);display:none;place-items:center;z-index:90;padding:18px}
@@ -68,7 +80,7 @@ footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
 </style></head>
 <body>
 <nav><div class="nav-in"><a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>SSC • HSC • Admission — ফিজিক্স শেখার ঘর</small></a><div class="nav-links"><a href="index.html">Home</a><a href="exams.html">Exams</a><a href="lectures.html">Lectures</a><a href="problems.html">Problems</a></div></div></nav>
-<header class="hero"><div class="wrap hero-in"><span class="chalk">timed exam — demo!</span><h1>⏱️ টাইমার পরীক্ষা</h1><p class="sub">প্রশ্ন লোড হয় <b>Firebase</b> থেকে — এই পেজের কোডে বা GitHub-এ কোনো প্রশ্ন রাখা নেই। সময় শেষ হলেই অটো-সাবমিট।</p></div></header>
+<header class="hero"><div class="wrap hero-in"><span class="chalk">timed exam</span><h1>⏱️ টাইমার পরীক্ষা</h1><p class="sub">30টি MCQ • 25 মিনিট • অটো-সাবমিট</p></div></header>
 <main class="wrap">
 
 <div class="card state on" id="stLoad"><div class="big-emoji">📡</div><div class="spin"></div><p class="center mut">Firebase থেকে প্রশ্ন লোড হচ্ছে…</p></div>
@@ -79,13 +91,11 @@ footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
 <h2 class="center" id="exTitle">বহুনির্বাচনি পরীক্ষা</h2>
 <p class="center mut" id="exMeta"></p>
 <div class="rules"><b>নিয়ম:</b><ul>
-<li>শুরু করার পর থেকেই টাইমার চলবে — মাঝপথে থামানো যাবে না।</li>
-<li>সময় শেষ হলে উত্তর <b>নিজে থেকেই জমা</b> হয়ে যাবে।</li>
-<li>প্রতিটি প্রশ্নের মান ১, কোনো নেগেটিভ মার্কিং নেই। খালি রাখা যায়।</li>
-<li>জমা দিলেই স্কোর ও প্রতিটি প্রশ্নের সঠিক উত্তর দেখা যাবে।</li></ul></div>
-<label><b>তোমার নাম (বাধ্যতামূলক)</b><input class="name" id="stuName" type="text" maxlength="80" placeholder="যেমন: মোঃ মেসকাত আলী" autocomplete="name"></label>
+<li>শুরু করলেই টাইমার চালু হবে; সময় শেষে উত্তর অটো-সাবমিট হবে।</li>
+<li>প্রতিটি প্রশ্নের মান ১; নেগেটিভ মার্কিং নেই।</li>
+<li>জমা দিলেই স্কোর, সঠিক উত্তর ও লিডারবোর্ড দেখা যাবে।</li></ul></div>
+<label><b>তোমার নাম</b><input class="name" id="stuName" type="text" maxlength="80" placeholder="তোমার নাম লেখো" autocomplete="name"></label>
 <p class="center"><button class="btn btn-y" id="btnStart">পরীক্ষা শুরু করো →</button></p>
-<p class="center mut" style="font-size:14px;margin-top:10px">এটি একটি ডেমো সেট — ভৌত জগৎ ও পরিমাপ (HSC ১ম পত্র)। Google Form-এর সেটটি আগের মতোই চালু আছে।</p>
 </div>
 
 <div class="state" id="stExam" style="margin:26px auto 40px">
@@ -100,13 +110,14 @@ footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
 <p class="center score-big" id="resScore"></p>
 <p class="center mut" id="resMeta"></p>
 <p class="center save-note" id="saveNote"></p>
+<div class="board" id="boardBox" style="display:none"><h3>🏆 লিডারবোর্ড</h3><p class="cnt" id="boardCnt"></p><div id="boardList"></div></div>
 <div id="reviewList" style="margin-top:22px"></div>
 <p class="center" style="margin-top:20px"><button class="btn btn-y" onclick="location.reload()">আবার পরীক্ষা দাও ↻</button> <a class="btn btn-g" href="exams.html">সব পরীক্ষা দেখো</a></p>
 </div>
 
 <div class="modal" id="cfm"><div class="modal-box"><h3>জমা দিতে চাও?</h3><p class="mut" id="cfmText"></p><div class="row"><button class="btn" id="cfmNo" style="background:#eef4f1;color:var(--ink)">না, ফিরে যাই</button><button class="btn btn-y" id="cfmYes">হ্যাঁ, জমা দাও ✓</button></div></div></div>
 </main>
-<footer>A Physicist's Perspective — টাইমার ডেমো • প্রশ্নের উৎস: Firebase Firestore (<span style="font-family:Inter">exams/hsc1-physical-world</span>)</footer>
+<footer>A Physicist's Perspective</footer>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script>
@@ -118,6 +129,7 @@ var CFG={apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists
 var EXAM_ID="hsc1-physical-world";
 var BN="০১২৩৪৫৬৭৮৯";
 function bn(n){ return String(n).replace(/[0-9]/g,function(d){return BN[+d]}); }
+function renderMath(el){ try{ if(el&&window.renderMathInElement){ renderMathInElement(el,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"$$",right:"$$",display:true}],throwOnError:false}); } }catch(e){} }
 function show(id){ ["stLoad","stError","stStart","stExam","stResult"].forEach(function(s){ document.getElementById(s).classList.toggle("on", s===id); }); window.scrollTo({top:0}); }
 function fail(msg){ document.getElementById("errMsg").textContent=msg; show("stError"); }
 var db, EXAM=null, answers=[], startedAt=0, endAt=0, tick=null, submitted=false;
@@ -158,7 +170,7 @@ function renderExam(){
     });
     div.appendChild(opts); host.appendChild(div);
   });
-  updCount();
+  updCount(); renderMath(host);
 }
 function answered(){ return answers.filter(function(a){return a>=0}).length; }
 function updCount(){ document.getElementById("ansCount").textContent=bn(answered())+"/"+bn(EXAM.questions.length)+" উত্তর হয়েছে"; document.getElementById("tprogFill").style.width=(answered()/EXAM.questions.length*100)+"%"; }
@@ -190,11 +202,36 @@ function submitExam(auto){
     });
     div.appendChild(opts); host.appendChild(div);
   });
+  renderMath(host);
   show("stResult");
   var note=document.getElementById("saveNote"); note.textContent="ফলাফল সেভ হচ্ছে…";
-  db.collection("examResults").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,usedSec:usedSec,answers:answers,ts:firebase.firestore.FieldValue.serverTimestamp()})
-    .then(function(){ note.textContent="✓ ফলাফল Firebase-এ জমা হয়েছে — শিক্ষক দেখতে পারবেন।"; note.style.color="#0a7a4b"; })
-    .catch(function(e){ note.textContent="ফলাফল Firebase-এ জমা হয়নি ("+(e&&e.code?e.code:"error")+") — তবে তোমার স্কোর উপরে ঠিকই দেখা যাচ্ছে।"; note.style.color="#b42318"; });
+  var TS=firebase.firestore.FieldValue.serverTimestamp();
+  db.collection("examResults").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,usedSec:usedSec,answers:answers,ts:TS}).catch(function(){});
+  db.collection("examBoard").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,ts:TS})
+    .then(function(ref){ note.textContent="✓ ফলাফল সংরক্ষিত হয়েছে"; note.style.color="#0a7a4b"; loadBoard(ref.id); })
+    .catch(function(e){ note.textContent="ফলাফল সংরক্ষণ হয়নি ("+(e&&e.code?e.code:"error")+")"; note.style.color="#b42318"; });
+}
+function loadBoard(myId){
+  db.collection("examBoard").where("examId","==",EXAM_ID).get().then(function(snap){
+    var rows=[];
+    snap.forEach(function(doc){ var d=doc.data(); rows.push({id:doc.id,name:d.name,score:d.score,total:d.total,pct:d.pct,t:(d.ts&&d.ts.toMillis)?d.ts.toMillis():Date.now()}); });
+    rows.sort(function(a,b){ if(b.score!==a.score) return b.score-a.score; if(a.t!==b.t) return a.t-b.t; return a.name<b.name?-1:1; });
+    var box=document.getElementById("boardBox"), list=document.getElementById("boardList");
+    document.getElementById("boardCnt").textContent="মোট "+bn(rows.length)+" জন পরীক্ষার্থী";
+    list.innerHTML="";
+    var medals=["🥇","🥈","🥉"], myRank=-1;
+    rows.forEach(function(r,i){ if(r.id===myId) myRank=i; });
+    function rowEl(r,i){
+      var div=document.createElement("div"); div.className="brow"+(r.id===myId?" me":"");
+      var rk=document.createElement("span"); rk.className="rk"; rk.textContent=(i<3?medals[i]:bn(i+1));
+      var nm=document.createElement("span"); nm.className="nm"; nm.textContent=r.name+(r.id===myId?" (তুমি)":"");
+      var sc=document.createElement("span"); sc.className="sc"; sc.textContent=bn(r.score)+"/"+bn(r.total)+" • "+bn(r.pct)+"%";
+      div.appendChild(rk); div.appendChild(nm); div.appendChild(sc); return div;
+    }
+    rows.slice(0,10).forEach(function(r,i){ list.appendChild(rowEl(r,i)); });
+    if(myRank>=10){ var sep=document.createElement("p"); sep.className="cnt"; sep.textContent="···"; list.appendChild(sep); list.appendChild(rowEl(rows[myRank],myRank)); }
+    box.style.display="block";
+  }).catch(function(){});
 }
 function askSubmit(){ document.getElementById("cfmText").textContent="উত্তর "+bn(answered())+"/"+bn(EXAM.questions.length)+"টি দেওয়া হয়েছে। জমা দিলে আর বদলানো যাবে না।"; document.getElementById("cfm").classList.add("on"); }
 document.getElementById("btnSubmit").addEventListener("click",askSubmit);
