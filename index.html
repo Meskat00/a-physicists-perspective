@@ -252,6 +252,10 @@ a.xp-chap:hover{background:linear-gradient(120deg,var(--g2),var(--g3));color:#ff
 .xp-chaps.show .xp-note{opacity:1;transition-delay:var(--d,0ms)}
 .xp-all{text-align:center;margin-top:14px;font-family:'Hind Siliguri',sans-serif}
 .xp-all a{font-weight:700;color:#0e5c3f}
+.xp-live{display:inline-flex;align-items:center;gap:5px;margin-top:7px;font-size:11.5px;font-weight:800;color:#0e7a4a;background:#e7f6ee;border:1px solid #bfe8d2;padding:2.5px 9px;border-radius:99px;font-family:'Hind Siliguri',sans-serif;transition:color .3s,background .3s,border-color .3s}
+.xp-live i{width:6px;height:6px;border-radius:50%;background:#12b76a;flex:none}
+.xp-level:hover .xp-live,.xp-level.on .xp-live{color:#fff;background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35)}
+.xp-level:hover .xp-live i,.xp-level.on .xp-live i{background:#fff}
 @media(max-width:560px){.xp-level{padding:10px}.xp-level b{font-size:15.5px}.xp-level small{display:none}}
 @media(prefers-reduced-motion:reduce){.xp-level,.xp-chap,.xp-note{transition:none!important;opacity:1!important;transform:none!important}.xp-root::after,.xp-level::after{animation:none!important}}
 </style>
@@ -598,6 +602,7 @@ var HSC21=["ভৌত জগৎ ও পরিমাপ","ভেক্টর","�
 var SSC14=["ভৌত রাশি এবং পরিমাপ","গতি","বল","কাজ, ক্ষমতা ও শক্তি","পদার্থের অবস্থা ও চাপ","বস্তুর ওপর তাপের প্রভাব","তরঙ্গ ও শব্দ","আলোর প্রতিফলন","আলোর প্রতিসরণ","স্থির বিদ্যুৎ","চল বিদ্যুৎ","বিদ্যুতের চৌম্বক ক্রিয়া","আধুনিক পদার্থবিজ্ঞান ও ইলেকট্রনিক্স","জীবন বাঁচাতে পদার্থবিজ্ঞান"];
 function C(n,href,badge,soon){return{n:n,href:href||null,badge:badge||null,soon:!!soon}}
 function SL(names,href){return names.map(function(n){return C(n,href,null,true)})}
+function BN(n){return String(n).replace(/[0-9]/g,function(d){return "০১২৩৪৫৬৭৮৯"[+d]})}
 var HSC1PAGES={"ভৌত জগৎ ও পরিমাপ":"chapter-physical-world.html","গতিবিদ্যা":"chapter-dynamics.html","কাজ, শক্তি ও ক্ষমতা":"chapter-work-energy.html","মহাকর্ষ ও অভিকর্ষ":"chapter-gravitation.html","পদার্থের গাঠনিক ধর্ম":"chapter-structural.html","পর্যাবৃত্ত গতি":"chapter-periodic.html","তরঙ্গ":"chapter-waves.html","আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব":"chapter-ideal-gas.html"};
 var HSC2PAGES={"তাপগতিবিদ্যা":"chapter-thermodynamics.html","স্থির তড়িৎ":"chapter-electrostatics.html","চল তড়িৎ":"chapter-current.html","তড়িৎ প্রবাহের চৌম্বক ক্রিয়া ও চুম্বকত্ব":"chapter-magnetism.html","তাড়িতচুম্বকীয় আবেশ ও পরিবর্তী প্রবাহ":"chapter-induction-ac.html","জ্যামিতিক আলোকবিজ্ঞান":"chapter-geometric-optics.html","ভৌত আলোকবিজ্ঞান":"chapter-physical-optics.html","আধুনিক পদার্থবিজ্ঞানের সূচনা":"chapter-modern-physics.html","পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান":"chapter-nuclear.html","সেমিকন্ডাক্টর ও ইলেকট্রনিক্স":"chapter-semiconductor.html","জ্যোতির্বিজ্ঞান":"chapter-astronomy.html"}; var SSCPAGES={"ভৌত রাশি এবং পরিমাপ":"chapter-ssc-measurement.html","গতি":"chapter-ssc-motion.html","বল":"chapter-ssc-force.html","কাজ, ক্ষমতা ও শক্তি":"chapter-ssc-work-energy.html","পদার্থের অবস্থা ও চাপ":"chapter-ssc-pressure.html","বস্তুর ওপর তাপের প্রভাব":"chapter-ssc-heat.html","তরঙ্গ ও শব্দ":"chapter-ssc-waves-sound.html","আলোর প্রতিফলন":"chapter-ssc-reflection.html","আলোর প্রতিসরণ":"chapter-ssc-refraction.html","স্থির বিদ্যুৎ":"chapter-ssc-static-electricity.html","চল বিদ্যুৎ":"chapter-ssc-current-electricity.html","বিদ্যুতের চৌম্বক ক্রিয়া":"chapter-ssc-magnetism.html","আধুনিক পদার্থবিজ্ঞান ও ইলেকট্রনিক্স":"chapter-ssc-modern-electronics.html","জীবন বাঁচাতে পদার্থবিজ্ঞান":"chapter-ssc-physics-in-life.html"}; function sscExams(){return SSC14.map(function(n){if(SSCPAGES[n])return C(n,SSCPAGES[n],"১ সেট");return C(n,"exams.html#ssc",null,true)})} function hscExams(){return HSC21.map(function(n){
   if(n==="ভেক্টর")return C(n,"chapter-vector.html","২০ সেট");
@@ -629,12 +634,13 @@ var PF={};
 document.querySelectorAll("[data-xp]").forEach(function(mount){
   var cfg=XP[mount.getAttribute("data-xp")]; if(!cfg)return;
   mount.innerHTML='<button class="xp-root" type="button" aria-expanded="false"><span class="xp-ic">'+cfg.icon+'</span><span class="xp-rt"><b>'+cfg.name+'</b><small>'+cfg.bn+' • '+cfg.meta+'</small></span><span class="xp-arrow">▾</span></button>'
-   +'<div class="xp-levels" hidden>'+cfg.order.map(function(L){return '<button class="xp-level" type="button" data-lv="'+L+'"><b>'+L+'</b><small>'+cfg.levels[L].desc+'</small></button>'}).join("")+'</div>'
+   +'<div class="xp-levels" hidden>'+cfg.order.map(function(L){var lc=cfg.levels[L].chapters.filter(function(c){return c.href&&!c.soon}).length;return '<button class="xp-level" type="button" data-lv="'+L+'"><b>'+L+'</b><small>'+cfg.levels[L].desc+'</small>'+(lc?'<span class="xp-live"><i></i>'+BN(lc)+'টি অধ্যায় live</span>':'')+'</button>'}).join("")+'</div>'
    +'<div class="xp-chaps" hidden></div>';
   var root=mount.querySelector(".xp-root"),levels=mount.querySelector(".xp-levels"),chaps=mount.querySelector(".xp-chaps");
   var open=false,curLv=null;
   function showChaps(L){
     curLv=L;
+    try{localStorage.setItem("xp_lv_"+mount.getAttribute("data-xp"),L)}catch(e){}
     levels.querySelectorAll(".xp-level").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-lv")===L)});
     var list=cfg.levels[L].chapters;
     chaps.innerHTML='<div class="xp-chaphead">'+L+' — অধ্যায় বেছে নাও</div><div class="xp-grid">'+list.map(function(c,i){
@@ -647,7 +653,7 @@ document.querySelectorAll("[data-xp]").forEach(function(mount){
     requestAnimationFrame(function(){requestAnimationFrame(function(){chaps.classList.add("show")})});
   }
   var hoverable=window.matchMedia("(hover:hover)").matches, closeTimer=null, pointerInside=false;
-  function openXp(){if(open)return;open=true;root.setAttribute("aria-expanded","true");mount.classList.add("open");levels.hidden=false;requestAnimationFrame(function(){levels.classList.add("show")});if(!curLv)showChaps("HSC");cfg.order.forEach(function(k){cfg.levels[k].chapters.forEach(function(c){if(c.href){var base=c.href.split("#")[0];if(base&&!PF[base]){PF[base]=1;var l=document.createElement("link");l.rel="prefetch";l.href=base;document.head.appendChild(l)}}})});}
+  function openXp(){if(open)return;open=true;root.setAttribute("aria-expanded","true");mount.classList.add("open");levels.hidden=false;requestAnimationFrame(function(){levels.classList.add("show")});if(!curLv){var sv=null;try{sv=localStorage.getItem("xp_lv_"+mount.getAttribute("data-xp"))}catch(e){}showChaps(sv&&cfg.levels[sv]?sv:"HSC");}cfg.order.forEach(function(k){cfg.levels[k].chapters.forEach(function(c){if(c.href){var base=c.href.split("#")[0];if(base&&!PF[base]){PF[base]=1;var l=document.createElement("link");l.rel="prefetch";l.href=base;document.head.appendChild(l)}}})});}
   function closeXp(){if(!open)return;open=false;root.setAttribute("aria-expanded","false");mount.classList.remove("open");levels.classList.remove("show");chaps.classList.remove("show");setTimeout(function(){levels.hidden=true;chaps.hidden=true},300);}
   if(hoverable){
     mount.addEventListener("pointerenter",function(){pointerInside=true;if(closeTimer){clearTimeout(closeTimer);closeTimer=null}openXp();});
