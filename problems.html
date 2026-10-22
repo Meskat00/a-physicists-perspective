@@ -242,8 +242,25 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 @media(max-width:560px){.fq-card{min-height:520px}}
 @media(prefers-reduced-motion:reduce){.fq-card{transition-duration:.05s}.fq-opt,.fq-chip{transition:none}}
 @media print{.fq-sec{display:none}}
+.fq-chip{position:relative;overflow:hidden;z-index:0}
+.fq-chip::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.65) 48%,transparent 62%);transform:translateX(-130%);transition:transform .65s ease;pointer-events:none}
+.fq-chip:hover{background:linear-gradient(135deg,#e6f8ee,#fdf3cd)}
+.fq-chip:hover::after{transform:translateX(130%)}
+.fq-opt{position:relative;overflow:hidden}
+.fq-opt>*{position:relative;z-index:1}
+.fq-opt::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.7) 48%,transparent 62%);transform:translateX(-130%);transition:transform .7s ease;pointer-events:none;z-index:0}
+.fq-opt:hover{background:linear-gradient(120deg,#e9faf0,#fff8db)}
+.fq-opt:hover::after{transform:translateX(130%)}
+.fq-face.front{transition:box-shadow .45s ease}
+.fq-face.front::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.5) 48%,transparent 62%);transform:translateX(-130%);transition:transform .9s ease;pointer-events:none}
+.fq-deck:hover .fq-face.front{box-shadow:0 30px 65px -18px rgba(10,42,32,.4),0 0 48px -6px rgba(18,183,106,.5),inset 0 1px 0 #fff}
+.fq-deck:hover .fq-face.front::after{transform:translateX(130%)}
+.fq-btn.main{position:relative;overflow:hidden}
+.fq-btn.main::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.75) 48%,transparent 62%);transform:translateX(-130%);transition:transform .65s ease;pointer-events:none}
+.fq-btn.main:hover::after{transform:translateX(130%)}
+.katex{font-size:1.07em}
 </style>
-</head><body>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script></head><body>
 <div id="pbar"></div><nav><div class="wrap nav-in">
 <a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>by Meskat • SSC • HSC • Admission</small></a>
 <div class="nav-links"><a href="index.html">🏠 হোম</a><a href="exams.html">📝 পরীক্ষা</a><a href="lectures.html">🎬 লেকচার</a><a href="problems.html">🧩 সমস্যা</a><a href="about.html">👨‍🏫 সম্পর্কে</a></div>
@@ -251,7 +268,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 <header class="hero"><div class="wrap hero-in">
 <span class="chalk">One problem at a time ✎</span>
 <h1>🧩 সমস্যা অনুশীলনী</h1>
-<p class="sub">একটা করে সমস্যা ধরে প্র্যাকটিস — নিজে চেষ্টা করে তারপর উত্তর মেলাও। প্রতিটি সমস্যার উৎস সেটের লিংক দেওয়া আছে; যেসব সমস্যার ভিডিও ব্যাখ্যা এখনো আসেনি, সেটা পরিষ্কার করে লেখা আছে।</p>
+<p class="sub">ক্লাস, অধ্যায় আর টপিক বেছে নাও — তারপর ফ্লিপ-কার্ডে নিজে উত্তর ভেবে click করো। কার্ডটি পৃষ্ঠা ওল্টানোর মতো উল্টে গিয়ে সঠিক উত্তর আর ব্যাখ্যা দেখিয়ে দেবে।</p>
 </div></header>
 <main class="wrap">
 <section class="fq-sec" id="flipPractice">
@@ -265,110 +282,9 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
   <div id="fqArea"></div>
  </div>
 </section>
-<section style="padding-top:30px">
-<div class="filters" id="pFilters"></div><div class="count-line" id="pCount"></div>
-<div class="grid" id="pGrid"><article class="card prob" data-topic="ভেক্টরের ভিত্তি">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">ভেক্টরের ভিত্তি</span><span class="badge b-y">সেট ১ • প্রশ্ন 1</span></div>
-    <h3>𝐀 = 3î + 4ĵ ভেক্টরের একক ভেক্টর কোনটি?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) (3/5)î + (4/5)ĵ</div><div style='padding:4px 0'>খ) (4/5)î + (3/5)ĵ</div><div style='padding:4px 0'>গ) 3î + 4ĵ</div><div style='padding:4px 0'>ঘ) (1/5)î + (1/5)ĵ</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>ক) (3/5)î + (4/5)ĵ</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="ভেক্টরের ভিত্তি">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">ভেক্টরের ভিত্তি</span><span class="badge b-y">সেট ১ • প্রশ্ন 2</span></div>
-    <h3>নিচের কোনটি স্কেলার রাশি?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) বেগ</div><div style='padding:4px 0'>খ) বল</div><div style='padding:4px 0'>গ) কাজ</div><div style='padding:4px 0'>ঘ) ত্বরণ</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>গ) কাজ</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="ভেক্টরের ভিত্তি">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">ভেক্টরের ভিত্তি</span><span class="badge b-y">সেট ১ • প্রশ্ন 3</span></div>
-    <h3>শূন্য ভেক্টরের মান কত?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 1</div><div style='padding:4px 0'>খ) 0</div><div style='padding:4px 0'>গ) অসীম</div><div style='padding:4px 0'>ঘ) অনির্ণেয়</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>খ) 0</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="লব্ধি">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">লব্ধি</span><span class="badge b-y">সেট ১ • প্রশ্ন 4</span></div>
-    <h3>দুটি সমান মানের বল কত কোণে ক্রিয়া করলে লব্ধির মান প্রতিটি বলের √3 গুণ হবে?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 30°</div><div style='padding:4px 0'>খ) 45°</div><div style='padding:4px 0'>গ) 60°</div><div style='padding:4px 0'>ঘ) 90°</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>গ) 60°</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="লব্ধি">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">লব্ধি</span><span class="badge b-y">সেট ১ • প্রশ্ন 5</span></div>
-    <h3>|𝐀 + 𝐁| = |𝐀 − 𝐁| হলে 𝐀 ও 𝐁 এর মধ্যবর্তী কোণ কত?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 0°</div><div style='padding:4px 0'>খ) 45°</div><div style='padding:4px 0'>গ) 90°</div><div style='padding:4px 0'>ঘ) 180°</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>গ) 90°</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="উপাংশ">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">উপাংশ</span><span class="badge b-y">সেট ১ • প্রশ্ন 6</span></div>
-    <h3>10 N বল অনুভূমিকের সাথে 30° কোণে ক্রিয়া করলে এর অনুভূমিক উপাংশ কত?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 5 N</div><div style='padding:4px 0'>খ) 5√3 N</div><div style='padding:4px 0'>গ) 10 N</div><div style='padding:4px 0'>ঘ) 10√3 N</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>খ) 5√3 N</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="উপাংশ">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">উপাংশ</span><span class="badge b-y">সেট ১ • প্রশ্ন 7</span></div>
-    <h3>6î + 8ĵ ভেক্টরটি x-অক্ষের সাথে কত কোণে আনত?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) cos⁻¹(3/5)</div><div style='padding:4px 0'>খ) cos⁻¹(4/5)</div><div style='padding:4px 0'>গ) 30°</div><div style='padding:4px 0'>ঘ) 45°</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>ক) cos⁻¹(3/5)</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="আপেক্ষিক বেগ">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">আপেক্ষিক বেগ</span><span class="badge b-y">সেট ১ • প্রশ্ন 8</span></div>
-    <h3>নৌকার বেগ 4 km/h, নদীর স্রোত 3 km/h। 2 km চওড়া নদী সর্বনিম্ন সময়ে পার হতে কত সময় লাগবে?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 0.5 hr</div><div style='padding:4px 0'>খ) 1 hr</div><div style='padding:4px 0'>গ) 1.5 hr</div><div style='padding:4px 0'>ঘ) 2 hr</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>ক) 0.5 hr</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="ডট গুণন">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">ডট গুণন</span><span class="badge b-y">সেট ১ • প্রশ্ন 9</span></div>
-    <h3>𝐀 = 2î + 3ĵ ও 𝐁 = î − ĵ হলে 𝐀·𝐁 = ?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 5</div><div style='padding:4px 0'>খ) −1</div><div style='padding:4px 0'>গ) 1</div><div style='padding:4px 0'>ঘ) −5</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>খ) −1</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="ডট গুণন">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">ডট গুণন</span><span class="badge b-y">সেট ১ • প্রশ্ন 10</span></div>
-    <h3>দুটি ভেক্টরের ডট গুণফল শূন্য হলে তারা—</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) পরস্পর লম্ব</div><div style='padding:4px 0'>খ) পরস্পর সমান্তরাল</div><div style='padding:4px 0'>গ) পরস্পর বিপরীতমুখী</div><div style='padding:4px 0'>ঘ) সমান</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>ক) পরস্পর লম্ব</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="ডট গুণন">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">ডট গুণন</span><span class="badge b-y">সেট ১ • প্রশ্ন 11</span></div>
-    <h3>𝐅 = 5î + 2ĵ N বলের ক্রিয়ায় বস্তুর সরণ 𝐫 = 2î + 3ĵ m হলে কৃত কাজ কত?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 10 J</div><div style='padding:4px 0'>খ) 16 J</div><div style='padding:4px 0'>গ) 6 J</div><div style='padding:4px 0'>ঘ) 20 J</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>খ) 16 J</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="ক্রস গুণন">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">ক্রস গুণন</span><span class="badge b-y">সেট ১ • প্রশ্ন 12</span></div>
-    <h3>î × ĵ = ?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 0</div><div style='padding:4px 0'>খ) k̂</div><div style='padding:4px 0'>গ) −k̂</div><div style='padding:4px 0'>ঘ) î</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>খ) k̂</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="ক্রস গুণন">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">ক্রস গুণন</span><span class="badge b-y">সেট ১ • প্রশ্ন 13</span></div>
-    <h3>𝐫 = 2î m অবস্থান ভেক্টরে 𝐅 = 3ĵ N বল প্রয়োগে টর্ক কত?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 6k̂ N·m</div><div style='padding:4px 0'>খ) −6k̂ N·m</div><div style='padding:4px 0'>গ) 5k̂ N·m</div><div style='padding:4px 0'>ঘ) 0</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>ক) 6k̂ N·m</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="ক্রস গুণন">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">ক্রস গুণন</span><span class="badge b-y">সেট ১ • প্রশ্ন 14</span></div>
-    <h3>𝐀 = 2î ও 𝐁 = 3ĵ দ্বারা গঠিত সামান্তরিকের ক্ষেত্রফল কত?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 5</div><div style='padding:4px 0'>খ) 6</div><div style='padding:4px 0'>গ) 12</div><div style='padding:4px 0'>ঘ) 1</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>খ) 6</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article><article class="card prob" data-topic="ভেক্টর ক্যালকুলাস">
-    <div class="row"><span class="badge b-b">ভেক্টর</span><span class="badge b-g">ভেক্টর ক্যালকুলাস</span><span class="badge b-y">সেট ১ • প্রশ্ন 15</span></div>
-    <h3>অবস্থান ভেক্টর 𝐫 হলে 𝛁·𝐫 = ?</h3><div style="font-size:15.5px"><div style='padding:4px 0'>ক) 0</div><div style='padding:4px 0'>খ) 1</div><div style='padding:4px 0'>গ) 3</div><div style='padding:4px 0'>ঘ) r</div></div>
-    <details class="ans"><summary>উত্তর দেখো</summary><p style="margin-top:6px">✅ সঠিক উত্তর: <b>গ) 3</b></p></details>
-    <div class="paper">🎬 <b>ভিডিও ব্যাখ্যা:</b> এখনো প্রকাশিত হয়নি — নতুন চ্যানেলে ভিডিও এলে টাইমস্ট্যাম্পসহ এখানে যুক্ত হবে।<br>
-    📝 <b>উৎস সেট:</b> <a href="https://docs.google.com/forms/d/e/1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform" target="_blank" rel="noopener">ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)</a> — পুরো সেটটা পরীক্ষা হিসেবে দিতে পারো।</div>
-    </article></div>
-</section></main><footer><div class="wrap"><p><b style="color:var(--ink)">A PHYSICIST'S PERSPECTIVE</b> — by Meskat</p>
+</main><footer><div class="wrap"><p><b style="color:var(--ink)">A PHYSICIST'S PERSPECTIVE</b> — by Meskat</p>
 <p class="fclock">🕙 বাংলাদেশ সময়: <span class="dhakaclock">—</span></p></div></footer>
-<script>
-const topics=["সব","ভেক্টরের ভিত্তি","লব্ধি","উপাংশ","আপেক্ষিক বেগ","ডট গুণন","ক্রস গুণন","ভেক্টর ক্যালকুলাস"];
-let cur="সব";const pf=document.querySelector("#pFilters");
-function draw(){pf.innerHTML=topics.map(t=>`<button class="fbtn ${t===cur?'on':''}" data-t="${t}">${t}</button>`).join("");
-document.querySelectorAll("#pFilters .fbtn").forEach(b=>b.onclick=()=>{cur=b.dataset.t;draw()});
-let n=0;document.querySelectorAll(".prob").forEach(c=>{const show=cur==="সব"||c.dataset.topic===cur;c.style.display=show?"":"none";if(show)n++});
-document.querySelector("#pCount").textContent=n+"টি সমস্যা দেখাচ্ছে • অধ্যায়: ভেক্টর (আরো অধ্যায় আসছে)";}
-draw();
-</script><nav class="tabbar" aria-label="দ্রুত নেভিগেশন">
+<nav class="tabbar" aria-label="দ্রুত নেভিগেশন">
 <a href="index.html">🏠<br>হোম</a><a href="exams.html">📝<br>পরীক্ষা</a><a href="lectures.html">🎬<br>লেকচার</a><a href="problems.html">🧩<br>সমস্যা</a><a href="about.html">👨‍🏫<br>সম্পর্কে</a>
 </nav>
 <script>
@@ -444,10 +360,10 @@ if("requestIdleCallback" in window){requestIdleCallback(go,{timeout:3000});}else
    {q:"প্রশ্ন", opts:["ক-এর লেখা","খ","গ","ঘ"], ans:সঠিক_index(0-3), why:"ব্যাখ্যা"} যোগ করো ===== */
 const FQ_TOPICS_VECTOR = ["ভেক্টরের ভিত্তি","লব্ধি","উপাংশ","ডট গুণন","ক্রস গুণন","আপেক্ষিক বেগ","ভেক্টর ক্যালকুলাস"];
 const FQ_Q_VECTOR_BASICS = [
- {q:"𝐀 = 3î + 4ĵ ভেক্টরের একক ভেক্টর কোনটি?",
-  opts:["(3/5)î + (4/5)ĵ","(4/5)î + (3/5)ĵ","3î + 4ĵ","(1/5)î + (1/5)ĵ"],
+ {q:"\\(\\vec{A} = 3\\hat{i} + 4\\hat{j}\\) ভেক্টরের একক ভেক্টর কোনটি?",
+  opts:["\\(\\frac{3}{5}\\hat{i} + \\frac{4}{5}\\hat{j}\\)","\\(\\frac{4}{5}\\hat{i} + \\frac{3}{5}\\hat{j}\\)","\\(3\\hat{i} + 4\\hat{j}\\)","\\(\\frac{1}{5}\\hat{i} + \\frac{1}{5}\\hat{j}\\)"],
   ans:0,
-  why:"|𝐀| = √(3² + 4²) = √25 = 5। তাই একক ভেক্টর <b>â = 𝐀 / |𝐀|</b> = (3î + 4ĵ)/5 = (3/5)î + (4/5)ĵ।"}
+  why:"\\(|\\vec{A}| = \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5\\)। তাই একক ভেক্টর \\(\\hat{a} = \\frac{\\vec{A}}{|\\vec{A}|} = \\frac{3\\hat{i} + 4\\hat{j}}{5} = \\frac{3}{5}\\hat{i} + \\frac{4}{5}\\hat{j}\\)।"}
 ];
 const FQ_DATA = {
  "SSC":{chapters:["ভৌত রাশি এবং পরিমাপ","গতি","বল","কাজ, ক্ষমতা ও শক্তি","পদার্থের অবস্থা ও চাপ","বস্তুর ওপর তাপের প্রভাব","তরঙ্গ ও শব্দ","আলোর প্রতিফলন","আলোর প্রতিসরণ","স্থির বিদ্যুৎ","চল বিদ্যুৎ","বিদ্যুতের চৌম্বক ক্রিয়া","আধুনিক পদার্থবিজ্ঞান ও ইলেকট্রনিক্স","জীবন বাঁচাতে পদার্থবিজ্ঞান"],topics:{},questions:{}},
@@ -457,6 +373,7 @@ const FQ_DATA = {
 };
 (function(){
  const LET=["ক","খ","গ","ঘ"];
+ function fqMath(el){ if(!el||!window.renderMathInElement)return; try{ renderMathInElement(el,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"$$",right:"$$",display:true}],throwOnError:false}); }catch(e){} }
  const $=id=>document.getElementById(id);
  let cls=null,ch=null,tp=null,idx=0,score=0,done=new Set();
  function chips(box,items,onPick,sel){
@@ -471,14 +388,14 @@ const FQ_DATA = {
  function renderChapters(){ $("fqStepCh").classList.remove("fq-hidden"); chips($("fqChapters"),FQ_DATA[cls].chapters,n=>{ch=n;tp=null;idx=0;score=0;done=new Set();renderChapters();renderTopics();$("fqArea").innerHTML="";},ch); }
  function renderTopics(){
    const tps=FQ_DATA[cls].topics[ch];
-   if(!tps){ $("fqStepTp").classList.remove("fq-hidden"); $("fqTopics").innerHTML=""; $("fqArea").innerHTML='<div class="fq-empty">🚧 এই অধ্যায়ের টপিকগুলো শীঘ্রই যোগ হচ্ছে — ততক্ষণে নিচের সমস্যাগুলো প্র্যাকটিস করো।</div>'; return; }
+   if(!tps){ $("fqStepTp").classList.remove("fq-hidden"); $("fqTopics").innerHTML=""; $("fqArea").innerHTML='<div class="fq-empty">🚧 এই অধ্যায়ের টপিকগুলো শীঘ্রই যোগ হচ্ছে — টপিক যোগ হলেই এখানে প্রশ্নের কার্ড আসবে।</div>'; return; }
    $("fqStepTp").classList.remove("fq-hidden");
    chips($("fqTopics"),tps,n=>{tp=n;idx=0;score=0;done=new Set();renderTopics();renderDeck();},tp);
  }
  function qs(){ return ((FQ_DATA[cls].questions[ch]||{})[tp])||[]; }
  function renderDeck(){
    const area=$("fqArea"), list=qs();
-   if(!list.length){ area.innerHTML='<div class="fq-stage"><div class="fq-empty">✍️ এই টপিকে এখনো ফ্লিপ-কার্ড প্রশ্ন যোগ হয়নি — শীঘ্রই আসছে। নিচের সমস্যা অনুশীলনীতে এই অধ্যায়ের লিখিত সমস্যা পাবে।</div></div>'; return; }
+   if(!list.length){ area.innerHTML='<div class="fq-stage"><div class="fq-empty">✍️ এই টপিকে এখনো ফ্লিপ-কার্ড প্রশ্ন যোগ হয়নি — শীঘ্রই আসছে। প্রশ্ন যোগ হলেই এখানে কার্ড দেখা যাবে।</div></div>'; return; }
    const item=list[idx], total=list.length;
    area.innerHTML=
    '<div class="fq-stage"><div class="fq-deck"><div class="fq-card" id="fqCard">'+
@@ -489,6 +406,7 @@ const FQ_DATA = {
      '<div class="fq-face back" id="fqBack"></div>'+
    '</div></div>'+
    '<div class="fq-bar"><span>প্রশ্ন '+(idx+1)+' / '+total+'</span><div class="fq-prog"><i style="width:'+(total?((idx)/total)*100:0)+'%"></i></div><span class="fq-score">✅ স্কোর: '+score+' / '+total+'</span></div></div>';
+   fqMath(area);
    area.querySelectorAll(".fq-opt").forEach(btn=>btn.addEventListener("click",()=>{
      if(area.querySelector(".fq-card").classList.contains("flipped"))return;
      const pick=+btn.dataset.i;
@@ -504,6 +422,7 @@ const FQ_DATA = {
        '<div class="fq-backbtns"><button type="button" class="fq-btn main" id="fqAgain">🔁 কার্ডটি আবার দেখো</button>'+
        (idx<total-1?'<button type="button" class="fq-btn ghost" id="fqNext">পরের প্রশ্ন →</button>':'')+
        (idx>0?'<button type="button" class="fq-btn ghost" id="fqPrev">← আগের প্রশ্ন</button>':'')+'</div>';
+       fqMath(back);
        area.querySelector(".fq-card").classList.add("flipped");
        const sc=area.querySelector(".fq-score"); if(sc)sc.textContent="✅ স্কোর: "+score+" / "+total;
        const ag=$("fqAgain"); if(ag)ag.addEventListener("click",()=>renderDeck());
