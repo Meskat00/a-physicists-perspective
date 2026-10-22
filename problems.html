@@ -204,10 +204,10 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 .fq-deck::before,.fq-deck::after{content:"";position:absolute;inset:0;border-radius:24px;background:#e8f3ec;border:1px solid var(--line)}
 .fq-deck::before{transform:rotate(-1.6deg) translateY(7px)}
 .fq-deck::after{transform:rotate(1.3deg) translateY(13px);background:#dcebe1}
-.fq-card{position:relative;z-index:2;width:100%;min-height:460px;transform-style:preserve-3d;transition:transform .95s cubic-bezier(.22,.75,.25,1)}
+.fq-card{position:relative;z-index:2;width:100%;min-height:478px;transform-style:preserve-3d;transition:transform .95s cubic-bezier(.22,.75,.25,1)}
 .fq-card.flipped{transform:rotate3d(1,1,0,180deg)}
-.fq-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:24px;padding:clamp(18px,3.6vw,30px);display:flex;flex-direction:column;background:linear-gradient(165deg,#ffffff 55%,#eef7f0);border:1.5px solid rgba(18,183,106,.35);box-shadow:0 24px 55px -18px rgba(10,42,32,.35),0 0 34px -8px rgba(18,183,106,.35),inset 0 1px 0 #fff;overflow:auto}
-.fq-face.back{transform:rotate3d(1,1,0,180deg);background:linear-gradient(165deg,#0e3a2c,#0a2a20);color:#eafff3;border-color:rgba(255,200,0,.45);box-shadow:0 24px 55px -18px rgba(10,42,32,.55),0 0 38px -6px rgba(255,200,0,.45)}
+.fq-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:24px;padding:clamp(18px,3.6vw,30px);display:flex;flex-direction:column;overflow:hidden;background-color:#ffffff;background:linear-gradient(165deg,#ffffff 55%,#eef7f0);border:1.5px solid rgba(18,183,106,.35);box-shadow:0 24px 55px -18px rgba(10,42,32,.35),0 0 34px -8px rgba(18,183,106,.35),inset 0 1px 0 #fff;overflow:auto}
+.fq-face.back{transform:rotate3d(1,1,0,180deg);background-color:#0a2a20;background:linear-gradient(165deg,#0e3a2c,#0a2a20);color:#eafff3;border-color:rgba(255,200,0,.45);box-shadow:0 24px 55px -18px rgba(10,42,32,.55),0 0 38px -6px rgba(255,200,0,.45)}
 .fq-meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
 .fq-tag{font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:#e7f6ec;color:#0a7a4b;border:1px solid rgba(18,183,106,.3)}
 .fq-tag.gold{background:#fff6d8;color:#8a6400;border-color:rgba(255,200,0,.55)}
@@ -225,7 +225,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 .fq-ansbox .al{font-size:13px;font-weight:800;letter-spacing:.08em;color:#ffdf5e;margin-bottom:6px}
 .fq-ansbox .av{font-size:clamp(18px,3.4vw,22px);font-weight:700;line-height:1.5}
 .fq-yours{margin-top:12px;font-size:15px;color:#ffd9d9}
-.fq-why{margin-top:16px;font-size:16px;line-height:1.75;color:#dff5e7}
+.fq-why{margin-top:16px;font-size:17.5px;line-height:1.8;color:#dff5e7}.fq-why .katex{font-size:1.16em}.fq-ansbox .katex{font-size:1.08em}.fq-fill{flex:1;display:flex;align-items:center;justify-content:center;color:rgba(255,223,94,.38);font-weight:700;letter-spacing:.14em;font-size:13.5px;text-align:center;padding-top:14px}
 .fq-why b{color:#ffdf5e}
 .fq-backbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:20px}
 .fq-btn{font:inherit;font-weight:800;font-size:15px;border-radius:999px;padding:11px 20px;cursor:pointer;border:1.5px solid transparent;transition:all .2s}
@@ -390,7 +390,7 @@ const FQ_DATA = {
    const tps=FQ_DATA[cls].topics[ch];
    if(!tps){ $("fqStepTp").classList.remove("fq-hidden"); $("fqTopics").innerHTML=""; $("fqArea").innerHTML='<div class="fq-empty">🚧 এই অধ্যায়ের টপিকগুলো শীঘ্রই যোগ হচ্ছে — টপিক যোগ হলেই এখানে প্রশ্নের কার্ড আসবে।</div>'; return; }
    $("fqStepTp").classList.remove("fq-hidden");
-   chips($("fqTopics"),tps,n=>{tp=n;idx=0;score=0;done=new Set();renderTopics();renderDeck();},tp);
+   chips($("fqTopics"),tps,n=>{tp=n;idx=0;score=0;done=new Set();renderTopics();renderDeck();try{$("fqArea").scrollIntoView({behavior:"smooth",block:"center"});}catch(e){}},tp);
  }
  function qs(){ return ((FQ_DATA[cls].questions[ch]||{})[tp])||[]; }
  function renderDeck(){
@@ -419,6 +419,7 @@ const FQ_DATA = {
        '<div class="fq-ansbox"><div class="al">✅ সঠিক উত্তর</div><div class="av">'+LET[item.ans]+') '+item.opts[item.ans]+'</div></div>'+
        (ok?"":'<div class="fq-yours">তুমি বেছেছিলে: '+LET[pick]+') '+item.opts[pick]+'</div>')+
        '<div class="fq-why"><b>ব্যাখ্যা:</b> '+item.why+'</div>'+
+       '<div class="fq-fill">✦ A PHYSICIST’S PERSPECTIVE ✦</div>'+
        '<div class="fq-backbtns"><button type="button" class="fq-btn main" id="fqAgain">🔁 কার্ডটি আবার দেখো</button>'+
        (idx<total-1?'<button type="button" class="fq-btn ghost" id="fqNext">পরের প্রশ্ন →</button>':'')+
        (idx>0?'<button type="button" class="fq-btn ghost" id="fqPrev">← আগের প্রশ্ন</button>':'')+'</div>';
