@@ -416,6 +416,8 @@ body.has-cursor #curDot{display:block}
 #filters,#resultLine,#moreBtn{display:none !important}
 
 .jgrid{align-items:start}.jcard{height:auto}
+
+.story>.pcol{display:flex;flex-direction:column;min-width:0}.pcap{margin-top:16px;text-align:center;font-size:12px}
 </style>
 </head>
 
@@ -528,10 +530,12 @@ body.has-cursor #curDot{display:block}
         <h2>The person<br>behind the <em>perspective</em></h2>
       </div>
       <div class="story">
+        <div class="pcol">
         <div class="portrait rv">
           <svg viewBox="0 0 930 1200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="pglow2" cx=".5" cy=".28" r=".65"><stop offset="0" stop-color="#FF5A1F" stop-opacity=".30"/><stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/></radialGradient></defs><rect width="930" height="1200" fill="#101013"/><rect width="930" height="1200" fill="url(#pglow2)"/><g stroke="#26262b"><path d="M0 300h930M0 600h930M0 900h930M232 0v1200M465 0v1200M697 0v1200"/></g></svg>
           <img class="photo" src="meskat-tight.png" alt="Portrait of Meskat">
-          
+        </div>
+        <div class="titleline pcap rv">Aspiring Physicist <span>|</span> Learner <span>|</span> Explainer</div>
         </div>
         <div>
           <div class="story-cols rv" id="storyCols"></div>
