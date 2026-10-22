@@ -382,6 +382,7 @@ const FQ_DATA = {
 };
 (function(){
  const LET=["ক","খ","গ","ঘ"];
+ const bnN=n=>String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[d]);
  function fqMath(el){ if(!el||!window.renderMathInElement)return; try{ renderMathInElement(el,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"$$",right:"$$",display:true}],throwOnError:false}); }catch(e){} }
  const $=id=>document.getElementById(id);
  let cls=null,ch=null,tp=null,idx=0,score=0,done=new Set();
@@ -414,7 +415,7 @@ const FQ_DATA = {
      '<div class="fq-hint">💡 উত্তর বেছে নিলেই কার্ডটি উল্টে যাবে</div></div>'+
      '<div class="fq-face back" id="fqBack"></div>'+
    '</div></div>'+
-   '<div class="fq-bar"><span>প্রশ্ন '+(idx+1)+' / '+total+'</span><div class="fq-prog"><i style="width:'+(total?((idx)/total)*100:0)+'%"></i></div><span class="fq-score">✅ স্কোর: '+score+' / '+total+'</span></div></div>';
+   '<div class="fq-bar"><span>প্রশ্ন '+bnN(idx+1)+' / '+bnN(total)+'</span><div class="fq-prog"><i style="width:'+(total?((idx)/total)*100:0)+'%"></i></div><span class="fq-score">✅ স্কোর: '+bnN(score)+' / '+bnN(total)+'</span></div></div>';
    fqMath(area);
    area.querySelectorAll(".fq-opt").forEach(btn=>btn.addEventListener("click",()=>{
      if(area.querySelector(".fq-card").classList.contains("flipped"))return;
@@ -434,7 +435,7 @@ const FQ_DATA = {
        (idx>0?'<button type="button" class="fq-btn ghost" id="fqPrev">← আগের প্রশ্ন</button>':'')+'</div>';
        fqMath(back);
        area.querySelector(".fq-card").classList.add("flipped");
-       const sc=area.querySelector(".fq-score"); if(sc)sc.textContent="✅ স্কোর: "+score+" / "+total;
+       const sc=area.querySelector(".fq-score"); if(sc)sc.textContent="✅ স্কোর: "+bnN(score)+" / "+bnN(total);
        const ag=$("fqAgain"); if(ag)ag.addEventListener("click",()=>renderDeck());
        const nx=$("fqNext"); if(nx)nx.addEventListener("click",()=>{idx++;renderDeck();});
        const pv=$("fqPrev"); if(pv)pv.addEventListener("click",()=>{idx--;renderDeck();});
