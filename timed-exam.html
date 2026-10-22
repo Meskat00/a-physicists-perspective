@@ -3,7 +3,7 @@
 <meta name="description" content="Firebase থেকে প্রশ্ন লোড হওয়া টাইমার-ভিত্তিক MCQ পরীক্ষার ডেমো — 30টি প্রশ্ন, 25 মিনিট, সময় শেষে অটো-সাবমিট।">
 <link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/timed-exam.html">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏱️</text></svg>">
-<meta property="og:type" content="website"><meta property="og:title" content="টাইমার পরীক্ষা (ডেমো) — A Physicist's Perspective"><meta property="og:description" content="30টি MCQ, 25 মিনিট, অটো-সাবমিট — প্রশ্ন আসে Firebase থেকে, GitHub-এ কোনো প্রশ্ন রাখা নেই।">
+<meta property="og:type" content="website"><meta property="og:title" content="টাইমার পরীক্ষা (ডেমো) — A Physicist's Perspective"><meta property="og:description" content="30টি MCQ, 25 মিনিট, অটো-সাবমিট — প্রশ্ন আসে Firebase থেকে, GitHub-এ কোনো প্রশ্ন রাখা নেই।"><meta property="og:image" content="https://meskat00.github.io/a-physicists-perspective/og-image.png"><meta property="og:url" content="https://meskat00.github.io/a-physicists-perspective/timed-exam.html"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="টাইমার পরীক্ষা (ডেমো) — A Physicist's Perspective"><meta name="twitter:description" content="30টি MCQ, 25 মিনিট, অটো-সাবমিট — প্রশ্ন আসে Firebase থেকে, GitHub-এ কোনো প্রশ্ন রাখা নেই।"><meta name="twitter:image" content="https://meskat00.github.io/a-physicists-perspective/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Caveat:wght@700&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="login.css">
@@ -58,6 +58,11 @@ input.name:focus{outline:2px solid var(--green);border-color:transparent}
 .score-big{font-family:Inter;font-weight:900;font-size:56px;color:var(--board)}
 .save-note{margin-top:12px;font-weight:600}
 footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
+.modal{position:fixed;inset:0;background:rgba(10,42,32,.55);display:none;place-items:center;z-index:90;padding:18px}
+.modal.on{display:grid}
+.modal-box{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:26px;max-width:420px;width:100%;text-align:center}
+.modal-box h3{font-size:21px;margin-bottom:8px}
+.modal-box .row{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
 .spin{width:38px;height:38px;border:4px solid var(--line);border-top-color:var(--green);border-radius:50%;margin:14px auto;animation:sp 0.9s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 </style></head>
@@ -99,6 +104,7 @@ footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
 <p class="center" style="margin-top:20px"><button class="btn btn-y" onclick="location.reload()">আবার পরীক্ষা দাও ↻</button> <a class="btn btn-g" href="exams.html">সব পরীক্ষা দেখো</a></p>
 </div>
 
+<div class="modal" id="cfm"><div class="modal-box"><h3>জমা দিতে চাও?</h3><p class="mut" id="cfmText"></p><div class="row"><button class="btn" id="cfmNo" style="background:#eef4f1;color:var(--ink)">না, ফিরে যাই</button><button class="btn btn-y" id="cfmYes">হ্যাঁ, জমা দাও ✓</button></div></div></div>
 </main>
 <footer>A Physicist's Perspective — টাইমার ডেমো • প্রশ্নের উৎস: Firebase Firestore (<span style="font-family:Inter">exams/hsc1-physical-world</span>)</footer>
 
@@ -190,8 +196,11 @@ function submitExam(auto){
     .then(function(){ note.textContent="✓ ফলাফল Firebase-এ জমা হয়েছে — শিক্ষক দেখতে পারবেন।"; note.style.color="#0a7a4b"; })
     .catch(function(e){ note.textContent="ফলাফল Firebase-এ জমা হয়নি ("+(e&&e.code?e.code:"error")+") — তবে তোমার স্কোর উপরে ঠিকই দেখা যাচ্ছে।"; note.style.color="#b42318"; });
 }
-document.getElementById("btnSubmit").addEventListener("click",function(){ if(confirm("জমা দিতে চাও? উত্তর "+bn(answered())+"/"+bn(EXAM.questions.length)+"টি দেওয়া হয়েছে।")) submitExam(false); });
-document.getElementById("btnSubmit2").addEventListener("click",function(){ if(confirm("জমা দিতে চাও? উত্তর "+bn(answered())+"/"+bn(EXAM.questions.length)+"টি দেওয়া হয়েছে।")) submitExam(false); });
+function askSubmit(){ document.getElementById("cfmText").textContent="উত্তর "+bn(answered())+"/"+bn(EXAM.questions.length)+"টি দেওয়া হয়েছে। জমা দিলে আর বদলানো যাবে না।"; document.getElementById("cfm").classList.add("on"); }
+document.getElementById("btnSubmit").addEventListener("click",askSubmit);
+document.getElementById("btnSubmit2").addEventListener("click",askSubmit);
+document.getElementById("cfmNo").addEventListener("click",function(){ document.getElementById("cfm").classList.remove("on"); });
+document.getElementById("cfmYes").addEventListener("click",function(){ document.getElementById("cfm").classList.remove("on"); submitExam(false); });
 })();
 </script>
 <script src="cursor.js" defer></script>
