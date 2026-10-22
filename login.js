@@ -4,7 +4,7 @@ if(!window.firebase) return;
 try{
 var CFG={apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists-perspective.firebaseapp.com",projectId:"physicists-perspective",storageBucket:"physicists-perspective.firebasestorage.app",messagingSenderId:"186707877920",appId:"1:186707877920:web:38f757b3016e1af3539c45"};
 if(!firebase.apps.length) firebase.initializeApp(CFG);
-var APP_CHECK_KEY=""; /* filled after Firebase App Check registration; empty = off */
+var APP_CHECK_KEY="6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T"; /* filled after Firebase App Check registration; empty = off */
 try{ if(APP_CHECK_KEY && firebase.appCheck) firebase.appCheck().activate(APP_CHECK_KEY, true); }catch(e){}
 var auth=firebase.auth(), db=firebase.firestore();
 var host=document.querySelector(".nav-links")||document.querySelector("nav.main");
