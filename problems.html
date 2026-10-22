@@ -388,9 +388,19 @@ tick=false;});
 }catch(e){}})();
 </script>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* Lazy-load Firebase: login is optional, so the page must not pay the SDK cost upfront.
+   Loads on first interaction, on idle, or immediately for a returning signed-in student. */
+(function(){var done=false;function go(){if(done)return;done=true;
+var urls=["https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js","https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js","https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"];
+(function next(i){if(i>=urls.length){var m=document.getElementById("lupMod");if(m){var c=document.createElement("script");c.textContent=m.textContent;document.body.appendChild(c);}return;}
+var sc=document.createElement("script");sc.src=urls[i];sc.onload=function(){next(i+1)};sc.onerror=function(){next(i+1)};document.head.appendChild(sc);})(0);}
+var was=false;try{was=Object.keys(localStorage).some(function(k){return k.indexOf("firebase:authUser")===0})}catch(e){}
+if(was){go();}else{["pointerdown","keydown","focusin"].forEach(function(ev){window.addEventListener(ev,go,{once:true,passive:true})});
+if("requestIdleCallback" in window){requestIdleCallback(go,{timeout:3000});}else{setTimeout(go,3000);}}})();
+</script>
+
+
 <style>
 .lup-auth{font-family:inherit;font-weight:700;font-size:14px;background:#fff;color:#20301d;border:1px solid rgba(0,0,0,.18);border-radius:999px;padding:8px 16px;cursor:pointer;margin-left:8px;white-space:nowrap}
 .lup-auth:hover{box-shadow:0 2px 10px rgba(0,0,0,.25)}
@@ -399,7 +409,7 @@ tick=false;});
 .lup-toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(20px);background:#12261a;color:#eafff3;font-family:'Hind Siliguri',sans-serif;font-size:15px;font-weight:600;padding:11px 20px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.35s;z-index:9999;max-width:92vw;text-align:center}
 .lup-toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
-<script>
+<script id="lupMod">
 /* Optional student login (Firebase) — site works fully without it. Progress (lup_done) syncs to the student's own account. */
 (function(){ "use strict";
 if(!window.firebase) return;
