@@ -11,7 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230B0B0C'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23FF5A1F' font-family='Georgia'>φ</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,800;0,900;1,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Caveat+Brush&family=Patrick+Hand&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,800;0,900;1,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Caveat+Brush&family=Patrick+Hand&family=Hind+Siliguri:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -394,6 +394,23 @@ body.has-cursor #curDot{display:block}
 #about .ph{aspect-ratio:4/3.4}
 #about .ph img{object-position:50% 50%}
 .story-cols mark{background:linear-gradient(180deg,transparent 60%,rgba(255,150,50,.34) 60%,rgba(255,120,40,.34) 94%,transparent 94%);padding:0 1px;border-radius:0;color:#fff}
+
+/*QUOTES*/
+.quotes{padding:100px 0 88px;position:relative}
+.qwrap{max-width:900px;margin:0 auto;text-align:center;position:relative;padding:0 24px}
+.qmark{font-family:'Playfair Display',serif;font-size:104px;line-height:.55;color:var(--color-accent);display:block;user-select:none}
+.qmark.open{margin-bottom:30px}
+.qmark.close{transform:rotate(180deg);margin-top:16px}
+#qText{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;font-size:clamp(24px,3.4vw,38px);line-height:1.45;color:var(--color-text);transition:opacity .55s ease,transform .55s ease;min-height:3.4em;display:flex;align-items:center;justify-content:center}
+#qText.qfade{opacity:0;transform:translateY(10px)}
+.qauth{font-family:var(--font-mono);letter-spacing:.18em;font-size:13px;text-transform:uppercase;color:var(--color-text);transition:opacity .55s ease}
+.qauth small{display:block;margin-top:7px;color:var(--color-accent);letter-spacing:.15em;font-size:11px}
+.qauth.qfade{opacity:0}
+.qbar{width:130px;height:2px;background:#26262b;margin:30px auto 0;border-radius:2px;overflow:hidden}
+.qbar i{display:block;height:100%;width:0;background:var(--color-accent)}
+.qsegs{display:flex;gap:6px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.qsegs b{width:18px;height:3px;border-radius:2px;background:#26262b;transition:background .3s}
+.qsegs b.on{background:var(--color-accent)}
 </style>
 </head>
 
@@ -487,7 +504,19 @@ body.has-cursor #curDot{display:block}
     </div>
   </section>
 
-  <section class="block" id="about" aria-label="About Meskat">
+  
+<section class="quotes" id="quotes" aria-label="Words of great physicists">
+  <div class="qwrap rv">
+    <span class="qmark open" aria-hidden="true">&ldquo;</span>
+    <p id="qText"></p>
+    <div class="qauth" id="qAuth"></div>
+    <span class="qmark close" aria-hidden="true">&ldquo;</span>
+    <div class="qbar" aria-hidden="true"><i id="qBarFill"></i></div>
+    <div class="qsegs" id="qSegs" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section class="block" id="about" aria-label="About Meskat">
     <div class="wrap">
       <div class="sec-head rv">
         <span class="tag mono">About — Meskat</span>
@@ -936,6 +965,58 @@ if(dn){ dn.addEventListener("click", function(){
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(num).then(done).catch(done); }
   else { var ta=document.createElement("textarea"); ta.value=num; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} ta.remove(); done(); }
 });}
+}catch(e){}})();
+</script>
+<script>
+/*QUOTES*/
+(function(){try{
+var Q = [
+ {t:"Imagination is more important than knowledge. Knowledge is limited; imagination encircles the world.", a:"Albert Einstein", f:"Theoretical Physicist"},
+ {t:"I think I can safely say that nobody understands quantum mechanics.", a:"Richard Feynman", f:"Theoretical Physicist"},
+ {t:"Nothing in life is to be feared; it is only to be understood.", a:"Marie Curie", f:"Physicist & Chemist"},
+ {t:"If I have seen further, it is by standing on the shoulders of giants.", a:"Isaac Newton", f:"Physicist & Mathematician"},
+ {t:"Anyone who is not shocked by quantum theory has not understood it.", a:"Niels Bohr", f:"Theoretical Physicist"},
+ {t:"What we observe is not nature itself, but nature exposed to our method of questioning.", a:"Werner Heisenberg", f:"Theoretical Physicist"},
+ {t:"It is more important to have beauty in one's equations than to have them fit experiment.", a:"Paul Dirac", f:"Theoretical Physicist"},
+ {t:"The task is not so much to see what no one has yet seen, but to think what nobody has yet thought, about that which everybody sees.", a:"Erwin Schrödinger", f:"Theoretical Physicist"},
+ {t:"Mathematics is the language in which God has written the universe.", a:"Galileo Galilei", f:"Astronomer & Physicist"},
+ {t:"Look up at the stars, not down at your feet. Try to make sense of what you see, and wonder about what makes the universe exist.", a:"Stephen Hawking", f:"Theoretical Physicist"},
+ {t:"The important thing is not to stop questioning. Curiosity has its own reason for existing.", a:"Albert Einstein", f:"Theoretical Physicist"},
+ {t:"All science is either physics or stamp collecting.", a:"Ernest Rutherford", f:"Experimental Physicist"}
+];
+var RED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var qt = document.getElementById("qText"), qa = document.getElementById("qAuth"),
+    qs = document.getElementById("qSegs"), qb = document.getElementById("qBarFill");
+if(!qt) return;
+qs.innerHTML = Q.map(function(){ return "<b></b>"; }).join("");
+var segs = qs.querySelectorAll("b"), barAnim = null;
+function idx(){ return Math.floor(Date.now()/60000) % Q.length; }
+function fill(i){
+  var q = Q[i];
+  qt.textContent = q.t;
+  qa.innerHTML = q.a + "<small>" + q.f + "</small>";
+  segs.forEach(function(b,j){ b.classList.toggle("on", j===i); });
+}
+function bar(ms){
+  if(!qb || RED) return;
+  if(barAnim) barAnim.cancel();
+  barAnim = qb.animate([{width:"0%"},{width:"100%"}], {duration: ms, easing:"linear", fill:"forwards"});
+}
+var cur = idx();
+fill(cur);
+bar(60000 - (Date.now() % 60000));
+setInterval(function(){
+  var n = idx();
+  if(n === cur) return;
+  cur = n;
+  if(RED){ fill(cur); return; }
+  qt.classList.add("qfade"); qa.classList.add("qfade");
+  setTimeout(function(){
+    fill(cur);
+    qt.classList.remove("qfade"); qa.classList.remove("qfade");
+    bar(60000);
+  }, 570);
+}, 1000);
 }catch(e){}})();
 </script>
 </body>
