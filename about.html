@@ -382,6 +382,13 @@ body.has-cursor #curDot{display:block}
 
 .pcard .thumb{display:block}
 .pcard .timg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+/*OMARQUEE*/
+.omarquee{overflow:hidden;border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:20px 0;background:#0B0B0C}
+.otrack{display:flex;width:max-content;animation:omq 30s linear infinite}
+.otrack span{font-family:var(--font-display);font-weight:900;font-size:clamp(52px,8.5vw,118px);line-height:1;letter-spacing:-.01em;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(245,242,237,.42);padding-right:.35em}
+@keyframes omq{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.otrack{animation:none}}
 </style>
 </head>
 
@@ -465,7 +472,8 @@ body.has-cursor #curDot{display:block}
 
   
 
-  <section class="mission" aria-label="Mission statement">
+  <div class="omarquee" aria-hidden="true"><div class="otrack"><span>Physics Lectures ✦ MCQ Exams ✦ Problem Solving ✦ Concept First ✦ DFT Research ✦ Quantum Computing ✦ Free For Every Student ✦ </span><span>Physics Lectures ✦ MCQ Exams ✦ Problem Solving ✦ Concept First ✦ DFT Research ✦ Quantum Computing ✦ Free For Every Student ✦ </span></div></div>
+<section class="mission" aria-label="Mission statement">
     <div class="mission-sticky">
       <div class="wrap">
         <span class="tag mono">The mission</span>
