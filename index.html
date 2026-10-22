@@ -649,7 +649,7 @@ document.querySelectorAll("[data-xp]").forEach(function(mount){
     mount.addEventListener("pointerleave",function(){closeTimer=setTimeout(closeXp,300);});
   }
   root.addEventListener("click",function(){if(hoverable)return;open?closeXp():openXp();});
-  levels.querySelectorAll(".xp-level").forEach(function(b){b.addEventListener("click",function(){showChaps(b.getAttribute("data-lv"))})});
+  levels.querySelectorAll(".xp-level").forEach(function(b){b.addEventListener("click",function(){showChaps(b.getAttribute("data-lv"))});if(hoverable)b.addEventListener("pointerenter",function(){showChaps(b.getAttribute("data-lv"))});});
 });
 })();
 </script>
