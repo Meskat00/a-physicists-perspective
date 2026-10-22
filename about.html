@@ -267,8 +267,8 @@ footer.site .copy{color:var(--color-text-muted);font-size:14px;margin-left:auto}
 /* ============ CURSOR ============ */
 #curDot,#curRing{position:fixed;top:0;left:0;pointer-events:none;z-index:1400;border-radius:50%;display:none}
 #curDot{width:7px;height:7px;margin:-3.5px;background:var(--color-accent)}
-#curRing{width:36px;height:36px;margin:-18px;border:1.5px solid rgba(255,90,31,.65);display:none;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;color:#17110B;transition:width .25s,height .25s,margin .25s,background-color .25s}
-#curRing.play{width:64px;height:64px;margin:-32px;background:var(--color-accent);border-color:var(--color-accent)}
+#curRing{width:36px;height:36px;margin:-18px;border:1.5px solid rgba(255,90,31,.65);display:none;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;color:#17110B;transition:background-color .25s}
+#curRing.play{background:var(--color-accent);border-color:var(--color-accent)}
 body.has-cursor #curDot,body.has-cursor #curRing{display:flex}
 body.has-cursor #curDot{display:block}
 /* ============ REVEAL ============ */
@@ -419,6 +419,14 @@ body.has-cursor #curDot{display:block}
 
 .story>.pcol{display:flex;flex-direction:column;min-width:0}.pcap{margin-top:16px;text-align:center;font-size:12px}
 </style>
+<link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/about.html">
+<meta property="og:url" content="https://meskat00.github.io/a-physicists-perspective/about.html">
+<meta property="og:image" content="https://meskat00.github.io/a-physicists-perspective/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About Meskat — A Physicist's Perspective">
+<meta name="twitter:description" content="Meet Meskat: physics teacher, DFT researcher and the person behind A Physicist's Perspective. Mission: to know nature, and to explain it.">
+<meta name="twitter:image" content="https://meskat00.github.io/a-physicists-perspective/og-image.png">
+<style>:focus-visible{outline:3px solid #ffc800!important;outline-offset:2px}</style>
 </head>
 
 <body>
@@ -533,7 +541,7 @@ body.has-cursor #curDot{display:block}
         <div class="pcol">
         <div class="portrait rv">
           <svg viewBox="0 0 930 1200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="pglow2" cx=".5" cy=".28" r=".65"><stop offset="0" stop-color="#FF5A1F" stop-opacity=".30"/><stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/></radialGradient></defs><rect width="930" height="1200" fill="#101013"/><rect width="930" height="1200" fill="url(#pglow2)"/><g stroke="#26262b"><path d="M0 300h930M0 600h930M0 900h930M232 0v1200M465 0v1200M697 0v1200"/></g></svg>
-          <img class="photo" src="meskat-tight.png" alt="Portrait of Meskat">
+          <img class="photo" src="meskat-tight.webp" alt="Portrait of Meskat">
         </div>
         <div class="titleline pcap rv">Aspiring Physicist <span>|</span> Learner <span>|</span> Explainer</div>
         </div>
@@ -922,14 +930,14 @@ addEventListener("keydown", e=>{
   if(REDUCED || !(window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches)) return;
   document.body.classList.add("has-cursor");
   const dot = $("#curDot"), ring = $("#curRing"), label = $("#curLabel");
-  let mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my;
+  let mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my, play = false, bs = 1;
   addEventListener("pointermove", e=>{ mx = e.clientX; my = e.clientY;
     const t = e.target && e.target.closest ? e.target.closest(".frame,.pcard,.cat") : null;
-    ring.classList.toggle("play", !!t); label.textContent = t ? "PLAY" : "";
+    play = !!t; ring.classList.toggle("play", play); label.textContent = t ? "PLAY" : "";
   }, {passive:true});
   (function loop(){ rx += (mx-rx)*.16; ry += (my-ry)*.16;
     dot.style.transform = `translate(${mx}px,${my}px)`;
-    ring.style.transform = `translate(${rx}px,${ry}px)`;
+    bs += ((play?1.78:1)-bs)*.18; ring.style.transform = `translate(${rx}px,${ry}px) scale(${bs})`;
     requestAnimationFrame(loop); })();
 })();
 </script>
