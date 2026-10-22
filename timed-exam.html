@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>টাইমার পরীক্ষা (ডেমো) — ভৌত জগৎ ও পরিমাপ | A Physicist's Perspective</title>
+<meta name="description" content="Firebase থেকে প্রশ্ন লোড হওয়া টাইমার-ভিত্তিক MCQ পরীক্ষার ডেমো — 30টি প্রশ্ন, 25 মিনিট, সময় শেষে অটো-সাবমিট।">
+<link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/timed-exam.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏱️</text></svg>">
+<meta property="og:type" content="website"><meta property="og:title" content="টাইমার পরীক্ষা (ডেমো) — A Physicist's Perspective"><meta property="og:description" content="30টি MCQ, 25 মিনিট, অটো-সাবমিট — প্রশ্ন আসে Firebase থেকে, GitHub-এ কোনো প্রশ্ন রাখা নেই।">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Caveat:wght@700&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="login.css">
+<style>
+:root{--board:#0a2a20;--board2:#0e3a2c;--ink:#12211c;--mut:#5b6b65;--yellow:#ffc800;--yellow2:#ffdf5e;--green:#12b76a;--red:#f04438;--bg:#f4f7f5;--line:#e2eae6;--radius:18px;--shadow:0 10px 30px rgba(10,42,32,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hind Siliguri',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+nav{position:sticky;top:0;z-index:50;background:rgba(10,42,32,.96);color:#fff}
+.nav-in{display:flex;align-items:center;gap:14px;padding:12px 0;max-width:1180px;margin:0 auto;padding-left:18px;padding-right:18px}
+.logo{font-family:Inter,sans-serif;font-weight:900;font-size:17.5px;letter-spacing:-.3px}
+.logo b{color:var(--yellow)}
+.logo small{display:block;font-family:'Hind Siliguri';font-weight:500;font-size:11px;color:#bfe3d4;letter-spacing:.4px}
+.nav-links{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{padding:8px 13px;border-radius:999px;font-weight:600;font-size:15px;color:#e7f4ee}
+.hero{background:radial-gradient(1100px 500px at 20% -10%,#17573f 0%,transparent 60%),linear-gradient(160deg,var(--board2),var(--board));color:#fff;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.hero-in{position:relative;padding:44px 0 38px;text-align:center}
+.chalk{font-family:Caveat,cursive;color:var(--yellow2);font-size:28px;transform:rotate(-2deg);display:inline-block}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:6px 0 8px}
+.hero p.sub{color:#d9efe5;max-width:640px;margin:0 auto;font-size:17px}
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;margin:26px auto 40px;border:1px solid var(--line)}
+.state{display:none}.state.on{display:block}
+.big-emoji{font-size:44px;text-align:center}
+.center{text-align:center}
+.mut{color:var(--mut)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;font-weight:700;font-size:16.5px;cursor:pointer;border:0;font-family:inherit}
+.btn-y{background:var(--yellow);color:#231a00;box-shadow:0 8px 20px rgba(255,200,0,.35)}
+.btn-g{background:#0e7a43;color:#fff}
+.btn[disabled]{opacity:.55;cursor:wait}
+input.name{width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:16.5px;margin:10px 0 16px}
+input.name:focus{outline:2px solid var(--green);border-color:transparent}
+.rules{text-align:left;max-width:520px;margin:16px auto;background:#f6faf7;border:1.5px dashed #9fd8bd;border-radius:12px;padding:14px 18px;font-size:15.5px}
+.rules li{margin:5px 0 5px 18px}
+.timerbar{position:sticky;top:64px;z-index:40;background:var(--board);color:#fff;border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);margin-bottom:18px;flex-wrap:wrap}
+.timerbar .clock{font-family:Inter;font-weight:900;font-size:26px;color:var(--yellow);min-width:92px}
+.timerbar .clock.low{color:#ff8a7a;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.55}}
+.tprog{flex:1;height:10px;background:rgba(255,255,255,.18);border-radius:99px;overflow:hidden;min-width:120px}
+.tprog i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#7ee2ae);width:0;transition:width .3s}
+.q{border:1.5px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;background:#fff}
+.q h3{font-size:17.5px;font-weight:600;margin-bottom:12px}
+.q h3 .qn{color:#0a7a4b;font-family:Inter;font-weight:800;margin-right:6px}
+.opts{display:grid;gap:8px}
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;cursor:pointer;font-size:16px;background:#fff;text-align:left;font-family:inherit;width:100%}
+.opt:hover{border-color:#9fd8bd}
+.opt.sel{border-color:var(--green);background:#eafaf1;font-weight:700}
+.opt.right{border-color:var(--green);background:#eafaf1;font-weight:700}
+.opt.wrong{border-color:var(--red);background:#fef1f0}
+.opt[disabled]{cursor:default}
+.score-big{font-family:Inter;font-weight:900;font-size:56px;color:var(--board)}
+.save-note{margin-top:12px;font-weight:600}
+footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
+.spin{width:38px;height:38px;border:4px solid var(--line);border-top-color:var(--green);border-radius:50%;margin:14px auto;animation:sp 0.9s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style></head>
+<body>
+<nav><div class="nav-in"><a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>SSC • HSC • Admission — ফিজিক্স শেখার ঘর</small></a><div class="nav-links"><a href="index.html">Home</a><a href="exams.html">Exams</a><a href="lectures.html">Lectures</a><a href="problems.html">Problems</a></div></div></nav>
+<header class="hero"><div class="wrap hero-in"><span class="chalk">timed exam — demo!</span><h1>⏱️ টাইমার পরীক্ষা</h1><p class="sub">প্রশ্ন লোড হয় <b>Firebase</b> থেকে — এই পেজের কোডে বা GitHub-এ কোনো প্রশ্ন রাখা নেই। সময় শেষ হলেই অটো-সাবমিট।</p></div></header>
+<main class="wrap">
+
+<div class="card state on" id="stLoad"><div class="big-emoji">📡</div><div class="spin"></div><p class="center mut">Firebase থেকে প্রশ্ন লোড হচ্ছে…</p></div>
+
+<div class="card state" id="stError"><div class="big-emoji">⚠️</div><h2 class="center">প্রশ্ন লোড হয়নি</h2><p class="center mut" id="errMsg" style="margin:10px 0 18px"></p><p class="center"><button class="btn btn-g" onclick="location.reload()">আবার চেষ্টা করো</button></p></div>
+
+<div class="card state" id="stStart">
+<h2 class="center" id="exTitle">বহুনির্বাচনি পরীক্ষা</h2>
+<p class="center mut" id="exMeta"></p>
+<div class="rules"><b>নিয়ম:</b><ul>
+<li>শুরু করার পর থেকেই টাইমার চলবে — মাঝপথে থামানো যাবে না।</li>
+<li>সময় শেষ হলে উত্তর <b>নিজে থেকেই জমা</b> হয়ে যাবে।</li>
+<li>প্রতিটি প্রশ্নের মান ১, কোনো নেগেটিভ মার্কিং নেই। খালি রাখা যায়।</li>
+<li>জমা দিলেই স্কোর ও প্রতিটি প্রশ্নের সঠিক উত্তর দেখা যাবে।</li></ul></div>
+<label><b>তোমার নাম (বাধ্যতামূলক)</b><input class="name" id="stuName" type="text" maxlength="80" placeholder="যেমন: মোঃ মেসকাত আলী" autocomplete="name"></label>
+<p class="center"><button class="btn btn-y" id="btnStart">পরীক্ষা শুরু করো →</button></p>
+<p class="center mut" style="font-size:14px;margin-top:10px">এটি একটি ডেমো সেট — ভৌত জগৎ ও পরিমাপ (HSC ১ম পত্র)। Google Form-এর সেটটি আগের মতোই চালু আছে।</p>
+</div>
+
+<div class="state" id="stExam" style="margin:26px auto 40px">
+<div class="timerbar"><span class="clock" id="clock">--:--</span><div class="tprog"><i id="tprogFill"></i></div><span id="ansCount" style="font-weight:700"></span><button class="btn btn-y" id="btnSubmit" style="padding:9px 20px">জমা দাও ✓</button></div>
+<div id="qList"></div>
+<p class="center" style="margin:6px 0 30px"><button class="btn btn-g" id="btnSubmit2">সব উত্তর জমা দাও ✓</button></p>
+</div>
+
+<div class="card state" id="stResult">
+<div class="big-emoji" id="resEmoji">🎉</div>
+<h2 class="center" id="resHead">ফলাফল</h2>
+<p class="center score-big" id="resScore"></p>
+<p class="center mut" id="resMeta"></p>
+<p class="center save-note" id="saveNote"></p>
+<div id="reviewList" style="margin-top:22px"></div>
+<p class="center" style="margin-top:20px"><button class="btn btn-y" onclick="location.reload()">আবার পরীক্ষা দাও ↻</button> <a class="btn btn-g" href="exams.html">সব পরীক্ষা দেখো</a></p>
+</div>
+
+</main>
+<footer>A Physicist's Perspective — টাইমার ডেমো • প্রশ্নের উৎস: Firebase Firestore (<span style="font-family:Inter">exams/hsc1-physical-world</span>)</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+(function(){ "use strict";
+var CFG={apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists-perspective.firebaseapp.com",projectId:"physicists-perspective",storageBucket:"physicists-perspective.firebasestorage.app",messagingSenderId:"186707877920",appId:"1:186707877920:web:38f757b3016e1af3539c45"};
+var EXAM_ID="hsc1-physical-world";
+var BN="০১২৩৪৫৬৭৮৯";
+function bn(n){ return String(n).replace(/[0-9]/g,function(d){return BN[+d]}); }
+function show(id){ ["stLoad","stError","stStart","stExam","stResult"].forEach(function(s){ document.getElementById(s).classList.toggle("on", s===id); }); window.scrollTo({top:0}); }
+function fail(msg){ document.getElementById("errMsg").textContent=msg; show("stError"); }
+var db, EXAM=null, answers=[], startedAt=0, endAt=0, tick=null, submitted=false;
+try{
+  if(!firebase.apps.length) firebase.initializeApp(CFG);
+  try{ firebase.appCheck().activate("6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T", true); }catch(e){}
+  db=firebase.firestore();
+}catch(e){ fail("Firebase চালু হয়নি — ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করো।"); return; }
+db.collection("exams").doc(EXAM_ID).get().then(function(snap){
+  if(!snap.exists){ fail("Firestore-এ এই পরীক্ষার প্রশ্ন এখনো বসানো হয়নি (exams/"+EXAM_ID+")। শিক্ষক সিড করলেই পরীক্ষা চালু হবে।"); return; }
+  var d=snap.data(), qs;
+  try{ qs=JSON.parse(d.qjson); }catch(e){ fail("প্রশ্নের ডেটা পড়া যায়নি (qjson নষ্ট)।"); return; }
+  if(!Array.isArray(qs)||!qs.length){ fail("প্রশ্নের তালিকা খালি।"); return; }
+  EXAM={title:d.title||"বহুনির্বাচনি পরীক্ষা", chapter:d.chapter||"", level:d.level||"", minutes:(+d.minutes)||25, questions:qs};
+  answers=new Array(qs.length).fill(-1);
+  document.getElementById("exTitle").textContent=EXAM.title;
+  document.getElementById("exMeta").textContent=(EXAM.chapter?EXAM.chapter+" • ":"")+(EXAM.level?EXAM.level+" • ":"")+bn(qs.length)+"টি প্রশ্ন • "+bn(EXAM.minutes)+" মিনিট • পূর্ণমান "+bn(qs.length);
+  show("stStart");
+}).catch(function(e){ fail("Firestore থেকে প্রশ্ন আনা যায়নি ("+(e&&e.code?e.code:"network")+ ")। Rules-এ exams কালেকশনের read অনুমতি না থাকলেও এমন হয়।"); });
+document.getElementById("btnStart").addEventListener("click",function(){
+  var name=document.getElementById("stuName").value.trim();
+  if(!name){ alert("আগে তোমার নাম লেখো।"); document.getElementById("stuName").focus(); return; }
+  EXAM.name=name; renderExam();
+  startedAt=Date.now(); endAt=startedAt+EXAM.minutes*60*1000;
+  show("stExam"); updClock();
+  tick=setInterval(updClock,250);
+});
+function renderExam(){
+  var host=document.getElementById("qList"); host.innerHTML="";
+  EXAM.questions.forEach(function(q,qi){
+    var div=document.createElement("div"); div.className="q";
+    var h=document.createElement("h3"); h.innerHTML=""; var sn=document.createElement("span"); sn.className="qn"; sn.textContent=bn(qi+1)+"."; h.appendChild(sn); h.appendChild(document.createTextNode(q.q)); div.appendChild(h);
+    var opts=document.createElement("div"); opts.className="opts";
+    q.opts.forEach(function(op,oi){
+      var b=document.createElement("button"); b.type="button"; b.className="opt"; b.textContent="কখগঘ"[oi]+") "+op;
+      b.addEventListener("click",function(){ answers[qi]=oi; Array.prototype.forEach.call(opts.children,function(c){c.classList.remove("sel")}); b.classList.add("sel"); updCount(); });
+      opts.appendChild(b);
+    });
+    div.appendChild(opts); host.appendChild(div);
+  });
+  updCount();
+}
+function answered(){ return answers.filter(function(a){return a>=0}).length; }
+function updCount(){ document.getElementById("ansCount").textContent=bn(answered())+"/"+bn(EXAM.questions.length)+" উত্তর হয়েছে"; document.getElementById("tprogFill").style.width=(answered()/EXAM.questions.length*100)+"%"; }
+function fmt(ms){ if(ms<0)ms=0; var s=Math.ceil(ms/1000), m=Math.floor(s/60); s=s%60; return (m<10?"0":"")+m+":"+(s<10?"0":"")+s; }
+function updClock(){
+  var left=endAt-Date.now(), el=document.getElementById("clock");
+  el.textContent=fmt(left); el.classList.toggle("low", left<=60000);
+  if(left<=0 && !submitted){ submitExam(true); }
+}
+function submitExam(auto){
+  if(submitted) return; submitted=true; if(tick)clearInterval(tick);
+  var qs=EXAM.questions, score=0;
+  qs.forEach(function(q,i){ if(answers[i]===q.ans) score++; });
+  var usedSec=Math.round((Date.now()-startedAt)/1000), total=qs.length, pct=Math.round(score/total*100);
+  document.getElementById("resEmoji").textContent= pct>=80?"🏆":(pct>=50?"🎉":(pct>=33?"💪":"📚"));
+  document.getElementById("resHead").textContent=(auto?"⏰ সময় শেষ! ":"")+EXAM.name+" — তোমার ফলাফল";
+  document.getElementById("resScore").textContent=bn(score)+"/"+bn(total);
+  document.getElementById("resMeta").textContent="সঠিক "+bn(pct)+"% • সময় লেগেছে "+bn(Math.floor(usedSec/60))+":"+((usedSec%60)<10?"০":"")+bn(usedSec%60)+" মিনিট";
+  var host=document.getElementById("reviewList"); host.innerHTML="";
+  qs.forEach(function(q,qi){
+    var div=document.createElement("div"); div.className="q";
+    var h=document.createElement("h3"); var sn=document.createElement("span"); sn.className="qn"; sn.textContent=bn(qi+1)+"."; h.appendChild(sn); h.appendChild(document.createTextNode(q.q)); div.appendChild(h);
+    var opts=document.createElement("div"); opts.className="opts";
+    q.opts.forEach(function(op,oi){
+      var b=document.createElement("button"); b.type="button"; b.className="opt"; b.disabled=true;
+      b.textContent="কখগঘ"[oi]+") "+op+(oi===q.ans?" ✓ সঠিক উত্তর":(oi===answers[qi]?" ✗ তোমার উত্তর":""));
+      if(oi===q.ans)b.classList.add("right"); else if(oi===answers[qi])b.classList.add("wrong");
+      opts.appendChild(b);
+    });
+    div.appendChild(opts); host.appendChild(div);
+  });
+  show("stResult");
+  var note=document.getElementById("saveNote"); note.textContent="ফলাফল সেভ হচ্ছে…";
+  db.collection("examResults").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,usedSec:usedSec,answers:answers,ts:firebase.firestore.FieldValue.serverTimestamp()})
+    .then(function(){ note.textContent="✓ ফলাফল Firebase-এ জমা হয়েছে — শিক্ষক দেখতে পারবেন।"; note.style.color="#0a7a4b"; })
+    .catch(function(e){ note.textContent="ফলাফল Firebase-এ জমা হয়নি ("+(e&&e.code?e.code:"error")+") — তবে তোমার স্কোর উপরে ঠিকই দেখা যাচ্ছে।"; note.style.color="#b42318"; });
+}
+document.getElementById("btnSubmit").addEventListener("click",function(){ if(confirm("জমা দিতে চাও? উত্তর "+bn(answered())+"/"+bn(EXAM.questions.length)+"টি দেওয়া হয়েছে।")) submitExam(false); });
+document.getElementById("btnSubmit2").addEventListener("click",function(){ if(confirm("জমা দিতে চাও? উত্তর "+bn(answered())+"/"+bn(EXAM.questions.length)+"টি দেওয়া হয়েছে।")) submitExam(false); });
+})();
+</script>
+<script src="cursor.js" defer></script>
+<script src="login.js" defer></script>
+</body></html>
