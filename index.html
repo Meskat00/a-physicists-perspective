@@ -191,6 +191,17 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 @keyframes dshine{to{background-position:220% center}}
 .d-hint{color:rgba(245,242,237,.62);font-size:13.5px;margin-top:10px;font-family:'Hind Siliguri',sans-serif}
 @media(prefers-reduced-motion:reduce){.d-num{animation:none}}
+
+.fb-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,4vw,40px);box-shadow:var(--shadow);max-width:760px;margin:0 auto}
+.fb-sub{color:var(--mut);font-size:16px;margin-bottom:18px;text-align:center;font-family:'Hind Siliguri',sans-serif}
+#fbForm{display:flex;flex-direction:column;gap:12px}
+#fbForm input,#fbForm textarea{font-family:'Hind Siliguri',sans-serif;font-size:16px;padding:13px 15px;border:1.5px solid var(--line);border-radius:12px;background:#fbfdfc;color:var(--ink);width:100%;box-sizing:border-box}
+#fbForm input:focus,#fbForm textarea:focus{outline:none;border-color:var(--green)}
+#fbForm textarea{resize:vertical;min-height:110px}
+.fb-send{background:var(--board);color:#fff;font-family:'Hind Siliguri',sans-serif;font-weight:700;font-size:16.5px;padding:13px;border:0;border-radius:12px;cursor:pointer}
+.fb-send:hover{background:var(--board2)}
+.fb-send:disabled{opacity:.6;cursor:wait}
+.fb-note{color:var(--mut);font-size:13.5px;text-align:center;margin-top:14px;font-family:'Hind Siliguri',sans-serif}
 </style>
 <link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/">
 <meta property="og:title" content="A Physicist's Perspective — Meskat">
@@ -345,6 +356,18 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
       <button class="d-num" id="donateNum" aria-label="Donation number — tap to copy">01731871692</button>
     </div>
     <p class="d-hint" id="donateHint">নম্বরে tap করলেই copy হয়ে যাবে 📋</p>
+  </div>
+
+<section data-secname="মন্তব্য" id="feedback">
+  <div class="sec-head"><div class="k">Feedback</div><h2>💬 মন্তব্য বা পরামর্শ</h2></div>
+  <div class="fb-card">
+    <p class="fb-sub">কোনো অধ্যায় বুঝতে কষ্ট হচ্ছে? নতুন পরীক্ষা চাও? বা যেকোনো পরামর্শ — এখানে লিখলেই সরাসরি আমার কাছে পৌঁছাবে।</p>
+    <form id="fbForm">
+      <input id="fbName" type="text" maxlength="80" placeholder="তোমার নাম (না দিলেও চলবে)" autocomplete="name">
+      <textarea id="fbMsg" rows="4" maxlength="1000" placeholder="তোমার মন্তব্য বা পরামর্শ লেখো…" required></textarea>
+      <button class="fb-send" id="fbSend" type="submit">পাঠাও →</button>
+    </form>
+    <p class="fb-note" id="fbNote">🔒 তোমার মন্তব্য শুধু শিক্ষকই দেখতে পারবেন — অন্য কেউ না।</p>
   </div>
 </section>
 </main>
@@ -671,6 +694,24 @@ setInterval(function(){ var now=localStorage.getItem("lup_done")||"[]"; if(user&
 
 <script>
 (function(){var dn=document.getElementById("donateNum"),dh=document.getElementById("donateHint");if(!dn)return;dn.addEventListener("click",function(){var num=dn.textContent.trim();function done(){dh.textContent="Copied ✓ "+num;setTimeout(function(){dh.textContent="নম্বরে tap করলেই copy হয়ে যাবে 📋";},2200);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(num).then(done).catch(done);}else{var ta=document.createElement("textarea");ta.value=num;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}ta.remove();done();}});})();
+</script>
+
+<script>
+(function(){var form=document.getElementById("fbForm");if(!form)return;var CFG={apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists-perspective.firebaseapp.com",projectId:"physicists-perspective",storageBucket:"physicists-perspective.firebasestorage.app",messagingSenderId:"186707877920",appId:"1:186707877920:web:38f757b3016e1af3539c45"};
+form.addEventListener("submit",function(e){e.preventDefault();
+var name=document.getElementById("fbName").value.trim().slice(0,80);
+var msg=document.getElementById("fbMsg").value.trim();
+var btn=document.getElementById("fbSend"),note=document.getElementById("fbNote");
+if(!msg){note.textContent="আগে তোমার মন্তব্যটা লেখো।";return;}
+btn.disabled=true;btn.textContent="পাঠানো হচ্ছে…";
+function fail(){note.textContent="পাঠানো যায়নি — ইন্টারনেট দেখে আবার চেষ্টা করো।";btn.disabled=false;btn.textContent="পাঠাও →";}
+if(!window.firebase){fail();return;}
+try{ if(!firebase.apps.length) firebase.initializeApp(CFG);
+firebase.firestore().collection("feedback").add({name:name,msg:msg.slice(0,1000),page:"home",ts:firebase.firestore.FieldValue.serverTimestamp()}).then(function(){
+form.reset();note.textContent="ধন্যবাদ! তোমার মন্তব্য শিক্ষকের কাছে পৌঁছে গেছে ✓";btn.disabled=false;btn.textContent="পাঠাও →";
+}).catch(fail);
+}catch(err){fail();}
+});})();
 </script>
 </body>
 </html>
