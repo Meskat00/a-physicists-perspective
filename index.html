@@ -293,9 +293,9 @@ a.xp-chap:hover{background:linear-gradient(120deg,var(--g2),var(--g3));color:#ff
     <a class="btn btn-y" href="#exams">📝 এখনই পরীক্ষা দাও</a>
   </div>
   <div class="stats">
-    <div class="stat"><b data-count="765">0</b><span>মোট MCQ</span></div>
-    <div class="stat"><b data-count="23">0</b><span>পরীক্ষা সেট</span></div>
-    <div class="stat"><b data-count="4">0</b><span>অধ্যায় কভার</span></div>
+    <div class="stat"><b data-count="1815">0</b><span>মোট MCQ</span></div>
+    <div class="stat"><b data-count="63">0</b><span>পরীক্ষা সেট</span></div>
+    <div class="stat"><b data-count="36">0</b><span>অধ্যায় কভার</span></div>
     <div class="stat"><b>100%</b><span>ফ্রি • তাৎক্ষণিক রেজাল্ট</span></div>
   </div>
 </div></header>
@@ -394,7 +394,7 @@ const done=new Set(JSON.parse(localStorage.getItem("lup_done")||"[]"));
 const $=s=>document.querySelector(s);
 function saveDone(){localStorage.setItem("lup_done",JSON.stringify([...done]))}
 function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2600)}
-function renderProgress(){const p=Math.round(done.size/32*100);
+function renderProgress(){const p=Math.round(done.size/63*100);
  $("#ring").style.setProperty("--p",p);$("#ringTxt").textContent=p+"%";
  $("#progTxt").textContent=done.size?`তুমি ${done.size} / ${57}টি সেট শেষ করেছ — এই গতি ধরে রাখো! 🔥`:"এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।"}
 $("#resetProg").onclick=()=>{done.clear();saveDone();renderProgress();toast("প্রোগ্রেস রিসেট হয়েছে")};
