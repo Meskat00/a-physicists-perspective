@@ -42,6 +42,9 @@ input.name{width:100%;padding:13px 16px;border:1.5px solid var(--line);border-ra
 input.name:focus{outline:2px solid var(--green);border-color:transparent}
 .rules{text-align:left;max-width:520px;margin:16px auto;background:#f6faf7;border:1.5px dashed #9fd8bd;border-radius:12px;padding:14px 18px;font-size:15.5px}
 .rules li{margin:5px 0 5px 18px}
+.tchips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tchip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-weight:700;cursor:pointer}
+.tchip.on{background:var(--board);color:#fff;border-color:var(--board)}
 .timerbar{position:sticky;top:64px;z-index:40;background:var(--board);color:#fff;border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);margin-bottom:18px;flex-wrap:wrap}
 .timerbar .clock{font-family:Inter;font-weight:900;font-size:26px;color:var(--yellow);min-width:92px}
 .timerbar .clock.low{color:#ff8a7a;animation:pulse 1s infinite}
@@ -80,7 +83,7 @@ footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
 </style></head>
 <body>
 <nav><div class="nav-in"><a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>SSC • HSC • Admission — ফিজিক্স শেখার ঘর</small></a><div class="nav-links"><a href="index.html">Home</a><a href="exams.html">Exams</a><a href="lectures.html">Lectures</a><a href="problems.html">Problems</a></div></div></nav>
-<header class="hero"><div class="wrap hero-in"><span class="chalk">timed exam</span><h1>⏱️ টাইমার পরীক্ষা</h1><p class="sub">30টি MCQ • 25 মিনিট • অটো-সাবমিট</p></div></header>
+<header class="hero"><div class="wrap hero-in"><span class="chalk">timed exam</span><h1>⏱️ টাইমার পরীক্ষা</h1><p class="sub">30টি MCQ • পছন্দের সময় • অটো-সাবমিট</p></div></header>
 <main class="wrap">
 
 <div class="card state on" id="stLoad"><div class="big-emoji">📡</div><div class="spin"></div><p class="center mut">Firebase থেকে প্রশ্ন লোড হচ্ছে…</p></div>
@@ -95,6 +98,9 @@ footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
 <li>প্রতিটি প্রশ্নের মান ১; নেগেটিভ মার্কিং নেই।</li>
 <li>জমা দিলেই স্কোর, সঠিক উত্তর ও লিডারবোর্ড দেখা যাবে।</li></ul></div>
 <label><b>তোমার নাম</b><input class="name" id="stuName" type="text" maxlength="80" placeholder="তোমার নাম লেখো" autocomplete="name"></label>
+<div style="text-align:left"><b>⏱️ সময় (মিনিট)</b>
+<div class="tchips" id="tChips"></div>
+<input class="name" id="stuMins" type="number" min="1" max="180" step="1" style="margin:8px 0 0" placeholder="নিজের মতো মিনিট (1–180)"></div>
 <p class="center"><button class="btn btn-y" id="btnStart">পরীক্ষা শুরু করো →</button></p>
 </div>
 
@@ -148,13 +154,32 @@ db.collection("exams").doc(EXAM_ID).get().then(function(snap){
   document.title=EXAM.title+" | A Physicist's Perspective";
   answers=new Array(qs.length).fill(-1);
   document.getElementById("exTitle").textContent=EXAM.title;
-  document.getElementById("exMeta").textContent=(EXAM.chapter?EXAM.chapter+" • ":"")+(EXAM.level?EXAM.level+" • ":"")+bn(qs.length)+"টি প্রশ্ন • "+bn(EXAM.minutes)+" মিনিট • পূর্ণমান "+bn(qs.length);
+  document.getElementById("exMeta").textContent=(EXAM.chapter?EXAM.chapter+" • ":"")+(EXAM.level?EXAM.level+" • ":"")+bn(qs.length)+"টি প্রশ্ন • পূর্ণমান "+bn(qs.length);
+  buildChips(EXAM.minutes);
+  document.getElementById("stuMins").value=EXAM.minutes;
   show("stStart");
 }).catch(function(e){ fail("Firestore থেকে প্রশ্ন আনা যায়নি ("+(e&&e.code?e.code:"network")+ ")। Rules-এ exams কালেকশনের read অনুমতি না থাকলেও এমন হয়।"); });
+function buildChips(def){
+  var host=document.getElementById("tChips"); host.innerHTML="";
+  [10,15,20,25,30,45,60].forEach(function(m){
+    var b=document.createElement("button"); b.type="button"; b.className="tchip"+(m===def?" on":""); b.textContent=bn(m);
+    b.addEventListener("click",function(){ document.getElementById("stuMins").value=m; Array.prototype.forEach.call(host.children,function(c){c.classList.remove("on")}); b.classList.add("on"); });
+    host.appendChild(b);
+  });
+  document.getElementById("stuMins").addEventListener("input",function(){
+    var v=parseInt(this.value,10);
+    Array.prototype.forEach.call(host.children,function(c,i){ c.classList.toggle("on", [10,15,20,25,30,45,60][i]===v); });
+  });
+}
+function chosenMins(){
+  var v=parseInt(document.getElementById("stuMins").value,10);
+  if(isNaN(v)) v=EXAM?EXAM.minutes:25;
+  return Math.min(180,Math.max(1,v));
+}
 document.getElementById("btnStart").addEventListener("click",function(){
   var name=document.getElementById("stuName").value.trim();
   if(!name){ alert("আগে তোমার নাম লেখো।"); document.getElementById("stuName").focus(); return; }
-  EXAM.name=name; renderExam();
+  EXAM.name=name; EXAM.minutes=chosenMins(); renderExam();
   startedAt=Date.now(); endAt=startedAt+EXAM.minutes*60*1000;
   show("stExam"); updClock();
   tick=setInterval(updClock,250);
@@ -190,7 +215,7 @@ function submitExam(auto){
   document.getElementById("resEmoji").textContent= pct>=80?"🏆":(pct>=50?"🎉":(pct>=33?"💪":"📚"));
   document.getElementById("resHead").textContent=(auto?"⏰ সময় শেষ! ":"")+EXAM.name+" — তোমার ফলাফল";
   document.getElementById("resScore").textContent=bn(score)+"/"+bn(total);
-  document.getElementById("resMeta").textContent="সঠিক "+bn(pct)+"% • সময় লেগেছে "+bn(Math.floor(usedSec/60))+":"+((usedSec%60)<10?"০":"")+bn(usedSec%60)+" মিনিট";
+  document.getElementById("resMeta").textContent="সঠিক "+bn(pct)+"% • সময় লেগেছে "+bn(Math.floor(usedSec/60))+":"+((usedSec%60)<10?"০":"")+bn(usedSec%60)+" • নির্ধারিত "+bn(EXAM.minutes)+" মিনিট";
   var host=document.getElementById("reviewList"); host.innerHTML="";
   qs.forEach(function(q,qi){
     var div=document.createElement("div"); div.className="q";
@@ -208,15 +233,15 @@ function submitExam(auto){
   show("stResult");
   var note=document.getElementById("saveNote"); note.textContent="ফলাফল সেভ হচ্ছে…";
   var TS=firebase.firestore.FieldValue.serverTimestamp();
-  db.collection("examResults").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,usedSec:usedSec,answers:answers,ts:TS}).catch(function(){});
-  db.collection("examBoard").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,ts:TS})
+  db.collection("examResults").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,usedSec:usedSec,mins:EXAM.minutes,answers:answers,ts:TS}).catch(function(){});
+  db.collection("examBoard").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,mins:EXAM.minutes,ts:TS})
     .then(function(ref){ note.textContent="✓ ফলাফল সংরক্ষিত হয়েছে"; note.style.color="#0a7a4b"; loadBoard(ref.id); })
     .catch(function(e){ note.textContent="ফলাফল সংরক্ষণ হয়নি ("+(e&&e.code?e.code:"error")+")"; note.style.color="#b42318"; });
 }
 function loadBoard(myId){
   db.collection("examBoard").where("examId","==",EXAM_ID).get().then(function(snap){
     var rows=[];
-    snap.forEach(function(doc){ var d=doc.data(); rows.push({id:doc.id,name:d.name,score:d.score,total:d.total,pct:d.pct,t:(d.ts&&d.ts.toMillis)?d.ts.toMillis():Date.now()}); });
+    snap.forEach(function(doc){ var d=doc.data(); rows.push({id:doc.id,name:d.name,score:d.score,total:d.total,pct:d.pct,mins:d.mins||0,t:(d.ts&&d.ts.toMillis)?d.ts.toMillis():Date.now()}); });
     rows.sort(function(a,b){ if(b.score!==a.score) return b.score-a.score; if(a.t!==b.t) return a.t-b.t; return a.name<b.name?-1:1; });
     var box=document.getElementById("boardBox"), list=document.getElementById("boardList");
     document.getElementById("boardCnt").textContent="মোট "+bn(rows.length)+" জন পরীক্ষার্থী";
@@ -227,7 +252,7 @@ function loadBoard(myId){
       var div=document.createElement("div"); div.className="brow"+(r.id===myId?" me":"");
       var rk=document.createElement("span"); rk.className="rk"; rk.textContent=(i<3?medals[i]:bn(i+1));
       var nm=document.createElement("span"); nm.className="nm"; nm.textContent=r.name+(r.id===myId?" (তুমি)":"");
-      var sc=document.createElement("span"); sc.className="sc"; sc.textContent=bn(r.score)+"/"+bn(r.total)+" • "+bn(r.pct)+"%";
+      var sc=document.createElement("span"); sc.className="sc"; sc.textContent=bn(r.score)+"/"+bn(r.total)+" • "+bn(r.pct)+"%"+(r.mins?" • ⏱"+bn(r.mins)+"মি":"");
       div.appendChild(rk); div.appendChild(nm); div.appendChild(sc); return div;
     }
     rows.slice(0,10).forEach(function(r,i){ list.appendChild(rowEl(r,i)); });
