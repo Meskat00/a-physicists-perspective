@@ -226,7 +226,6 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
   <form class="hero-search" id="heroSearch"><input id="heroQ" type="search" placeholder="খুঁজো: ভেক্টর, বৃত্তাকার গতি, সরলরেখা…"><button type="submit">খুঁজি 🔍</button></form>
   <div class="hero-btns">
     <a class="btn btn-y" href="#exams">📝 এখনই পরীক্ষা দাও</a>
-    <a class="btn btn-g" href="#daily">🎯 আজকের চ্যালেঞ্জ</a>
   </div>
   <div class="stats">
     <div class="stat"><b data-count="495">0</b><span>মোট MCQ</span></div>
@@ -259,27 +258,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 </section>
 
 
-<section data-secname="আজকের চ্যালেঞ্জ" id="daily"><div class="two">
-  <div class="panel">
-    <span class="badge b-y">🎯 প্রতিদিন নতুন</span>
-    <h3>আজকের চ্যালেঞ্জ</h3>
-    <p style="color:var(--mut);font-size:14.5px">প্রতিদিন একটা করে প্রশ্ন — ধারাবাহিকতাই আসল গেম। উত্তর বেছে নাও, সাথে সাথে জানো ঠিক হলো কিনা।</p>
-    <div class="qtext" id="dailyQ"></div>
-    <div class="opts" id="dailyOpts"></div>
-    <div class="feedback" id="dailyFb"></div>
-  </div>
 
-  <div class="panel" id="practice">
-    <span class="badge b-g">⚡ ইনস্ট্যান্ট প্র্যাকটিস</span>
-    <h3>৫ প্রশ্নের মিনি কুইজ</h3>
-    <p style="color:var(--mut);font-size:14.5px">সাইট না ছেড়েই ঝটপট যাচাই — ভেক্টর ও বৃত্তাকার গতি থেকে।</p>
-    <div class="scorebar"><i id="miniBar"></i></div>
-    <div class="qtext" id="miniQ"></div>
-    <div class="opts" id="miniOpts"></div>
-    <div class="feedback" id="miniFb"></div>
-    <button class="chipbtn" id="miniNext" style="display:none">পরের প্রশ্ন →</button>
-  </div>
-</div></section>
 
 <section data-secname="পরীক্ষা" id="exams">
   <div class="sec-head"><div class="k">MCQ Exams</div><h2>📝 সব পরীক্ষা — অধ্যায় ধরে সাজানো</h2>
@@ -293,7 +272,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 
 <section data-secname="লেকচার" id="lectures">
   <div class="sec-head"><div class="k">Lectures & Videos</div><h2>🎬 লেকচার ও ভিডিও</h2>
-  <p>কনসেপ্ট আগে, ফর্মুলা পরে — intuition-first লেকচার সিরিজ <b>Level Up Cognitive Skills</b> থেকে। ছাত্রদের জন্য বানানো নতুন ভিডিওগুলো নতুন YouTube চ্যানেল থেকে এখানেই আসবে — প্রতিটি ভিডিওর সাথে তার অধ্যায়ের পরীক্ষা লিংক করা থাকবে, যাতে দেখেই সাথে সাথে প্র্যাকটিস করা যায়।</p></div>
+  </div>
   <p style="text-align:center;margin-bottom:14px"><a class="fbtn" href="series-physics-admission.html" style="display:inline-block">🎓 Physics Admission Program — পুরো সিরিজ এক পেজে (৬ পর্ব) →</a></p>
   <div class="grid" id="videoGrid" style="margin-bottom:16px"></div>
   <div class="grid">
@@ -322,7 +301,6 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
     <div class="step"><div class="n">2</div><h3>ক্লাস করো</h3><p style="color:var(--mut)">লেকচার ভিডিও দেখে অধ্যায়ের ধারণাটা পরিষ্কার করে নাও।</p></div>
     <div class="step"><div class="n">3</div><h3>পরীক্ষা দাও</h3><p style="color:var(--mut)">Google Forms-এ পরীক্ষা — কোনো অ্যাকাউন্ট লাগবে না, শুধু নাম দিলেই হবে।</p></div>
     <div class="step"><div class="n">4</div><h3>স্কোর + সঠিক উত্তর</h3><p style="color:var(--mut)">সাবমিটের সাথে সাথে স্কোর, আর ভুলগুলোর সঠিক উত্তর দেখে শিখে নাও।</p></div>
-    <div class="step"><div class="n">5</div><h3>প্রোগ্রেস ট্র্যাক করো</h3><p style="color:var(--mut)">শেষ করা পরীক্ষায় ✓ দাও — তোমার প্রোগ্রেস রিং ভরতে থাকবে। Login করলে সব device-এ sync হবে।</p></div>
   </div>
 </section>
 
@@ -475,44 +453,7 @@ document.querySelectorAll("[data-count]").forEach(el=>{const end=+el.dataset.cou
 function share(){const data={title:document.title,text:"A Physicist's Perspective — ৪৯৫টি ফ্রি MCQ পরীক্ষা (HSC + Admission), সাথে সাথে স্কোর! 📚",url:location.href};
  if(navigator.share)navigator.share(data).catch(()=>{});else{navigator.clipboard?.writeText(data.text+" "+data.url);toast("লিংক কপি হয়েছে — বন্ধুকে পাঠিয়ে দাও 📤")}}
 $("#shareBtn").onclick=share;$("#shareBtn2").onclick=share;
-/* DAILY CHALLENGE — rotates by date */
-const POOL=[
-{q:"দুটি সমান বল 60° কোণে ক্রিয়া করলে লব্ধি প্রতিটি বলের কত গুণ?",o:["√3 গুণ","√2 গুণ","2 গুণ","1 গুণ"],a:0,why:"R = √(P²+P²+2P²cos60°) = P√3"},
-{q:"î × ĵ = ?",o:["0","k̂","−k̂","1"],a:1,why:"î × ĵ = k̂ (ডান-হাত নিয়ম)"},
-{q:"5 m/s বেগে ঘূর্ণায়মান বস্তুর কেন্দ্রমুখী ত্বরণ, ব্যাসার্ধ 5 m হলে?",o:["1 m/s²","5 m/s²","25 m/s²","0.2 m/s²"],a:1,why:"a = v²/r = 25/5 = 5 m/s²"},
-{q:"A̅·B̅ = 0 হলে ভেক্টর দুটি পরস্পরের —",o:["সমান্তরাল","লম্ব","সমান","বিপরীত"],a:1,why:"ডট গুণফল শূন্য ⇔ cosθ=0 ⇔ θ=90°"},
-{q:"(2,3) ও (6,9) বিন্দুকে 1:2 অনুপাতে অন্তর্বিভক্তকারী বিন্দু কোনটি?",o:["(10/3, 5)","(4, 6)","(14/3, 7)","(3, 4)"],a:0,why:"x=(1·6+2·2)/3=10/3, y=(1·9+2·3)/3=5"},
-{q:"শঙ্কু পেন্ডুলামে (conical pendulum) সুতোর টান কোন বলের ভূমিকা পালন করে?",o:["মহাকর্ষ বল","কেন্দ্রমুখী বলের উপাংশ দেয়","ঘর্ষণ বল","কোনোটিই নয়"],a:1,why:"টানের অনুভূমিক উপাংশই কেন্দ্রমুখী বল যোগায়"},
-{q:"|A̅| = 3, |B̅| = 4 এবং A̅ ⊥ B̅ হলে |A̅ + B̅| = ?",o:["7","1","5","12"],a:2,why:"√(3²+4²) = 5 (লম্ব হলে cosθ=0)"}];
-const dayIdx=Math.floor(Date.now()/864e5)%POOL.length, DQ=POOL[dayIdx];
-$("#dailyQ").textContent= DQ.q;
-$("#dailyOpts").innerHTML=DQ.o.map((o,i)=>`<button class="opt" data-i="${i}">${"কখগঘ"[i]}) ${o}</button>`).join("");
-document.querySelectorAll("#dailyOpts .opt").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;
- document.querySelectorAll("#dailyOpts .opt").forEach(x=>x.disabled=true);
- document.querySelectorAll("#dailyOpts .opt")[DQ.a].classList.add("right");
- if(i===DQ.a)$("#dailyFb").textContent="✅ ঠিক হয়েছে! "+DQ.why;else{b.classList.add("wrong");$("#dailyFb").textContent="❌ হয়নি। "+DQ.why}});
- /* MINI QUIZ */
-const MINI=[
-{q:"A̅ = 3î + 4ĵ হলে |A̅| = ?",o:["5","7","12","1"],a:0},
-{q:"দুটি ভেক্টরের ক্রস গুণফল শূন্য হলে তারা —",o:["লম্ব","সমান্তরাল","লম্বভাবে অবস্থিত","অসমান"],a:1},
-{q:"বৃত্তাকার গতিতে কৌণিক বেগ ω, ব্যাসার্ধ r হলে রৈখিক বেগ?",o:["r/ω","ω/r","ωr","ω²r"],a:2},
-{q:"F̅ = 5î N, সরণ r̅ = 2î m হলে কৃতকাজ?",o:["10 J","7 J","2.5 J","0 J"],a:0},
-{q:"কেন্দ্রমুখী বলের দিক সবসময় —",o:["স্পর্শক বরাবর","কেন্দ্রের দিকে","কেন্দ্র থেকে বাইরে","বেগের বিপরীতে"],a:1}];
-let mi=0,mscore=0,mlock=false;
-function renderMini(){mlock=false;const m=MINI[mi];
- $("#miniQ").textContent=`প্রশ্ন ${mi+1}/${MINI.length}: ${m.q}`;
- $("#miniBar").style.width=(mi/MINI.length*100)+"%";
- $("#miniOpts").innerHTML=m.o.map((o,i)=>`<button class="opt" data-i="${i}">${"কখগঘ"[i]}) ${o}</button>`).join("");
- $("#miniFb").textContent="";$("#miniNext").style.display="none";
- document.querySelectorAll("#miniOpts .opt").forEach(b=>b.onclick=()=>{if(mlock)return;mlock=true;const i=+b.dataset.i;
-  document.querySelectorAll("#miniOpts .opt")[m.a].classList.add("right");
-  if(i===m.a){mscore++;$("#miniFb").textContent="✅ ঠিক! স্কোর: "+mscore+"/"+MINI.length}else{b.classList.add("wrong");$("#miniFb").textContent="❌ ভুল — সঠিকটা সবুজে দেখো। স্কোর: "+mscore+"/"+MINI.length}
-  $("#miniNext").style.display="inline-block";$("#miniNext").textContent=mi===MINI.length-1?"ফলাফল দেখো 🏁":"পরের প্রশ্ন →"})}
-$("#miniNext").onclick=()=>{if(mi<MINI.length-1){mi++;renderMini()}else{$("#miniBar").style.width="100%";
- $("#miniQ").textContent=mscore===MINI.length?"🏆 পারফেক্ট! ৫/৫ — তুমি রেডি আসল পরীক্ষার জন্য!":`শেষ! তোমার স্কোর ${mscore}/${MINI.length} — এবার পূর্ণ সেট দিয়ে ঝালাও 👇`;
- $("#miniOpts").innerHTML="";$("#miniFb").innerHTML=`<a href="#exams" style="color:#0a7a4b;text-decoration:underline">পূর্ণাঙ্গ পরীক্ষাগুলোতে যাও →</a>`;
- $("#miniNext").textContent="আবার খেলো ↺";mi=0;mscore=0;$("#miniNext").onclick=()=>{renderMini()}}};
-renderFilters();renderExams();renderMini();
+renderFilters();renderExams();
 </script>
 <nav class="tabbar" aria-label="দ্রুত নেভিগেশন">
 <a href="index.html">🏠<br>হোম</a><a href="exams.html">📝<br>পরীক্ষা</a><a href="lectures.html">🎬<br>লেকচার</a><a href="problems.html">🧩<br>সমস্যা</a><a href="about.html">👨‍🏫<br>সম্পর্কে</a>
