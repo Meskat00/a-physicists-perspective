@@ -202,6 +202,48 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 .fb-send:hover{background:var(--board2)}
 .fb-send:disabled{opacity:.6;cursor:wait}
 .fb-note{color:var(--mut);font-size:13.5px;text-align:center;margin-top:14px;font-family:'Hind Siliguri',sans-serif}
+
+/* ===== Cascade explorer (Exam / Lectures / Study Materials) ===== */
+.xp{max-width:880px;margin:0 auto}
+.xp-root{position:relative;overflow:hidden;width:100%;display:flex;align-items:center;gap:16px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px;cursor:pointer;box-shadow:var(--shadow);font-family:inherit;transition:transform .3s,box-shadow .3s}
+.xp-root::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#0a2a20,#0e5c3f 48%,#12b76a);opacity:0;transition:opacity .45s}
+.xp-root:hover::before,.xp.open .xp-root::before{opacity:1}
+.xp-root:hover{transform:translateY(-2px)}
+.xp-root>*{position:relative;z-index:1}
+.xp-ic{font-size:34px;line-height:1}
+.xp-rt b{display:block;font-size:23px;color:var(--ink);transition:color .3s;font-family:'Hind Siliguri',sans-serif}
+.xp-rt small{color:var(--mut);font-size:14.5px;transition:color .3s;font-family:'Hind Siliguri',sans-serif}
+.xp-root:hover .xp-rt b,.xp.open .xp-root .xp-rt b{color:#fff}
+.xp-root:hover .xp-rt small,.xp.open .xp-root .xp-rt small{color:#cfe9dc}
+.xp-arrow{margin-left:auto;font-size:20px;color:var(--mut);transition:transform .35s,color .3s}
+.xp.open .xp-arrow{transform:rotate(180deg);color:#fff}
+.xp-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.xp-levels[hidden]{display:none}
+.xp-level{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;cursor:pointer;text-align:left;font-family:inherit;opacity:0;transform:translateY(14px);transition:opacity .4s,transform .4s}
+.xp-levels.show .xp-level{opacity:1;transform:none}
+.xp-level:nth-child(2){transition-delay:.07s}.xp-level:nth-child(3){transition-delay:.14s}
+.xp-level::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#0e5c3f,#12b76a);opacity:0;transition:opacity .35s}
+.xp-level:hover::before,.xp-level.on::before{opacity:1}
+.xp-level b{font-size:19px;color:var(--ink);position:relative;z-index:1;transition:color .3s;font-family:'Hind Siliguri',sans-serif}
+.xp-level small{display:block;color:var(--mut);font-size:13px;margin-top:3px;position:relative;z-index:1;transition:color .3s;font-family:'Hind Siliguri',sans-serif}
+.xp-level:hover b,.xp-level.on b{color:#fff}
+.xp-level:hover small,.xp-level.on small{color:#cfe9dc}
+.xp-chaps{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+.xp-chaps[hidden]{display:none}
+.xp-chaphead{font-weight:800;color:var(--ink);margin-bottom:12px;font-size:16.5px;font-family:'Hind Siliguri',sans-serif}
+.xp-grid{display:flex;flex-wrap:wrap;gap:9px}
+.xp-chap{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#fbfdfc;color:var(--ink);font-weight:600;font-size:14.5px;text-decoration:none;font-family:'Hind Siliguri',sans-serif;opacity:0;transform:translateX(18px);transition:opacity .35s,transform .35s,background .3s,color .3s;transition-delay:var(--d,0ms)}
+.xp-chaps.show .xp-chap{opacity:1;transform:none}
+a.xp-chap:hover{background:linear-gradient(120deg,#0e5c3f,#12b76a);color:#fff;border-color:transparent}
+.xp-chap em{font-style:normal;font-size:11.5px;font-weight:800;background:var(--yellow);color:#4a3400;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.xp-chap em.soon{background:#eef3f0;color:var(--mut)}
+.xp-chap.is-soon{color:var(--mut);background:#f4f7f5}
+.xp-note{flex-basis:100%;color:var(--mut);font-size:14px;padding:6px 2px;font-family:'Hind Siliguri',sans-serif;opacity:0;transition:opacity .35s;transition-delay:var(--d,0ms)}
+.xp-chaps.show .xp-note{opacity:1}
+.xp-all{text-align:center;margin-top:14px;font-family:'Hind Siliguri',sans-serif}
+.xp-all a{font-weight:700;color:#0e5c3f}
+@media(max-width:640px){.xp-levels{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.xp-level,.xp-chap,.xp-note{transition:none!important;opacity:1!important;transform:none!important}}
 </style>
 <link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/">
 <meta property="og:title" content="A Physicist's Perspective — Meskat">
@@ -261,38 +303,17 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 
 
 <section data-secname="পরীক্ষা" id="exams">
-  <div class="sec-head"><div class="k">MCQ Exams</div><h2>📝 সব পরীক্ষা — অধ্যায় ধরে সাজানো</h2>
-  <p>পরীক্ষা দিলে Google Forms-এ খুলবে। নাম দাও, উত্তর দাও, সাবমিট — স্কোর সাথে সাথে। শেষ হলে এখানে <b>✓ শেষ</b> চেপে নিজের প্রোগ্রেস ট্র্যাক করো।</p></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px"><a class="fbtn" href="chapter-vector.html">📚 অধ্যায়: ভেক্টর (২০ সেট)</a><a class="fbtn" href="chapter-circular-motion.html">📚 অধ্যায়: বৃত্তাকার গতি</a><a class="fbtn" href="chapter-straight-line.html">📚 অধ্যায়: সরলরেখা</a><a class="fbtn" href="problems.html">🧩 সমস্যা অনুশীলনী</a></div>
-  <div class="filters" id="filters"></div>
-  <div class="count-line" id="countLine"></div>
-  <div class="grid" id="examGrid"></div>
-  <div class="empty" id="emptyMsg">😕 এই খোঁজে কিছু পাওয়া যায়নি — অন্য শব্দ দিয়ে চেষ্টা করো, বা ফিল্টার বদলাও।</div>
+  <div class="sec-head"><div class="k">MCQ Exams</div><h2>📝 পরীক্ষা</h2>
+  <p>Level বেছে নাও — অধ্যায় ধরে সব সেট সাজানো। মোট <b>২৩টি সেট • ৪৯৫টি MCQ</b>, সবই ফ্রি।</p></div>
+  <div class="xp" data-xp="exams"></div>
+  <p class="xp-all"><a href="exams.html">সব পরীক্ষা একসাথে দেখো →</a></p>
 </section>
 
 <section data-secname="লেকচার" id="lectures">
-  <div class="sec-head"><div class="k">Lectures & Videos</div><h2>🎬 লেকচার ও ভিডিও</h2>
-  </div>
-  <p style="text-align:center;margin-bottom:14px"><a class="fbtn" href="series-physics-admission.html" style="display:inline-block">🎓 Physics Admission Program — পুরো সিরিজ এক পেজে (৬ পর্ব) →</a></p>
-  <div class="grid" id="videoGrid" style="margin-bottom:16px"></div>
-  <div class="grid">
-    <div class="card lec"><div class="thumb t1">🧠<small>⏱ প্রায় ১১ মিনিট • মূল লেকচার</small></div>
-      <h3>Level Up Your Problem Solving Skills — 5-Move Method</h3>
-      <p style="color:var(--mut);font-size:14.5px">ট্রেন-আর-মাছির ধাঁধা, গাড়িতে বেলুন, Fermi estimation — সমস্যা সমাধানের ৫ ধাপের পদ্ধতি, ক্যালকুলাস ছাড়াই।</p>
-      <span class="badge b-g" style="align-self:flex-start">স্ক্রিপ্ট তৈরি • ভিডিও আসছে শীঘ্রই</span><div class="paper">📄 <b>এই লেসনের প্রশ্নপত্র:</b> এখনো যুক্ত হয়নি — লেসন প্রকাশের সাথে সাথেই এখানে যুক্ত হবে।</div></div>
-    <div class="card lec"><div class="thumb t2">🌀<small>⏱ ৬০ সেকেন্ড • Short</small></div>
-      <h3>কেন্দ্রমুখী বল — ৬০ সেকেন্ডে</h3>
-      <p style="color:var(--mut);font-size:14.5px">৪টি বাস্তব উদাহরণ দিয়ে ΣF<sub>c</sub> = mv²/r — বৃত্তাকার গতি অধ্যায়ের সবচেয়ে জরুরি ধারণা, এক মিনিটে পরিষ্কার।</p>
-      <span class="badge b-y" style="align-self:flex-start">দেখে তারপর বৃত্তাকার গতির পরীক্ষাটা দাও ↓</span>
-      <div class="paper">📄 <b>এই লেসনের প্রশ্নপত্র:</b> <a href="circular-motion-mcq-30.html">প্রিন্ট পেপার (৩০ MCQ)</a> • <a href="chapter-circular-motion.html">অধ্যায় পেজ</a></div>
-      <div class="acts"><a class="go" href="#exams" data-goto="বৃত্তাকার">পরীক্ষায় যাও →</a></div></div>
-    <div class="card lec"><div class="thumb t3">➡️<small>HSC 1st Year • ভেক্টর</small></div>
-      <h3>ভেক্টর — প্রশ্ন সমাধান সিরিজ</h3>
-      <p style="color:var(--mut);font-size:14.5px">HSC ১ম বর্ষের ভেক্টর অধ্যায়ের বাছাই প্রশ্ন ধাপে ধাপে সমাধান — থাম্বনেইল সিরিজ থেকে।</p>
-      <span class="badge b-b" style="align-self:flex-start">ভেক্টরের ২০টি সেট নিচে রেডি ✓</span>
-      <div class="paper">📄 <b>এই লেসনের প্রশ্নপত্র:</b> ভেক্টর অধ্যায়ের ২০টি সেট — <a href="chapter-vector.html">অধ্যায় পেজে সব সেট</a></div>
-      <div class="acts"><a class="go" href="#exams" data-goto="ভেক্টর">ভেক্টর পরীক্ষাগুলো →</a></div></div>
-  </div>
+  <div class="sec-head"><div class="k">Lectures &amp; Videos</div><h2>🎬 লেকচার ও ভিডিও</h2>
+  <p>Level বেছে নাও — অধ্যায় ধরে সব লেকচার সাজানো।</p></div>
+  <div class="xp" data-xp="lectures"></div>
+  <p class="xp-all"><a href="lectures.html">সব লেকচার একসাথে দেখো →</a> &nbsp;•&nbsp; <a href="series-physics-admission.html">🎓 Physics Admission Program — পুরো সিরিজ (৬ পর্ব) →</a></p>
 </section>
 
 <section data-secname="কীভাবে কাজ করে" id="how"><div class="sec-head"><div class="k">How it works</div><h2>কীভাবে কাজ করে?</h2></div>
@@ -304,26 +325,11 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
   </div>
 </section>
 
-<section data-secname="রিসোর্স" id="resources">
-  <div class="sec-head"><div class="k">Resources</div><h2>📚 প্রিন্ট ও প্র্যাকটিস রিসোর্স</h2></div>
-  <div class="grid">
-    <div class="card"><span class="badge b-p" style="align-self:flex-start">🖨 প্রিন্ট-রেডি পেপার</span>
-      <h3>বৃত্তাকার গতি — ৩০ MCQ প্রশ্নপত্র</h3>
-      <p style="color:var(--mut);font-size:14.5px">বোর্ড-স্টাইল A4, ২-কলাম প্রশ্নপত্র, উত্তরপত্র আলাদা পৃষ্ঠায় — বাসায় প্রিন্ট করে টাইম ধরে প্র্যাকটিসের জন্য।</p>
-      <div class="meta"><span>📄 ৩০ প্রশ্ন</span><span>🎓 HSC</span></div>
-      <div class="acts"><a class="go" href="circular-motion-mcq-30.html">পেপার খোলো →</a></div>
-      <p style="color:var(--mut);font-size:12.5px">* এই ফাইলটা একই GitHub রিপোতে আপলোড করলেই লিংক কাজ করবে।</p></div>
-    <div class="card"><span class="badge b-b" style="align-self:flex-start">🎓 Admission</span>
-      <h3>DU-ধাঁচের ফিজিক্স প্র্যাকটিস — ৪০ MCQ</h3>
-      <p style="color:var(--mut);font-size:14.5px">ঢাকা বিশ্ববিদ্যালয় ভর্তি প্যাটার্নে ১৯টি টপিকে অরিজিনাল প্র্যাকটিস প্রশ্ন, যাচাই করা উত্তরসহ।</p>
-      <div class="meta"><span>📄 ৪০ প্রশ্ন</span><span>১৯ টপিক</span></div>
-      <div class="acts"><a class="go" href="#exams" data-goto="ভর্তি">ভর্তি সেটগুলো দাও →</a></div></div>
-    <div class="card"><span class="badge b-g" style="align-self:flex-start">⚡ Quick Revision</span>
-      <h3>ফিজিক্স প্র্যাকটিস — ১০০ প্রশ্নের স্লাইড</h3>
-      <p style="color:var(--mut);font-size:14.5px">দ্রুত রিভিশনের জন্য ১০০ প্রশ্নের প্রেজেন্টেশন সেট — ক্লাসে বা নিজে নিজে ঝালাইয়ের জন্য।</p>
-      <div class="meta"><span>🖥 ১০০ প্রশ্ন</span><span>স্লাইড ফরম্যাট</span></div>
-      <div class="acts"><a class="go" href="#exams">পরীক্ষা দিয়ে ঝালাও →</a></div></div>
-  </div>
+<section data-secname="Study Materials" id="resources">
+  <div class="sec-head"><div class="k">Study Materials</div><h2>📚 স্টাডি ম্যাটেরিয়ালস</h2>
+  <p>Level বেছে নাও — অধ্যায় ধরে সমস্যা, প্রিন্ট পেপার আর প্র্যাকটিস সাজানো।</p></div>
+  <div class="xp" data-xp="materials"></div>
+  <p class="xp-all"><a href="problems.html">সমস্যা অনুশীলনী দেখো →</a></p>
 
   <div class="donate-card">
     <div class="d-tag">💜 Donate — Support Free Learning</div>
@@ -358,102 +364,25 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============================================================
-   ★ নতুন পরীক্ষা যোগ করা সহজ: নিচের EXAMS তালিকায় একটা block
-   copy করে title / topic / link বদলে দিলেই সাইটে চলে আসবে।
-   ============================================================ */
+/* পরীক্ষার পূর্ণ তালিকা এখন exams.html-এ — homepage-এ cascade explorer থাকে। */
 const F="https://docs.google.com/forms/d/e/";
-const EXAMS=[
-{id:"cm30",title:"বৃত্তাকার গতি — পূর্ণাঙ্গ সেট",chapter:"বৃত্তাকার গতি",subject:"পদার্থবিজ্ঞান",level:"HSC",q:30,link:F+"1FAIpQLSfOb3orwH6kw6JYwlihqmV2WUByDhstutXpksAtd5UHWtcPJQ/viewform",tag:"জনপ্রিয় ⭐"},
-{id:"vec10",title:"ভেক্টর — লব্ধি (সহজ → কঠিন)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"HSC",q:10,link:F+"1FAIpQLSfg4tB2J8CqEbg-ZwEU6o-BTQRrhpeg2x8qN97HPqe1Y_M5Gg/viewform"},
-{id:"vh1",title:"ভেক্টর সেট ১ — ভিত্তি, একক ভেক্টর, যোগ-বিয়োগ ও উপাংশ",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"HSC",q:30,link:F+"1FAIpQLSc4bBKm1N538fFv9rqLMce74ArjzKGfocqum0NHWvwc3rtLLA/viewform"},
-{id:"vh2",title:"ভেক্টর সেট ২ — লব্ধি, লব্ধির কোণ ও শর্ত",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"HSC",q:30,link:F+"1FAIpQLSc4GCqzw8FU4ccu1DO7OdMCkoPfxxKB4Pmz9UXqL2tyM8kgvA/viewform"},
-{id:"vh3",title:"ভেক্টর সেট ৩ — ডট গুণন (স্কেলার গুণন)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"HSC",q:30,link:F+"1FAIpQLSfQ4ErxieODhuT5o6LMvkBr8-t0s27pPZS1JrqVYt_OTyYxWA/viewform"},
-{id:"vh4",title:"ভেক্টর সেট ৪ — ক্রস গুণন (ভেক্টর গুণন)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"HSC",q:30,link:F+"1FAIpQLSexiymsH9YlWWa38XobFf_e2mcM1Hc4UHghKkNjBsd658C6Qg/viewform"},
-{id:"vh5",title:"ভেক্টর সেট ৫ — মিশ্র ও প্রয়োগ: আপেক্ষিক বেগ, ত্রিমাত্রিক ভেক্টর",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"HSC",q:30,link:F+"1FAIpQLSeShbO60aTHMsBv_yFJCSsVKgoWNnnTjQBc6ocZ1ULuz_7TQA/viewform"},
-{id:"va1",title:"ভেক্টর ভর্তি সেট ১ — ভিত্তি, একক ভেক্টর ও উপাংশ (ভর্তি ধাঁচে)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:30,link:F+"1FAIpQLSe2V3w664p8JO1evSF7srSsTtooC9RIXbw92psSbCVSHSkQew/viewform",tag:"ভর্তি 🔥"},
-{id:"va2",title:"ভেক্টর ভর্তি সেট ২ — লব্ধি ও কোণ (ভর্তি ধাঁচে)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:30,link:F+"1FAIpQLSeyaOlETZZw6bCPWUTruHNirVBR2aENf2NFrJbIQyPvOcPSKQ/viewform"},
-{id:"va3",title:"ভেক্টর ভর্তি সেট ৩ — ডট গুণন, অভিক্ষেপ, লম্ব শর্ত ও কাজ (ভর্তি ধাঁচে)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:30,link:F+"1FAIpQLSd51pvQTsPqn-WZfbB0GaazPfEgNTLaKGjGOrLkKaaYiXLwTA/viewform"},
-{id:"va4",title:"ভেক্টর ভর্তি সেট ৪ — ক্রস গুণন, টর্ক, ক্ষেত্রফল (ভর্তি ধাঁচে)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:30,link:F+"1FAIpQLScV83MoUVvDZute2ZzKNQtTV5kgBh852gCp1UmOrrQzC0n3Ag/viewform"},
-{id:"va5",title:"ভেক্টর ভর্তি সেট ৫ — আপেক্ষিক বেগ, 3D, দিক কোসাইন, মিশ্র গুণন (ভর্তি ধাঁচে)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:30,link:F+"1FAIpQLScBz__MOEYk3ONkn0IfaWaVWsONoT63vdS5m6kH-BbsSKpPtg/viewform"},
-{id:"vp1",title:"ভেক্টর মিশ্র সেট ১ — বিগত বছরের ধাঁচে (সব টপিক)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:15,link:F+"1FAIpQLSejF1GodiKsTIV-bIxVTLxWB1VITkghf-luAPSBN67UE95jHw/viewform",tag:"বিগত বছর 📚"},
-{id:"vp2",title:"ভেক্টর মিশ্র সেট ২ — বিগত বছরের ধাঁচে (সব টপিক)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:15,link:F+"1FAIpQLSfgStQsE-uw3kvoz9Wcf-uWthIQV61I-vZvN1u8lqGoicNPXQ/viewform"},
-{id:"vp3",title:"ভেক্টর মিশ্র সেট ৩ — বিগত বছরের ধাঁচে (সব টপিক)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:15,link:F+"1FAIpQLSfnvFjJJMtIQHnfSlcwCj0yyNcsxJ5nGrhJbiKXpt5zGLye9Q/viewform"},
-{id:"vp4",title:"ভেক্টর মিশ্র সেট ৪ — বিগত বছরের ধাঁচে (সব টপিক)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:15,link:F+"1FAIpQLSd93TGn787lkuzcDVZ48NBOlNJjo1NilkepJzG9ca4o3C81PA/viewform"},
-{id:"vp5",title:"ভেক্টর মিশ্র সেট ৫ — বিগত বছরের ধাঁচে (সব টপিক)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:15,link:F+"1FAIpQLSf4x9M6XkYJSw0HB9JM0CQsb1Lec1mxUsWPcxRrZ6Vz_CCOJA/viewform"},
-{id:"vp6",title:"ভেক্টর মিশ্র সেট ৬ — বিগত বছরের ধাঁচে (সব টপিক)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:15,link:F+"1FAIpQLSegOZOIpd82kzP3gMTbuoXxoC4otjgvbDuT9FuaMwOE_lvLng/viewform"},
-{id:"vp7",title:"ভেক্টর মিশ্র সেট ৭ — বিগত বছরের ধাঁচে (সব টপিক)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:15,link:F+"1FAIpQLSd4SEPzdP33PAG-X_TrMeJbZsiQByvyTZ5s0FXJgW_g7BgA-w/viewform"},
-{id:"vp8",title:"ভেক্টর মিশ্র সেট ৮ — বিগত বছরের ধাঁচে (সব টপিক)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:15,link:F+"1FAIpQLScH6Xsw4MUut_LRR1KkVvNL9ZLdiq6gama1tKNV6ugz8j6gFQ/viewform"},
-{id:"vp9",title:"ভেক্টর মিশ্র সেট ৯ — বিগত বছরের ধাঁচে (সব টপিক)",chapter:"ভেক্টর",subject:"পদার্থবিজ্ঞান",level:"Admission",q:15,link:F+"1FAIpQLSfHATKatvjba2XgYKOIAsNdQ2r40hk3ByP0Xcv2CdfMoeDO4A/viewform"},
-{id:"sl1",title:"সরলরেখা — অন্তর্বিভক্ত ও বহির্বিভক্ত",chapter:"সরলরেখা",subject:"উচ্চতর গণিত",level:"HSC",q:10,link:F+"1FAIpQLSfg8MmkvLtHxXMbZEvBBG25zQZ_HSiR9cwn2nZzjNB9aLgyMA/viewform"},
-{id:"sl2",title:"সরলরেখা — সমত্রিখণ্ডক ও অক্ষ দ্বারা বিভক্ত",chapter:"সরলরেখা",subject:"উচ্চতর গণিত",level:"HSC",q:10,link:F+"1FAIpQLSdGqagc1ELZOvku3U-x0AEu_4gk5dPd1WweUkRMlclGmMS_gQ/viewform"},
-];
-const FILTERS=["সব","পদার্থবিজ্ঞান","উচ্চতর গণিত","HSC","Admission","ভেক্টর","বৃত্তাকার গতি","সরলরেখা","শেষ করেছি ✓"];
-let activeFilter="সব", query="";
+
 const done=new Set(JSON.parse(localStorage.getItem("lup_done")||"[]"));
 const $=s=>document.querySelector(s);
 function saveDone(){localStorage.setItem("lup_done",JSON.stringify([...done]))}
 function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2600)}
-function renderFilters(){$("#filters").innerHTML=FILTERS.map(f=>`<button class="fbtn ${f===activeFilter?'on':''}" data-f="${f}">${f}</button>`).join("");
- document.querySelectorAll(".fbtn").forEach(b=>b.onclick=()=>{activeFilter=b.dataset.f;renderFilters();renderExams()})}
-function match(e){const hay=(e.title+e.chapter+e.subject+e.level).toLowerCase();
- if(query&&!hay.includes(query))return false;
- if(activeFilter==="সব")return true;
- if(activeFilter==="শেষ করেছি ✓")return done.has(e.id);
- return e.subject===activeFilter||e.level===activeFilter||e.chapter===activeFilter}
-function renderExams(){const list=EXAMS.filter(match);
- $("#examGrid").innerHTML=list.map(e=>`<article class="card ${done.has(e.id)?'is-done':''}">
-   <div class="row"><span class="badge ${e.subject==='পদার্থবিজ্ঞান'?'b-b':'b-p'}">${e.subject}</span><span class="badge ${e.level==='HSC'?'b-g':'b-y'}">${e.level}</span>${e.tag?`<span class="badge b-y">${e.tag}</span>`:''}</div>
-   <h3>${e.title}</h3>
-   <div class="meta"><span>❓ ${e.q}টি MCQ</span><span>⏱ ~${e.q} মিনিট</span><span>📊 তাৎক্ষণিক স্কোর</span></div>
-   <div class="acts"><a class="go" href="${e.link}" target="_blank" rel="noopener">পরীক্ষা দাও →</a>
-   <button class="donebtn ${done.has(e.id)?'done':''}" data-done="${e.id}">${done.has(e.id)?'✓ শেষ':'শেষ করেছি'}</button></div></article>`).join("");
- $("#countLine").textContent=`${list.length}টি সেট দেখাচ্ছে • মোট ${list.reduce((a,e)=>a+e.q,0)}টি প্রশ্ন`;
- $("#emptyMsg").style.display=list.length?"none":"block";
- document.querySelectorAll("[data-done]").forEach(b=>b.onclick=()=>{const id=b.dataset.done;
-   done.has(id)?done.delete(id):(done.add(id),toast("🎉 দারুণ! আরেকটা সেট শেষ — প্রোগ্রেস আপডেট হয়েছে"));saveDone();renderExams();renderProgress()});
- renderProgress()}
-function renderProgress(){const p=Math.round(done.size/EXAMS.length*100);
+function renderProgress(){const p=Math.round(done.size/23*100);
  $("#ring").style.setProperty("--p",p);$("#ringTxt").textContent=p+"%";
- $("#progTxt").textContent=done.size?`তুমি ${done.size} / ${EXAMS.length}টি সেট শেষ করেছ — এই গতি ধরে রাখো! 🔥`:"এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।"}
-$("#resetProg").onclick=()=>{done.clear();saveDone();renderExams();toast("প্রোগ্রেস রিসেট হয়েছে")};
-$("#heroSearch").onsubmit=ev=>{ev.preventDefault();query=$("#heroQ").value.trim().toLowerCase();renderExams();document.querySelector("#exams").scrollIntoView({behavior:"smooth"})};
-document.querySelectorAll("[data-goto]").forEach(a=>a.addEventListener("click",()=>{query=a.dataset.goto.toLowerCase();$("#heroQ").value=a.dataset.goto;setTimeout(renderExams,50)}));
-/* ============================================================
-   ★ ভিডিও যোগ করা: নতুন চ্যানেলের ভিডিও পেলে নিচে একটা block
-   যোগ করলেই সাইটে embedded player সহ কার্ড চলে আসবে।
-   yt = YouTube video ID (লিংকের v= এর পরের অংশ), exam = ঐ
-   অধ্যায়ের পরীক্ষার id (উপরের EXAMS তালিকা থেকে), যাতে
-   "দেখে পরীক্ষা দাও" বাটনটা ঠিক সেটে নিয়ে যায়।
-   উদাহরণ: {title:"ভেক্টর — পর্ব ১", chapter:"ভেক্টর", yt:"VIDEO_ID", exam:"vh1"}
-   নোট: শুধুমাত্র ছাত্রদের জন্য বানানো নতুন চ্যানেলের ভিডিওই এখানে বসবে।
-   ============================================================ */
-const VIDEOS=[
-{title:"(Order - 1/100) ভেক্টর নিয়ে সম্পর্কে যা জানতেই হবে। Admission Physics", chapter:"ভেক্টর", yt:"0_El8Puf2qA", exam:"va1", paper:"https://docs.google.com/forms/d/e/1FAIpQLSe2V3w664p8JO1evSF7srSsTtooC9RIXbw92psSbCVSHSkQew/viewform"},
-{title:"(Order - 2/100) ভেক্টর যোগ বিয়োগ নিয়ে যত Shortcut দরকার । Admission Physics", chapter:"ভেক্টর", yt:"mHkw0tYgbe4", exam:"va2", paper:"https://docs.google.com/forms/d/e/1FAIpQLSeyaOlETZZw6bCPWUTruHNirVBR2aENf2NFrJbIQyPvOcPSKQ/viewform"},
-{title:"(Order - 3/100) ভেক্টরকে যেকোন কোণে বিভাজন সহ অনেক কিছু || উপাংশ ও অভিক্ষেপ| Admission Physics", chapter:"ভেক্টর", yt:"qljBhENsYEQ", exam:"va3", paper:"https://docs.google.com/forms/d/e/1FAIpQLSd51pvQTsPqn-WZfbB0GaazPfEgNTLaKGjGOrLkKaaYiXLwTA/viewform"},
-{title:"(Order - 4/100) ভেক্টরের বিভিন্ন প্রকার গুণ ও সম্পর্কিত 10+ Shortcut  |Admission Physics", chapter:"ভেক্টর", yt:"eaerd7rBli8", exam:"va3", paper:"https://docs.google.com/forms/d/e/1FAIpQLSd51pvQTsPqn-WZfbB0GaazPfEgNTLaKGjGOrLkKaaYiXLwTA/viewform"},
-{title:"(Order - 4/100) নদী ও নৌকা || Build Intuition with Shortcut  |Admission Physics", chapter:"ভেক্টর", yt:"Ax9SFyCB5js", exam:"va5", paper:"https://docs.google.com/forms/d/e/1FAIpQLScBz__MOEYk3ONkn0IfaWaVWsONoT63vdS5m6kH-BbsSKpPtg/viewform"},
-{title:"(Order - 5/100) আপেক্ষিক বেগ | ছাতা সম্পর্কিত ৪ টা Case | বাসের কোন কাঁচ ভিজবে | Admission Physics", chapter:"ভেক্টর", yt:"lIZDc0OcxMw", exam:"va5", paper:"https://docs.google.com/forms/d/e/1FAIpQLScBz__MOEYk3ONkn0IfaWaVWsONoT63vdS5m6kH-BbsSKpPtg/viewform"}
-];
-function renderVideos(){const g=$("#videoGrid");if(!g)return;
- if(!VIDEOS.length){g.innerHTML=`<div class="card lec" style="grid-column:1/-1;text-align:center;padding:28px">
-   <div style="font-size:40px">🎬</div><h3>নতুন চ্যানেলের ভিডিও শীঘ্রই আসছে</h3>
-   <p style="color:var(--mut)">ছাত্রদের জন্য বিশেষভাবে বানানো লেকচার ভিডিওগুলো প্রকাশ হলেই এখানে সাজানো থাকবে — অধ্যায় অনুযায়ী, প্রতিটির পাশে সেই অধ্যায়ের MCQ পরীক্ষা। ততক্ষণে নিচের পরীক্ষাগুলো দিয়ে প্রস্তুতি চালিয়ে যাও 👇</p>
-   <div class="acts" style="justify-content:center"><a class="go" style="flex:0 1 260px" href="#exams">পরীক্ষাগুলো দেখো →</a></div></div>`;return}
- g.innerHTML=VIDEOS.map(v=>{const ex=EXAMS.find(e=>e.id===v.exam);
-  return `<article class="card lec"><div style="border-radius:14px;overflow:hidden;aspect-ratio:16/9;background:#000">
-   <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${v.yt}" title="${v.title}" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer;encrypted-media;picture-in-picture"></iframe></div>
-   <h3>${v.title}</h3><div class="paper">📄 <b>এই লেসনের প্রশ্নপত্র:</b> ${v.paper?`<a href="${v.paper}" target="_blank" rel="noopener">পেপারটি খোলো →</a>`:`এখনো যুক্ত হয়নি`}</div>
-   ${ex?`<div class="acts"><a class="go" href="${ex.link}" target="_blank" rel="noopener">দেখে পরীক্ষা দাও → ${ex.q} MCQ</a></div>`:""}</article>`}).join("")}
-renderVideos();
+ $("#progTxt").textContent=done.size?`তুমি ${done.size} / ${23}টি সেট শেষ করেছ — এই গতি ধরে রাখো! 🔥`:"এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।"}
+$("#resetProg").onclick=()=>{done.clear();saveDone();renderProgress();toast("প্রোগ্রেস রিসেট হয়েছে")};
+$("#heroSearch").onsubmit=ev=>{ev.preventDefault();const q=$("#heroQ").value.trim();location.href="exams.html"+(q?"?q="+encodeURIComponent(q):"")};
 /* counters */
 document.querySelectorAll("[data-count]").forEach(el=>{const end=+el.dataset.count;let n=0;const t=setInterval(()=>{n+=Math.ceil(end/40);if(n>=end){n=end;clearInterval(t)}el.textContent=n},30)});
 /* share */
 function share(){const data={title:document.title,text:"A Physicist's Perspective — ৪৯৫টি ফ্রি MCQ পরীক্ষা (HSC + Admission), সাথে সাথে স্কোর! 📚",url:location.href};
  if(navigator.share)navigator.share(data).catch(()=>{});else{navigator.clipboard?.writeText(data.text+" "+data.url);toast("লিংক কপি হয়েছে — বন্ধুকে পাঠিয়ে দাও 📤")}}
 $("#shareBtn").onclick=share;$("#shareBtn2").onclick=share;
-renderFilters();renderExams();
+renderProgress();
 </script>
 <nav class="tabbar" aria-label="দ্রুত নেভিগেশন">
 <a href="index.html">🏠<br>হোম</a><a href="exams.html">📝<br>পরীক্ষা</a><a href="lectures.html">🎬<br>লেকচার</a><a href="problems.html">🧩<br>সমস্যা</a><a href="about.html">👨‍🏫<br>সম্পর্কে</a>
@@ -650,6 +579,70 @@ form.reset();note.textContent="ধন্যবাদ! তোমার মন্�
 }).catch(fail);
 }catch(err){fail();}
 });})();
+</script>
+
+<script>
+/* ===== Cascade explorer engine ===== */
+(function(){ "use strict";
+var HSC21=["ভৌত জগৎ ও পরিমাপ","ভেক্টর","গতিবিদ্যা","নিউটনীয় বলবিদ্যা","কাজ, শক্তি ও ক্ষমতা","মহাকর্ষ ও অভিকর্ষ","পদার্থের গাঠনিক ধর্ম","পর্যাবৃত্ত গতি","তরঙ্গ","আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব","তাপগতিবিদ্যা","স্থির তড়িৎ","চল তড়িৎ","তড়িৎ প্রবাহের চৌম্বক ক্রিয়া ও চুম্বকত্ব","তাড়িতচুম্বকীয় আবেশ ও পরিবর্তী প্রবাহ","জ্যামিতিক আলোকবিজ্ঞান","ভৌত আলোকবিজ্ঞান","আধুনিক পদার্থবিজ্ঞানের সূচনা","পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান","সেমিকন্ডাক্টর ও ইলেকট্রনিক্স","জ্যোতির্বিজ্ঞান"];
+var SSC14=["ভৌত রাশি এবং পরিমাপ","গতি","বল","কাজ, ক্ষমতা ও শক্তি","পদার্থের অবস্থা ও চাপ","বস্তুর ওপর তাপের প্রভাব","তরঙ্গ ও শব্দ","আলোর প্রতিফলন","আলোর প্রতিসরণ","স্থির বিদ্যুৎ","চল বিদ্যুৎ","বিদ্যুতের চৌম্বক ক্রিয়া","আধুনিক পদার্থবিজ্ঞান ও ইলেকট্রনিক্স","জীবন বাঁচাতে পদার্থবিজ্ঞান"];
+function C(n,href,badge,soon){return{n:n,href:href||null,badge:badge||null,soon:!!soon}}
+function SL(names,href){return names.map(function(n){return C(n,href,null,true)})}
+function hscExams(){return HSC21.map(function(n){
+  if(n==="ভেক্টর")return C(n,"chapter-vector.html","২০ সেট");
+  if(n==="নিউটনীয় বলবিদ্যা")return C(n,"chapter-circular-motion.html","বৃত্তাকার গতি • ১ সেট");
+  return C(n,"exams.html#book-chapters",null,true);
+}).concat([C("সরলরেখা","chapter-straight-line.html","উচ্চতর গণিত • ২ সেট")])}
+function hscLectures(){return SL(HSC21,"lectures.html#book-chapters")}
+function hscMaterials(){return HSC21.map(function(n){
+  if(n==="ভেক্টর")return C(n,"problems.html","১৫টি সমস্যা");
+  if(n==="নিউটনীয় বলবিদ্যা")return C(n,"circular-motion-mcq-30.html","প্রিন্ট পেপার • ৩০ MCQ");
+  return C(n,null,null,true);
+})}
+var XP={
+exams:{icon:"📝",name:"Exam",bn:"পরীক্ষা",meta:"২৩ সেট • ৪৯৫ MCQ",order:["SSC","HSC","Admission"],levels:{
+  SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SL(SSC14,"exams.html#ssc")},
+  HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র • উচ্চতর গণিত",chapters:hscExams()},
+  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","exams.html?filter=Admission","৫ সেট"),{note:"অন্য অধ্যায়ের Admission সেট আসছে শীঘ্রই — ভেক্টর দিয়ে শুরু করো।"}]}}},
+lectures:{icon:"🎬",name:"Lectures & Videos",bn:"লেকচার ও ভিডিও",meta:"সিরিজ • লেসন • Short",order:["SSC","HSC","Admission"],levels:{
+  SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SL(SSC14,"lectures.html#ssc")},
+  HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র",chapters:hscLectures()},
+  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","series-physics-admission.html","৬ পর্বের সিরিজ"),{note:"নতুন চ্যানেলের আরও ভিডিও আসছে শীঘ্রই।"}]}}},
+materials:{icon:"📚",name:"Study Materials",bn:"স্টাডি ম্যাটেরিয়ালস",meta:"সমস্যা • প্রিন্ট পেপার • প্র্যাকটিস",order:["SSC","HSC","Admission"],levels:{
+  SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SL(SSC14,null)},
+  HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র • উচ্চতর গণিত",chapters:hscMaterials()},
+  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","problems.html","সমস্যা অনুশীলনী"),{note:"আরও প্র্যাকটিস ম্যাটেরিয়াল আসছে শীঘ্রই।"}]}}}
+};
+document.querySelectorAll("[data-xp]").forEach(function(mount){
+  var cfg=XP[mount.getAttribute("data-xp")]; if(!cfg)return;
+  mount.innerHTML='<button class="xp-root" type="button" aria-expanded="false"><span class="xp-ic">'+cfg.icon+'</span><span class="xp-rt"><b>'+cfg.name+'</b><small>'+cfg.bn+' • '+cfg.meta+'</small></span><span class="xp-arrow">▾</span></button>'
+   +'<div class="xp-levels" hidden>'+cfg.order.map(function(L){return '<button class="xp-level" type="button" data-lv="'+L+'"><b>'+L+'</b><small>'+cfg.levels[L].desc+'</small></button>'}).join("")+'</div>'
+   +'<div class="xp-chaps" hidden></div>';
+  var root=mount.querySelector(".xp-root"),levels=mount.querySelector(".xp-levels"),chaps=mount.querySelector(".xp-chaps");
+  var open=false,curLv=null;
+  function showChaps(L){
+    curLv=L;
+    levels.querySelectorAll(".xp-level").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-lv")===L)});
+    var list=cfg.levels[L].chapters;
+    chaps.innerHTML='<div class="xp-chaphead">'+L+' — অধ্যায় বেছে নাও</div><div class="xp-grid">'+list.map(function(c,i){
+      if(c.note)return '<div class="xp-note" style="--d:'+(i*40)+'ms">'+c.note+'</div>';
+      var inner='<span>'+c.n+'</span>'+(c.badge?'<em>'+c.badge+'</em>':'')+(c.soon?'<em class="soon">আসছে শীঘ্রই</em>':'');
+      var cls='xp-chap'+(c.soon?' is-soon':'');
+      return c.href?'<a class="'+cls+'" style="--d:'+(i*40)+'ms" href="'+c.href+'">'+inner+'</a>':'<span class="'+cls+'" style="--d:'+(i*40)+'ms">'+inner+'</span>';
+    }).join("")+'</div>';
+    chaps.hidden=false; chaps.classList.remove("show");
+    requestAnimationFrame(function(){requestAnimationFrame(function(){chaps.classList.add("show")})});
+  }
+  root.addEventListener("click",function(){
+    open=!open;
+    root.setAttribute("aria-expanded",String(open));
+    mount.classList.toggle("open",open);
+    if(open){levels.hidden=false;requestAnimationFrame(function(){levels.classList.add("show")});if(!curLv)showChaps("HSC");}
+    else{levels.classList.remove("show");chaps.classList.remove("show");setTimeout(function(){levels.hidden=true;chaps.hidden=true},380);}
+  });
+  levels.querySelectorAll(".xp-level").forEach(function(b){b.addEventListener("click",function(){showChaps(b.getAttribute("data-lv"))})});
+});
+})();
 </script>
 </body>
 </html>
