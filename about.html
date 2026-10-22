@@ -389,6 +389,11 @@ body.has-cursor #curDot{display:block}
 .otrack span{font-family:var(--font-display);font-weight:900;font-size:clamp(52px,8.5vw,118px);line-height:1;letter-spacing:-.01em;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(245,242,237,.42);padding-right:.35em}
 @keyframes omq{to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.otrack{animation:none}}
+
+/*STORYFIX*/
+#about .ph{aspect-ratio:4/3.4}
+#about .ph img{object-position:50% 50%}
+.story-cols mark{background:linear-gradient(180deg,transparent 60%,rgba(255,150,50,.34) 60%,rgba(255,120,40,.34) 94%,transparent 94%);padding:0 1px;border-radius:0;color:#fff}
 </style>
 </head>
 
@@ -491,7 +496,7 @@ body.has-cursor #curDot{display:block}
       <div class="story">
         <div class="portrait rv">
           <svg viewBox="0 0 930 1200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="pglow2" cx=".5" cy=".28" r=".65"><stop offset="0" stop-color="#FF5A1F" stop-opacity=".30"/><stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/></radialGradient></defs><rect width="930" height="1200" fill="#101013"/><rect width="930" height="1200" fill="url(#pglow2)"/><g stroke="#26262b"><path d="M0 300h930M0 600h930M0 900h930M232 0v1200M465 0v1200M697 0v1200"/></g></svg>
-          <img class="photo" src="meskat.png" alt="Portrait of Meskat">
+          <img class="photo" src="meskat-tight.png" alt="Portrait of Meskat">
           
         </div>
         <div>
@@ -719,7 +724,7 @@ let setFilter = null;
     {t:"Research", sub:"Quantum Computing · Density Functional Theory", chip:"DFT · QC", g:["#1d3557","#4cc9f0"], go:"about"},
     {t:"Teaching", sub:"SSC · HSC · Admission", chip:"495+ MCQs", g:["#5a1f10","#FF5A1F"], go:"works"},
     {t:"Animation", sub:"Animated videos — my Facebook Page", chip:"Watch ↗", g:["#3d2b52","#f72585"], go:"https://www.facebook.com/profile.php?id=61574192983675"},
-    {t:"Book Lover", sub:"The books behind the lectures", chip:"📚 always", g:["#6b3410","#ffd93b"], go:"experience"}
+    {t:"Books", sub:"The books behind the lectures", chip:"📚 always", g:["#6b3410","#ffd93b"], go:"libbooks"}
   ];
   $("#reelTrack").innerHTML = LANES.map((L,i)=>
     `<button class="cat" style="--rot:${rots[i]}deg" data-go="${L.go}" aria-label="${L.t} — ${L.sub}">
@@ -730,6 +735,7 @@ let setFilter = null;
   document.querySelectorAll(".cat").forEach(b=>b.addEventListener("click", ()=>{
     const go = b.dataset.go;
     if(go.startsWith("http")){ window.open(go, "_blank", "noopener"); return; }
+    if(go==="libbooks"){ const tb=document.querySelector('.ltab[data-tab="books"]'); if(tb) tb.click(); const w=document.getElementById("works"); if(w) w.scrollIntoView({behavior: REDUCED?"auto":"smooth"}); return; }
     if(go==="works" && setFilter) setFilter("All");
     const el = document.getElementById(go); if(el) el.scrollIntoView({behavior: REDUCED?"auto":"smooth"});
   }));
