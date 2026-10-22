@@ -413,6 +413,8 @@ body.has-cursor #curDot{display:block}
 .qsegs b.on{background:var(--color-accent)}
 
 .jcard p{font-family:'Hind Siliguri',var(--font-body);font-size:16.5px;line-height:1.8}
+
+#filters,#resultLine,#moreBtn{display:none !important}
 </style>
 </head>
 
@@ -559,7 +561,7 @@ body.has-cursor #curDot{display:block}
       <div class="sec-head rv">
         <span class="tag mono">Top viewed — the collection</span>
         <h2>Videos, teachers<br><em>&amp; books</em></h2>
-        <p>তিনটা shelf — আমার সবচেয়ে বেশি দেখা ভিডিও, প্রিয় শিক্ষক, আর প্রিয় বই। ধীরে ধীরে এখানে সব যোগ হতে থাকবে।</p>
+        <p>Three shelves — the lesson students watch most, the teachers who shaped me, and the books I keep returning to. This collection grows, little by little.</p>
       </div>
       <div class="libtabs" role="group" aria-label="Library sections">
         <button class="ltab on" data-tab="videos" aria-pressed="true">🎬 Videos</button>
@@ -676,7 +678,7 @@ const CONFIG = {
 
   ]
 };
-const PROJECTS = [{"id": "v1", "yt": "CXIh-XiPoNY", "title": "Matrix Methods in Optics — Translation, Refraction & System Matrix (Bangla)", "cats": ["Lectures"], "views": "484 views", "dur": "1:16:39", "g": ["#2b3a67", "#FF5A1F"], "desc": "A full university-level lecture on matrix methods in optics — translation, refraction and system matrices, explained in Bangla."}, {"id": "v2", "yt": "li_WUrJxNeo", "title": "অপ্রকৃত ভগ্নাংশের আংশিক ভগ্নাংশ — Part 06 | উচ্চতর গণিত", "cats": ["Higher Math"], "views": "453 views", "dur": "22:23", "g": ["#3d2b52", "#ffb25e"], "desc": "Partial fractions of improper fractions, step by step — HSC Higher Math, Algebraic Expressions."}, {"id": "v3", "yt": "F4o5P6h6b7E", "title": "BUET 18–19: ভারসাম্যে রাখা সম্ভব কী? (স্থির তড়িৎ)", "cats": ["Admission"], "views": "350 views", "dur": "6:34", "g": ["#123c33", "#F5F2ED"], "desc": "A classic BUET electrostatics problem — can the charge really stay in balance? Solved with the concept, not just the formula."}, {"id": "v4", "yt": "oYuVJ3XQrYc", "title": "সিলেট বোর্ড ২০২৫ — স্থির বিদ্যুৎ | SSC Physics Board Question Solve", "cats": ["SSC"], "views": "283 views", "dur": "14:51", "g": ["#274156", "#8fd0ab"], "desc": "Complete solution of the Sylhet Board 2025 SSC Physics electrostatics questions."}, {"id": "v5", "yt": "S3JX4ggOPFg", "title": "Wave: দুটি সুরশলাকার কম্পাঙ্কের পার্থক্য 118 Hz — কম্পাঙ্ক বের করো", "cats": ["HSC"], "views": "208 views", "dur": "14:47", "g": ["#5a1f10", "#FF5A1F"], "desc": "A beats-and-tuning-forks problem from the Wave chapter, solved from first principles."}, {"id": "v6", "yt": "fGsObTTkE7E", "title": "দিক থাকা সত্ত্বেও তড়িৎ প্রবাহ কেন স্কেলার রাশি? | HSC · Admission", "cats": ["HSC", "Admission"], "views": "161 views", "dur": "4:16", "g": ["#402e2a", "#FF7440"], "desc": "Current has a direction — so why is it a scalar? A four-minute concept that clears up years of confusion."}, {"id": "v7", "yt": "03gCIng3hQ4", "title": "আধুনিক পদার্থবিজ্ঞান — Modern Physics | Shortcut · Concept · Question Bank Solve", "cats": ["HSC", "Admission"], "views": "153 views", "dur": "1:45:00", "g": ["#513252", "#f2c4ce"], "desc": "A long-form Modern Physics session: shortcuts, concepts and question-bank solutions for HSC and Admission."}, {"id": "v8", "yt": "P7ThneStmPE", "title": "BUET 14–15: dN/dt নাকি λ? Confused — Nuclear Physics", "cats": ["Admission"], "views": "142 views", "dur": "14:15", "g": ["#22223b", "#9a8c98"], "desc": "The classic radioactive-decay confusion from BUET 14–15, settled once and for all."}, {"id": "v9", "yt": "REV9m7sJuS0", "title": "সবার জন্য পদার্থবিজ্ঞান — গতির সমস্যা (বন্দুক ও গুলি) Part 06.1", "cats": ["Lectures"], "views": "104 views", "dur": "38:00", "g": ["#0f4c5c", "#fb8b24"], "desc": "Physics for everyone: motion problems — the bullet-and-gun series, Part 06.1."}];
+const PROJECTS = [{"id": "v1", "yt": "CXIh-XiPoNY", "title": "Matrix Methods in Optics — Translation, Refraction & the System Matrix (Full Lecture, in Bangla)", "cats": ["Lectures"], "views": "484 views", "dur": "1:16:39", "g": ["#2b3a67", "#FF5A1F"], "desc": "A full university-level lecture on matrix methods in optics — translation, refraction and system matrices, explained in Bangla."}];
 const CATEGORIES = ["All","Admission","HSC","Lectures","Higher Math","SSC"];
 const REEL_CATS = ["Admission","HSC","Lectures","Higher Math"];
 const REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
