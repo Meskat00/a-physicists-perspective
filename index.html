@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Physicist's Perspective — Meskat | HSC ও Admission MCQ পরীক্ষা ও লেকচার</title>
-<meta name="description" content="HSC ও বিশ্ববিদ্যালয় ভর্তি প্রস্তুতির ফ্রি MCQ পরীক্ষা ও ফিজিক্স লেকচার। ৪৯৫টি MCQ, ২৩টি পরীক্ষা সেট — সাথে সাথে স্কোর ও সঠিক উত্তর।">
+<meta name="description" content="HSC ও বিশ্ববিদ্যালয় ভর্তি প্রস্তুতির ফ্রি MCQ পরীক্ষা ও ফিজিক্স লেকচার। ৭৬৫টি MCQ, ৩২টি পরীক্ষা সেট — সাথে সাথে স্কোর ও সঠিক উত্তর।">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Caveat:wght@700&family=Galada&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
@@ -213,7 +213,8 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 .xp-root::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--xp-a),transparent 0 68%,var(--shine) 82%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
 .xp-root:hover::before,.xp.open .xp-root::before{opacity:1}
 .xp-root:hover{transform:translateY(-2px);border-color:var(--shine);box-shadow:0 0 0 1px var(--shine),0 16px 34px rgba(10,20,16,.22)}
-.xp-root:hover::after,.xp.open .xp-root::after{opacity:1;animation:xp-spin 2.4s linear infinite}
+.xp-root:hover::after,.xp.open .xp-root::after{opacity:1}
+.xp-root:hover::after{animation:xp-spin 3s linear infinite}
 @keyframes xp-spin{to{--xp-a:360deg}}
 .xp-root>*{position:relative;z-index:1}
 .xp-ic{font-size:34px;line-height:1}
@@ -223,39 +224,40 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 .xp-root:hover .xp-rt small,.xp.open .xp-root .xp-rt small{color:var(--ink2)}
 .xp-arrow{margin-left:auto;font-size:20px;color:var(--mut);transition:transform .35s,color .3s}
 .xp.open .xp-arrow{transform:rotate(180deg);color:#fff}
-.xp-levels{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.xp-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 .xp-levels[hidden]{display:none}
-.xp-level{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px 18px;cursor:pointer;text-align:left;font-family:inherit;opacity:0;transform:translateY(-12px);transition:opacity .45s,transform .45s,border-color .3s}
+.xp-level{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;cursor:pointer;text-align:left;font-family:inherit;opacity:0;transform:translateY(-10px);transition:opacity .32s,transform .32s,border-color .3s}
 .xp-levels.show .xp-level{opacity:1;transform:none}
-.xp-level:nth-child(2){transition-delay:.1s}.xp-level:nth-child(3){transition-delay:.2s}
+.xp-levels.show .xp-level:nth-child(2){transition-delay:.06s}.xp-levels.show .xp-level:nth-child(3){transition-delay:.12s}
 .xp-level::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,var(--g2),var(--g3));opacity:0;transition:opacity .35s}
 .xp-level::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--xp-a),transparent 0 68%,var(--shine) 82%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
 .xp-level:hover,.xp-level.on{border-color:var(--shine)}
 .xp-level:hover::before,.xp-level.on::before{opacity:1}
-.xp-level:hover::after,.xp-level.on::after{opacity:1;animation:xp-spin 2.4s linear infinite}
-.xp-level b{font-size:19px;color:var(--ink);position:relative;z-index:1;transition:color .3s;font-family:'Hind Siliguri',sans-serif}
-.xp-level small{display:block;color:var(--mut);font-size:13px;margin-top:2px;position:relative;z-index:1;transition:color .3s;font-family:'Hind Siliguri',sans-serif}
+.xp-level:hover::after{opacity:1}
+.xp-level b{font-size:17px;color:var(--ink);position:relative;z-index:1;transition:color .3s;font-family:'Hind Siliguri',sans-serif}
+.xp-level small{display:block;color:var(--mut);font-size:12px;margin-top:2px;position:relative;z-index:1;transition:color .3s;font-family:'Hind Siliguri',sans-serif}
 .xp-level:hover b,.xp-level.on b{color:#fff}
 .xp-level:hover small,.xp-level.on small{color:var(--ink2)}
 .xp-chaps{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
 .xp-chaps[hidden]{display:none}
 .xp-chaphead{font-weight:800;color:var(--ink);margin-bottom:12px;font-size:16.5px;font-family:'Hind Siliguri',sans-serif}
 .xp-grid{display:flex;flex-wrap:wrap;gap:9px}
-.xp-chap{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#fbfdfc;color:var(--ink);font-weight:600;font-size:14.5px;text-decoration:none;font-family:'Hind Siliguri',sans-serif;opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s,background .3s,color .3s,border-color .3s,box-shadow .3s;transition-delay:var(--d,0ms)}
-.xp-chaps.show .xp-chap{opacity:1;transform:none}
+.xp-chap{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#fbfdfc;color:var(--ink);font-weight:600;font-size:14.5px;text-decoration:none;font-family:'Hind Siliguri',sans-serif;opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s,background .3s,color .3s,border-color .3s,box-shadow .3s}
+.xp-chaps.show .xp-chap{opacity:1;transform:none;transition-delay:var(--d,0ms)}
 a.xp-chap:hover{background:linear-gradient(120deg,var(--g2),var(--g3));color:#fff;border-color:var(--shine);box-shadow:0 0 0 1px var(--shine),0 6px 16px rgba(10,20,16,.20)}
 .xp-chap em{font-style:normal;font-size:11.5px;font-weight:800;background:var(--yellow);color:#4a3400;padding:2px 8px;border-radius:99px;white-space:nowrap}
 .xp-chap em.soon{background:#eef3f0;color:var(--mut)}
 .xp-chap.is-soon{color:var(--mut);background:#f4f7f5}
-.xp-note{flex-basis:100%;color:var(--mut);font-size:14px;padding:6px 2px;font-family:'Hind Siliguri',sans-serif;opacity:0;transition:opacity .35s;transition-delay:var(--d,0ms)}
-.xp-chaps.show .xp-note{opacity:1}
+.xp-note{flex-basis:100%;color:var(--mut);font-size:14px;padding:6px 2px;font-family:'Hind Siliguri',sans-serif;opacity:0;transition:opacity .35s}
+.xp-chaps.show .xp-note{opacity:1;transition-delay:var(--d,0ms)}
 .xp-all{text-align:center;margin-top:14px;font-family:'Hind Siliguri',sans-serif}
 .xp-all a{font-weight:700;color:#0e5c3f}
+@media(max-width:560px){.xp-level{padding:10px}.xp-level b{font-size:15.5px}.xp-level small{display:none}}
 @media(prefers-reduced-motion:reduce){.xp-level,.xp-chap,.xp-note{transition:none!important;opacity:1!important;transform:none!important}.xp-root::after,.xp-level::after{animation:none!important}}
 </style>
 <link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/">
 <meta property="og:title" content="A Physicist's Perspective — Meskat">
-<meta property="og:description" content="HSC ও Admission MCQ পরীক্ষা ও ফিজিক্স লেকচার — ২৩টি সেট, ৪৯৫টি প্রশ্ন।">
+<meta property="og:description" content="HSC ও Admission MCQ পরীক্ষা ও ফিজিক্স লেকচার — ৩২টি সেট, ৭৬৫টি প্রশ্ন।">
 <meta property="og:url" content="https://meskat00.github.io/a-physicists-perspective/">
 </head>
 <body>
@@ -278,7 +280,7 @@ a.xp-chap:hover{background:linear-gradient(120deg,var(--g2),var(--g3));color:#ff
     <a class="btn btn-y" href="#exams">📝 এখনই পরীক্ষা দাও</a>
   </div>
   <div class="stats">
-    <div class="stat"><b data-count="495">0</b><span>মোট MCQ</span></div>
+    <div class="stat"><b data-count="765">0</b><span>মোট MCQ</span></div>
     <div class="stat"><b data-count="23">0</b><span>পরীক্ষা সেট</span></div>
     <div class="stat"><b data-count="4">0</b><span>অধ্যায় কভার</span></div>
     <div class="stat"><b>100%</b><span>ফ্রি • তাৎক্ষণিক রেজাল্ট</span></div>
@@ -312,7 +314,7 @@ a.xp-chap:hover{background:linear-gradient(120deg,var(--g2),var(--g3));color:#ff
 
 <section data-secname="পরীক্ষা" id="exams">
   <div class="sec-head"><div class="k">MCQ Exams</div><h2>📝 পরীক্ষা</h2>
-  <p>Level বেছে নাও — অধ্যায় ধরে সব সেট সাজানো। মোট <b>২৩টি সেট • ৪৯৫টি MCQ</b>, সবই ফ্রি।</p></div>
+  <p>Level বেছে নাও — অধ্যায় ধরে সব সেট সাজানো। মোট <b>৩২টি সেট • ৭৬৫টি MCQ</b>, সবই ফ্রি।</p></div>
   <div class="xp" data-xp="exams"></div>
   <p class="xp-all"><a href="exams.html">সব পরীক্ষা একসাথে দেখো →</a></p>
 </section>
@@ -379,15 +381,15 @@ const done=new Set(JSON.parse(localStorage.getItem("lup_done")||"[]"));
 const $=s=>document.querySelector(s);
 function saveDone(){localStorage.setItem("lup_done",JSON.stringify([...done]))}
 function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2600)}
-function renderProgress(){const p=Math.round(done.size/23*100);
+function renderProgress(){const p=Math.round(done.size/32*100);
  $("#ring").style.setProperty("--p",p);$("#ringTxt").textContent=p+"%";
- $("#progTxt").textContent=done.size?`তুমি ${done.size} / ${23}টি সেট শেষ করেছ — এই গতি ধরে রাখো! 🔥`:"এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।"}
+ $("#progTxt").textContent=done.size?`তুমি ${done.size} / ${32}টি সেট শেষ করেছ — এই গতি ধরে রাখো! 🔥`:"এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।"}
 $("#resetProg").onclick=()=>{done.clear();saveDone();renderProgress();toast("প্রোগ্রেস রিসেট হয়েছে")};
 $("#heroSearch").onsubmit=ev=>{ev.preventDefault();const q=$("#heroQ").value.trim();location.href="exams.html"+(q?"?q="+encodeURIComponent(q):"")};
 /* counters */
 document.querySelectorAll("[data-count]").forEach(el=>{const end=+el.dataset.count;let n=0;const t=setInterval(()=>{n+=Math.ceil(end/40);if(n>=end){n=end;clearInterval(t)}el.textContent=n},30)});
 /* share */
-function share(){const data={title:document.title,text:"A Physicist's Perspective — ৪৯৫টি ফ্রি MCQ পরীক্ষা (HSC + Admission), সাথে সাথে স্কোর! 📚",url:location.href};
+function share(){const data={title:document.title,text:"A Physicist's Perspective — ৭৬৫টি ফ্রি MCQ পরীক্ষা (HSC + Admission), সাথে সাথে স্কোর! 📚",url:location.href};
  if(navigator.share)navigator.share(data).catch(()=>{});else{navigator.clipboard?.writeText(data.text+" "+data.url);toast("লিংক কপি হয়েছে — বন্ধুকে পাঠিয়ে দাও 📤")}}
 $("#shareBtn").onclick=share;$("#shareBtn2").onclick=share;
 renderProgress();
@@ -596,9 +598,11 @@ var HSC21=["ভৌত জগৎ ও পরিমাপ","ভেক্টর","�
 var SSC14=["ভৌত রাশি এবং পরিমাপ","গতি","বল","কাজ, ক্ষমতা ও শক্তি","পদার্থের অবস্থা ও চাপ","বস্তুর ওপর তাপের প্রভাব","তরঙ্গ ও শব্দ","আলোর প্রতিফলন","আলোর প্রতিসরণ","স্থির বিদ্যুৎ","চল বিদ্যুৎ","বিদ্যুতের চৌম্বক ক্রিয়া","আধুনিক পদার্থবিজ্ঞান ও ইলেকট্রনিক্স","জীবন বাঁচাতে পদার্থবিজ্ঞান"];
 function C(n,href,badge,soon){return{n:n,href:href||null,badge:badge||null,soon:!!soon}}
 function SL(names,href){return names.map(function(n){return C(n,href,null,true)})}
+var HSC1PAGES={"ভৌত জগৎ ও পরিমাপ":"chapter-physical-world.html","গতিবিদ্যা":"chapter-dynamics.html","কাজ, শক্তি ও ক্ষমতা":"chapter-work-energy.html","মহাকর্ষ ও অভিকর্ষ":"chapter-gravitation.html","পদার্থের গাঠনিক ধর্ম":"chapter-structural.html","পর্যাবৃত্ত গতি":"chapter-periodic.html","তরঙ্গ":"chapter-waves.html","আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব":"chapter-ideal-gas.html"};
 function hscExams(){return HSC21.map(function(n){
   if(n==="ভেক্টর")return C(n,"chapter-vector.html","২০ সেট");
-  if(n==="নিউটনীয় বলবিদ্যা")return C(n,"chapter-circular-motion.html","বৃত্তাকার গতি • ১ সেট");
+  if(n==="নিউটনীয় বলবিদ্যা")return C(n,"chapter-newtonian.html","২ সেট");
+  if(HSC1PAGES[n])return C(n,HSC1PAGES[n],"১ সেট");
   return C(n,"exams.html#book-chapters",null,true);
 }).concat([C("সরলরেখা","chapter-straight-line.html","উচ্চতর গণিত • ২ সেট")])}
 function hscLectures(){return SL(HSC21,"lectures.html#book-chapters")}
@@ -608,7 +612,7 @@ function hscMaterials(){return HSC21.map(function(n){
   return C(n,null,null,true);
 })}
 var XP={
-exams:{icon:"📝",name:"Exam",bn:"পরীক্ষা",meta:"২৩ সেট • ৪৯৫ MCQ",order:["SSC","HSC","Admission"],levels:{
+exams:{icon:"📝",name:"Exam",bn:"পরীক্ষা",meta:"৩২ সেট • ৭৬৫ MCQ",order:["SSC","HSC","Admission"],levels:{
   SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SL(SSC14,"exams.html#ssc")},
   HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র • উচ্চতর গণিত",chapters:hscExams()},
   Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","exams.html?filter=Admission","৫ সেট"),{note:"অন্য অধ্যায়ের Admission সেট আসছে শীঘ্রই — ভেক্টর দিয়ে শুরু করো।"}]}}},
@@ -621,6 +625,7 @@ materials:{icon:"📚",name:"Study Materials",bn:"স্টাডি ম্য�
   HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র • উচ্চতর গণিত",chapters:hscMaterials()},
   Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","problems.html","সমস্যা অনুশীলনী"),{note:"আরও প্র্যাকটিস ম্যাটেরিয়াল আসছে শীঘ্রই।"}]}}}
 };
+var PF={};
 document.querySelectorAll("[data-xp]").forEach(function(mount){
   var cfg=XP[mount.getAttribute("data-xp")]; if(!cfg)return;
   mount.innerHTML='<button class="xp-root" type="button" aria-expanded="false"><span class="xp-ic">'+cfg.icon+'</span><span class="xp-rt"><b>'+cfg.name+'</b><small>'+cfg.bn+' • '+cfg.meta+'</small></span><span class="xp-arrow">▾</span></button>'
@@ -633,22 +638,24 @@ document.querySelectorAll("[data-xp]").forEach(function(mount){
     levels.querySelectorAll(".xp-level").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-lv")===L)});
     var list=cfg.levels[L].chapters;
     chaps.innerHTML='<div class="xp-chaphead">'+L+' — অধ্যায় বেছে নাও</div><div class="xp-grid">'+list.map(function(c,i){
-      if(c.note)return '<div class="xp-note" style="--d:'+(i*40)+'ms">'+c.note+'</div>';
+      if(c.note)return '<div class="xp-note" style="--d:'+(Math.min(i*22,330))+'ms">'+c.note+'</div>';
       var inner='<span>'+c.n+'</span>'+(c.badge?'<em>'+c.badge+'</em>':'')+(c.soon?'<em class="soon">আসছে শীঘ্রই</em>':'');
       var cls='xp-chap'+(c.soon?' is-soon':'');
-      return c.href?'<a class="'+cls+'" style="--d:'+(i*40)+'ms" href="'+c.href+'">'+inner+'</a>':'<span class="'+cls+'" style="--d:'+(i*40)+'ms">'+inner+'</span>';
+      return c.href?'<a class="'+cls+'" style="--d:'+(Math.min(i*22,330))+'ms" href="'+c.href+'">'+inner+'</a>':'<span class="'+cls+'" style="--d:'+(Math.min(i*22,330))+'ms">'+inner+'</span>';
     }).join("")+'</div>';
     chaps.hidden=false; chaps.classList.remove("show");
     requestAnimationFrame(function(){requestAnimationFrame(function(){chaps.classList.add("show")})});
   }
-  var hoverable=window.matchMedia("(hover:hover)").matches, closeTimer=null;
-  function openXp(){if(open)return;open=true;root.setAttribute("aria-expanded","true");mount.classList.add("open");levels.hidden=false;requestAnimationFrame(function(){levels.classList.add("show")});if(!curLv)showChaps("HSC");}
-  function closeXp(){if(!open)return;open=false;root.setAttribute("aria-expanded","false");mount.classList.remove("open");levels.classList.remove("show");chaps.classList.remove("show");setTimeout(function(){levels.hidden=true;chaps.hidden=true},380);}
+  var hoverable=window.matchMedia("(hover:hover)").matches, closeTimer=null, pointerInside=false;
+  function openXp(){if(open)return;open=true;root.setAttribute("aria-expanded","true");mount.classList.add("open");levels.hidden=false;requestAnimationFrame(function(){levels.classList.add("show")});if(!curLv)showChaps("HSC");cfg.order.forEach(function(k){cfg.levels[k].chapters.forEach(function(c){if(c.href){var base=c.href.split("#")[0];if(base&&!PF[base]){PF[base]=1;var l=document.createElement("link");l.rel="prefetch";l.href=base;document.head.appendChild(l)}}})});}
+  function closeXp(){if(!open)return;open=false;root.setAttribute("aria-expanded","false");mount.classList.remove("open");levels.classList.remove("show");chaps.classList.remove("show");setTimeout(function(){levels.hidden=true;chaps.hidden=true},300);}
   if(hoverable){
-    mount.addEventListener("pointerenter",function(){if(closeTimer){clearTimeout(closeTimer);closeTimer=null}openXp();});
-    mount.addEventListener("pointerleave",function(){closeTimer=setTimeout(closeXp,300);});
+    mount.addEventListener("pointerenter",function(){pointerInside=true;if(closeTimer){clearTimeout(closeTimer);closeTimer=null}openXp();});
+    mount.addEventListener("pointerleave",function(){pointerInside=false;closeTimer=setTimeout(closeXp,180);});
   }
-  root.addEventListener("click",function(){if(hoverable)return;open?closeXp():openXp();});
+  root.addEventListener("click",function(ev){if(hoverable&&ev.detail!==0)return;open?closeXp():openXp();});
+  mount.addEventListener("focusin",function(){openXp();});
+  mount.addEventListener("focusout",function(e){if(!pointerInside&&!mount.contains(e.relatedTarget))closeXp();});
   levels.querySelectorAll(".xp-level").forEach(function(b){b.addEventListener("click",function(){showChaps(b.getAttribute("data-lv"))});if(hoverable)b.addEventListener("pointerenter",function(){showChaps(b.getAttribute("data-lv"))});});
 });
 })();
