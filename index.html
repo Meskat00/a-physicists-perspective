@@ -179,6 +179,18 @@ html{scroll-behavior:auto}
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(760px 540px at 0% 0%,rgba(255,183,3,.17),rgba(255,183,3,0) 60%),radial-gradient(820px 600px at 100% 100%,rgba(14,122,67,.16),rgba(14,122,67,0) 62%),radial-gradient(rgba(13,90,56,.13) 1.1px,transparent 1.3px);background-size:auto,auto,22px 22px}
 body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(rgba(255,140,26,.4) 2.7px,transparent 3px);background-size:22px 22px;-webkit-mask-image:radial-gradient(270px circle at var(--mx) var(--my),#000 0%,rgba(0,0,0,.5) 45%,transparent 72%);mask-image:radial-gradient(270px circle at var(--mx) var(--my),#000 0%,rgba(0,0,0,.5) 45%,transparent 72%)}
 @media print{body::before,body::after{display:none}}
+
+.donate-card{position:relative;border-radius:22px;padding:clamp(26px,4vw,44px);text-align:center;border:2px solid transparent;background:linear-gradient(#151517,#151517) padding-box,linear-gradient(120deg,#FF5A1F,#B5179E,#FF8C1A,#FF5A1F) border-box;box-shadow:0 0 44px rgba(255,90,31,.16),0 0 90px rgba(181,23,158,.10);margin:52px 0 0}
+.donate-card .d-tag{color:#FF5A1F;letter-spacing:.16em;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:700;text-transform:uppercase}
+.donate-card h3{font-family:'Hind Siliguri',sans-serif;font-weight:700;font-size:clamp(21px,3.2vw,30px);margin:14px auto 8px;max-width:26em;line-height:1.5;color:#F5F2ED}
+.donate-card .d-sub{color:rgba(245,242,237,.62);font-family:'Hind Siliguri',sans-serif;font-size:16.5px}
+.d-numwrap{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px}
+.d-pill{font-weight:800;font-size:13.5px;padding:7px 15px;border-radius:8px;color:#fff;font-family:Inter,sans-serif}
+.d-pill.bkash{background:#E2136E}.d-pill.nagad{background:#EE4023}
+.d-num{font-family:Inter,sans-serif;font-weight:900;font-size:clamp(30px,6vw,50px);letter-spacing:.01em;background:linear-gradient(90deg,#FFD93B,#FF8C1A,#FF5A8A,#FFD93B);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:dshine 3.2s linear infinite;padding:4px 8px;border:0;cursor:pointer;-webkit-appearance:none;appearance:none}
+@keyframes dshine{to{background-position:220% center}}
+.d-hint{color:rgba(245,242,237,.62);font-size:13.5px;margin-top:10px;font-family:'Hind Siliguri',sans-serif}
+@media(prefers-reduced-motion:reduce){.d-num{animation:none}}
 </style>
 <link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/">
 <meta property="og:title" content="A Physicist's Perspective — Meskat">
@@ -323,10 +335,15 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
       <div class="acts"><a class="go" href="#exams">পরীক্ষা দিয়ে ঝালাও →</a></div></div>
   </div>
 
-  <div class="donate">
-    <h2 style="font-size:26px">পড়ে উপকৃত হলে? 💛</h2>
-    <p style="color:#d9efe5;margin:8px auto 14px;max-width:560px">সব পরীক্ষা ও লেকচার সম্পূর্ণ ফ্রি। ইচ্ছানুযায়ী সাপোর্ট করতে পারো — তোমাদের সাপোর্টেই নতুন অধ্যায়ের সেট আসবে দ্রুত।</p>
-    <div>bKash / Nagad<br><b class="num">01731871692</b></div>
+  <div class="donate-card">
+    <div class="d-tag">💜 Donate — Support Free Learning</div>
+    <h3>পরীক্ষা দিয়ে উপকৃত হলে, ইচ্ছানুযায়ী Donate করতে পারো।</h3>
+    <p class="d-sub">সব লেকচার আর পরীক্ষা সবার জন্য সম্পূর্ণ ফ্রি।</p>
+    <div class="d-numwrap">
+      <span class="d-pill bkash">bKash</span><span class="d-pill nagad">Nagad</span>
+      <button class="d-num" id="donateNum" aria-label="Donation number — tap to copy">01731871692</button>
+    </div>
+    <p class="d-hint" id="donateHint">নম্বরে tap করলেই copy হয়ে যাবে 📋</p>
   </div>
 </section>
 </main>
@@ -649,6 +666,10 @@ btn.addEventListener("click",function(){
 });
 setInterval(function(){ var now=localStorage.getItem("lup_done")||"[]"; if(user&&now!==lastSnap){ pushCloud(); } },4000);
 }catch(e){}})();
+</script>
+
+<script>
+(function(){var dn=document.getElementById("donateNum"),dh=document.getElementById("donateHint");if(!dn)return;dn.addEventListener("click",function(){var num=dn.textContent.trim();function done(){dh.textContent="Copied ✓ "+num;setTimeout(function(){dh.textContent="নম্বরে tap করলেই copy হয়ে যাবে 📋";},2200);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(num).then(done).catch(done);}else{var ta=document.createElement("textarea");ta.value=num;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}ta.remove();done();}});})();
 </script>
 </body>
 </html>
