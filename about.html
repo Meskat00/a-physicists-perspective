@@ -996,7 +996,7 @@ var qt = document.getElementById("qText"), qa = document.getElementById("qAuth")
 if(!qt) return;
 qs.innerHTML = Q.map(function(){ return "<b></b>"; }).join("");
 var segs = qs.querySelectorAll("b"), barAnim = null;
-function idx(){ return Math.floor(Date.now()/60000) % Q.length; }
+function idx(){ return Math.floor(Date.now()/25000) % Q.length; }
 function fill(i){
   var q = Q[i];
   qt.textContent = q.t;
@@ -1010,7 +1010,7 @@ function bar(ms){
 }
 var cur = idx();
 fill(cur);
-bar(60000 - (Date.now() % 60000));
+bar(25000 - (Date.now() % 25000));
 setInterval(function(){
   var n = idx();
   if(n === cur) return;
@@ -1020,7 +1020,7 @@ setInterval(function(){
   setTimeout(function(){
     fill(cur);
     qt.classList.remove("qfade"); qa.classList.remove("qfade");
-    bar(60000);
+    bar(25000);
   }, 570);
 }, 1000);
 }catch(e){}})();
