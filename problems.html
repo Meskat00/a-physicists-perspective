@@ -249,7 +249,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 .fq-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#12b76a,#ffc800);border-radius:99px;transition:width .5s}
 .fq-score{background:#0a2a20;color:#ffdf5e;border-radius:999px;padding:5px 13px;font-size:13.5px;box-shadow:0 6px 16px -6px rgba(10,42,32,.6)}
 .fq-empty{border:2px dashed rgba(18,183,106,.4);border-radius:18px;padding:26px;text-align:center;color:var(--mut);background:rgba(255,255,255,.6);font-size:15.5px}
-@media(max-width:560px){.fq-card{min-height:730px}}
+@media(max-width:560px){.fq-card{min-height:730px}.fq-face{overflow-y:auto;-webkit-overflow-scrolling:touch}}
 @media(prefers-reduced-motion:reduce){.fq-card{transition-duration:.05s}.fq-opt,.fq-chip{transition:none}}
 @media print{.fq-sec{display:none}}
 .fq-chip{position:relative;overflow:hidden;z-index:0}
