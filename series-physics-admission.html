@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Caveat:wght@700&family=Galada&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--board:#0a2a20;--board2:#0e3a2c;--ink:#12211c;--mut:#5b6b65;--yellow:#ffc800;--yellow2:#ffdf5e;--green:#12b76a;--card:#fff;--bg:#f4f7f5;--line:#e2eae6;--radius:18px;--shadow:0 10px 30px rgba(10,42,32,.10)}
+:root{--ease-out:cubic-bezier(.22,.9,.3,1);--dur-fast:.16s;--dur-med:.35s;--dur-slow:.6s;--board:#0a2a20;--board2:#0e3a2c;--ink:#12211c;--mut:#5b6b65;--yellow:#ffc800;--yellow2:#ffdf5e;--green:#12b76a;--card:#fff;--bg:#f4f7f5;--line:#e2eae6;--radius:18px;--shadow:0 10px 30px rgba(10,42,32,.10)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Hind Siliguri',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
@@ -161,9 +161,9 @@ html{scroll-behavior:auto}
 .card,.soc,.step,.chap,.panel{position:relative}
 .card::after,.soc::after,.step::after,.chap::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(230px circle at var(--mx,50%) var(--my,50%),rgba(255,217,59,.17),rgba(18,161,80,.06) 55%,transparent 70%);opacity:0;transition:opacity .35s ease;pointer-events:none}
 .card:hover::after,.soc:hover::after,.step:hover::after,.chap:hover::after{opacity:1}
-.btn,.chipbtn,.soc,.card,.step{transition:transform .35s cubic-bezier(.22,.9,.3,1),box-shadow .35s ease}
+.btn,.chipbtn,.soc,.card,.step{transition:transform .35s var(--ease-out),box-shadow .35s ease}
 ::selection{background:#ffd93b;color:#123}
-.ring{transition:transform .45s cubic-bezier(.22,.9,.3,1);transform-style:preserve-3d;will-change:transform}
+.ring{transition:transform .45s var(--ease-out);transform-style:preserve-3d;will-change:transform}
 @media(hover:none){#cursorGlow{display:none}}
 
 /*MOUSE2*/

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Caveat:wght@700&family=Galada&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--board:#0a2a20;--board2:#0e3a2c;--ink:#12211c;--mut:#5b6b65;--yellow:#ffc800;--yellow2:#ffdf5e;--green:#12b76a;--card:#fff;--bg:#f4f7f5;--line:#e2eae6;--radius:18px;--shadow:0 10px 30px rgba(10,42,32,.10)}
+:root{--ease-out:cubic-bezier(.22,.9,.3,1);--dur-fast:.16s;--dur-med:.35s;--dur-slow:.6s;--board:#0a2a20;--board2:#0e3a2c;--ink:#12211c;--mut:#5b6b65;--yellow:#ffc800;--yellow2:#ffdf5e;--green:#12b76a;--card:#fff;--bg:#f4f7f5;--line:#e2eae6;--radius:18px;--shadow:0 10px 30px rgba(10,42,32,.10)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Hind Siliguri',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
@@ -163,9 +163,9 @@ html{scroll-behavior:auto}
 .card,.soc,.step,.chap,.panel{position:relative}
 .card::after,.soc::after,.step::after,.chap::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(230px circle at var(--mx,50%) var(--my,50%),rgba(255,217,59,.17),rgba(18,161,80,.06) 55%,transparent 70%);opacity:0;transition:opacity .35s ease;pointer-events:none}
 .card:hover::after,.soc:hover::after,.step:hover::after,.chap:hover::after{opacity:1}
-.btn,.chipbtn,.soc,.card,.step{transition:transform .35s cubic-bezier(.22,.9,.3,1),box-shadow .35s ease}
+.btn,.chipbtn,.soc,.card,.step{transition:transform .35s var(--ease-out),box-shadow .35s ease}
 ::selection{background:#ffd93b;color:#123}
-.ring{transition:transform .45s cubic-bezier(.22,.9,.3,1);transform-style:preserve-3d;will-change:transform}
+.ring{transition:transform .45s var(--ease-out);transform-style:preserve-3d;will-change:transform}
 @media(hover:none){#cursorGlow{display:none}}
 
 /*MOUSE2*/
@@ -205,18 +205,18 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 .fb-note{color:var(--mut);font-size:13.5px;text-align:center;margin-top:14px;font-family:'Hind Siliguri',sans-serif}
 
 /* ===== Cascade explorer (Exam / Lectures / Study Materials) ===== */
-@property --xp-a{syntax:'<angle>';initial-value:0deg;inherits:false}
 .xp{max-width:880px;margin:0 auto;min-height:102px;--g1:#0a2a20;--g2:#0e5c3f;--g3:#12b76a;--shine:#ffc800;--ink2:#cfe9dc}
 .xp[data-xp="lectures"]{--g1:#1d1440;--g2:#4326a8;--g3:#7c5cff;--shine:#c4b5fd;--ink2:#ded6ff}
 .xp[data-xp="materials"]{--g1:#33200a;--g2:#96650c;--g3:#f59e0b;--shine:#fde68a;--ink2:#ffedc2}
 .xp-root{position:relative;overflow:hidden;width:100%;display:flex;align-items:center;gap:16px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px;cursor:pointer;box-shadow:var(--shadow);font-family:inherit;transition:transform .3s,box-shadow .3s,border-color .3s}
 .xp-root::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,var(--g1),var(--g2) 48%,var(--g3));opacity:0;transition:opacity .45s}
-.xp-root::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--xp-a),transparent 0 68%,var(--shine) 82%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
+.xp-ring{position:absolute;inset:0;border-radius:inherit;padding:2px;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;overflow:hidden;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
+.xp-ring::before{content:"";position:absolute;left:50%;top:50%;width:150vmax;height:150vmax;background:conic-gradient(from 0deg,transparent 0 68%,var(--shine) 82%,transparent 96%);transform:translate(-50%,-50%) rotate(0deg)}
 .xp-root:hover::before,.xp.open .xp-root::before{opacity:1}
 .xp-root:hover{transform:translateY(-2px);border-color:var(--shine);box-shadow:0 0 0 1px var(--shine),0 16px 34px rgba(10,20,16,.22)}
-.xp-root:hover::after,.xp.open .xp-root::after{opacity:1}
-.xp-root:hover::after{animation:xp-spin 3s linear infinite}
-@keyframes xp-spin{to{--xp-a:360deg}}
+.xp-root:hover .xp-ring,.xp.open .xp-ring{opacity:1}
+.xp-root:hover .xp-ring::before{animation:xp-rot 3s linear infinite}
+@keyframes xp-rot{to{transform:translate(-50%,-50%) rotate(360deg)}}
 .xp-root>*{position:relative;z-index:1}
 .xp-ic{font-size:34px;line-height:1}
 .xp-rt b{display:block;font-size:23px;color:var(--ink);transition:color .3s;font-family:'Hind Siliguri',sans-serif}
@@ -231,7 +231,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 .xp-levels.show .xp-level{opacity:1;transform:none}
 .xp-levels.show .xp-level:nth-child(2){transition-delay:.06s}.xp-levels.show .xp-level:nth-child(3){transition-delay:.12s}
 .xp-level::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,var(--g2),var(--g3));opacity:0;transition:opacity .35s}
-.xp-level::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--xp-a),transparent 0 68%,var(--shine) 82%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
+.xp-level::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from 0deg,transparent 0 68%,var(--shine) 82%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
 .xp-level:hover,.xp-level.on{border-color:var(--shine)}
 .xp-level:hover::before,.xp-level.on::before{opacity:1}
 .xp-level:hover::after{opacity:1}
@@ -258,7 +258,7 @@ a.xp-chap:hover{background:linear-gradient(120deg,var(--g2),var(--g3));color:#ff
 .xp-level:hover .xp-live,.xp-level.on .xp-live{color:#fff;background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35)}
 .xp-level:hover .xp-live i,.xp-level.on .xp-live i{background:#fff}
 @media(max-width:560px){.xp-level{padding:10px}.xp-level b{font-size:15.5px}.xp-level small{display:none}}
-@media(prefers-reduced-motion:reduce){.xp-level,.xp-chap,.xp-note{transition:none!important;opacity:1!important;transform:none!important}.xp-root::after,.xp-level::after{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.xp-level,.xp-chap,.xp-note{transition:none!important;opacity:1!important;transform:none!important}.xp-ring::before{animation:none!important}}
 </style>
 <link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/">
 <meta property="og:title" content="A Physicist's Perspective — Meskat">
@@ -556,7 +556,7 @@ materials:{icon:"📚",name:"Study Materials",bn:"স্টাডি ম্য�
 var PF={};
 document.querySelectorAll("[data-xp]").forEach(function(mount){
   var cfg=XP[mount.getAttribute("data-xp")]; if(!cfg)return;
-  mount.innerHTML='<button class="xp-root" type="button" aria-expanded="false"><span class="xp-ic">'+cfg.icon+'</span><span class="xp-rt"><b>'+cfg.name+'</b><small>'+cfg.bn+' • '+cfg.meta+'</small></span><span class="xp-arrow">▾</span></button>'
+  mount.innerHTML='<button class="xp-root" type="button" aria-expanded="false"><span class="xp-ring"></span><span class="xp-ic">'+cfg.icon+'</span><span class="xp-rt"><b>'+cfg.name+'</b><small>'+cfg.bn+' • '+cfg.meta+'</small></span><span class="xp-arrow">▾</span></button>'
    +'<div class="xp-levels" hidden>'+cfg.order.map(function(L){var lc=cfg.levels[L].chapters.filter(function(c){return c.href&&!c.soon}).length;return '<button class="xp-level" type="button" data-lv="'+L+'"><b>'+L+'</b><small>'+cfg.levels[L].desc+'</small>'+(lc?'<span class="xp-live"><i></i>'+BN(lc)+'টি অধ্যায় live</span>':'')+'</button>'}).join("")+'</div>'
    +'<div class="xp-chaps" hidden aria-live="polite"></div>';
   var root=mount.querySelector(".xp-root"),levels=mount.querySelector(".xp-levels"),chaps=mount.querySelector(".xp-chaps");

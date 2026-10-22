@@ -7,6 +7,7 @@ if(!firebase.apps.length) firebase.initializeApp(CFG);
 var APP_CHECK_KEY="6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T"; /* filled after Firebase App Check registration; empty = off */
 try{ if(APP_CHECK_KEY && firebase.appCheck) firebase.appCheck().activate(APP_CHECK_KEY, true); }catch(e){}
 var auth=firebase.auth(), db=firebase.firestore();
+try{ var PVK="pv_"+(location.pathname.split("/").pop()||"index.html"); if(!sessionStorage.getItem(PVK)){ sessionStorage.setItem(PVK,"1"); db.collection("pageviews").add({page:PVK.slice(3),ts:firebase.firestore.FieldValue.serverTimestamp()}).catch(function(){}); } }catch(e){}
 var host=document.querySelector(".nav-links")||document.querySelector("nav.main");
 if(!host) return;
 var btn=document.createElement("button"); btn.type="button"; btn.className="lup-auth"; btn.textContent="Login";
