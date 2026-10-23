@@ -368,7 +368,6 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
     <div><h3>তোমার অগ্রগতি 🏆</h3><p id="progTxt">এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।</p><p id="progDetail" style="margin-top:7px;font-size:14px;line-height:1.55;color:#41604f"></p></div>
     <div class="progress-actions">
       <button class="chipbtn" id="shareBtn2">📤 বন্ধুকে পাঠাও</button>
-      <button class="chipbtn" id="resetProg">↺ রিসেট</button>
     </div>
   </div>
 </div>
@@ -459,7 +458,6 @@ function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show")
 function renderProgress(){const p=Math.round(done.size/TOT*100);
  $("#ring").style.setProperty("--p",p);$("#ringTxt").textContent=p+"%";
  $("#progTxt").textContent=done.size?`তুমি ${done.size} / ${TOT}টি সেট শেষ করেছ — এই গতি ধরে রাখো! 🔥`:"এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।"}
-$("#resetProg").onclick=()=>{done.clear();saveDone();renderProgress();toast("প্রোগ্রেস রিসেট হয়েছে")};
 $("#heroSearch").onsubmit=ev=>{ev.preventDefault();const q=$("#heroQ").value.trim();location.href="exams.html"+(q?"?q="+encodeURIComponent(q):"")};
 /* counters — totals come from site-data.js (generated from the real sources) */
 try{if(SD){var BNx=function(n){return String(n).replace(/[0-9]/g,function(d){return "০১২৩৪৫৬৭৮৯"[+d]})};
