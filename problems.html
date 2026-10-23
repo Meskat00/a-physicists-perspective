@@ -470,7 +470,7 @@ if("requestIdleCallback" in window){requestIdleCallback(go,{timeout:3000});}else
      if(area.querySelector(".fq-card").classList.contains("flipped"))return;
      const pick=+btn.dataset.i;
      area.querySelectorAll(".fq-opt").forEach(b=>b.classList.toggle("picked",b===btn));
-     const ok=pick===item.ans, first=!done.has(idx);
+     const ok=pick===Number(item.ans), first=!done.has(idx);
      if(first){ done.add(idx); if(ok)score++; res[idx]=ok; }
      setTimeout(()=>{
        const back=$("fqBack");
