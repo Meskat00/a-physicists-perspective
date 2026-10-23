@@ -2,7 +2,7 @@
 <html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Seed admission chapter exams (one-time)</title></head>
 <body style="font-family:sans-serif;max-width:720px;margin:40px auto;padding:0 16px">
-<h2>One-time seed: 300 admission exams (Campaign C)</h2>
+<h2>One-time seed: 300 admission exams (Campaign C) — v3 diag</h2>
 <p id="who">Not signed in.</p>
 <button id="btnLogin" style="padding:10px 18px;font-size:16px">Sign in with Google (owner)</button>
 <button id="btnSeed" style="padding:10px 18px;font-size:16px" disabled>Seed 300 exams</button>
@@ -32,6 +32,8 @@ document.getElementById("btnLogin").addEventListener("click",function(){
 });
 document.getElementById("btnSeed").addEventListener("click",async function(){
   this.disabled=true;
+  var cu = auth.currentUser; L("ACTING UID: " + (cu ? cu.uid : "NONE"));
+  if (firebase.appCheck) { try { var tk = await firebase.appCheck().getToken(true); L("APPCHECK token OK, length " + (tk && tk.token ? tk.token.length : 0)); } catch(e){ L("APPCHECK token FAIL: " + e.message); } }
   var ids=Object.keys(window.SEED5), ok=0, fail=0;
   for (var i=0;i<ids.length;i++){
     var id=ids[i], d=window.SEED5[id];
