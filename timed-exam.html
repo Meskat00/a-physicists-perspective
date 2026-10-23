@@ -189,7 +189,7 @@ function fail(msg){ document.getElementById("errMsg").textContent=msg; show("stE
 var db, EXAM=null, answers=[], startedAt=0, endAt=0, tick=null, submitted=false;
 try{
   if(!firebase.apps.length) firebase.initializeApp(CFG);
-  try{ firebase.appCheck().activate("6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T", true); }catch(e){}
+  try{ var _acp=(firebase.appCheck.ReCaptchaEnterpriseProvider?new firebase.appCheck.ReCaptchaEnterpriseProvider("6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T"):"6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T"); firebase.appCheck().activate(_acp, true); }catch(e){}
   db=firebase.firestore();
 }catch(e){ fail("Firebase চালু হয়নি — ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করো।"); return; }
 db.collection("exams").doc(EXAM_ID).get().then(function(snap){
