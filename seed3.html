@@ -6,6 +6,7 @@
 <p id="who">Not signed in.</p>
 <button id="btnLogin" style="padding:10px 18px;font-size:16px">Sign in with Google (owner)</button>
 <button id="btnSeed" style="padding:10px 18px;font-size:16px" disabled>Seed 36 exams</button>
+<p style="color:#555">Sign in চাপলে Google-এর পেজে যাবে — সাইন-ইন শেষ হলে নিজে থেকেই এই পেজে ফিরে আসবে, তখন "Seed 36 exams" চাপবে। বোতামে একবারই ক্লিক করবে।</p>
 <pre id="log" style="white-space:pre-wrap;background:#f4f4f4;padding:12px;border-radius:8px;min-height:200px"></pre>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -17,12 +18,15 @@ firebase.initializeApp(CFG);
 var auth=firebase.auth(), db=firebase.firestore();
 var log=document.getElementById("log");
 function L(s){ log.textContent+=s+"\n"; }
+auth.getRedirectResult().catch(function(e){ L("LOGIN ERR: "+e.message); });
 auth.onAuthStateChanged(function(u){
   document.getElementById("who").textContent = u ? ("Signed in: "+u.email+" ("+u.uid+")") : "Not signed in.";
   document.getElementById("btnSeed").disabled = !u;
+  document.getElementById("btnLogin").style.display = u ? "none" : "";
 });
 document.getElementById("btnLogin").addEventListener("click",function(){
-  auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(e){ L("LOGIN ERR: "+e.message); });
+  this.disabled=true; this.textContent="Google sign-in-এ যাচ্ছে…";
+  auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()).catch(function(e){ L("LOGIN ERR: "+e.message); });
 });
 document.getElementById("btnSeed").addEventListener("click",async function(){
   this.disabled=true;
