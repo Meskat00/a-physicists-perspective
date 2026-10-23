@@ -277,7 +277,7 @@ a.xp-chap:hover{background:linear-gradient(120deg,var(--g2),var(--g3));color:#ff
 </style>
 <link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/">
 <meta property="og:title" content="A Physicist's Perspective — Meskat">
-<meta property="og:description" content="HSC ও Admission MCQ পরীক্ষা ও ফিজিক্স লেকচার — ৬৩টি সেট, ১৮১৫টি প্রশ্ন।">
+<meta property="og:description" content="HSC ও Admission MCQ পরীক্ষা ও ফিজিক্স লেকচার — ৯৯টি সেট, ২৫৫৫টি প্রশ্ন।">
 <meta property="og:url" content="https://meskat00.github.io/a-physicists-perspective/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230B0B0C'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23FF5A1F' font-family='Georgia'>φ</text></svg>">
 <meta property="og:type" content="website">
@@ -311,6 +311,7 @@ a.xp-chap:hover{background:linear-gradient(120deg,var(--g2),var(--g3));color:#ff
 .dv-on .dback{display:inline-flex}
 @media(prefers-reduced-motion:reduce){.dmode,.dmode::after,.dmode-ic::before{animation:none}}
 </style>
+<script src="site-data.js"></script>
 </head>
 <body>
 <div class="dmode" id="dmodeBar" role="note">
@@ -388,7 +389,7 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 
 <section data-secname="পরীক্ষা" id="exams">
   <div class="sec-head"><div class="k">MCQ Exams</div><h2>📝 পরীক্ষা</h2>
-  <p>Level বেছে নাও — অধ্যায় ধরে সব সেট সাজানো। মোট <b>৬৩টি সেট • ১৮১৫টি MCQ</b>, সবই ফ্রি।</p></div>
+  <p>Level বেছে নাও — অধ্যায় ধরে সব সেট সাজানো। মোট <b id="examsLine">৯৯টি সেট • ২৫৫৫টি প্রশ্ন</b>, সবই ফ্রি।</p></div>
   <div class="xp" data-xp="exams"></div>
   <p class="xp-all"><a href="exams.html">সব পরীক্ষা একসাথে দেখো →</a></p>
 </section>
@@ -452,14 +453,19 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 
 const done=new Set(JSON.parse(localStorage.getItem("lup_done")||"[]"));
 const $=s=>document.querySelector(s);
+const SD=window.SITE_DATA||null;const TOT=SD?SD.totals.formSets:63;
 function saveDone(){localStorage.setItem("lup_done",JSON.stringify([...done]))}
 function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2600)}
-function renderProgress(){const p=Math.round(done.size/63*100);
+function renderProgress(){const p=Math.round(done.size/TOT*100);
  $("#ring").style.setProperty("--p",p);$("#ringTxt").textContent=p+"%";
- $("#progTxt").textContent=done.size?`তুমি ${done.size} / ${57}টি সেট শেষ করেছ — এই গতি ধরে রাখো! 🔥`:"এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।"}
+ $("#progTxt").textContent=done.size?`তুমি ${done.size} / ${TOT}টি সেট শেষ করেছ — এই গতি ধরে রাখো! 🔥`:"এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।"}
 $("#resetProg").onclick=()=>{done.clear();saveDone();renderProgress();toast("প্রোগ্রেস রিসেট হয়েছে")};
 $("#heroSearch").onsubmit=ev=>{ev.preventDefault();const q=$("#heroQ").value.trim();location.href="exams.html"+(q?"?q="+encodeURIComponent(q):"")};
-/* counters */
+/* counters — totals come from site-data.js (generated from the real sources) */
+try{if(SD){var BNx=function(n){return String(n).replace(/[0-9]/g,function(d){return "০১২৩৪৫৬৭৮৯"[+d]})};
+var cmap={"মোট MCQ":SD.totals.questions,"পরীক্ষা সেট":SD.totals.sets,"অধ্যায় কভার":SD.totals.chaptersCovered};
+document.querySelectorAll(".stat").forEach(function(st){var lb=st.querySelector("span"),b=st.querySelector("b");if(lb&&b&&cmap[lb.textContent.trim()]!=null)b.dataset.count=cmap[lb.textContent.trim()]});
+var xl=document.getElementById("examsLine");if(xl)xl.textContent=BNx(SD.totals.sets)+"টি সেট • "+BNx(SD.totals.questions)+"টি প্রশ্ন";}}catch(e){}
 document.querySelectorAll("[data-count]").forEach(el=>{const end=+el.dataset.count;let n=0;const t=setInterval(()=>{n+=Math.ceil(end/40);if(n>=end){n=end;clearInterval(t)}el.textContent=n},30)});
 /* share */
 function share(){const data={title:document.title,text:"A Physicist's Perspective — ১৫১৫টি ফ্রি MCQ পরীক্ষা (HSC + Admission), সাথে সাথে স্কোর! 📚",url:location.href};
@@ -586,32 +592,34 @@ var SSC14=["ভৌত রাশি এবং পরিমাপ","গতি","�
 function C(n,href,badge,soon){return{n:n,href:href||null,badge:badge||null,soon:!!soon}}
 function SL(names,href){return names.map(function(n){return C(n,href,null,true)})}
 function BN(n){return String(n).replace(/[0-9]/g,function(d){return "০১২৩৪৫৬৭৮৯"[+d]})}
+var SD=window.SITE_DATA||null;
+function pageBadge(slug){if(SD&&SD.examByPage[slug])return BN(SD.examByPage[slug].sets)+" সেট";return "১ সেট"}
+function flipBadge(n){if(SD&&SD.flipByChapter[n])return BN(SD.flipByChapter[n])+"টি সমস্যা";return null}
 var HSC1PAGES={"ভৌত জগৎ ও পরিমাপ":"chapter-physical-world.html","গতিবিদ্যা":"chapter-dynamics.html","কাজ, শক্তি ও ক্ষমতা":"chapter-work-energy.html","মহাকর্ষ ও অভিকর্ষ":"chapter-gravitation.html","পদার্থের গাঠনিক ধর্ম":"chapter-structural.html","পর্যাবৃত্ত গতি":"chapter-periodic.html","তরঙ্গ":"chapter-waves.html","আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব":"chapter-ideal-gas.html"};
-var HSC2PAGES={"তাপগতিবিদ্যা":"chapter-thermodynamics.html","স্থির তড়িৎ":"chapter-electrostatics.html","চল তড়িৎ":"chapter-current.html","তড়িৎ প্রবাহের চৌম্বক ক্রিয়া ও চুম্বকত্ব":"chapter-magnetism.html","তাড়িতচুম্বকীয় আবেশ ও পরিবর্তী প্রবাহ":"chapter-induction-ac.html","জ্যামিতিক আলোকবিজ্ঞান":"chapter-geometric-optics.html","ভৌত আলোকবিজ্ঞান":"chapter-physical-optics.html","আধুনিক পদার্থবিজ্ঞানের সূচনা":"chapter-modern-physics.html","পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান":"chapter-nuclear.html","সেমিকন্ডাক্টর ও ইলেকট্রনিক্স":"chapter-semiconductor.html","জ্যোতির্বিজ্ঞান":"chapter-astronomy.html"}; var SSCPAGES={"ভৌত রাশি এবং পরিমাপ":"chapter-ssc-measurement.html","গতি":"chapter-ssc-motion.html","বল":"chapter-ssc-force.html","কাজ, ক্ষমতা ও শক্তি":"chapter-ssc-work-energy.html","পদার্থের অবস্থা ও চাপ":"chapter-ssc-pressure.html","বস্তুর ওপর তাপের প্রভাব":"chapter-ssc-heat.html","তরঙ্গ ও শব্দ":"chapter-ssc-waves-sound.html","আলোর প্রতিফলন":"chapter-ssc-reflection.html","আলোর প্রতিসরণ":"chapter-ssc-refraction.html","স্থির বিদ্যুৎ":"chapter-ssc-static-electricity.html","চল বিদ্যুৎ":"chapter-ssc-current-electricity.html","বিদ্যুতের চৌম্বক ক্রিয়া":"chapter-ssc-magnetism.html","আধুনিক পদার্থবিজ্ঞান ও ইলেকট্রনিক্স":"chapter-ssc-modern-electronics.html","জীবন বাঁচাতে পদার্থবিজ্ঞান":"chapter-ssc-physics-in-life.html"}; function sscExams(){return SSC14.map(function(n){if(SSCPAGES[n])return C(n,SSCPAGES[n],"১ সেট");return C(n,"exams.html#ssc",null,true)})} function hscExams(){return HSC21.map(function(n){
-  if(n==="ভেক্টর")return C(n,"chapter-vector.html","২০ সেট");
-  if(n==="নিউটনীয় বলবিদ্যা")return C(n,"chapter-newtonian.html","২ সেট");
-  if(HSC1PAGES[n])return C(n,HSC1PAGES[n],"১ সেট");   if(HSC2PAGES[n])return C(n,HSC2PAGES[n],"১ সেট");
+var HSC2PAGES={"তাপগতিবিদ্যা":"chapter-thermodynamics.html","স্থির তড়িৎ":"chapter-electrostatics.html","চল তড়িৎ":"chapter-current.html","তড়িৎ প্রবাহের চৌম্বক ক্রিয়া ও চুম্বকত্ব":"chapter-magnetism.html","তাড়িতচুম্বকীয় আবেশ ও পরিবর্তী প্রবাহ":"chapter-induction-ac.html","জ্যামিতিক আলোকবিজ্ঞান":"chapter-geometric-optics.html","ভৌত আলোকবিজ্ঞান":"chapter-physical-optics.html","আধুনিক পদার্থবিজ্ঞানের সূচনা":"chapter-modern-physics.html","পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান":"chapter-nuclear.html","সেমিকন্ডাক্টর ও ইলেকট্রনিক্স":"chapter-semiconductor.html","জ্যোতির্বিজ্ঞান":"chapter-astronomy.html"}; var SSCPAGES={"ভৌত রাশি এবং পরিমাপ":"chapter-ssc-measurement.html","গতি":"chapter-ssc-motion.html","বল":"chapter-ssc-force.html","কাজ, ক্ষমতা ও শক্তি":"chapter-ssc-work-energy.html","পদার্থের অবস্থা ও চাপ":"chapter-ssc-pressure.html","বস্তুর ওপর তাপের প্রভাব":"chapter-ssc-heat.html","তরঙ্গ ও শব্দ":"chapter-ssc-waves-sound.html","আলোর প্রতিফলন":"chapter-ssc-reflection.html","আলোর প্রতিসরণ":"chapter-ssc-refraction.html","স্থির বিদ্যুৎ":"chapter-ssc-static-electricity.html","চল বিদ্যুৎ":"chapter-ssc-current-electricity.html","বিদ্যুতের চৌম্বক ক্রিয়া":"chapter-ssc-magnetism.html","আধুনিক পদার্থবিজ্ঞান ও ইলেকট্রনিক্স":"chapter-ssc-modern-electronics.html","জীবন বাঁচাতে পদার্থবিজ্ঞান":"chapter-ssc-physics-in-life.html"}; function sscExams(){return SSC14.map(function(n){if(SSCPAGES[n])return C(n,SSCPAGES[n],pageBadge(SSCPAGES[n]));return C(n,"exams.html#ssc",null,true)})} function hscExams(){return HSC21.map(function(n){
+  if(n==="ভেক্টর")return C(n,"chapter-vector.html",pageBadge("chapter-vector.html"));
+  if(n==="নিউটনীয় বলবিদ্যা")return C(n,"chapter-newtonian.html",pageBadge("chapter-newtonian.html"));
+  if(HSC1PAGES[n])return C(n,HSC1PAGES[n],pageBadge(HSC1PAGES[n]));   if(HSC2PAGES[n])return C(n,HSC2PAGES[n],pageBadge(HSC2PAGES[n]));
   return C(n,"exams.html#book-chapters",null,true);
-}).concat([C("সরলরেখা","chapter-straight-line.html","উচ্চতর গণিত • ২ সেট")])}
+}).concat([C("সরলরেখা","chapter-straight-line.html","উচ্চতর গণিত • "+pageBadge("chapter-straight-line.html"))])}
 function hscLectures(){return SL(HSC21,"lectures.html#book-chapters")}
 function hscMaterials(){return HSC21.map(function(n){
-  if(n==="ভেক্টর")return C(n,"problems.html","১৫টি সমস্যা");
-  if(n==="নিউটনীয় বলবিদ্যা")return C(n,"circular-motion-mcq-30.html","প্রিন্ট পেপার • ৩০ MCQ");
+  var fb=flipBadge(n); if(fb)return C(n,"problems.html",fb);
   return C(n,null,null,true);
-})}
+}).concat([C("বৃত্তাকার গতি","circular-motion-mcq-30.html","প্রিন্ট পেপার • ৩০ MCQ")])}
 var XP={
-exams:{icon:"📝",name:"Exam",bn:"পরীক্ষা",meta:"৫৭ সেট • ১৫১৫ MCQ",order:["SSC","HSC","Admission"],levels:{
+exams:{icon:"📝",name:"Exam",bn:"পরীক্ষা",meta:(SD?BN(SD.totals.sets)+" সেট • "+BN(SD.totals.questions)+" প্রশ্ন":"৯৯ সেট • ২৫৫৫ প্রশ্ন"),order:["SSC","HSC","Admission"],levels:{
   SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:sscExams()},
   HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র • উচ্চতর গণিত",chapters:hscExams()},
-  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","exams.html?filter=Admission","৫ সেট"),{note:"অন্য অধ্যায়ের Admission সেট আসছে শীঘ্রই — ভেক্টর দিয়ে শুরু করো।"}]}}},
+  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","exams.html?filter=Admission",SD?BN((SD.admByChapter||{})["ভেক্টর"]||0)+" সেট":"২০ সেট"),C("আসল ভর্তি পরীক্ষা","exams.html#admission",SD?BN(SD.totals.admSets)+"টি বছর-সেট • "+BN(SD.totals.admQ)+" প্রশ্ন":"৩৬টি বছর-সেট"),{note:"DU ও BUET-এর আসল প্রশ্নে বছরভিত্তিক ও অধ্যায়ভিত্তিক টাইমার পরীক্ষা।"}]}}},
 lectures:{icon:"🎬",name:"Lectures & Videos",bn:"লেকচার ও ভিডিও",meta:"সিরিজ • লেসন • Short",order:["SSC","HSC","Admission"],levels:{
   SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SL(SSC14,"lectures.html#ssc")},
   HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র",chapters:hscLectures()},
   Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","series-physics-admission.html","৬ পর্বের সিরিজ"),{note:"নতুন চ্যানেলের আরও ভিডিও আসছে শীঘ্রই।"}]}}},
-materials:{icon:"📚",name:"Study Materials",bn:"স্টাডি ম্যাটেরিয়ালস",meta:"সমস্যা • প্রিন্ট পেপার • প্র্যাকটিস",order:["SSC","HSC","Admission"],levels:{
-  SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SL(SSC14,null)},
+materials:{icon:"📚",name:"Study Materials",bn:"স্টাডি ম্যাটেরিয়ালস",meta:(SD?BN(SD.totals.flipQ)+"টি প্র্যাকটিস প্রশ্ন • প্রিন্ট পেপার":"সমস্যা • প্রিন্ট পেপার • প্র্যাকটিস"),order:["SSC","HSC","Admission"],levels:{
+  SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SSC14.map(function(n){var fb=flipBadge(n);return fb?C(n,"problems.html",fb):C(n,null,null,true)})},
   HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র • উচ্চতর গণিত",chapters:hscMaterials()},
-  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","problems.html","সমস্যা অনুশীলনী"),{note:"আরও প্র্যাকটিস ম্যাটেরিয়াল আসছে শীঘ্রই।"}]}}}
+  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","problems.html",flipBadge("ভেক্টর")||"সমস্যা অনুশীলনী"),C("আসল ভর্তি প্রশ্ন","problems.html",SD?BN(SD.flipByLevel["Admission"]||0)+"টি সমস্যা":"সমস্যা অনুশীলনী"),{note:"আরও প্র্যাকটিস ম্যাটেরিয়াল আসছে শীঘ্রই।"}]}}}
 };
 var PF={};
 document.querySelectorAll("[data-xp]").forEach(function(mount){
