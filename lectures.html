@@ -390,4 +390,28 @@ if("requestIdleCallback" in window){requestIdleCallback(go,{timeout:3000});}else
 
 <link rel="stylesheet" href="login.css">
 
+<style>
+.lecbtn{margin-top:9px;border:1.5px solid #cfd8d2;background:#fff;color:#5b6b60;font-family:inherit;font-weight:700;font-size:13px;padding:6px 13px;border-radius:99px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.lecbtn.on{background:#0a7a4b;border-color:#0a7a4b;color:#fff}
+</style>
+<script>
+/* লেকচার "দেখেছি" টিক — lup_lec-এ সেভ থাকে; login থাকলে login.js account-এ sync করে */
+(function(){
+  function lec(){ try{ return JSON.parse(localStorage.getItem("lup_lec")||"[]"); }catch(e){ return []; } }
+  function paint(){ var a=lec(); document.querySelectorAll(".lecbtn").forEach(function(b){ var on=a.indexOf(b.getAttribute("data-ch"))>=0; b.classList.toggle("on",on); b.textContent=on?"✓ দেখেছি":"👁️ দেখা হয়নি"; }); }
+  document.querySelectorAll("#book-chapters .chap, #ssc .chap").forEach(function(card){
+    var h=card.querySelector("h4"); if(!h) return;
+    var name=h.textContent.trim();
+    var b=document.createElement("button"); b.type="button"; b.className="lecbtn"; b.setAttribute("data-ch",name);
+    b.addEventListener("click",function(){
+      if(window.lupToggleLec){ window.lupToggleLec(name); }
+      else{ var a=lec(),i=a.indexOf(name); if(i>=0)a.splice(i,1); else a.push(name); try{ localStorage.setItem("lup_lec",JSON.stringify(a)); }catch(e){} }
+      paint();
+    });
+    card.appendChild(b);
+  });
+  document.addEventListener("lupuser",paint);
+  paint();
+})();
+</script>
 </body></html>

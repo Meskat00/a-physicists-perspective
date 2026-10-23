@@ -287,6 +287,7 @@ function submitExam(auto){
   db.collection("examBoard").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,mins:EXAM.minutes,ts:TS})
     .then(function(ref){ note.textContent="✓ ফলাফল সংরক্ষিত হয়েছে"; note.style.color="#0a7a4b"; loadBoard(ref.id); })
     .catch(function(e){ note.textContent="ফলাফল সংরক্ষণ হয়নি ("+(e&&e.code?e.code:"error")+")"; note.style.color="#b42318"; });
+  if(window.lupAddResult){ try{ window.lupAddResult({e:EXAM_ID,t:EXAM.title||EXAM_ID,s:score,n:total,p:pct,ts:Date.now()}); }catch(e){} }
 }
 function loadBoard(myId){
   db.collection("examBoard").where("examId","==",EXAM_ID).get().then(function(snap){

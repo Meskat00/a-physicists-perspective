@@ -15,12 +15,37 @@ host.appendChild(btn);
 var tst=document.createElement("div"); tst.className="lup-toast"; document.body.appendChild(tst);
 function toast(m){ tst.textContent=m; tst.classList.add("on"); setTimeout(function(){tst.classList.remove("on")},3600); }
 function localDone(){ try{ return JSON.parse(localStorage.getItem("lup_done")||"[]"); }catch(e){ return []; } }
-var user=null, lastSnap=localStorage.getItem("lup_done")||"[]";
+function localLec(){ try{ return JSON.parse(localStorage.getItem("lup_lec")||"[]"); }catch(e){ return []; } }
+function snapOf(){ return (localStorage.getItem("lup_done")||"[]")+"|"+(localStorage.getItem("lup_lec")||"[]"); }
+var user=null, lastSnap=snapOf(), resArr=null;
+function fireUser(){
+  try{ document.dispatchEvent(new CustomEvent("lupuser",{detail:{signed:!!user,name:user?(user.displayName||""):"",done:localDone(),lec:localLec(),res:resArr||[]}})); }catch(e){}
+}
 function pushCloud(){
   if(!user) return;
-  lastSnap=localStorage.getItem("lup_done")||"[]";
-  db.collection("users").doc(user.uid).set({done:localDone(),name:user.displayName||"",email:user.email||"",photo:user.photoURL||"",updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true}).catch(function(){});
+  lastSnap=snapOf();
+  var ref=db.collection("users").doc(user.uid);
+  var base={name:user.displayName||"",email:user.email||"",photo:user.photoURL||"",updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+  var full={done:localDone(),lec:localLec(),name:base.name,email:base.email,photo:base.photo,updatedAt:base.updatedAt};
+  ref.set(full,{merge:true}).catch(function(){
+    /* rules v5 publish হওয়ার আগে lec ফিল্ড reject হলে পুরনো field-set দিয়ে done sync চালু রাখো */
+    var legacy={done:localDone(),name:base.name,email:base.email,photo:base.photo,updatedAt:base.updatedAt};
+    ref.set(legacy,{merge:true}).catch(function(){});
+  });
 }
+window.lupAddResult=function(entry){
+  if(!user||!entry) return;
+  resArr=(resArr||[]).concat([entry]).slice(-100);
+  db.collection("users").doc(user.uid).set({res:resArr,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true}).then(function(){ fireUser(); }).catch(function(){});
+};
+window.lupToggleLec=function(name){
+  var a=localLec(), i=a.indexOf(name), on;
+  if(i>=0){ a.splice(i,1); on=false; }else{ a.push(name); on=true; }
+  try{ localStorage.setItem("lup_lec",JSON.stringify(a)); }catch(e){}
+  if(user) pushCloud();
+  fireUser();
+  return on;
+};
 auth.getRedirectResult().catch(function(){});
 auth.onAuthStateChanged(function(u){
   user=u;
@@ -28,17 +53,27 @@ auth.onAuthStateChanged(function(u){
     btn.className="lup-chip"; btn.title="Logout";
     btn.innerHTML=(u.photoURL?'<img src="'+u.photoURL+'" alt="" referrerpolicy="no-referrer">':"")+"<span>"+(u.displayName?u.displayName.split(" ")[0]:"Account")+"</span>";
     db.collection("users").doc(u.uid).get().then(function(snap){
-      var cloud=(snap.exists&&snap.data().done)?snap.data().done:[];
+      var data=snap.exists?snap.data():{};
+      var cloud=(data&&data.done)?data.done:[];
       var local=localDone();
       var union=Array.from(new Set([].concat(cloud,local)));
       var changed=JSON.stringify(union.slice().sort())!==JSON.stringify(local.slice().sort());
       if(changed){ localStorage.setItem("lup_done",JSON.stringify(union)); }
+      var cloudLec=(data&&data.lec)?data.lec:[];
+      var localLecArr=localLec();
+      var unionLec=Array.from(new Set([].concat(cloudLec,localLecArr)));
+      var lecChanged=JSON.stringify(unionLec.slice().sort())!==JSON.stringify(localLecArr.slice().sort());
+      if(lecChanged){ localStorage.setItem("lup_lec",JSON.stringify(unionLec)); }
+      resArr=(data&&data.res)?data.res:[];
       pushCloud();
+      fireUser();
       if(!sessionStorage.getItem("lup_welcomed")){ sessionStorage.setItem("lup_welcomed","1"); toast("স্বাগতম! তোমার record এখন সব device-এ sync হবে ✓"); }
-      if(changed&&!sessionStorage.getItem("lup_merged")){ sessionStorage.setItem("lup_merged","1"); location.reload(); }
-    }).catch(function(){});
+      if((changed||lecChanged)&&!sessionStorage.getItem("lup_merged")){ sessionStorage.setItem("lup_merged","1"); location.reload(); }
+    }).catch(function(){ fireUser(); });
   }else{
     btn.className="lup-auth"; btn.textContent="Login"; btn.title="Google দিয়ে login করলে তোমার record সব device-এ sync হবে";
+    resArr=null;
+    fireUser();
   }
 });
 btn.addEventListener("click",function(){
@@ -49,5 +84,5 @@ btn.addEventListener("click",function(){
     else if(e&&e.code!=="auth/popup-closed-by-user"){ toast("Login হয়নি — আবার চেষ্টা করো।"); }
   });
 });
-setInterval(function(){ var now=localStorage.getItem("lup_done")||"[]"; if(user&&now!==lastSnap){ pushCloud(); } },4000);
+setInterval(function(){ var now=snapOf(); if(user&&now!==lastSnap){ pushCloud(); } },4000);
 }catch(e){}})();

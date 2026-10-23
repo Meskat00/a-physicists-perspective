@@ -365,7 +365,7 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 <div class="wrap">
   <div class="progress-card">
     <div class="ring" id="ring" style="--p:0"><i id="ringTxt">0%</i></div>
-    <div><h3>তোমার অগ্রগতি 🏆</h3><p id="progTxt">এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।</p></div>
+    <div><h3>তোমার অগ্রগতি 🏆</h3><p id="progTxt">এখনো কোনো পরীক্ষা শেষ করোনি — প্রথমটা শুরু করলেই এখানে প্রোগ্রেস দেখাবে। এই ডিভাইসেই সেভ থাকে।</p><p id="progDetail" style="margin-top:7px;font-size:14px;line-height:1.55;color:#41604f"></p></div>
     <div class="progress-actions">
       <button class="chipbtn" id="shareBtn2">📤 বন্ধুকে পাঠাও</button>
       <button class="chipbtn" id="resetProg">↺ রিসেট</button>
@@ -656,6 +656,37 @@ document.querySelectorAll("[data-xp]").forEach(function(mount){
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&open)closeXp();});
   levels.querySelectorAll(".xp-level").forEach(function(b){b.addEventListener("click",function(){showChaps(b.getAttribute("data-lv"))});if(hoverable)b.addEventListener("pointerenter",function(){showChaps(b.getAttribute("data-lv"))});});
 });
+})();
+</script>
+<script>
+/* অগ্রগতি কার্ডের বিস্তারিত — login.js-এর lupuser event থেকে account-ভিত্তিক হিসাব */
+(function(){
+  var el=document.getElementById("progDetail"); if(!el) return;
+  function BN(n){ return String(n).replace(/[0-9]/g,function(d){ return "০১২৩৪৫৬৭৮৯"[+d]; }); }
+  function fmtS(v){ return BN((Math.round(v*100)/100).toString().replace(".", "․")); }
+  function render(d){
+    var parts=[];
+    var lec=[]; try{ lec=JSON.parse(localStorage.getItem("lup_lec")||"[]"); }catch(e){}
+    if(d&&d.signed){
+      var res=d.res||[];
+      if(res.length){
+        var sum=0; res.forEach(function(r){ sum+=(+r.p||0); });
+        var avg=Math.round(sum/res.length);
+        var last=res[res.length-1];
+        parts.push("🎯 টাইমার পরীক্ষা দিয়েছ: <b>"+BN(res.length)+"টি</b> • গড় স্কোর <b>"+BN(avg)+"%</b>");
+        parts.push("সর্বশেষ: "+last.t+" — <b>"+fmtS(+last.s||0)+"/"+BN(last.n)+"</b>");
+      } else {
+        parts.push("🎯 Login করা আছে — টাইমার পরীক্ষা দিলেই তোমার marks এখানে জমা হবে।");
+      }
+      if(lec.length) parts.push("🎬 লেকচার দেখেছ: <b>"+BN(lec.length)+"টি অধ্যায়</b>");
+    } else {
+      if(lec.length) parts.push("🎬 লেকচার দেখেছ: <b>"+BN(lec.length)+"টি অধ্যায়</b> (এই device-এ)");
+      parts.push("🔐 Gmail দিয়ে Login করলে তোমার পরীক্ষার marks আর লেকচারের হিসাব তোমার account-এ জমা থাকবে — সব device-এ দেখা যাবে।");
+    }
+    el.innerHTML=parts.join("<br>");
+  }
+  document.addEventListener("lupuser",function(ev){ render(ev.detail); });
+  render(null);
 })();
 </script>
 </body>
