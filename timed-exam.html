@@ -57,6 +57,10 @@ input.name:focus{outline:2px solid var(--green);border-color:transparent}
 .q h3 .qn{color:#0a7a4b;font-family:Inter;font-weight:800;margin-right:6px}
 .opts{display:grid;gap:8px}
 .opt{border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;cursor:pointer;font-size:16px;background:#fff;text-align:left;font-family:inherit;width:100%}
+.qfig{margin:12px 0 2px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.qfig img{max-width:100%;max-height:320px;border-radius:6px}
+.qcap{font-size:13.5px;color:#5b6b60;margin-top:8px}
+.ofig{display:block;max-width:100%;max-height:150px;margin-top:8px;border-radius:8px}
 .opt:hover{border-color:#9fd8bd}
 .opt.sel{border-color:var(--green);background:#eafaf1;font-weight:700}
 .opt.right{border-color:var(--green);background:#eafaf1;font-weight:700}
@@ -232,14 +236,26 @@ document.getElementById("btnStart").addEventListener("click",function(){
   show("stExam"); updClock();
   tick=setInterval(updClock,250);
 });
+function figEl(q){
+  if(!q.fig) return null;
+  var f=document.createElement("div"); f.className="qfig";
+  var im=document.createElement("img"); im.src=q.fig; im.alt="প্রশ্নের চিত্র"; im.loading="lazy"; f.appendChild(im);
+  if(q.figcap){ var c=document.createElement("div"); c.className="qcap"; c.textContent=q.figcap; f.appendChild(c); }
+  return f;
+}
+function optContent(b,q,oi,text){
+  b.appendChild(document.createTextNode(text));
+  if(q.ofig&&q.ofig[oi]){ var im=document.createElement("img"); im.className="ofig"; im.src=q.ofig[oi]; im.alt=""; im.loading="lazy"; b.appendChild(im); }
+}
 function renderExam(){
   var host=document.getElementById("qList"); host.innerHTML="";
   EXAM.questions.forEach(function(q,qi){
     var div=document.createElement("div"); div.className="q";
     var h=document.createElement("h3"); h.innerHTML=""; var sn=document.createElement("span"); sn.className="qn"; sn.textContent=bn(qi+1)+"."; h.appendChild(sn); h.appendChild(document.createTextNode(q.q)); div.appendChild(h);
+    var fe=figEl(q); if(fe)div.appendChild(fe);
     var opts=document.createElement("div"); opts.className="opts";
     q.opts.forEach(function(op,oi){
-      var b=document.createElement("button"); b.type="button"; b.className="opt"; b.textContent="কখগঘঙ"[oi]+") "+op;
+      var b=document.createElement("button"); b.type="button"; b.className="opt"; optContent(b,q,oi,"কখগঘঙ"[oi]+") "+op);
       b.addEventListener("click",function(){ answers[qi]=oi; Array.prototype.forEach.call(opts.children,function(c){c.classList.remove("sel")}); b.classList.add("sel"); updCount(); });
       opts.appendChild(b);
     });
@@ -269,10 +285,11 @@ function submitExam(auto){
   qs.forEach(function(q,qi){
     var div=document.createElement("div"); div.className="q";
     var h=document.createElement("h3"); var sn=document.createElement("span"); sn.className="qn"; sn.textContent=bn(qi+1)+"."; h.appendChild(sn); h.appendChild(document.createTextNode(q.q)); div.appendChild(h);
+    var fe=figEl(q); if(fe)div.appendChild(fe);
     var opts=document.createElement("div"); opts.className="opts";
     q.opts.forEach(function(op,oi){
       var b=document.createElement("button"); b.type="button"; b.className="opt"; b.disabled=true;
-      b.textContent="কখগঘঙ"[oi]+") "+op+(oi===q.ans?" ✓ সঠিক উত্তর":(oi===answers[qi]?" ✗ তোমার উত্তর":""));
+      optContent(b,q,oi,"কখগঘঙ"[oi]+") "+op+(oi===q.ans?" ✓ সঠিক উত্তর":(oi===answers[qi]?" ✗ তোমার উত্তর":"")));
       if(oi===q.ans)b.classList.add("right"); else if(oi===answers[qi])b.classList.add("wrong");
       opts.appendChild(b);
     });
