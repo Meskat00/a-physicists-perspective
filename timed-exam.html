@@ -239,7 +239,7 @@ function renderExam(){
     var h=document.createElement("h3"); h.innerHTML=""; var sn=document.createElement("span"); sn.className="qn"; sn.textContent=bn(qi+1)+"."; h.appendChild(sn); h.appendChild(document.createTextNode(q.q)); div.appendChild(h);
     var opts=document.createElement("div"); opts.className="opts";
     q.opts.forEach(function(op,oi){
-      var b=document.createElement("button"); b.type="button"; b.className="opt"; b.textContent="কখগঘ"[oi]+") "+op;
+      var b=document.createElement("button"); b.type="button"; b.className="opt"; b.textContent="কখগঘঙ"[oi]+") "+op;
       b.addEventListener("click",function(){ answers[qi]=oi; Array.prototype.forEach.call(opts.children,function(c){c.classList.remove("sel")}); b.classList.add("sel"); updCount(); });
       opts.appendChild(b);
     });
@@ -272,7 +272,7 @@ function submitExam(auto){
     var opts=document.createElement("div"); opts.className="opts";
     q.opts.forEach(function(op,oi){
       var b=document.createElement("button"); b.type="button"; b.className="opt"; b.disabled=true;
-      b.textContent="কখগঘ"[oi]+") "+op+(oi===q.ans?" ✓ সঠিক উত্তর":(oi===answers[qi]?" ✗ তোমার উত্তর":""));
+      b.textContent="কখগঘঙ"[oi]+") "+op+(oi===q.ans?" ✓ সঠিক উত্তর":(oi===answers[qi]?" ✗ তোমার উত্তর":""));
       if(oi===q.ans)b.classList.add("right"); else if(oi===answers[qi])b.classList.add("wrong");
       opts.appendChild(b);
     });
