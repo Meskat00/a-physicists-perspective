@@ -34,11 +34,11 @@ nav{position:sticky;top:0;z-index:50;background:rgba(10,42,32,.96);backdrop-filt
 .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.12;font-weight:700;margin:8px 0 10px}
 .hero h1 .hl{background:linear-gradient(transparent 62%,var(--yellow) 62%);color:#fff;padding:0 4px}
 .hero p.sub{font-size:clamp(16px,2.4vw,20px);color:#d9efe5;max-width:720px;margin:0 auto}
-.free-tx{font-size:1.3em;font-weight:800;color:#22d3ee;white-space:nowrap}
+.free-tx{font-size:1.5em;font-weight:800;color:#22d3ee;white-space:nowrap}
 @supports((-webkit-background-clip:text) or (background-clip:text)){
-.free-tx{background-image:radial-gradient(rgba(255,255,255,.55) 1.1px,transparent 1.5px),radial-gradient(rgba(6,60,70,.25) 1.1px,transparent 1.5px),linear-gradient(100deg,#2dd4bf 0%,#22d3ee 30%,#cffafe 50%,#38bdf8 64%,#818cf8 100%);background-size:9px 9px,9px 9px,220% 100%;background-position:0 0,4.5px 4.5px,130% 0;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 5px rgba(0,0,0,.35));animation:freeTxShine 3.6s ease-in-out infinite}
+.free-tx{background-image:radial-gradient(rgba(255,255,255,.55) 1.1px,transparent 1.5px),radial-gradient(rgba(6,60,70,.25) 1.1px,transparent 1.5px),linear-gradient(100deg,#2dd4bf 0%,#22d3ee 30%,#cffafe 50%,#38bdf8 64%,#818cf8 100%);background-size:9px 9px,9px 9px,300% 100%;background-position:0 0,4.5px 4.5px,120% 0;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 5px rgba(0,0,0,.35));will-change:background-position;animation:freeTxShine 5s linear infinite}
 }
-@keyframes freeTxShine{0%,55%{background-position:0 0,4.5px 4.5px,130% 0}92%,100%{background-position:0 0,4.5px 4.5px,-30% 0}}
+@keyframes freeTxShine{0%{background-position:0 0,4.5px 4.5px,120% 0}45%,100%{background-position:0 0,4.5px 4.5px,-20% 0}}
 @media(prefers-reduced-motion:reduce){.free-tx{animation:none}}
 .hero-search{max-width:620px;margin:26px auto 0;display:flex;background:#fff;border-radius:999px;padding:6px;box-shadow:0 16px 40px rgba(0,0,0,.28)}
 .hero-search input{flex:1;border:0;outline:0;padding:10px 16px;font:inherit;font-size:16px;border-radius:999px;min-width:0}
