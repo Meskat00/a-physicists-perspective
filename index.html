@@ -667,6 +667,11 @@ document.querySelectorAll("[data-xp]").forEach(function(mount){
   function render(d){
     var parts=[];
     var lec=[]; try{ lec=JSON.parse(localStorage.getItem("lup_lec")||"[]"); }catch(e){}
+    /* Form-টিক শূন্য কিন্তু টাইমার পরীক্ষা দেওয়া থাকলে মূল লাইনটাও মিলিয়ে দাও (নইলে পরস্পরবিরোধী দেখায়) */
+    if(d&&d.signed&&(d.res||[]).length){
+      var dn=[]; try{ dn=JSON.parse(localStorage.getItem("lup_done")||"[]"); }catch(e){}
+      if(!dn.length){ var pt=document.getElementById("progTxt"); if(pt) pt.innerHTML="তুমি <b>"+BN(d.res.length)+"টি</b> টাইমার পরীক্ষা দিয়েছ — তোমার marks নিচে জমা আছে।"; }
+    }
     if(d&&d.signed){
       var res=d.res||[];
       if(res.length){
