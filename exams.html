@@ -275,7 +275,7 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 .adm-uni:hover .adm-uni-btn,.adm-uni.on .adm-uni-btn{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.65)}
 .adm-tab{transition:background .25s,color .25s,border-color .25s}
 .adm-panel.adm-in{animation:admPanelIn .38s ease both}
-@keyframes admPanelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes admPanelIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
 .adm-in .adm-view:not([hidden]) .chap{animation:admCardIn .4s ease both;animation-delay:var(--d,0ms)}
 @keyframes admCardIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1}}
 /* Level 2 — view tabs fill with an amber gradient (home Materials palette) on hover/active */
@@ -304,6 +304,20 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 .adm-uni:hover::after,.adm-panel .chap:hover::after{animation:none}
 .adm-panel.adm-in,.adm-in .adm-view:not([hidden]) .chap{animation:none}
 }
+
+/* Panels open directly under the hovered card's row; open panel carries a rotating shine border */
+.adm-panel.in-grid,.sscp-panel.in-grid{grid-column:1/-1;margin-top:0}
+.adm-panel{position:relative}
+.adm-panel::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--aa),transparent 0 62%,var(--ashine,#ffc800) 80%,transparent 95%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none;z-index:3}
+.adm-panel:not([hidden]){border-color:var(--ashine,#ffc800);box-shadow:0 0 0 1px var(--ashine,#ffc800),0 18px 40px rgba(10,20,16,.18)}
+.adm-panel:not([hidden])::after{opacity:1;animation:adm-rot 3s linear infinite}
+.sscp-panel{position:relative}
+.sscp-panel::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--aa),transparent 0 62%,#12b76a 80%,transparent 95%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none;z-index:3}
+.sscp-panel:not([hidden]){border-style:solid;border-color:#12b76a;box-shadow:0 0 0 1px #12b76a,0 18px 40px rgba(10,42,32,.16)}
+.sscp-panel:not([hidden])::after{opacity:1;animation:adm-rot 3s linear infinite}
+.sscp-in .sscp-chip{animation:sscpChipIn .35s ease both;animation-delay:var(--d,0ms)}
+@keyframes sscpChipIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.adm-panel:not([hidden])::after,.sscp-panel:not([hidden])::after{animation:none}.sscp-in .sscp-chip{animation:none}}
 </style>
 <section id="admission" style="padding-top:34px">
 <div class="sec-head"><div class="k">Admission • ভর্তি পরীক্ষা</div><h2>🎓 Admission — বিশ্ববিদ্যালয় ভর্তি পরীক্ষা</h2>
@@ -399,12 +413,23 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
     p.querySelectorAll('.adm-view:not([hidden]) .chap').forEach(function(c,i){ c.style.setProperty('--d', Math.min(i*45,700)+'ms'); });
     p.classList.add('adm-in');
   }
+  function placePanel(card, p){
+    if (!card) return;
+    var grid = card.parentElement;
+    if (!grid || !grid.classList.contains('chapgrid')) { card.after(p); p.classList.add('in-grid'); return; }
+    var rowEnd = card, n = card.nextElementSibling;
+    while (n && n.classList.contains('adm-uni') && Math.abs(n.offsetTop - card.offsetTop) < 4) { rowEnd = n; n = n.nextElementSibling; }
+    if (p.parentElement !== grid || p.previousElementSibling !== rowEnd) rowEnd.after(p);
+    p.classList.add('in-grid');
+  }
   function openPanel(b){
     var p = document.getElementById(b.getAttribute('data-panel'));
     if (!p.hidden) return;
+    var card = b.closest('.adm-uni');
     document.querySelectorAll('.adm-panel').forEach(function(x){ x.hidden = true; });
     document.querySelectorAll('.adm-uni').forEach(function(x){ x.classList.remove('on'); });
-    p.hidden = false; b.closest('.adm-uni').classList.add('on'); stagger(p);
+    placePanel(card, p);
+    p.hidden = false; card.classList.add('on'); stagger(p);
   }
   function closeAll(){
     document.querySelectorAll('.adm-panel').forEach(function(x){ x.hidden = true; });
@@ -418,7 +443,7 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
   document.querySelectorAll('.adm-uni-btn').forEach(function(b){
     b.addEventListener('click', function(){
       var p = document.getElementById(b.getAttribute('data-panel'));
-      if (p.hidden) { openPanel(b); if (p.scrollIntoView) p.scrollIntoView({behavior:'smooth', block:'start'}); }
+      if (p.hidden) { openPanel(b); if (p.scrollIntoView) p.scrollIntoView({behavior:'smooth', block:'nearest'}); }
       else closeAll();
     });
     if (hoverOK) b.closest('.adm-uni').addEventListener('pointerenter', function(){ if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } openPanel(b); });
@@ -446,7 +471,7 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 #sscExtra{--sg1:#0a2a20;--sg2:#0e5c3f;--sg3:#12b76a}
 .sscp-panel{background:linear-gradient(160deg,#f4fbf7,#eafaf1);border:1.5px dashed #9fd8bd;border-radius:16px;padding:18px;margin-top:14px}
 .sscp-panel.sscp-in{animation:sscpIn .38s ease both}
-@keyframes sscpIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes sscpIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
 .sscp-yhead{font-weight:800;font-size:15.5px;color:#0a2a20;margin:14px 0 10px}
 .sscp-yhead:first-child{margin-top:0}
 .sscp-chips{display:flex;flex-wrap:wrap;gap:9px}
@@ -480,10 +505,22 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
   btns.forEach(function(b){ panels[b.getAttribute('data-panel')] = document.getElementById(b.getAttribute('data-panel')); });
   var openId = null, closeTimer = null;
   function closeAll(){ openId = null; Object.keys(panels).forEach(function(k){ if (panels[k]) panels[k].hidden = true; }); }
+  function placePanel(card, p){
+    if (!card) return;
+    var grid = card.parentElement;
+    if (!grid || !grid.classList.contains('chapgrid')) { card.after(p); p.classList.add('in-grid'); return; }
+    var rowEnd = card, n = card.nextElementSibling;
+    while (n && n.classList && n.classList.contains('chap') && n.querySelector('.sscp-btn') && Math.abs(n.offsetTop - card.offsetTop) < 4) { rowEnd = n; n = n.nextElementSibling; }
+    if (p.parentElement !== grid || p.previousElementSibling !== rowEnd) rowEnd.after(p);
+    p.classList.add('in-grid');
+  }
   function open(id){
     if (openId === id) return;
     closeAll(); openId = id;
     var p = panels[id]; if (!p) return;
+    var btn = null; btns.forEach(function(b){ if (b.getAttribute('data-panel') === id) btn = b; });
+    placePanel(btn ? btn.closest('.chap') : null, p);
+    p.querySelectorAll('.sscp-chip').forEach(function(c, i){ c.style.setProperty('--d', Math.min(i * 30, 600) + 'ms'); });
     p.hidden = false; p.classList.remove('sscp-in'); void p.offsetWidth; p.classList.add('sscp-in');
   }
   btns.forEach(function(b){
