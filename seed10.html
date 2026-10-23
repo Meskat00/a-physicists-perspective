@@ -2,11 +2,11 @@
 <html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Seed SSC board/test exams (one-time)</title></head>
 <body style="font-family:sans-serif;max-width:720px;margin:40px auto;padding:0 16px">
-<h2>One-time seed: 74 SSC board + test exams</h2>
+<h2>One-time seed: 41 SSC chapter-wise board/test sets</h2>
 <p id="who">Not signed in.</p>
 <button id="btnLogin" style="padding:10px 18px;font-size:16px">Sign in with Google (owner)</button>
-<button id="btnSeed" style="padding:10px 18px;font-size:16px" disabled>Seed 74 exams</button>
-<p style="color:#555">Sign in চাপলে Google-এর পেজে যাবে — সাইন-ইন শেষ হলে নিজে থেকেই এই পেজে ফিরে আসবে, তখন "Seed 74 exams" চাপবে। বোতামে একবারই ক্লিক করবে।</p>
+<button id="btnSeed" style="padding:10px 18px;font-size:16px" disabled>Seed 41 sets</button>
+<p style="color:#555">Sign in চাপলে Google-এর পেজে যাবে — সাইন-ইন শেষ হলে নিজে থেকেই এই পেজে ফিরে আসবে, তখন "Seed 41 sets" চাপবে। বোতামে একবারই ক্লিক করবে।</p>
 <pre id="log" style="white-space:pre-wrap;background:#f4f4f4;padding:12px;border-radius:8px;min-height:200px"></pre>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -34,9 +34,9 @@ document.getElementById("btnSeed").addEventListener("click",async function(){
   this.disabled=true;
   var cu = auth.currentUser; L("ACTING UID: " + (cu ? cu.uid : "NONE"));
   if (firebase.appCheck) { try { var tk = await firebase.appCheck().getToken(true); L("APPCHECK token OK, length " + (tk && tk.token ? tk.token.length : 0)); } catch(e){ L("APPCHECK token FAIL: " + e.message); } }
-  var ids=Object.keys(window.SEED9), ok=0, fail=0;
+  var ids=Object.keys(window.SEED_DOCS), ok=0, fail=0;
   for (var i=0;i<ids.length;i++){
-    var id=ids[i], d=window.SEED9[id];
+    var id=ids[i], d=window.SEED_DOCS[id];
     var doc={title:d.title,chapter:d.chapter,level:d.level,minutes:d.minutes,qjson:d.qjson};
     if(d.neg) doc.neg=d.neg;
     try{ await db.collection("exams").doc(id).set(doc); ok++; L("OK "+id); }
