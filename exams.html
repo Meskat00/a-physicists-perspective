@@ -185,7 +185,38 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;back
 <meta name="twitter:description" content="HSC ও Admission-এর ৩২টি MCQ পরীক্ষা সেট, ১৫১৫টি প্রশ্ন — সাথে সাথে স্কোর।">
 <meta name="twitter:image" content="https://meskat00.github.io/a-physicists-perspective/og-image.png">
 <style>:focus-visible{outline:3px solid #ffc800!important;outline-offset:2px}</style>
+<style id="dmode-css">
+.dmode{display:none}
+@media(max-width:820px){
+.dmode{display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;background:linear-gradient(120deg,#082a1f 0%,#0b3d2c 55%,#0e5a3a 100%);color:#fff;padding:13px 46px 13px 15px;border-bottom:2px solid #f5b301;font-family:'Hind Siliguri',system-ui,sans-serif;animation:dmode-in .55s cubic-bezier(.22,.9,.3,1) both}
+.dmode::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(245,179,1,.13) 48%,transparent 62%);transform:translateX(-130%);animation:dmode-shine 3.4s ease-in-out 1s infinite;pointer-events:none}
+@keyframes dmode-in{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:none}}
+@keyframes dmode-shine{0%{transform:translateX(-130%)}55%,100%{transform:translateX(130%)}}
+.dmode-ic{flex:0 0 auto;position:relative;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;background:radial-gradient(circle at 32% 30%,#ffd968,#f5b301 65%,#d99a00);box-shadow:0 6px 14px -4px rgba(0,0,0,.5)}
+.dmode-ic::before{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(245,179,1,.55);animation:dmode-ring 2.4s ease-out infinite;pointer-events:none}
+@keyframes dmode-ring{0%{transform:scale(.78);opacity:0}35%{opacity:.9}100%{transform:scale(1.28);opacity:0}}
+.dmode-tx{line-height:1.3;min-width:0}
+.dmode-en{display:block;font-family:Inter,system-ui,sans-serif;font-size:10.5px;font-weight:800;letter-spacing:.22em;color:#f5b301;text-transform:uppercase}
+.dmode-bn{display:block;font-size:16.5px;font-weight:700;color:#fff;margin-top:1px}
+.dmode-bn b{color:#ffd968}
+.dmode-sub{display:block;font-size:12px;color:#bfe3d2;margin-top:1px}
+.dmode-x{position:absolute;top:6px;right:8px;width:26px;height:26px;border:none;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:12px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.dmode-x:active{background:rgba(255,255,255,.3)}
+}
+@media(prefers-reduced-motion:reduce){.dmode,.dmode::after,.dmode-ic::before{animation:none}}
+</style>
 </head><body>
+<div class="dmode" id="dmodeBar" role="note">
+<div class="dmode-ic">🖥️</div>
+<div class="dmode-tx">
+<span class="dmode-en">For Better Visualizations</span>
+<span class="dmode-bn">ফোনে <b>Desktop Mode</b> চালু করে নিন</span>
+<span class="dmode-sub">Chrome-এর ⋮ মেনু থেকে “Desktop site” অপশনে টিক দিন</span>
+</div>
+<button class="dmode-x" id="dmodeX" aria-label="বন্ধ করো">✕</button>
+</div>
+<script>(function(){try{var b=document.getElementById('dmodeBar');if(!b)return;if(sessionStorage.getItem('dmode_off')){b.style.display='none';return}document.getElementById('dmodeX').addEventListener('click',function(){b.style.display='none';try{sessionStorage.setItem('dmode_off','1')}catch(e){}})}catch(e){}})();</script>
+
 <div id="pbar"></div><nav><div class="wrap nav-in">
 <a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>by Meskat • SSC • HSC • Admission</small></a>
 <div class="nav-links"><a href="index.html">🏠 হোম</a><a href="exams.html">📝 পরীক্ষা</a><a href="lectures.html">🎬 লেকচার</a><a href="problems.html">🧩 সমস্যা</a><a href="about.html">👨‍🏫 About</a></div>
