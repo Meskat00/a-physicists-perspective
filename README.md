@@ -47,3 +47,4 @@ Whenever a new MCQ Google Form is created for Meskat, it is added to this websit
 ## SSC (মাধ্যমিক) section — 2026-10-21
 
 The site also serves SSC students: a dedicated SSC section (id="ssc") on exams.html and lectures.html lists all 14 NCTB মাধ্যমিক পদার্থবিজ্ঞান chapters (all marked Coming Soon until content is supplied); the homepage Start-Here pathways include an SSC card, and branding lines now read "SSC • HSC • Admission". Future SSC MCQ sets and lectures get filed under these chapters when supplied.
+
