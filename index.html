@@ -34,6 +34,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(10,42,32,.96);backdrop-filt
 .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.12;font-weight:700;margin:8px 0 10px}
 .hero h1 .hl{background:linear-gradient(transparent 62%,var(--yellow) 62%);color:#fff;padding:0 4px}
 .hero p.sub{font-size:clamp(16px,2.4vw,20px);color:#d9efe5;max-width:720px;margin:0 auto}
+.free-hl{display:inline-block;font-size:1.18em;font-weight:800;color:#082a1f;background:linear-gradient(135deg,#ffd968,#f5b301);padding:3px 14px;border-radius:99px;box-shadow:0 8px 18px -6px rgba(0,0,0,.5);white-space:nowrap}
 .hero-search{max-width:620px;margin:26px auto 0;display:flex;background:#fff;border-radius:999px;padding:6px;box-shadow:0 16px 40px rgba(0,0,0,.28)}
 .hero-search input{flex:1;border:0;outline:0;padding:10px 16px;font:inherit;font-size:16px;border-radius:999px;min-width:0}
 .hero-search button{border:0;background:var(--yellow);font:inherit;font-weight:700;padding:10px 22px;border-radius:999px;cursor:pointer}
@@ -333,8 +334,8 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 
 <header class="hero" id="top"><div class="wrap hero-in">
   <span class="chalk">Level up your skills ✎</span>
-  <h1>পদার্থবিজ্ঞান এবার <span class="hl">বুঝে</span> শেখো —<br>পরীক্ষা দিয়ে, স্কোর জানো সাথে সাথে</h1>
-  <p class="sub">SSC, HSC ও বিশ্ববিদ্যালয় ভর্তি প্রস্তুতির জন্য অধ্যায়ভিত্তিক MCQ পরীক্ষা ও কনসেপ্ট লেকচার — সব ফ্রি, সব এক জায়গায়। প্রতিটি পরীক্ষায় সাবমিট করলেই স্কোর + কোনটা ভুল হলো তার সঠিক উত্তর।</p>
+  <h1>প্রকৃতিকে <span class="hl">বুঝতে</span> শেখো,<br>পরীক্ষা দিয়ে কতটুকু বুঝেছ সেটা যাচাই করো</h1>
+  <p class="sub">SSC, HSC ও বিশ্ববিদ্যালয় ভর্তি প্রস্তুতির জন্য অধ্যায়ভিত্তিক MCQ পরীক্ষা ও কনসেপ্ট লেকচার — <span class="free-hl">সব ফ্রি, সব এক জায়গায়।</span></p>
   <form class="hero-search" id="heroSearch"><input id="heroQ" type="search" placeholder="খুঁজো: ভেক্টর, বৃত্তাকার গতি, সরলরেখা…"><button type="submit">খুঁজি 🔍</button></form>
   <div class="hero-btns">
     <a class="btn btn-y" href="#exams">📝 এখনই পরীক্ষা দাও</a>
