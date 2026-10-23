@@ -387,7 +387,7 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 
 <section data-secname="পরীক্ষা" id="exams">
   <div class="sec-head"><div class="k">MCQ Exams</div><h2>📝 পরীক্ষা</h2>
-  <p>Level বেছে নাও — অধ্যায় ধরে সব সেট সাজানো। মোট <b id="examsLine">৩৫১টি সেট • ৮৪২২টি প্রশ্ন</b>, সবই ফ্রি।</p></div>
+  <p>Level বেছে নাও — অধ্যায় ধরে সব সেট সাজানো। মোট <b id="examsLine">৬৬৪টি সেট • ১৪৯০৮টি প্রশ্ন</b>, সবই ফ্রি।</p></div>
   <div class="xp" data-xp="exams"></div>
   <p class="xp-all"><a href="exams.html">সব পরীক্ষা একসাথে দেখো →</a></p>
 </section>
@@ -609,7 +609,7 @@ function admTiles(){
   return list;
 }
 var XP={
-exams:{icon:"📝",name:"Exam",bn:"পরীক্ষা",meta:(SD?BN(SD.totals.sets)+" সেট • "+BN(SD.totals.questions)+" প্রশ্ন":"৩৫১ সেট • ৮৪২২ প্রশ্ন"),order:["SSC","HSC","Admission"],levels:{
+exams:{icon:"📝",name:"Exam",bn:"পরীক্ষা",meta:(SD?BN(SD.totals.sets)+" সেট • "+BN(SD.totals.questions)+" প্রশ্ন":"৬৬৪ সেট • ১৪৯০৮ প্রশ্ন"),order:["SSC","HSC","Admission"],levels:{
   SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:sscExams()},
   HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র • উচ্চতর গণিত",chapters:hscExams()},
   Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",head:"বিশ্ববিদ্যালয় বেছে নাও",liveUnit:"বিশ্ববিদ্যালয়",chapters:admTiles()}}},
