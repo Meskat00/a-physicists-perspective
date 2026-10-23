@@ -254,6 +254,36 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 .adm-tab{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 18px;font:inherit;font-weight:700;cursor:pointer}
 .adm-tab.on{background:#0a2a20;color:#fff;border-color:#0a2a20}
 .adm-uni.on{border-color:#0a7a4b;box-shadow:0 0 0 2px #0a7a4b inset}
+/* Admission explorer animation — mirrors the home-page Exam explorer (.xp): gradient fill + rotating gold shine on the university cards, cascading cards in the open panel */
+#admission{--ag1:#0a2a20;--ag2:#0e5c3f;--ag3:#12b76a;--ashine:#ffc800;--aink2:#cfe9dc}
+@property --aa{syntax:'<angle>';initial-value:0deg;inherits:false}
+.adm-uni{position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s}
+.adm-uni::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,var(--ag1),var(--ag2) 48%,var(--ag3));opacity:0;transition:opacity .45s}
+.adm-uni::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--aa),transparent 0 68%,var(--ashine) 82%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
+.adm-uni>*{position:relative;z-index:1}
+.adm-uni .num,.adm-uni h4,.adm-uni .st{transition:color .3s}
+.adm-uni:hover::before,.adm-uni.on::before{opacity:1}
+.adm-uni:hover::after,.adm-uni.on::after{opacity:1}
+.adm-uni:hover::after{animation:adm-rot 3s linear infinite}
+@keyframes adm-rot{to{--aa:360deg}}
+.adm-uni:hover{transform:translateY(-2px);border-color:var(--ashine);box-shadow:0 0 0 1px var(--ashine),0 16px 34px rgba(10,20,16,.22)}
+.adm-uni.on{border-color:var(--ashine);box-shadow:0 0 0 1px var(--ashine),0 16px 34px rgba(10,20,16,.22)}
+.adm-uni:hover .num,.adm-uni.on .num{color:var(--ashine)}
+.adm-uni:hover h4,.adm-uni.on h4{color:#fff}
+.adm-uni:hover .st,.adm-uni.on .st{color:var(--aink2)}
+.adm-uni-btn{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-weight:700;cursor:pointer;transition:background .3s,color .3s,border-color .3s;margin-top:10px}
+.adm-uni:hover .adm-uni-btn,.adm-uni.on .adm-uni-btn{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.65)}
+.adm-tab{transition:background .25s,color .25s,border-color .25s}
+.adm-panel.adm-in{animation:admPanelIn .38s ease both}
+@keyframes admPanelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.adm-in .adm-view:not([hidden]) .chap{animation:admCardIn .4s ease both;animation-delay:var(--d,0ms)}
+@keyframes admCardIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+.adm-uni,.adm-uni::before,.adm-uni::after,.adm-uni-btn,.adm-tab{transition:none}
+.adm-uni:hover{transform:none}
+.adm-uni:hover::after{animation:none}
+.adm-panel.adm-in,.adm-in .adm-view:not([hidden]) .chap{animation:none}
+}
 </style>
 <section id="admission" style="padding-top:34px">
 <div class="sec-head"><div class="k">Admission • ভর্তি পরীক্ষা</div><h2>🎓 Admission — বিশ্ববিদ্যালয় ভর্তি পরীক্ষা</h2>
@@ -276,17 +306,23 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 </section>
 <script>
 (function(){
+  function stagger(p){
+    p.classList.remove('adm-in'); void p.offsetWidth;
+    p.querySelectorAll('.adm-view:not([hidden]) .chap').forEach(function(c,i){ c.style.setProperty('--d', Math.min(i*45,700)+'ms'); });
+    p.classList.add('adm-in');
+  }
   document.querySelectorAll('.adm-uni-btn').forEach(function(b){ b.addEventListener('click', function(){
     var p = document.getElementById(b.getAttribute('data-panel'));
     var was = p.hidden;
     document.querySelectorAll('.adm-panel').forEach(function(x){ x.hidden = true; });
     document.querySelectorAll('.adm-uni').forEach(function(x){ x.classList.remove('on'); });
-    if (was) { p.hidden = false; b.closest('.adm-uni').classList.add('on'); if (p.scrollIntoView) p.scrollIntoView({behavior:'smooth', block:'start'}); }
+    if (was) { p.hidden = false; b.closest('.adm-uni').classList.add('on'); stagger(p); if (p.scrollIntoView) p.scrollIntoView({behavior:'smooth', block:'start'}); }
   }); });
   document.querySelectorAll('.adm-panel').forEach(function(p){
     p.querySelectorAll('.adm-tab').forEach(function(t){ t.addEventListener('click', function(){
       p.querySelectorAll('.adm-tab').forEach(function(x){ x.classList.toggle('on', x === t); });
       p.querySelectorAll('.adm-view').forEach(function(v){ v.hidden = v.getAttribute('data-view') !== t.getAttribute('data-view'); });
+      stagger(p);
     }); });
   });
 })();
