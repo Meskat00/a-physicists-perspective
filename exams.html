@@ -459,6 +459,15 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
     sec.addEventListener('pointerenter', function(){ if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } });
   }
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
+  /* Deep link from the home page: exams.html#admPanel<Source> opens that panel */
+  if (/^#admPanel\w+$/.test(location.hash || '')) {
+    var hb = document.querySelector('.adm-uni-btn[data-panel="' + location.hash.slice(1) + '"]');
+    if (hb) setTimeout(function(){
+      openPanel(hb);
+      var hp = document.getElementById(location.hash.slice(1));
+      if (hp && hp.scrollIntoView) hp.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }, 80);
+  }
 })();
 </script>
 <section id="ssc" style="padding-top:34px">

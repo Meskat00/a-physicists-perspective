@@ -605,11 +605,19 @@ function hscMaterials(){return HSC21.map(function(n){
   var fb=flipBadge(n); if(fb)return C(n,"problems.html",fb);
   return C(n,null,null,true);
 }).concat([C("বৃত্তাকার গতি","circular-motion-mcq-30.html","প্রিন্ট পেপার • ৩০ MCQ")])}
+var ADM_FALLBACK=[{panel:"admPanelBuet",name:"🏗️ BUET",years:26,chaps:23,q:501},{panel:"admPanelDu",name:"🎓 ঢাকা বিশ্ববিদ্যালয়",years:10,chaps:24,q:239},{panel:"admPanelRu",name:"🏛️ রাজশাহী বিশ্ববিদ্যালয়",years:15,chaps:21,q:342},{panel:"admPanelJu",name:"🌳 জাহাঙ্গীরনগর বিশ্ববিদ্যালয়",years:10,chaps:21,q:680},{panel:"admPanelSust",name:"🔬 শাবিপ্রবি",years:14,chaps:21,q:375},{panel:"admPanelBau",name:"🌾 বাংলাদেশ কৃষি বিশ্ববিদ্যালয়",years:9,chaps:20,q:217},{panel:"admPanelGst",name:"🧩 GST গুচ্ছ",years:39,chaps:21,q:1274},{panel:"admPanelCu",name:"🏛️ চট্টগ্রাম বিশ্ববিদ্যালয়",years:14,chaps:21,q:326},{panel:"admPanelRuet",name:"⚙️ RUET",years:6,chaps:19,q:140},{panel:"admPanelCkruet",name:"⚙️ CKRUET গুচ্ছ",years:4,chaps:20,q:95},{panel:"admPanelKuet",name:"⚙️ KUET",years:4,chaps:20,q:95},{panel:"admPanelCuet",name:"⚙️ CUET",years:6,chaps:20,q:134},{panel:"admPanelMed",name:"🩺 মেডিকেল ও ডেন্টাল",years:63,chaps:21,q:1198}];
+function admTiles(){
+  var list=[{n:"ভেক্টর",href:"exams.html?filter=Admission",badge:SD?BN((SD.admByChapter||{})["ভেক্টর"]||0)+" সেট":"২০ সেট",noCount:1}];
+  var srcs=(SD&&SD.admSources&&SD.admSources.length)?SD.admSources:ADM_FALLBACK;
+  srcs.forEach(function(s){ list.push(C(s.name,"exams.html#"+s.panel,BN(s.years)+"টি বছর-সেট • "+BN(s.q)+"টি প্রশ্ন")); });
+  list.push({n:"সব ভর্তি পরীক্ষা একসাথে",href:"exams.html#admission",badge:SD?BN(SD.totals.admSets)+"টি বছর-সেট • "+BN(SD.totals.admQ)+" প্রশ্ন":"২২০টি বছর-সেট",noCount:1});
+  return list;
+}
 var XP={
 exams:{icon:"📝",name:"Exam",bn:"পরীক্ষা",meta:(SD?BN(SD.totals.sets)+" সেট • "+BN(SD.totals.questions)+" প্রশ্ন":"৩৫১ সেট • ৮৪২২ প্রশ্ন"),order:["SSC","HSC","Admission"],levels:{
   SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:sscExams()},
   HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র • উচ্চতর গণিত",chapters:hscExams()},
-  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","exams.html?filter=Admission",SD?BN((SD.admByChapter||{})["ভেক্টর"]||0)+" সেট":"২০ সেট"),C("আসল ভর্তি পরীক্ষা","exams.html#admission",SD?BN(SD.totals.admSets)+"টি বছর-সেট • "+BN(SD.totals.admQ)+" প্রশ্ন":"২২০টি বছর-সেট"),{note:"BUET, DU, RU, JU, SUST, BAU, GST গুচ্ছ, CKRUET, KUET, CUET, চবি, RUET ও মেডিকেলের আসল প্রশ্নে বছরভিত্তিক ও অধ্যায়ভিত্তিক টাইমার পরীক্ষা।"}]}}},
+  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",head:"বিশ্ববিদ্যালয় বেছে নাও",liveUnit:"বিশ্ববিদ্যালয়",chapters:admTiles()}}},
 lectures:{icon:"🎬",name:"Lectures & Videos",bn:"লেকচার ও ভিডিও",meta:"সিরিজ • লেসন • Short",order:["SSC","HSC","Admission"],levels:{
   SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SL(SSC14,"lectures.html#ssc")},
   HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র",chapters:hscLectures()},
@@ -623,7 +631,7 @@ var PF={};
 document.querySelectorAll("[data-xp]").forEach(function(mount){
   var cfg=XP[mount.getAttribute("data-xp")]; if(!cfg)return;
   mount.innerHTML='<button class="xp-root" type="button" aria-expanded="false"><span class="xp-ring"></span><span class="xp-ic">'+cfg.icon+'</span><span class="xp-rt"><b>'+cfg.name+'</b><small>'+cfg.bn+' • '+cfg.meta+'</small></span><span class="xp-arrow">▾</span></button>'
-   +'<div class="xp-levels" hidden>'+cfg.order.map(function(L){var lc=cfg.levels[L].chapters.filter(function(c){return c.href&&!c.soon}).length;return '<button class="xp-level" type="button" data-lv="'+L+'"><b>'+L+'</b><small>'+cfg.levels[L].desc+'</small>'+(lc?'<span class="xp-live"><i></i>'+BN(lc)+'টি অধ্যায় live</span>':'')+'</button>'}).join("")+'</div>'
+   +'<div class="xp-levels" hidden>'+cfg.order.map(function(L){var lc=cfg.levels[L].chapters.filter(function(c){return c.href&&!c.soon&&!c.noCount}).length;return '<button class="xp-level" type="button" data-lv="'+L+'"><b>'+L+'</b><small>'+cfg.levels[L].desc+'</small>'+(lc?'<span class="xp-live"><i></i>'+BN(lc)+'টি '+(cfg.levels[L].liveUnit||'অধ্যায়')+' live</span>':'')+'</button>'}).join("")+'</div>'
    +'<div class="xp-chaps" hidden aria-live="polite"></div>';
   var root=mount.querySelector(".xp-root"),levels=mount.querySelector(".xp-levels"),chaps=mount.querySelector(".xp-chaps");
   var open=false,curLv=null;
@@ -632,7 +640,7 @@ document.querySelectorAll("[data-xp]").forEach(function(mount){
     try{localStorage.setItem("xp_lv_"+mount.getAttribute("data-xp"),L)}catch(e){}
     levels.querySelectorAll(".xp-level").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-lv")===L)});
     var list=cfg.levels[L].chapters;
-    chaps.innerHTML='<div class="xp-chaphead">'+L+' — অধ্যায় বেছে নাও</div><div class="xp-grid">'+list.map(function(c,i){
+    chaps.innerHTML='<div class="xp-chaphead">'+L+' — '+(cfg.levels[L].head||'অধ্যায় বেছে নাও')+'</div><div class="xp-grid">'+list.map(function(c,i){
       if(c.note)return '<div class="xp-note" style="--d:'+(Math.min(i*22,330))+'ms">'+c.note+'</div>';
       var inner='<span>'+c.n+'</span>'+(c.badge?'<em>'+c.badge+'</em>':'')+(c.soon?'<em class="soon">আসছে শীঘ্রই</em>':'');
       var cls='xp-chap'+(c.soon?' is-soon':'');
