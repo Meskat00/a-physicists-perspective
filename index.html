@@ -601,13 +601,10 @@ var HSC2PAGES={"তাপগতিবিদ্যা":"chapter-thermodynamics.ht
   return C(n,"exams.html#book-chapters",null,true);
 }).concat([C("সরলরেখা","chapter-straight-line.html","উচ্চতর গণিত • "+pageBadge("chapter-straight-line.html"))])}
 function hscLectures(){return SL(HSC21,"lectures.html#book-chapters")}
-function hscMaterials(){return HSC21.map(function(n){
-  var fb=flipBadge(n); if(fb)return C(n,"problems.html",fb);
-  return C(n,null,null,true);
-}).concat([C("বৃত্তাকার গতি","circular-motion-mcq-30.html","প্রিন্ট পেপার • ৩০ MCQ")])}
+function hscMaterials(){return HSC21.map(function(n){return C(n,null,null,true)}).concat([C("বৃত্তাকার গতি","circular-motion-mcq-30.html","প্রিন্ট পেপার • ৩০ MCQ")])}
 var ADM_FALLBACK=[{panel:"admPanelBuet",name:"🏗️ BUET",years:26,chaps:23,q:501},{panel:"admPanelDu",name:"🎓 ঢাকা বিশ্ববিদ্যালয়",years:10,chaps:24,q:239},{panel:"admPanelRu",name:"🏛️ রাজশাহী বিশ্ববিদ্যালয়",years:15,chaps:21,q:342},{panel:"admPanelJu",name:"🌳 জাহাঙ্গীরনগর বিশ্ববিদ্যালয়",years:10,chaps:21,q:680},{panel:"admPanelSust",name:"🔬 শাবিপ্রবি",years:14,chaps:21,q:375},{panel:"admPanelBau",name:"🌾 বাংলাদেশ কৃষি বিশ্ববিদ্যালয়",years:9,chaps:20,q:217},{panel:"admPanelGst",name:"🧩 GST গুচ্ছ",years:39,chaps:21,q:1274},{panel:"admPanelCu",name:"🏛️ চট্টগ্রাম বিশ্ববিদ্যালয়",years:14,chaps:21,q:326},{panel:"admPanelRuet",name:"⚙️ RUET",years:6,chaps:19,q:140},{panel:"admPanelCkruet",name:"⚙️ CKRUET গুচ্ছ",years:4,chaps:20,q:95},{panel:"admPanelKuet",name:"⚙️ KUET",years:4,chaps:20,q:95},{panel:"admPanelCuet",name:"⚙️ CUET",years:6,chaps:20,q:134},{panel:"admPanelMed",name:"🩺 মেডিকেল ও ডেন্টাল",years:63,chaps:21,q:1198}];
 function admTiles(){
-  var list=[{n:"ভেক্টর",href:"exams.html?filter=Admission",badge:SD?BN((SD.admByChapter||{})["ভেক্টর"]||0)+" সেট":"২০ সেট",noCount:1}];
+  var list=[];
   var srcs=(SD&&SD.admSources&&SD.admSources.length)?SD.admSources:ADM_FALLBACK;
   srcs.forEach(function(s){ list.push(C(s.name,"exams.html#"+s.panel,BN(s.years)+"টি বছর-সেট • "+BN(s.q)+"টি প্রশ্ন")); });
   list.push({n:"সব ভর্তি পরীক্ষা একসাথে",href:"exams.html#admission",badge:SD?BN(SD.totals.admSets)+"টি বছর-সেট • "+BN(SD.totals.admQ)+" প্রশ্ন":"২২০টি বছর-সেট",noCount:1});
@@ -622,10 +619,10 @@ lectures:{icon:"🎬",name:"Lectures & Videos",bn:"লেকচার ও ভি
   SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SL(SSC14,"lectures.html#ssc")},
   HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র",chapters:hscLectures()},
   Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","series-physics-admission.html","৬ পর্বের সিরিজ"),{note:"নতুন চ্যানেলের আরও ভিডিও আসছে শীঘ্রই।"}]}}},
-materials:{icon:"📚",name:"Study Materials",bn:"স্টাডি ম্যাটেরিয়ালস",meta:(SD?BN(SD.totals.flipQ)+"টি প্র্যাকটিস প্রশ্ন • প্রিন্ট পেপার":"সমস্যা • প্রিন্ট পেপার • প্র্যাকটিস"),order:["SSC","HSC","Admission"],levels:{
-  SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SSC14.map(function(n){var fb=flipBadge(n);return fb?C(n,"problems.html",fb):C(n,null,null,true)})},
+materials:{icon:"📚",name:"Study Materials",bn:"স্টাডি ম্যাটেরিয়ালস",meta:"প্রিন্ট পেপার • বাকি ম্যাটেরিয়াল শীঘ্রই আসছে",order:["SSC","HSC","Admission"],levels:{
+  SSC:{desc:"মাধ্যমিক পদার্থবিজ্ঞান • ১৪টি অধ্যায়",chapters:SSC14.map(function(n){return C(n,null,null,true)})},
   HSC:{desc:"পদার্থবিজ্ঞান ১ম ও ২য় পত্র • উচ্চতর গণিত",chapters:hscMaterials()},
-  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর","problems.html",flipBadge("ভেক্টর")||"সমস্যা অনুশীলনী"),C("আসল ভর্তি প্রশ্ন","problems.html",SD?BN(SD.flipByLevel["Admission"]||0)+"টি সমস্যা":"সমস্যা অনুশীলনী"),{note:"আরও প্র্যাকটিস ম্যাটেরিয়াল আসছে শীঘ্রই।"}]}}}
+  Admission:{desc:"বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি",chapters:[C("ভেক্টর",null,null,true),C("আসল ভর্তি প্রশ্ন",null,null,true),{note:"নতুন স্টাডি ম্যাটেরিয়াল শীঘ্রই যোগ হচ্ছে।"}]}}}
 };
 var PF={};
 document.querySelectorAll("[data-xp]").forEach(function(mount){
