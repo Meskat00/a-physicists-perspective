@@ -277,11 +277,31 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 .adm-panel.adm-in{animation:admPanelIn .38s ease both}
 @keyframes admPanelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .adm-in .adm-view:not([hidden]) .chap{animation:admCardIn .4s ease both;animation-delay:var(--d,0ms)}
-@keyframes admCardIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes admCardIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1}}
+/* Level 2 — view tabs fill with an amber gradient (home Materials palette) on hover/active */
+.adm-tab{position:relative;z-index:0;overflow:hidden;transition:color .3s,border-color .3s}
+.adm-tab::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#7a5205,#96650c 48%,#f59e0b);opacity:0;transition:opacity .35s;z-index:-1}
+.adm-tab:hover::before,.adm-tab.on::before{opacity:1}
+.adm-tab:hover{color:#fff;border-color:#f59e0b}
+.adm-tab.on{border-color:#f59e0b}
+/* Level 3 — exam cards inside the panels fill violet with shine on hover (home Lectures palette); their পরীক্ষা দাও button fills gold */
+.adm-panel .chap{position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s}
+.adm-panel .chap::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#1d1440,#4326a8 48%,#7c5cff);opacity:0;transition:opacity .4s}
+.adm-panel .chap::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--aa),transparent 0 68%,#c4b5fd 82%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
+.adm-panel .chap>*{position:relative;z-index:1}
+.adm-panel .chap .num,.adm-panel .chap h4,.adm-panel .chap .st{transition:color .3s}
+.adm-panel .chap:hover{transform:translateY(-2px);border-color:#c4b5fd;box-shadow:0 0 0 1px #c4b5fd,0 14px 30px rgba(29,20,64,.28)}
+.adm-panel .chap:hover::before{opacity:1}
+.adm-panel .chap:hover::after{opacity:1;animation:adm-rot 3s linear infinite}
+.adm-panel .chap:hover .num{color:#c4b5fd}
+.adm-panel .chap:hover h4{color:#fff}
+.adm-panel .chap:hover .st{color:#ded6ff}
+.adm-panel .chipbtn{transition:background .3s,color .3s,border-color .3s,transform .3s}
+.adm-panel .chap:hover .chipbtn{background:linear-gradient(120deg,#ffc800,#f59e0b);color:#0a2a20;border-color:#ffc800}
 @media (prefers-reduced-motion: reduce){
-.adm-uni,.adm-uni::before,.adm-uni::after,.adm-uni-btn,.adm-tab{transition:none}
-.adm-uni:hover{transform:none}
-.adm-uni:hover::after{animation:none}
+.adm-uni,.adm-uni::before,.adm-uni::after,.adm-uni-btn,.adm-tab,.adm-tab::before,.adm-panel .chap,.adm-panel .chap::before,.adm-panel .chap::after,.adm-panel .chipbtn{transition:none}
+.adm-uni:hover,.adm-panel .chap:hover{transform:none}
+.adm-uni:hover::after,.adm-panel .chap:hover::after{animation:none}
 .adm-panel.adm-in,.adm-in .adm-view:not([hidden]) .chap{animation:none}
 }
 </style>
@@ -306,25 +326,49 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 </section>
 <script>
 (function(){
+  var hoverOK = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var sec = document.getElementById('admission');
+  var closeTimer = null;
   function stagger(p){
     p.classList.remove('adm-in'); void p.offsetWidth;
     p.querySelectorAll('.adm-view:not([hidden]) .chap').forEach(function(c,i){ c.style.setProperty('--d', Math.min(i*45,700)+'ms'); });
     p.classList.add('adm-in');
   }
-  document.querySelectorAll('.adm-uni-btn').forEach(function(b){ b.addEventListener('click', function(){
+  function openPanel(b){
     var p = document.getElementById(b.getAttribute('data-panel'));
-    var was = p.hidden;
+    if (!p.hidden) return;
     document.querySelectorAll('.adm-panel').forEach(function(x){ x.hidden = true; });
     document.querySelectorAll('.adm-uni').forEach(function(x){ x.classList.remove('on'); });
-    if (was) { p.hidden = false; b.closest('.adm-uni').classList.add('on'); stagger(p); if (p.scrollIntoView) p.scrollIntoView({behavior:'smooth', block:'start'}); }
-  }); });
-  document.querySelectorAll('.adm-panel').forEach(function(p){
-    p.querySelectorAll('.adm-tab').forEach(function(t){ t.addEventListener('click', function(){
-      p.querySelectorAll('.adm-tab').forEach(function(x){ x.classList.toggle('on', x === t); });
-      p.querySelectorAll('.adm-view').forEach(function(v){ v.hidden = v.getAttribute('data-view') !== t.getAttribute('data-view'); });
-      stagger(p);
-    }); });
+    p.hidden = false; b.closest('.adm-uni').classList.add('on'); stagger(p);
+  }
+  function closeAll(){
+    document.querySelectorAll('.adm-panel').forEach(function(x){ x.hidden = true; });
+    document.querySelectorAll('.adm-uni').forEach(function(x){ x.classList.remove('on'); });
+  }
+  function setView(p, t){
+    p.querySelectorAll('.adm-tab').forEach(function(x){ x.classList.toggle('on', x === t); });
+    p.querySelectorAll('.adm-view').forEach(function(v){ v.hidden = v.getAttribute('data-view') !== t.getAttribute('data-view'); });
+    stagger(p);
+  }
+  document.querySelectorAll('.adm-uni-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var p = document.getElementById(b.getAttribute('data-panel'));
+      if (p.hidden) { openPanel(b); if (p.scrollIntoView) p.scrollIntoView({behavior:'smooth', block:'start'}); }
+      else closeAll();
+    });
+    if (hoverOK) b.closest('.adm-uni').addEventListener('pointerenter', function(){ if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } openPanel(b); });
   });
+  document.querySelectorAll('.adm-panel').forEach(function(p){
+    p.querySelectorAll('.adm-tab').forEach(function(t){
+      t.addEventListener('click', function(){ setView(p, t); });
+      if (hoverOK) t.addEventListener('pointerenter', function(){ if (!t.classList.contains('on')) setView(p, t); });
+    });
+  });
+  if (hoverOK && sec) {
+    sec.addEventListener('pointerleave', function(){ if (closeTimer) clearTimeout(closeTimer); closeTimer = setTimeout(closeAll, 300); });
+    sec.addEventListener('pointerenter', function(){ if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } });
+  }
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
 })();
 </script>
 <section id="ssc" style="padding-top:34px">
