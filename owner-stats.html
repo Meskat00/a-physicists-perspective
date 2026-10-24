@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ভিজিটর পরিসংখ্যান — A Physicist's Perspective</title>
+<style>
+  :root{--bg:#0a1f18;--card:#10291f;--line:#1e4a38;--green:#12b76a;--gold:#f5c542;--txt:#eafff3;--dim:#9fc4b2}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:"Hind Siliguri",system-ui,sans-serif;padding:22px 16px 60px}
+  .wrap{max-width:960px;margin:0 auto}
+  h1{font-size:26px;margin:6px 0 4px}
+  p.dim{color:var(--dim);margin:4px 0 16px;line-height:1.6}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  button,select{font:inherit;background:#0e3a2a;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer}
+  button.primary{background:var(--green);color:#06281a;border:none;font-weight:700}
+  button:disabled{opacity:.5;cursor:default}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:14px 0}
+  .kpi{background:#0a1f18;border:1px solid var(--line);border-radius:14px;padding:14px}
+  .kpi b{font-size:28px;display:block}
+  .kpi span{color:var(--dim);font-size:14px}
+  canvas{width:100%;height:220px;background:#0a1f18;border:1px solid var(--line);border-radius:12px}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+  th{color:var(--gold)}
+  td.num,th.num{text-align:right}
+  .err{color:#ff9a9a;white-space:pre-wrap}
+  .ok{color:var(--green)}
+  .hidden{display:none}
+  .bar-note{color:var(--dim);font-size:13px;margin-top:6px}
+  a{color:var(--gold)}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <h1>📊 ভিজিটর পরিসংখ্যান</h1>
+  <p class="dim">শুধু সাইটের মালিকের জন্য। এই পেজটা সাইটের কোনো মেনুতে লিংক করা নেই, আর ডেটা পড়তে মালিকের Google অ্যাকাউন্টে সাইন-ইন লাগে — অন্য কেউ খুললে ডেটা দেখতে পাবে না। গণনাটা <b>পেজভিউ</b> (একজন এক সেশনে ৫টা পেজ ঘুরলে ৫টা গণনা), আলাদা মানুষের সংখ্যা নয়। তারিখ বাংলাদেশ সময় (Asia/Dhaka) অনুযায়ী।</p>
+
+  <div class="card" id="gate">
+    <div class="row">
+      <button class="primary" id="signinBtn" type="button">Google দিয়ে সাইন-ইন করো</button>
+      <button id="signoutBtn" type="button" class="hidden">সাইন-আউট</button>
+      <span id="who" class="dim"></span>
+    </div>
+    <p id="gateMsg" class="dim">সাইন-ইন করলেই পরিসংখ্যান লোড হবে।</p>
+  </div>
+
+  <div id="dash" class="hidden">
+    <div class="card">
+      <div class="row">
+        <label>সময়কাল:
+          <select id="range">
+            <option value="7">শেষ ৭ দিন</option>
+            <option value="30" selected>শেষ ৩০ দিন</option>
+            <option value="90">শেষ ৯০ দিন</option>
+            <option value="0">সব সময় (২২ অক্টোবর ২০২৬ থেকে)</option>
+          </select>
+        </label>
+        <button id="refreshBtn" type="button">↻ আবার লোড করো</button>
+        <button id="csvBtn" type="button">⬇ CSV ডাউনলোড</button>
+        <span id="status" class="dim"></span>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b id="kTotal">–</b><span>মোট পেজভিউ (নির্বাচিত সময়কাল)</span></div>
+        <div class="kpi"><b id="kAvg">–</b><span>দিনে গড় পেজভিউ</span></div>
+        <div class="kpi"><b id="kBest">–</b><span>সবচেয়ে ব্যস্ত দিন</span></div>
+        <div class="kpi"><b id="kPages">–</b><span>আলাদা পেজ দেখা হয়েছে</span></div>
+      </div>
+      <canvas id="chart" width="900" height="220"></canvas>
+      <p class="bar-note">প্রতিটা বার = এক দিনের পেজভিউ। বারের ওপরের সংখ্যা = ওই দিনের মোট।</p>
+      <p id="err" class="err"></p>
+    </div>
+
+    <div class="card">
+      <h2 style="margin:0 0 10px;font-size:19px">📅 দিনভিত্তিক পেজভিউ</h2>
+      <table>
+        <thead><tr><th>তারিখ</th><th class="num">পেজভিউ</th></tr></thead>
+        <tbody id="dayRows"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2 style="margin:0 0 10px;font-size:19px">📄 সবচেয়ে বেশি দেখা পেজ</h2>
+      <table>
+        <thead><tr><th>পেজ</th><th class="num">পেজভিউ</th></tr></thead>
+        <tbody id="pageRows"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var OWNER_UID = "7d1yWYO6YbN88ArbNCH9IxM9Xu22";
+var CFG = {apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists-perspective.firebaseapp.com",projectId:"physicists-perspective",storageBucket:"physicists-perspective.firebasestorage.app",messagingSenderId:"186707877920",appId:"1:186707877920:web:38f757b3016e1af3539c45"};
+var APP_CHECK_KEY = "6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T";
+if(!window.firebase){ document.getElementById("gateMsg").textContent = "Firebase লোড হয়নি — ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করো।"; return; }
+if(!firebase.apps.length) firebase.initializeApp(CFG);
+try{ firebase.appCheck().activate(new firebase.appCheck.ReCaptchaEnterpriseProvider(APP_CHECK_KEY), true); }catch(e){}
+var auth = firebase.auth(), db = firebase.firestore();
+var $ = function(id){ return document.getElementById(id); };
+var lastData = null;
+
+function dhakaDate(ts){
+  try{
+    var d = ts && ts.toDate ? ts.toDate() : new Date(ts);
+    return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Dhaka",year:"numeric",month:"2-digit",day:"2-digit"}).format(d);
+  }catch(e){ return ""; }
+}
+function bn(n){ return String(n).replace(/\d/g,function(d){ return "০১২৩৪৫৬৭৮৯"[+d]; }); }
+
+auth.onAuthStateChanged(function(user){
+  if(user && user.uid === OWNER_UID){
+    $("who").textContent = "সাইন-ইন: " + (user.displayName || user.email);
+    $("signinBtn").classList.add("hidden");
+    $("signoutBtn").classList.remove("hidden");
+    $("dash").classList.remove("hidden");
+    $("gateMsg").textContent = "";
+    load();
+  } else if(user){
+    $("who").textContent = "এই অ্যাকাউন্ট মালিকের নয় — শুধু মালিকের অ্যাকাউন্টে ডেটা দেখা যাবে।";
+    $("dash").classList.add("hidden");
+    $("signoutBtn").classList.remove("hidden");
+    $("signinBtn").classList.add("hidden");
+  } else {
+    $("who").textContent = "";
+    $("signinBtn").classList.remove("hidden");
+    $("signoutBtn").classList.add("hidden");
+    $("dash").classList.add("hidden");
+    $("gateMsg").textContent = "সাইন-ইন করলেই পরিসংখ্যান লোড হবে।";
+  }
+});
+$("signinBtn").onclick = function(){ auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(e){ $("gateMsg").textContent = "সাইন-ইন হয়নি: " + (e && e.message ? e.message : e); }); };
+$("signoutBtn").onclick = function(){ auth.signOut(); };
+$("refreshBtn").onclick = load;
+$("range").onchange = load;
+
+function load(){
+  $("err").textContent = "";
+  $("status").textContent = "লোড হচ্ছে…";
+  var days = parseInt($("range").value, 10);
+  var q = db.collection("pageviews");
+  if(days > 0){
+    var start = new Date(Date.now() - days * 86400000);
+    q = q.where("ts", ">=", firebase.firestore.Timestamp.fromDate(start));
+  }
+  q = q.orderBy("ts", "asc");
+  // Firestore caps a single get() at 10,000 docs; pageviews are ~1 doc per page per
+  // session, so one range query is expected to stay well under that for 90 days.
+  // If it ever grows past it, the dashboard still shows the first 10,000 in range
+  // and notes it, rather than silently pretending the total is complete.
+  q.limit(10000).get().then(function(snap){
+    var byDay = {}, byPage = {}, total = 0, capped = snap.size >= 10000;
+    snap.forEach(function(doc){
+      var d = doc.data(); if(!d || !d.ts) return;
+      var day = dhakaDate(d.ts); if(!day) return;
+      byDay[day] = (byDay[day] || 0) + 1;
+      var pg = d.page || "(অজানা)"; byPage[pg] = (byPage[pg] || 0) + 1;
+      total++;
+    });
+    var dayKeys = Object.keys(byDay).sort();
+    var pageKeys = Object.keys(byPage).sort(function(a,b){ return byPage[b] - byPage[a]; });
+    lastData = {byDay: byDay, byPage: byPage, total: total, dayKeys: dayKeys, pageKeys: pageKeys};
+    $("kTotal").textContent = bn(total) + (capped ? " +" : "");
+    $("kAvg").textContent = dayKeys.length ? bn(Math.round(total / dayKeys.length)) : "–";
+    var best = dayKeys.length ? dayKeys.reduce(function(a,b){ return byDay[b] > byDay[a] ? b : a; }) : null;
+    $("kBest").textContent = best ? best + " (" + bn(byDay[best]) + ")" : "–";
+    $("kPages").textContent = bn(pageKeys.length);
+    $("status").textContent = capped
+      ? "⚠️ এই সময়কালে ১০,০০০-এর বেশি রেকর্ড — শুধু প্রথম ১০,০০০ দেখানো হচ্ছে। সময়কাল ছোট করো।"
+      : (total ? "লোড সম্পূর্ণ ✓" : "এই সময়কালে কোনো পেজভিউ রেকর্ড পাওয়া যায়নি।");
+    drawChart(dayKeys, byDay);
+    $("dayRows").innerHTML = dayKeys.slice().reverse().map(function(k){
+      return "<tr><td>" + k + "</td><td class=\"num\">" + bn(byDay[k]) + "</td></tr>";
+    }).join("") || "<tr><td colspan=\"2\">কোনো ডেটা নেই</td></tr>";
+    $("pageRows").innerHTML = pageKeys.map(function(k){
+      return "<tr><td>" + k.replace(/</g,"&lt;") + "</td><td class=\"num\">" + bn(byPage[k]) + "</td></tr>";
+    }).join("") || "<tr><td colspan=\"2\">কোনো ডেটা নেই</td></tr>";
+  }).catch(function(e){
+    $("status").textContent = "";
+    $("err").textContent = "ডেটা লোড হয়নি। সম্ভাব্য কারণ: Firestore rules-এ মালিকের পড়ার অনুমতি এখনো বসেনি, অথবা App Check টোকেন পাওয়া যায়নি।\n" + (e && e.message ? e.message : e);
+  });
+}
+
+function drawChart(days, byDay){
+  var cv = $("chart"), ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+  ctx.clearRect(0, 0, W, H);
+  if(!days.length){ ctx.fillStyle = "#9fc4b2"; ctx.font = "16px sans-serif"; ctx.fillText("কোনো ডেটা নেই", 20, 40); return; }
+  var max = Math.max.apply(null, days.map(function(k){ return byDay[k]; }));
+  var padL = 10, padR = 10, padT = 28, padB = 24;
+  var bw = (W - padL - padR) / days.length;
+  days.forEach(function(k, i){
+    var h = max ? (byDay[k] / max) * (H - padT - padB) : 0;
+    var x = padL + i * bw + 2, y = H - padB - h;
+    ctx.fillStyle = "#12b76a";
+    ctx.fillRect(x, y, Math.max(2, bw - 4), h);
+    ctx.fillStyle = "#eafff3"; ctx.font = "11px sans-serif"; ctx.textAlign = "center";
+    if(bw > 18) ctx.fillText(bn(byDay[k]), x + (bw - 4) / 2, y - 5);
+    ctx.fillStyle = "#9fc4b2"; ctx.font = "10px sans-serif";
+    if(bw > 34) ctx.fillText(k.slice(5), x + (bw - 4) / 2, H - 8);
+  });
+}
+
+$("csvBtn").onclick = function(){
+  if(!lastData) return;
+  var lines = ["date,pageviews"];
+  lastData.dayKeys.forEach(function(k){ lines.push(k + "," + lastData.byDay[k]); });
+  lines.push("");
+  lines.push("page,pageviews");
+  lastData.pageKeys.forEach(function(k){ lines.push('"' + k.replace(/"/g,'""') + '",' + lastData.byPage[k]); });
+  var blob = new Blob([lines.join("\n")], {type: "text/csv;charset=utf-8"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  var rv = $("range").value;
+  a.download = "pageviews-" + (rv === "0" ? "all" : rv + "d") + ".csv";
+  a.click();
+};
+})();
+</script>
+</body>
+</html>
