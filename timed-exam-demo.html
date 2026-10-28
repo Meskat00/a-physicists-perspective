@@ -144,7 +144,7 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 <div class="card state" id="stStart">
 <h2 class="center" id="exTitle">বহুনির্বাচনি পরীক্ষা</h2>
 <p class="center mut" id="exMeta"></p>
-<p class="center" id="staticNote" style="display:none;margin:10px 0 0;padding:10px 14px;border-radius:12px;background:#e9faf0;border:1.5px solid #8fd0a8;font-size:15px;font-weight:700;color:#0a5c38">⚡ অফলাইন মোড: এই নেটওয়ার্কে Firebase খুলছে না, তাই প্রশ্ন সাইটের ফাইল থেকে লোড হয়েছে। টাইমার, স্কোর ও রিভিউ সব চলবে — শুধু লিডারবোর্ডে জমা হবে না।</p>
+<p class="center" id="staticNote" style="display:none;margin:10px 0 0;padding:10px 14px;border-radius:12px;background:#e9faf0;border:1.5px solid #8fd0a8;font-size:15px;font-weight:700;color:#0a5c38">Offline Mode আপনার Internet connection এ সমস্যা থাকায় পরিক্ষার পর Leader Board নাম দেখতে পারবেন না, চাইলে Mobile data চালু করে Online Mode এ পরিক্ষাও দিতে পারবেন।</p>
 <div class="rules"><b>নিয়ম:</b><ul>
 <li>শুরু করলেই টাইমার চালু হবে; সময় শেষে উত্তর অটো-সাবমিট হবে।</li>
 <li id="ruleNeg">প্রতিটি প্রশ্নের মান ১; নেগেটিভ মার্কিং নেই।</li>
@@ -351,7 +351,7 @@ function submitExam(auto){
   renderMath(host);
   show("stResult");
   var note=document.getElementById("saveNote");
-  if(STATIC_MODE){ note.textContent="⚡ অফলাইন মোড: ফলাফল শুধু এখানে দেখানো হয়েছে — লিডারবোর্ডে জমা হয়নি (এই নেটওয়ার্কে Firebase খুলছে না)।"; note.style.color="#0a7a4b"; if(window.lupAddResult){ try{ window.lupAddResult({e:EXAM_ID,t:EXAM.title||EXAM_ID,s:score,n:total,p:pct,ts:Date.now()}); }catch(e){} } return; }
+  if(STATIC_MODE){ note.textContent="Offline Mode আপনার Internet connection এ সমস্যা থাকায় পরিক্ষার পর Leader Board নাম দেখতে পারবেন না, চাইলে Mobile data চালু করে Online Mode এ পরিক্ষাও দিতে পারবেন।"; note.style.color="#0a7a4b"; if(window.lupAddResult){ try{ window.lupAddResult({e:EXAM_ID,t:EXAM.title||EXAM_ID,s:score,n:total,p:pct,ts:Date.now()}); }catch(e){} } return; }
   note.textContent="ফলাফল সেভ হচ্ছে…";
   var TS=firebase.firestore.FieldValue.serverTimestamp();
   db.collection("examResults").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,usedSec:usedSec,mins:EXAM.minutes,answers:answers,ts:TS}).catch(function(){});
