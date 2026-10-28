@@ -133,7 +133,7 @@ if(sessionStorage.getItem('dmode_off')){b.style.display='none';return}
 document.getElementById('dmodeX').addEventListener('click',function(){b.style.display='none';try{sessionStorage.setItem('dmode_off','1')}catch(e){}})
 }catch(e){}})();</script>
 
-<nav><div class="nav-in"><a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>SSC • HSC • Admission — ফিজিক্স শেখার ঘর</small></a><div class="nav-links"><a href="index.html">Home</a><a href="exams.html">Exam</a><a href="lectures.html">Lecture</a><a href="problems.html">Game</a></div></div></nav>
+<nav><div class="nav-in"><a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>SSC • HSC • Admission — ফিজিক্স শেখার ঘর</small></a><div class="nav-links"><a href="index.html">Home</a><a href="exams.html">Exam</a><a href="lectures.html">Lecture</a><a href="problems.html">Game</a><a href="tutor.html">🎓 Tutor</a></div></div></nav>
 <header class="hero"><div class="wrap hero-in"><span class="chalk">timed exam</span><h1>⏱️ টাইমার পরীক্ষা</h1><p class="sub">30টি MCQ • পছন্দের সময় • অটো-সাবমিট</p></div></header>
 <main class="wrap">
 
@@ -147,7 +147,7 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 <div class="rules"><b>নিয়ম:</b><ul>
 <li>শুরু করলেই টাইমার চালু হবে; সময় শেষে উত্তর অটো-সাবমিট হবে।</li>
 <li id="ruleNeg">প্রতিটি প্রশ্নের মান ১; নেগেটিভ মার্কিং নেই।</li>
-<li>জমা দিলেই স্কোর, সঠিক উত্তর ও লিডারবোর্ড দেখা যাবে।</li></ul></div>
+<li id="ruleBoard">জমা দিলেই স্কোর, সঠিক উত্তর ও লিডারবোর্ড দেখা যাবে।</li></ul></div>
 <label><b>তোমার নাম</b><input class="name" id="stuName" type="text" maxlength="80" placeholder="তোমার নাম লেখো" autocomplete="name"></label>
 <div style="text-align:left"><b>⏱️ সময় (মিনিট)</b>
 <div class="tchips" id="tChips"></div>
@@ -185,17 +185,21 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 var CFG={apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists-perspective.firebaseapp.com",projectId:"physicists-perspective",storageBucket:"physicists-perspective.firebasestorage.app",messagingSenderId:"186707877920",appId:"1:186707877920:web:38f757b3016e1af3539c45"};
 var EXAM_ID=(new URLSearchParams(location.search).get("exam")||"hsc1-physical-world").toLowerCase();
 if(!/^[a-z0-9-]+$/.test(EXAM_ID)) EXAM_ID="hsc1-physical-world";
+var CUSTOM_QP=new URLSearchParams(location.search);
+var CUSTOM=(CUSTOM_QP.get("custom")==="1"&&CUSTOM_QP.get("csrc")==="ssc-motion"&&!!CUSTOM_QP.get("cq"));
 var BN="০১২৩৪৫৬৭৮৯";
 function bn(n){ return String(n).replace(/[0-9]/g,function(d){return BN[+d]}); }
 function renderMath(el){ try{ if(el&&window.renderMathInElement){ renderMathInElement(el,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"$$",right:"$$",display:true}],throwOnError:false}); } }catch(e){} }
 function show(id){ ["stLoad","stError","stStart","stExam","stResult"].forEach(function(s){ document.getElementById(s).classList.toggle("on", s===id); }); window.scrollTo({top:0}); }
 function fail(msg){ document.getElementById("errMsg").textContent=msg; show("stError"); }
 var db, EXAM=null, answers=[], startedAt=0, endAt=0, tick=null, submitted=false;
+if(!CUSTOM){
 try{
   if(!firebase.apps.length) firebase.initializeApp(CFG);
   try{ var _acp=(firebase.appCheck.ReCaptchaEnterpriseProvider?new firebase.appCheck.ReCaptchaEnterpriseProvider("6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T"):"6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T"); firebase.appCheck().activate(_acp, true); }catch(e){}
   db=firebase.firestore();
 }catch(e){ fail("Firebase চালু হয়নি — ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করো।"); return; }
+}
 function acToken(force){
   return new Promise(function(res){
     var done=false;
@@ -237,7 +241,34 @@ function loadExam(attempt){
     fail("প্রশ্ন লোড করা যায়নি ("+code+")। ইন্টারনেট সংযোগ ধীর থাকলে এমন হতে পারে — কিছুক্ষণ পরে আবার চেষ্টা করো।");
   });
 }
-acToken(false).then(function(){ loadExam(1); });
+function loadCustom(){
+  var refs=CUSTOM_QP.get("cq").split(",").map(function(p){ var a=p.split(":"); return {t:parseInt(a[0],10), i:parseInt(a[1],10)}; }).filter(function(r){ return !isNaN(r.t)&&!isNaN(r.i)&&r.t>=0&&r.i>=0; });
+  if(!refs.length){ fail("কাস্টম লিংকে কোনো প্রশ্ন পাওয়া যায়নি। Tutor পেজ থেকে আবার লিংক বানান।"); return; }
+  var s=document.createElement("script"); s.src="flip-data.js";
+  s.onload=function(){
+    try{
+      var topics=FQ_DATA.SSC.topics["গতি"], QQ=FQ_DATA.SSC.questions["গতি"], qs=[];
+      refs.slice(0,200).forEach(function(r){ var tp=topics[r.t]; var arr=tp?QQ[tp]:null; var it=arr?arr[r.i]:null; if(it) qs.push({q:it.q,opts:it.opts,ans:it.ans,why:it.why,fig:it.fig,ofig:it.ofig,figcap:it.figcap}); });
+      if(!qs.length){ fail("কাস্টম প্রশ্ন খুঁজে পাওয়া যায়নি।"); return; }
+      var title=CUSTOM_QP.get("ctitle")||"কাস্টম পরীক্ষা";
+      var mins=parseInt(CUSTOM_QP.get("cmins"),10); if(isNaN(mins)||mins<1) mins=30; if(mins>180) mins=180;
+      var neg=parseFloat(CUSTOM_QP.get("cneg")); if(isNaN(neg)) neg=0;
+      EXAM={title:title, chapter:"গতি", level:"SSC", minutes:mins, neg:neg, questions:qs};
+      document.title=EXAM.title+" | A Physicist's Perspective";
+      answers=new Array(qs.length).fill(-1);
+      document.getElementById("exTitle").textContent=EXAM.title;
+      document.getElementById("exMeta").textContent="গতি • SSC • "+bn(qs.length)+"টি প্রশ্ন • পূর্ণমান "+bn(qs.length);
+      if(EXAM.neg>0){ document.getElementById("ruleNeg").innerHTML="প্রতিটি সঠিক উত্তরে ১ নম্বর; প্রতিটি <b>ভুল উত্তরে "+bn(EXAM.neg)+" নম্বর কাটা</b> যাবে (নেগেটিভ মার্কিং)।"; }
+      var rb=document.getElementById("ruleBoard"); if(rb) rb.textContent="জমা দিলেই স্কোর ও সঠিক উত্তর দেখা যাবে (কাস্টম সেট — লিডারবোর্ডে জমা হয় না)।";
+      buildChips(EXAM.minutes);
+      document.getElementById("stuMins").value=EXAM.minutes;
+      show("stStart");
+    }catch(e){ fail("কাস্টম প্রশ্ন পড়া যায়নি।"); }
+  };
+  s.onerror=function(){ fail("প্রশ্নের ডেটা লোড হয়নি — ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করো।"); };
+  document.head.appendChild(s);
+}
+if(CUSTOM){ loadCustom(); } else { acToken(false).then(function(){ loadExam(1); }); }
 function buildChips(def){
   var host=document.getElementById("tChips"); host.innerHTML="";
   [10,15,20,25,30,45,60].forEach(function(m){
@@ -325,13 +356,19 @@ function submitExam(auto){
   Array.prototype.forEach.call(host.children,function(div,qi){ var q=qs[qi]; if(q&&q.why){ var wp=document.createElement("p"); wp.className="mut"; wp.style.cssText="margin-top:10px;font-size:15px"; wp.textContent="💡 ব্যাখ্যা: "+q.why; div.appendChild(wp); } });
   renderMath(host);
   show("stResult");
-  var note=document.getElementById("saveNote"); note.textContent="ফলাফল সেভ হচ্ছে…";
+  var note=document.getElementById("saveNote");
+  if(CUSTOM){
+    note.textContent="✓ কাস্টম পরীক্ষা — ফলাফল এখানেই দেখানো হয়েছে (লিডারবোর্ডে জমা হয় না)।";
+    note.style.color="#0a7a4b";
+  } else {
+  note.textContent="ফলাফল সেভ হচ্ছে…";
   var TS=firebase.firestore.FieldValue.serverTimestamp();
   db.collection("examResults").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,usedSec:usedSec,mins:EXAM.minutes,answers:answers,ts:TS}).catch(function(){});
   db.collection("examBoard").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,mins:EXAM.minutes,ts:TS})
     .then(function(ref){ note.textContent="✓ ফলাফল সংরক্ষিত হয়েছে"; note.style.color="#0a7a4b"; loadBoard(ref.id); })
     .catch(function(e){ note.textContent="ফলাফল সংরক্ষণ হয়নি ("+(e&&e.code?e.code:"error")+")"; note.style.color="#b42318"; });
-  if(window.lupAddResult){ try{ window.lupAddResult({e:EXAM_ID,t:EXAM.title||EXAM_ID,s:score,n:total,p:pct,ts:Date.now()}); }catch(e){} }
+  }
+  if(window.lupAddResult){ try{ window.lupAddResult({e:(CUSTOM?"custom-ssc-motion":EXAM_ID),t:EXAM.title||EXAM_ID,s:score,n:total,p:pct,ts:Date.now()}); }catch(e){} }
 }
 function loadBoard(myId){
   db.collection("examBoard").where("examId","==",EXAM_ID).get().then(function(snap){
