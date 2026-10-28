@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>টিউটর পেপার — নমুনা</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false})"></script>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef3ef;font-family:"Hind Siliguri",system-ui,sans-serif;color:#12211a;padding:28px 16px 48px}
+  .paper{max-width:820px;margin:0 auto}
+  /* ---------- পেপার হেডার ---------- */
+  .phead{background:linear-gradient(135deg,#0a2a20,#0a7a4b);border-radius:24px;padding:30px 32px 26px;color:#fff;box-shadow:0 24px 44px -18px rgba(10,42,32,.55);position:relative;overflow:hidden}
+  .phead::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,200,0,.35),transparent 70%)}
+  .phead .tag{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.06em;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:6px 13px;border-radius:99px}
+  .phead h1{font-size:30px;line-height:1.35;margin:14px 0 6px}
+  .phead p{margin:0;color:#cdeede;font-size:15.5px}
+  .psum{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;position:relative;z-index:1}
+  .psum span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:99px;font-size:14px;font-weight:700}
+  .psum b{color:#ffd968}
+  /* ---------- প্রশ্ন কার্ড ---------- */
+  .qcard{background:#fff;border-radius:20px;padding:24px 26px 22px;margin-top:18px;box-shadow:0 10px 28px -14px rgba(10,42,32,.25);border:1px solid #dde8df}
+  .qtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .chap{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:#0a7a4b;background:#e9faf0;border:1px solid #bfe8cf;padding:6px 13px;border-radius:99px}
+  .chap i{width:8px;height:8px;border-radius:50%;background:#ffc800;display:inline-block}
+  .qno{font-size:14px;font-weight:800;color:#8a9a90;white-space:nowrap;padding-top:7px}
+  .cls{font-size:14.5px;color:#5b6b62;margin:10px 0 0;font-weight:600}
+  .cls b{color:#33473d}
+  .meta{display:flex;justify-content:space-between;align-items:center;background:#f2f8f4;border:1px solid #ddeede;border-radius:12px;padding:10px 14px;margin-top:12px;font-size:14.5px;font-weight:700;color:#33473d}
+  .meta .mk{color:#8a5a00;background:#fff6cf;border:1px solid #f2d95e;padding:4px 12px;border-radius:99px}
+  .qtext{font-size:21px;line-height:1.75;font-weight:600;margin:18px 0 16px}
+  .opts{display:grid;gap:10px}
+  .opt{display:flex;align-items:center;gap:12px;text-align:left;width:100%;font:inherit;font-size:18px;font-weight:600;color:#12211a;background:#fff;border:1.5px solid #dde8df;border-radius:14px;padding:13px 15px;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease}
+  .opt .ol{flex:0 0 auto;width:36px;height:36px;font-size:16.5px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eef4f0;color:#0a7a4b;font-weight:800;border:1.5px solid rgba(18,183,106,.35);transition:all .2s ease}
+  .opt:hover{border-color:#8fd0a8;background:linear-gradient(120deg,#e9faf0,#d2f0dd);transform:translateY(-2px);box-shadow:0 12px 22px -12px rgba(10,122,75,.4)}
+  .opt:hover .ol{background:#0a7a4b;color:#fff;border-color:#0a7a4b;transform:scale(1.1)}
+  .note{max-width:820px;margin:22px auto 0;text-align:center;color:#5b6b62;font-size:14.5px;line-height:1.7}
+  .note b{color:#0a7a4b}
+  .printbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .printbtn{font:inherit;font-size:16px;font-weight:800;color:#fff;background:#0a7a4b;border:0;border-radius:99px;padding:13px 24px;cursor:pointer;box-shadow:0 10px 20px -10px rgba(10,122,75,.6)}
+  .printbtn:hover{background:#085f3a}
+  .printbtn.gold{background:#c9930a}
+  .printbtn.gold:hover{background:#a87a00}
+  @media(max-width:560px){.phead{padding:24px 20px}.phead h1{font-size:25px}.qcard{padding:20px 18px}.qtext{font-size:19px}.opt{font-size:17px}}
+  /* ---------- প্রিন্ট / PDF ---------- */
+  @media print{
+    body{background:#fff;padding:0}
+    .printbar,.note{display:none !important}
+    .paper{max-width:none}
+    .phead{border-radius:0;box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .qcard{box-shadow:none;border:1.5px solid #bbb;break-inside:avoid;margin-top:14px}
+    .opt{box-shadow:none}
+    .opt:hover{transform:none;background:#fff}
+    .chap,.meta,.meta .mk{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="paper">
+  <div class="printbar">
+    <button type="button" class="printbtn" onclick="window.print()">🖨️ প্রিন্ট / PDF সংরক্ষণ</button>
+    <button type="button" class="printbtn gold" onclick="window.print()">উত্তরসহ প্রিন্ট (শিক্ষকের কপি)</button>
+  </div>
+  <div class="phead">
+    <span class="tag">টিউটর পেপার • নমুনা</span>
+    <h1>পদার্থবিজ্ঞান — মডেল টেস্ট</h1>
+    <p>ভেক্টর ও গতিবিদ্যা • টিউটরের সাজানো সেট</p>
+    <div class="psum"><span>প্রশ্ন <b>৪টি</b></span><span>সময় <b>৬ মিনিট</b></span><span>পূর্ণমান <b>৬ নম্বর</b></span></div>
+  </div>
+
+  <div class="qcard">
+    <div class="qtop"><span class="chap"><i></i>ভেক্টর</span><span class="qno">প্রশ্ন ১</span></div>
+    <p class="cls">শ্রেণি: <b>HSC ১ম পত্র</b> &nbsp;•&nbsp; টপিক: উপাংশ</p>
+    <div class="meta"><span>⏱ সময়: ২ মিনিট</span><span class="mk">মার্ক: ২</span></div>
+    <p class="qtext">কোনো ভেক্টরকে দুটি নির্দিষ্ট (অ-সমকোণীয়) দিকে বিভাজন করলে প্রতিটি উপাংশের মান নির্ভর করে—</p>
+    <div class="opts">
+      <button type="button" class="opt"><span class="ol">ক</span><span>শুধু ভেক্টরটির মানের ওপর</span></button>
+      <button type="button" class="opt"><span class="ol">খ</span><span>ভেক্টরটির মান এবং প্রতিটি দিকের সাথে ভেক্টরটির অন্তর্ভুক্ত কোণের ওপর</span></button>
+      <button type="button" class="opt"><span class="ol">গ</span><span>শুধু দুই দিকের একটির ওপর</span></button>
+      <button type="button" class="opt"><span class="ol">ঘ</span><span>দুই দিকের মধ্যবর্তী কোণ সর্বদা \(90^\circ \) হওয়ার ওপর</span></button>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="qtop"><span class="chap"><i></i>ভেক্টর</span><span class="qno">প্রশ্ন ২</span></div>
+    <p class="cls">শ্রেণি: <b>HSC ১ম পত্র</b> &nbsp;•&nbsp; টপিক: লব্ধি</p>
+    <div class="meta"><span>⏱ সময়: ১ মিনিট</span><span class="mk">মার্ক: ১</span></div>
+    <p class="qtext">\(3\) একক ও \(4\) একক মানের দুটি ভেক্টর পরস্পরের ওপর লম্বভাবে ক্রিয়া করলে লব্ধির মান কত?</p>
+    <div class="opts">
+      <button type="button" class="opt"><span class="ol">ক</span><span>\(5\) একক</span></button>
+      <button type="button" class="opt"><span class="ol">খ</span><span>\(7\) একক</span></button>
+      <button type="button" class="opt"><span class="ol">গ</span><span>\(1\) একক</span></button>
+      <button type="button" class="opt"><span class="ol">ঘ</span><span>\(3.5\) একক</span></button>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="qtop"><span class="chap"><i></i>গতিবিদ্যা</span><span class="qno">প্রশ্ন ৩</span></div>
+    <p class="cls">শ্রেণি: <b>HSC ১ম পত্র</b> &nbsp;•&nbsp; টপিক: মুক্ত পতন ও উল্লম্ব গতি</p>
+    <div class="meta"><span>⏱ সময়: ১ মিনিট</span><span class="mk">মার্ক: ১</span></div>
+    <p class="qtext">স্থির অবস্থা থেকে মুক্তভাবে পতনশীল একটি বস্তুর 3 s পর বেগ কত হবে? (g = 10 ms⁻²)</p>
+    <div class="opts">
+      <button type="button" class="opt"><span class="ol">ক</span><span>10 ms⁻¹</span></button>
+      <button type="button" class="opt"><span class="ol">খ</span><span>20 ms⁻¹</span></button>
+      <button type="button" class="opt"><span class="ol">গ</span><span>30 ms⁻¹</span></button>
+      <button type="button" class="opt"><span class="ol">ঘ</span><span>40 ms⁻¹</span></button>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="qtop"><span class="chap"><i></i>গতিবিদ্যা</span><span class="qno">প্রশ্ন ৪</span></div>
+    <p class="cls">শ্রেণি: <b>HSC ১ম পত্র</b> &nbsp;•&nbsp; টপিক: মুক্ত পতন ও উল্লম্ব গতি</p>
+    <div class="meta"><span>⏱ সময়: ২ মিনিট</span><span class="mk">মার্ক: ২</span></div>
+    <p class="qtext">একটি পাথর স্থির অবস্থা থেকে মুক্তভাবে ছেড়ে দিলে 2 s-এ এটি কত দূরত্ব নামবে? (g = 10 ms⁻²)</p>
+    <div class="opts">
+      <button type="button" class="opt"><span class="ol">ক</span><span>20 m</span></button>
+      <button type="button" class="opt"><span class="ol">খ</span><span>10 m</span></button>
+      <button type="button" class="opt"><span class="ol">গ</span><span>40 m</span></button>
+      <button type="button" class="opt"><span class="ol">ঘ</span><span>25 m</span></button>
+    </div>
+  </div>
+
+  <p class="note">নমুনা পেপার — আসল বিল্ডারে <b>টিউটর নিজে</b> প্রশ্ন বাছবে, প্রতিটি প্রশ্নের সময় ও মার্ক বসাবে, আর সেটের নাম-সময় বদলাতে পারবে। এখানে প্রশ্নগুলো আপনার সাইটের আসল প্রশ্ন থেকেই নেওয়া।</p>
+</div>
+</body>
+</html>
