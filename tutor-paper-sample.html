@@ -11,7 +11,18 @@
   *{box-sizing:border-box}
   body{margin:0;background:#eef3ef;font-family:"Hind Siliguri",system-ui,sans-serif;color:#12211a;padding:28px 16px 48px}
   .paper{max-width:820px;margin:0 auto}
-  /* ---------- পেপার হেডার ---------- */
+  /* ---------- কন্ট্রোল বার ---------- */
+  .ctl{background:#fff;border:1px solid #dde8df;border-radius:18px;padding:18px 20px;margin-bottom:18px;box-shadow:0 10px 28px -14px rgba(10,42,32,.25)}
+  .ctl label{display:block;font-size:14px;font-weight:800;color:#0a7a4b;margin-bottom:8px}
+  .ctl input{width:100%;font:inherit;font-size:20px;font-weight:800;color:#12211a;border:2px solid #bfe8cf;border-radius:12px;padding:12px 14px;background:#f4fcf7;outline:none}
+  .ctl input:focus{border-color:#0a7a4b;background:#fff}
+  .ctl .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .printbtn{font:inherit;font-size:16px;font-weight:800;color:#fff;background:#0a7a4b;border:0;border-radius:99px;padding:13px 24px;cursor:pointer;box-shadow:0 10px 20px -10px rgba(10,122,75,.6)}
+  .printbtn:hover{background:#085f3a}
+  .printbtn.gold{background:#c9930a;color:#fff}
+  .printbtn.gold:hover{background:#a87a00}
+  .ctl .hint{font-size:13.5px;color:#5b6b62;margin-top:10px;line-height:1.6}
+  /* ---------- স্ক্রিন পেপার হেডার ---------- */
   .phead{background:linear-gradient(135deg,#0a2a20,#0a7a4b);border-radius:24px;padding:30px 32px 26px;color:#fff;box-shadow:0 24px 44px -18px rgba(10,42,32,.55);position:relative;overflow:hidden}
   .phead::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,200,0,.35),transparent 70%)}
   .phead .tag{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.06em;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:6px 13px;border-radius:99px}
@@ -20,7 +31,7 @@
   .psum{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;position:relative;z-index:1}
   .psum span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:99px;font-size:14px;font-weight:700}
   .psum b{color:#ffd968}
-  /* ---------- প্রশ্ন কার্ড ---------- */
+  /* ---------- স্ক্রিন প্রশ্ন কার্ড ---------- */
   .qcard{background:#fff;border-radius:20px;padding:24px 26px 22px;margin-top:18px;box-shadow:0 10px 28px -14px rgba(10,42,32,.25);border:1px solid #dde8df}
   .qtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
   .chap{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:#0a7a4b;background:#e9faf0;border:1px solid #bfe8cf;padding:6px 13px;border-radius:99px}
@@ -36,38 +47,52 @@
   .opt .ol{flex:0 0 auto;width:36px;height:36px;font-size:16.5px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eef4f0;color:#0a7a4b;font-weight:800;border:1.5px solid rgba(18,183,106,.35);transition:all .2s ease}
   .opt:hover{border-color:#8fd0a8;background:linear-gradient(120deg,#e9faf0,#d2f0dd);transform:translateY(-2px);box-shadow:0 12px 22px -12px rgba(10,122,75,.4)}
   .opt:hover .ol{background:#0a7a4b;color:#fff;border-color:#0a7a4b;transform:scale(1.1)}
+  /* ---------- প্রিন্ট প্রিভিউ (পরীক্ষার প্রশ্নপত্রের চেহারা) ---------- */
+  .sec-title{font-size:20px;font-weight:800;margin:34px 0 4px}
+  .sec-sub{color:#5b6b62;font-size:14.5px;margin:0 0 14px;line-height:1.6}
+  .sheet{background:#fff;border:1px solid #cfd8d2;border-radius:8px;box-shadow:0 16px 34px -18px rgba(10,42,32,.35);padding:34px 30px}
+  .sheet h1{font-size:20pt;text-align:center;margin:0;line-height:1.4}
+  .sheet .smeta{text-align:center;font-size:12pt;font-weight:700;margin:8px 0 0}
+  .sheet hr{border:0;border-top:2px solid #12211a;margin:12px 0 16px}
+  .cols{column-count:2;column-gap:26px;column-rule:1px solid #ccc}
+  .pq{break-inside:avoid;margin:0 0 16px;font-size:12pt;line-height:1.6}
+  .pq .qt{font-weight:700}
+  .pq .mk2{font-weight:600;color:#444}
+  .pq .og{display:grid;grid-template-columns:1fr 1fr;gap:3px 14px;margin-top:5px}
+  .pq .og span{font-size:12pt}
   .note{max-width:820px;margin:22px auto 0;text-align:center;color:#5b6b62;font-size:14.5px;line-height:1.7}
   .note b{color:#0a7a4b}
-  .printbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-  .printbtn{font:inherit;font-size:16px;font-weight:800;color:#fff;background:#0a7a4b;border:0;border-radius:99px;padding:13px 24px;cursor:pointer;box-shadow:0 10px 20px -10px rgba(10,122,75,.6)}
-  .printbtn:hover{background:#085f3a}
-  .printbtn.gold{background:#c9930a}
-  .printbtn.gold:hover{background:#a87a00}
-  @media(max-width:560px){.phead{padding:24px 20px}.phead h1{font-size:25px}.qcard{padding:20px 18px}.qtext{font-size:19px}.opt{font-size:17px}}
-  /* ---------- প্রিন্ট / PDF ---------- */
+  @media(max-width:560px){.phead{padding:24px 20px}.phead h1{font-size:25px}.qcard{padding:20px 18px}.qtext{font-size:19px}.opt{font-size:17px}.sheet{padding:24px 18px}.cols{column-count:1}}
+  /* ---------- প্রিন্ট: শুধু প্রশ্নপত্র ছাপা হবে ---------- */
+  @page{size:A4;margin:14mm}
   @media print{
     body{background:#fff;padding:0}
-    .printbar,.note{display:none !important}
     .paper{max-width:none}
-    .phead{border-radius:0;box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    .qcard{box-shadow:none;border:1.5px solid #bbb;break-inside:avoid;margin-top:14px}
-    .opt{box-shadow:none}
-    .opt:hover{transform:none;background:#fff}
-    .chap,.meta,.meta .mk{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .ctl,.phead,.qcard,.sec-title,.sec-sub,.note{display:none !important}
+    .sheet{box-shadow:none;border:0;border-radius:0;padding:0}
+    .sheet h1{font-size:20pt}
+    .pq{font-size:12pt}
+    .pq .og span{font-size:12pt}
   }
 </style>
 </head>
 <body>
 <div class="paper">
-  <div class="printbar">
-    <button type="button" class="printbtn" onclick="window.print()">🖨️ প্রিন্ট / PDF সংরক্ষণ</button>
-    <button type="button" class="printbtn gold" onclick="window.print()">উত্তরসহ প্রিন্ট (শিক্ষকের কপি)</button>
+  <div class="ctl">
+    <label for="hdIn">প্রশ্নপত্রের হেডিং — টিউটর এখানে বদলাতে পারবে (দুই জায়গাতেই বদলে যাবে)</label>
+    <input id="hdIn" type="text" value="পদার্থবিজ্ঞান — মডেল টেস্ট">
+    <div class="row">
+      <button type="button" class="printbtn" onclick="window.print()">🖨️ Print — প্রশ্নপত্র ছাপুন / PDF করুন</button>
+      <button type="button" class="printbtn gold" onclick="window.print()">উত্তরসহ প্রিন্ট (শিক্ষকের কপি)</button>
+    </div>
+    <p class="hint">Print-এ ক্লিক করলে উপরের কার্ড ডিজাইন নয় — নিচের পরীক্ষার প্রশ্নপত্রের লেআউটটাই ছাপা হবে (A4, দুই কলাম, ১২ সাইজের লেখা, প্রতি প্রশ্নের নিচে ২×২ অপশন)।</p>
   </div>
+
   <div class="phead">
     <span class="tag">টিউটর পেপার • নমুনা</span>
-    <h1>পদার্থবিজ্ঞান — মডেল টেস্ট</h1>
+    <h1 id="screenTitle">পদার্থবিজ্ঞান — মডেল টেস্ট</h1>
     <p>ভেক্টর ও গতিবিদ্যা • টিউটরের সাজানো সেট</p>
-    <div class="psum"><span>প্রশ্ন <b>৪টি</b></span><span>সময় <b>৬ মিনিট</b></span><span>পূর্ণমান <b>৬ নম্বর</b></span></div>
+    <div class="psum"><span>প্রশ্ন <b>৬টি</b></span><span>সময় <b>৯ মিনিট</b></span><span>পূর্ণমান <b>৯ নম্বর</b></span></div>
   </div>
 
   <div class="qcard">
@@ -122,7 +147,68 @@
     </div>
   </div>
 
-  <p class="note">নমুনা পেপার — আসল বিল্ডারে <b>টিউটর নিজে</b> প্রশ্ন বাছবে, প্রতিটি প্রশ্নের সময় ও মার্ক বসাবে, আর সেটের নাম-সময় বদলাতে পারবে। এখানে প্রশ্নগুলো আপনার সাইটের আসল প্রশ্ন থেকেই নেওয়া।</p>
+  <div class="qcard">
+    <div class="qtop"><span class="chap"><i></i>ভেক্টর</span><span class="qno">প্রশ্ন ৫</span></div>
+    <p class="cls">শ্রেণি: <b>HSC ১ম পত্র</b> &nbsp;•&nbsp; টপিক: উপাংশ</p>
+    <div class="meta"><span>⏱ সময়: ২ মিনিট</span><span class="mk">মার্ক: ২</span></div>
+    <p class="qtext">\(100 N\) মানের একটি ভেক্টরকে এমন দুই দিকে বিভাজন করা হলো যাদের প্রত্যেকের সাথে ভেক্টরটি \(45^\circ \) কোণ করে। প্রতিটি উপাংশের মান কত?</p>
+    <div class="opts">
+      <button type="button" class="opt"><span class="ol">ক</span><span>\(70.71 N\)</span></button>
+      <button type="button" class="opt"><span class="ol">খ</span><span>\(50 N\)</span></button>
+      <button type="button" class="opt"><span class="ol">গ</span><span>\(100 N\)</span></button>
+      <button type="button" class="opt"><span class="ol">ঘ</span><span>\(35.36 N\)</span></button>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="qtop"><span class="chap"><i></i>ভেক্টর</span><span class="qno">প্রশ্ন ৬</span></div>
+    <p class="cls">শ্রেণি: <b>HSC ১ম পত্র</b> &nbsp;•&nbsp; টপিক: লব্ধি</p>
+    <div class="meta"><span>⏱ সময়: ১ মিনিট</span><span class="mk">মার্ক: ১</span></div>
+    <p class="qtext">\(6\) একক ও \(8\) একক মানের দুটি ভেক্টরের মধ্যবর্তী কোণ \(60^\circ \) হলে লব্ধির মান কত?</p>
+    <div class="opts">
+      <button type="button" class="opt"><span class="ol">ক</span><span>\(14\) একক</span></button>
+      <button type="button" class="opt"><span class="ol">খ</span><span>\(12.17\) একক</span></button>
+      <button type="button" class="opt"><span class="ol">গ</span><span>\(10\) একক</span></button>
+      <button type="button" class="opt"><span class="ol">ঘ</span><span>\(7.21\) একক</span></button>
+    </div>
+  </div>
+
+  <h2 class="sec-title">প্রিন্ট লেআউট — যেমনটা কাগজে ছাপা হবে</h2>
+  <p class="sec-sub">এক পেজ দুই ভাগে ভাগ করা, ১২ সাইজের লেখা, প্রতি প্রশ্নের নিচে ২×২ অপশন — ঠিক সাধারণ পরীক্ষার প্রশ্নপত্রের মতো। উপরের বাক্সে হেডিং বদলে দেখুন, এখানেও বদলে যাবে।</p>
+
+  <div class="sheet" id="printPaper">
+    <h1 id="printTitle">পদার্থবিজ্ঞান — মডেল টেস্ট</h1>
+    <p class="smeta">সময়: ৯ মিনিট &nbsp;&nbsp;•&nbsp;&nbsp; পূর্ণমান: ৯ নম্বর</p>
+    <hr>
+    <div class="cols">
+      <div class="pq"><span class="qt">১। কোনো ভেক্টরকে দুটি নির্দিষ্ট (অ-সমকোণীয়) দিকে বিভাজন করলে প্রতিটি উপাংশের মান নির্ভর করে—</span> <span class="mk2">[২]</span>
+        <div class="og"><span>(ক) শুধু ভেক্টরটির মানের ওপর</span><span>(খ) ভেক্টরটির মান এবং প্রতিটি দিকের সাথে ভেক্টরটির অন্তর্ভুক্ত কোণের ওপর</span><span>(গ) শুধু দুই দিকের একটির ওপর</span><span>(ঘ) দুই দিকের মধ্যবর্তী কোণ সর্বদা \(90^\circ \) হওয়ার ওপর</span></div>
+      </div>
+      <div class="pq"><span class="qt">২। \(3\) একক ও \(4\) একক মানের দুটি ভেক্টর পরস্পরের ওপর লম্বভাবে ক্রিয়া করলে লব্ধির মান কত?</span> <span class="mk2">[১]</span>
+        <div class="og"><span>(ক) \(5\) একক</span><span>(খ) \(7\) একক</span><span>(গ) \(1\) একক</span><span>(ঘ) \(3.5\) একক</span></div>
+      </div>
+      <div class="pq"><span class="qt">৩। স্থির অবস্থা থেকে মুক্তভাবে পতনশীল একটি বস্তুর 3 s পর বেগ কত হবে? (g = 10 ms⁻²)</span> <span class="mk2">[১]</span>
+        <div class="og"><span>(ক) 10 ms⁻¹</span><span>(খ) 20 ms⁻¹</span><span>(গ) 30 ms⁻¹</span><span>(ঘ) 40 ms⁻¹</span></div>
+      </div>
+      <div class="pq"><span class="qt">৪। একটি পাথর স্থির অবস্থা থেকে মুক্তভাবে ছেড়ে দিলে 2 s-এ এটি কত দূরত্ব নামবে? (g = 10 ms⁻²)</span> <span class="mk2">[২]</span>
+        <div class="og"><span>(ক) 20 m</span><span>(খ) 10 m</span><span>(গ) 40 m</span><span>(ঘ) 25 m</span></div>
+      </div>
+      <div class="pq"><span class="qt">৫। \(100 N\) মানের একটি ভেক্টরকে এমন দুই দিকে বিভাজন করা হলো যাদের প্রত্যেকের সাথে ভেক্টরটি \(45^\circ \) কোণ করে। প্রতিটি উপাংশের মান কত?</span> <span class="mk2">[২]</span>
+        <div class="og"><span>(ক) \(70.71 N\)</span><span>(খ) \(50 N\)</span><span>(গ) \(100 N\)</span><span>(ঘ) \(35.36 N\)</span></div>
+      </div>
+      <div class="pq"><span class="qt">৬। \(6\) একক ও \(8\) একক মানের দুটি ভেক্টরের মধ্যবর্তী কোণ \(60^\circ \) হলে লব্ধির মান কত?</span> <span class="mk2">[১]</span>
+        <div class="og"><span>(ক) \(14\) একক</span><span>(খ) \(12.17\) একক</span><span>(গ) \(10\) একক</span><span>(ঘ) \(7.21\) একক</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="note">নমুনা পেপার — আসল বিল্ডারে <b>টিউটর নিজে</b> অসংখ্য প্রশ্ন থেকে বাছবে, হেডিং-সময়-মার্ক বসাবে, তারপর <b>Print</b> বা <b>Online Exam</b> — দুই পথের যেকোনো একটা বেছে নেবে।</p>
 </div>
+<script>
+  var inp = document.getElementById('hdIn');
+  function syncHead(){ var v = inp.value || 'প্রশ্নপত্র'; document.getElementById('screenTitle').textContent = v; document.getElementById('printTitle').textContent = v; }
+  inp.addEventListener('input', syncHead);
+  window.addEventListener('beforeprint', syncHead);
+</script>
 </body>
 </html>
