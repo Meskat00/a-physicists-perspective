@@ -1,0 +1,394 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{if(sessionStorage.getItem('dview')){var _m=document.querySelector('meta[name=viewport]');if(_m)_m.setAttribute('content','width=980');document.documentElement.classList.add('dv-on')}}catch(e){}</script><title>টাইমার পরীক্ষা — ভৌত জগৎ ও পরিমাপ | A Physicist's Perspective</title>
+<meta name="description" content="টাইমার-ভিত্তিক MCQ পরীক্ষা — সময় শেষে অটো-সাবমিট, সাথে সাথে স্কোর ও লিডারবোর্ড।">
+<link rel="canonical" href="https://meskat00.github.io/a-physicists-perspective/timed-exam.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏱️</text></svg>">
+<meta property="og:type" content="website"><meta property="og:title" content="টাইমার পরীক্ষা — A Physicist's Perspective"><meta property="og:description" content="30টি MCQ, 25 মিনিট, অটো-সাবমিট — প্রশ্ন আসে Firebase থেকে, GitHub-এ কোনো প্রশ্ন রাখা নেই।"><meta property="og:image" content="https://meskat00.github.io/a-physicists-perspective/og-image.png"><meta property="og:url" content="https://meskat00.github.io/a-physicists-perspective/timed-exam.html"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="টাইমার পরীক্ষা — A Physicist's Perspective"><meta name="twitter:description" content="30টি MCQ, 25 মিনিট, অটো-সাবমিট — প্রশ্ন আসে Firebase থেকে, GitHub-এ কোনো প্রশ্ন রাখা নেই।"><meta name="twitter:image" content="https://meskat00.github.io/a-physicists-perspective/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Caveat:wght@700&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="login.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{--board:#0a2a20;--board2:#0e3a2c;--ink:#12211c;--mut:#5b6b65;--yellow:#ffc800;--yellow2:#ffdf5e;--green:#12b76a;--red:#f04438;--bg:#f4f7f5;--line:#e2eae6;--radius:18px;--shadow:0 10px 30px rgba(10,42,32,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hind Siliguri',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+nav{position:sticky;top:0;z-index:50;background:rgba(10,42,32,.96);color:#fff}
+.nav-in{display:flex;align-items:center;gap:14px;padding:12px 0;max-width:1180px;margin:0 auto;padding-left:18px;padding-right:18px}
+.logo{font-family:Inter,sans-serif;font-weight:900;font-size:17.5px;letter-spacing:-.3px}
+.logo b{color:var(--yellow)}
+.logo small{display:block;font-family:'Hind Siliguri';font-weight:500;font-size:11px;color:#bfe3d4;letter-spacing:.4px}
+.nav-links{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{padding:8px 13px;border-radius:999px;font-weight:600;font-size:15px;color:#e7f4ee}
+.hero{background:radial-gradient(1100px 500px at 20% -10%,#17573f 0%,transparent 60%),linear-gradient(160deg,var(--board2),var(--board));color:#fff;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.hero-in{position:relative;padding:44px 0 38px;text-align:center}
+.chalk{font-family:Caveat,cursive;color:var(--yellow2);font-size:28px;transform:rotate(-2deg);display:inline-block}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:6px 0 8px}
+.hero p.sub{color:#d9efe5;max-width:640px;margin:0 auto;font-size:17px}
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;margin:26px auto 40px;border:1px solid var(--line)}
+.state{display:none}.state.on{display:block}
+.big-emoji{font-size:44px;text-align:center}
+.center{text-align:center}
+.mut{color:var(--mut)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;font-weight:700;font-size:16.5px;cursor:pointer;border:0;font-family:inherit}
+.btn-y{background:var(--yellow);color:#231a00;box-shadow:0 8px 20px rgba(255,200,0,.35)}
+.btn-g{background:#0e7a43;color:#fff}
+.btn[disabled]{opacity:.55;cursor:wait}
+input.name{width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:16.5px;margin:10px 0 16px}
+input.name:focus{outline:2px solid var(--green);border-color:transparent}
+.rules{text-align:left;max-width:520px;margin:16px auto;background:#f6faf7;border:1.5px dashed #9fd8bd;border-radius:12px;padding:14px 18px;font-size:15.5px}
+.rules li{margin:5px 0 5px 18px}
+.tchips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tchip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-weight:700;cursor:pointer}
+.tchip.on{background:var(--board);color:#fff;border-color:var(--board)}
+.timerbar{position:sticky;top:64px;z-index:40;background:var(--board);color:#fff;border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);margin-bottom:18px;flex-wrap:wrap}
+.timerbar .clock{font-family:Inter;font-weight:900;font-size:26px;color:var(--yellow);min-width:92px}
+.timerbar .clock.low{color:#ff8a7a;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.55}}
+.tprog{flex:1;height:10px;background:rgba(255,255,255,.18);border-radius:99px;overflow:hidden;min-width:120px}
+.tprog i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#7ee2ae);width:0;transition:width .3s}
+.q{border:1.5px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;background:#fff}
+.q h3{font-size:17.5px;font-weight:600;margin-bottom:12px}
+.q h3 .qn{color:#0a7a4b;font-family:Inter;font-weight:800;margin-right:6px}
+.opts{display:grid;gap:8px}
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;cursor:pointer;font-size:16px;background:#fff;text-align:left;font-family:inherit;width:100%}
+.qfig{margin:12px 0 2px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.qfig img{max-width:100%;max-height:320px;border-radius:6px}
+.qcap{font-size:13.5px;color:#5b6b60;margin-top:8px}
+.ofig{display:block;max-width:100%;max-height:150px;margin-top:8px;border-radius:8px}
+.opt:hover{border-color:#9fd8bd}
+.opt.sel{border-color:var(--green);background:#eafaf1;font-weight:700}
+.opt.right{border-color:var(--green);background:#eafaf1;font-weight:700}
+.opt.wrong{border-color:var(--red);background:#fef1f0}
+.opt[disabled]{cursor:default}
+.score-big{font-family:Inter;font-weight:900;font-size:56px;color:var(--board)}
+.board{margin-top:26px;text-align:left}
+.board h3{font-size:20px;text-align:center;margin-bottom:4px}
+.board .cnt{text-align:center;color:var(--mut);font-size:14px;margin-bottom:12px}
+.brow{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;margin-bottom:8px;background:#fff}
+.brow .rk{font-family:Inter;font-weight:900;font-size:17px;min-width:38px;text-align:center}
+.brow .nm{flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brow .sc{font-family:Inter;font-weight:800}
+.brow.me{border-color:var(--yellow);background:#fffbe8;box-shadow:0 4px 14px rgba(255,200,0,.25)}
+.katex{font-size:1.06em}
+.save-note{margin-top:12px;font-weight:600}
+footer{padding:10px 0 60px;text-align:center;color:var(--mut);font-size:14.5px}
+.modal{position:fixed;inset:0;background:rgba(10,42,32,.55);display:none;place-items:center;z-index:90;padding:18px}
+.modal.on{display:grid}
+.modal-box{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:26px;max-width:420px;width:100%;text-align:center}
+.modal-box h3{font-size:21px;margin-bottom:8px}
+.modal-box .row{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.spin{width:38px;height:38px;border:4px solid var(--line);border-top-color:var(--green);border-radius:50%;margin:14px auto;animation:sp 0.9s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style><style id="dmode-css">
+.dmode{display:none}
+@media(max-width:820px){
+.dmode{display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;background:linear-gradient(120deg,#082a1f 0%,#0b3d2c 55%,#0e5a3a 100%);color:#fff;padding:13px 46px 13px 15px;border-bottom:2px solid #f5b301;font-family:'Hind Siliguri',system-ui,sans-serif;animation:dmode-in .55s cubic-bezier(.22,.9,.3,1) both}
+.dmode::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(245,179,1,.13) 48%,transparent 62%);transform:translateX(-130%);animation:dmode-shine 3.4s ease-in-out 1s infinite;pointer-events:none}
+@keyframes dmode-in{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:none}}
+@keyframes dmode-shine{0%{transform:translateX(-130%)}55%,100%{transform:translateX(130%)}}
+.dmode-ic{flex:0 0 auto;position:relative;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;background:radial-gradient(circle at 32% 30%,#ffd968,#f5b301 65%,#d99a00);box-shadow:0 6px 14px -4px rgba(0,0,0,.5)}
+.dmode-ic::before{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(245,179,1,.55);animation:dmode-ring 2.4s ease-out infinite;pointer-events:none}
+@keyframes dmode-ring{0%{transform:scale(.78);opacity:0}35%{opacity:.9}100%{transform:scale(1.28);opacity:0}}
+.dmode-tx{line-height:1.3;min-width:0}
+.dmode-en{display:block;font-family:Inter,system-ui,sans-serif;font-size:10.5px;font-weight:800;letter-spacing:.22em;color:#f5b301;text-transform:uppercase}
+.dmode-bn{display:block;font-size:16.5px;font-weight:700;color:#fff;margin-top:1px}
+.dmode-bn b{color:#ffd968}
+.dmode-sub{display:block;font-size:12px;color:#bfe3d2;margin-top:1px}
+.dmode-x{position:absolute;top:6px;right:8px;width:26px;height:26px;border:none;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:12px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.dmode-x:active{background:rgba(255,255,255,.3)}
+}
+.dmode-btn{margin-top:8px;border:none;cursor:pointer;font-family:inherit;font-weight:800;font-size:13.5px;color:#082a1f;background:linear-gradient(135deg,#ffd968,#f5b301);padding:8px 14px;border-radius:99px;box-shadow:0 6px 14px -6px rgba(0,0,0,.55);display:inline-flex;align-items:center;gap:6px}
+.dmode-btn:active{transform:scale(.97)}
+.dback{display:none;position:fixed;left:12px;bottom:86px;z-index:70;border:1.5px solid #f5b301;cursor:pointer;font-family:'Hind Siliguri',system-ui,sans-serif;font-weight:700;font-size:13px;color:#fff;background:rgba(8,42,31,.94);padding:9px 14px;border-radius:99px;box-shadow:0 10px 22px -8px rgba(0,0,0,.6);align-items:center;gap:6px}
+.dv-on .dback{display:inline-flex}
+@media(prefers-reduced-motion:reduce){.dmode,.dmode::after,.dmode-ic::before{animation:none}}
+</style>
+</head>
+<body>
+<div class="dmode" id="dmodeBar" role="note">
+<div class="dmode-ic">🖥️</div>
+<div class="dmode-tx">
+<span class="dmode-en">For Better Visualizations</span>
+<span class="dmode-bn">ফোনে <b>Desktop Mode</b> চালু করে নিন</span>
+<button class="dmode-btn" id="dmodeBtn">🖥️ Desktop View চালু করো</button>
+</div>
+<button class="dmode-x" id="dmodeX" aria-label="বন্ধ করো">✕</button>
+</div>
+<button class="dback" id="dbackBtn">📱 Mobile View-তে ফিরো</button>
+<script>(function(){try{
+if(sessionStorage.getItem('dview')){document.documentElement.classList.add('dv-on')}
+var b=document.getElementById('dmodeBar');
+var back=document.getElementById('dbackBtn');
+if(back){back.addEventListener('click',function(){var o=null;try{o=sessionStorage.getItem('dview_orig');sessionStorage.removeItem('dview')}catch(e){}var m=document.querySelector('meta[name=viewport]');if(m)m.setAttribute('content',o||'width=device-width, initial-scale=1');document.documentElement.classList.remove('dv-on')})}
+if(!b)return;
+var btn=document.getElementById('dmodeBtn');
+if(btn){btn.addEventListener('click',function(){var m=document.querySelector('meta[name=viewport]');try{if(m)sessionStorage.setItem('dview_orig',m.getAttribute('content'));sessionStorage.setItem('dview','1')}catch(e){}if(m)m.setAttribute('content','width=980');document.documentElement.classList.add('dv-on');b.style.display='none'})}
+if(sessionStorage.getItem('dmode_off')){b.style.display='none';return}
+document.getElementById('dmodeX').addEventListener('click',function(){b.style.display='none';try{sessionStorage.setItem('dmode_off','1')}catch(e){}})
+}catch(e){}})();</script>
+
+<nav><div class="nav-in"><a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>SSC • HSC • Admission — ফিজিক্স শেখার ঘর</small></a><div class="nav-links"><a href="index.html">Home</a><a href="exams.html">Exam</a><a href="lectures.html">Lecture</a><a href="problems.html">Game</a></div></div></nav>
+<header class="hero"><div class="wrap hero-in"><span class="chalk">timed exam</span><h1>⏱️ টাইমার পরীক্ষা</h1><p class="sub">30টি MCQ • পছন্দের সময় • অটো-সাবমিট</p></div></header>
+<main class="wrap">
+
+<div class="card state on" id="stLoad"><div class="big-emoji">📡</div><div class="spin"></div><p class="center mut" id="loadMsg">Firebase থেকে প্রশ্ন লোড হচ্ছে…</p></div>
+
+<div class="card state" id="stError"><div class="big-emoji">⚠️</div><h2 class="center">প্রশ্ন লোড হয়নি</h2><p class="center mut" id="errMsg" style="margin:10px 0 18px"></p><p class="center"><button class="btn btn-g" onclick="location.reload()">আবার চেষ্টা করো</button></p></div>
+
+<div class="card state" id="stStart">
+<h2 class="center" id="exTitle">বহুনির্বাচনি পরীক্ষা</h2>
+<p class="center mut" id="exMeta"></p>
+<p class="center" id="staticNote" style="display:none;margin:10px 0 0;padding:10px 14px;border-radius:12px;background:#e9faf0;border:1.5px solid #8fd0a8;font-size:15px;font-weight:700;color:#0a5c38">⚡ অফলাইন মোড: এই নেটওয়ার্কে Firebase খুলছে না, তাই প্রশ্ন সাইটের ফাইল থেকে লোড হয়েছে। টাইমার, স্কোর ও রিভিউ সব চলবে — শুধু লিডারবোর্ডে জমা হবে না।</p>
+<div class="rules"><b>নিয়ম:</b><ul>
+<li>শুরু করলেই টাইমার চালু হবে; সময় শেষে উত্তর অটো-সাবমিট হবে।</li>
+<li id="ruleNeg">প্রতিটি প্রশ্নের মান ১; নেগেটিভ মার্কিং নেই।</li>
+<li>জমা দিলেই স্কোর, সঠিক উত্তর ও লিডারবোর্ড দেখা যাবে।</li></ul></div>
+<label><b>তোমার নাম</b><input class="name" id="stuName" type="text" maxlength="80" placeholder="তোমার নাম লেখো" autocomplete="name"></label>
+<div style="text-align:left"><b>⏱️ সময় (মিনিট)</b>
+<div class="tchips" id="tChips"></div>
+<input class="name" id="stuMins" type="number" min="1" max="180" step="1" style="margin:8px 0 0" placeholder="নিজের মতো মিনিট (1–180)"></div>
+<p class="center"><button class="btn btn-y" id="btnStart">পরীক্ষা শুরু করো →</button></p>
+</div>
+
+<div class="state" id="stExam" style="margin:26px auto 40px">
+<div class="timerbar"><span class="clock" id="clock">--:--</span><div class="tprog"><i id="tprogFill"></i></div><span id="ansCount" style="font-weight:700"></span><button class="btn btn-y" id="btnSubmit" style="padding:9px 20px">জমা দাও ✓</button></div>
+<div id="qList"></div>
+<p class="center" style="margin:6px 0 30px"><button class="btn btn-g" id="btnSubmit2">সব উত্তর জমা দাও ✓</button></p>
+</div>
+
+<div class="card state" id="stResult">
+<div class="big-emoji" id="resEmoji">🎉</div>
+<h2 class="center" id="resHead">ফলাফল</h2>
+<p class="center score-big" id="resScore"></p>
+<p class="center mut" id="resMeta"></p>
+<p class="center save-note" id="saveNote"></p>
+<div class="board" id="boardBox" style="display:none"><h3>🏆 লিডারবোর্ড</h3><p class="cnt" id="boardCnt"></p><div id="boardList"></div></div>
+<div id="reviewList" style="margin-top:22px"></div>
+<p class="center" style="margin-top:20px"><button class="btn btn-y" onclick="location.reload()">আবার পরীক্ষা দাও ↻</button> <a class="btn btn-g" href="exams.html">সব পরীক্ষা দেখো</a></p>
+</div>
+
+<div class="modal" id="cfm"><div class="modal-box"><h3>জমা দিতে চাও?</h3><p class="mut" id="cfmText"></p><div class="row"><button class="btn" id="cfmNo" style="background:#eef4f1;color:var(--ink)">না, ফিরে যাই</button><button class="btn btn-y" id="cfmYes">হ্যাঁ, জমা দাও ✓</button></div></div></div>
+</main>
+<footer>A Physicist's Perspective</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+(function(){ "use strict";
+var CFG={apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists-perspective.firebaseapp.com",projectId:"physicists-perspective",storageBucket:"physicists-perspective.firebasestorage.app",messagingSenderId:"186707877920",appId:"1:186707877920:web:38f757b3016e1af3539c45"};
+var EXAM_ID=(new URLSearchParams(location.search).get("exam")||"hsc1-physical-world").toLowerCase();
+if(!/^[a-z0-9-]+$/.test(EXAM_ID)) EXAM_ID="hsc1-physical-world";
+var MODE_STATIC=(new URLSearchParams(location.search).get("mode")==="static");
+var STATIC_MODE=false;
+var BN="০১২৩৪৫৬৭৮৯";
+function bn(n){ return String(n).replace(/[0-9]/g,function(d){return BN[+d]}); }
+function renderMath(el){ try{ if(el&&window.renderMathInElement){ renderMathInElement(el,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"$$",right:"$$",display:true}],throwOnError:false}); } }catch(e){} }
+function show(id){ ["stLoad","stError","stStart","stExam","stResult"].forEach(function(s){ document.getElementById(s).classList.toggle("on", s===id); }); window.scrollTo({top:0}); }
+function fail(msg){ document.getElementById("errMsg").textContent=msg; show("stError"); }
+var db, EXAM=null, answers=[], startedAt=0, endAt=0, tick=null, submitted=false, FB_DEAD=false;
+try{
+  if(!firebase.apps.length) firebase.initializeApp(CFG);
+  try{ var _acp=(firebase.appCheck.ReCaptchaEnterpriseProvider?new firebase.appCheck.ReCaptchaEnterpriseProvider("6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T"):"6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T"); firebase.appCheck().activate(_acp, true); }catch(e){}
+  db=firebase.firestore();
+}catch(e){ FB_DEAD=true; }
+function acToken(force){
+  return new Promise(function(res){
+    var done=false;
+    function fin(ok){ if(!done){ done=true; res(ok); } }
+    try{
+      var ac=firebase.appCheck();
+      if(!ac||!ac.getToken){ fin(false); return; }
+      setTimeout(function(){ fin(false); }, 7000);
+      ac.getToken(force?true:false).then(function(){ fin(true); }, function(){ fin(false); });
+    }catch(e){ fin(false); }
+  });
+}
+function onSnap(snap){
+  if(!snap.exists){ fail("Firestore-এ এই পরীক্ষার প্রশ্ন এখনো বসানো হয়নি (exams/"+EXAM_ID+")। শিক্ষক সিড করলেই পরীক্ষা চালু হবে।"); return; }
+  var d=snap.data(), qs;
+  try{ qs=JSON.parse(d.qjson); }catch(e){ fail("প্রশ্নের ডেটা পড়া যায়নি (qjson নষ্ট)।"); return; }
+  if(!Array.isArray(qs)||!qs.length){ fail("প্রশ্নের তালিকা খালি।"); return; }
+  EXAM={title:d.title||"বহুনির্বাচনি পরীক্ষা", chapter:d.chapter||"", level:d.level||"", minutes:(+d.minutes)||25, neg:(+d.neg)||0, questions:qs};
+  document.title=EXAM.title+" | A Physicist's Perspective";
+  answers=new Array(qs.length).fill(-1);
+  document.getElementById("exTitle").textContent=EXAM.title;
+  document.getElementById("exMeta").textContent=(EXAM.chapter?EXAM.chapter+" • ":"")+(EXAM.level?EXAM.level+" • ":"")+bn(qs.length)+"টি প্রশ্ন • পূর্ণমান "+bn(qs.length);
+  if(EXAM.neg>0){ document.getElementById("ruleNeg").innerHTML="প্রতিটি সঠিক উত্তরে ১ নম্বর; প্রতিটি <b>ভুল উত্তরে "+bn(EXAM.neg)+" নম্বর কাটা</b> যাবে (নেগেটিভ মার্কিং)।"; }
+  buildChips(EXAM.minutes);
+  document.getElementById("stuMins").value=EXAM.minutes;
+  show("stStart");
+}
+function onStaticDoc(d){
+  var qs=d.questions;
+  if(!Array.isArray(qs)||!qs.length){ fail("সাইটের ফাইলে এই পরীক্ষার প্রশ্ন পাওয়া যায়নি।"); return; }
+  STATIC_MODE=true;
+  EXAM={title:d.title||"বহুনির্বাচনি পরীক্ষা", chapter:d.chapter||"", level:d.level||"", minutes:(+d.minutes)||25, neg:(+d.neg)||0, questions:qs};
+  document.title=EXAM.title+" | A Physicist's Perspective";
+  answers=new Array(qs.length).fill(-1);
+  document.getElementById("exTitle").textContent=EXAM.title;
+  document.getElementById("exMeta").textContent=(EXAM.chapter?EXAM.chapter+" • ":"")+(EXAM.level?EXAM.level+" • ":"")+bn(qs.length)+"টি প্রশ্ন • পূর্ণমান "+bn(qs.length);
+  if(EXAM.neg>0){ document.getElementById("ruleNeg").innerHTML="প্রতিটি সঠিক উত্তরে ১ নম্বর; প্রতিটি <b>ভুল উত্তরে "+bn(EXAM.neg)+" নম্বর কাটা</b> যাবে (নেগেটিভ মার্কিং)।"; }
+  document.getElementById("staticNote").style.display="block";
+  buildChips(EXAM.minutes);
+  document.getElementById("stuMins").value=EXAM.minutes;
+  show("stStart");
+}
+function tryStatic(){
+  var lm=document.getElementById("loadMsg");
+  if(lm) lm.textContent="Firebase খুলছে না — সাইটের ফাইল থেকে প্রশ্ন আনার চেষ্টা হচ্ছে…";
+  fetch("static-exams/"+EXAM_ID+".json").then(function(r){ if(!r.ok) throw new Error("static-missing"); return r.json(); }).then(onStaticDoc).catch(function(){
+    fail("প্রশ্ন লোড করা যায়নি। এই নেটওয়ার্কে Firebase খুলছে না এবং সাইটের ফাইলে এই পরীক্ষার অফলাইন কপিও নেই।");
+  });
+}
+function loadExam(attempt){
+  db.collection("exams").doc(EXAM_ID).get().then(onSnap).catch(function(e){
+    var code=(e&&e.code)?e.code:"network";
+    var retryable=(code==="permission-denied"||code==="unauthenticated"||code==="unavailable"||code==="deadline-exceeded");
+    if(retryable&&attempt<4){
+      var lm=document.getElementById("loadMsg");
+      if(lm) lm.textContent="প্রশ্ন লোড হচ্ছে… সংযোগে সমস্যা হলে নিজে থেকেই আবার চেষ্টা করে।";
+      var wait=[1500,3000,5000][attempt-1]||5000;
+      setTimeout(function(){ acToken(true).then(function(){ loadExam(attempt+1); }); }, wait);
+      return;
+    }
+    tryStatic();
+  });
+}
+if(MODE_STATIC||FB_DEAD){ tryStatic(); } else { acToken(false).then(function(){ loadExam(1); }); }
+function buildChips(def){
+  var host=document.getElementById("tChips"); host.innerHTML="";
+  [10,15,20,25,30,45,60].forEach(function(m){
+    var b=document.createElement("button"); b.type="button"; b.className="tchip"+(m===def?" on":""); b.textContent=bn(m);
+    b.addEventListener("click",function(){ document.getElementById("stuMins").value=m; Array.prototype.forEach.call(host.children,function(c){c.classList.remove("on")}); b.classList.add("on"); });
+    host.appendChild(b);
+  });
+  document.getElementById("stuMins").addEventListener("input",function(){
+    var v=parseInt(this.value,10);
+    Array.prototype.forEach.call(host.children,function(c,i){ c.classList.toggle("on", [10,15,20,25,30,45,60][i]===v); });
+  });
+}
+function chosenMins(){
+  var v=parseInt(document.getElementById("stuMins").value,10);
+  if(isNaN(v)) v=EXAM?EXAM.minutes:25;
+  return Math.min(180,Math.max(1,v));
+}
+document.getElementById("btnStart").addEventListener("click",function(){
+  var name=document.getElementById("stuName").value.trim();
+  if(!name){ alert("আগে তোমার নাম লেখো।"); document.getElementById("stuName").focus(); return; }
+  EXAM.name=name; EXAM.minutes=chosenMins(); renderExam();
+  startedAt=Date.now(); endAt=startedAt+EXAM.minutes*60*1000;
+  show("stExam"); updClock();
+  tick=setInterval(updClock,250);
+});
+function figEl(q){
+  if(!q.fig) return null;
+  var f=document.createElement("div"); f.className="qfig";
+  var im=document.createElement("img"); im.src=q.fig; im.alt="প্রশ্নের চিত্র"; im.loading="lazy"; f.appendChild(im);
+  if(q.figcap){ var c=document.createElement("div"); c.className="qcap"; c.textContent=q.figcap; f.appendChild(c); }
+  return f;
+}
+function optContent(b,q,oi,text){
+  b.appendChild(document.createTextNode(text));
+  if(q.ofig&&q.ofig[oi]){ var im=document.createElement("img"); im.className="ofig"; im.src=q.ofig[oi]; im.alt=""; im.loading="lazy"; b.appendChild(im); }
+}
+function renderExam(){
+  var host=document.getElementById("qList"); host.innerHTML="";
+  EXAM.questions.forEach(function(q,qi){
+    var div=document.createElement("div"); div.className="q";
+    var h=document.createElement("h3"); h.innerHTML=""; var sn=document.createElement("span"); sn.className="qn"; sn.textContent=bn(qi+1)+"."; h.appendChild(sn); h.appendChild(document.createTextNode(q.q)); div.appendChild(h);
+    var fe=figEl(q); if(fe)div.appendChild(fe);
+    var opts=document.createElement("div"); opts.className="opts";
+    q.opts.forEach(function(op,oi){
+      var b=document.createElement("button"); b.type="button"; b.className="opt"; optContent(b,q,oi,"কখগঘঙ"[oi]+") "+op);
+      b.addEventListener("click",function(){ answers[qi]=oi; Array.prototype.forEach.call(opts.children,function(c){c.classList.remove("sel")}); b.classList.add("sel"); updCount(); });
+      opts.appendChild(b);
+    });
+    div.appendChild(opts); host.appendChild(div);
+  });
+  updCount(); renderMath(host);
+}
+function answered(){ return answers.filter(function(a){return a>=0}).length; }
+function updCount(){ document.getElementById("ansCount").textContent=bn(answered())+"/"+bn(EXAM.questions.length)+" উত্তর হয়েছে"; document.getElementById("tprogFill").style.width=(answered()/EXAM.questions.length*100)+"%"; }
+function fmt(ms){ if(ms<0)ms=0; var s=Math.ceil(ms/1000), m=Math.floor(s/60); s=s%60; return (m<10?"0":"")+m+":"+(s<10?"0":"")+s; }
+function updClock(){
+  var left=endAt-Date.now(), el=document.getElementById("clock");
+  el.textContent=fmt(left); el.classList.toggle("low", left<=60000);
+  if(left<=0 && !submitted){ submitExam(true); }
+}
+function submitExam(auto){
+  if(submitted) return; submitted=true; if(tick)clearInterval(tick);
+  var qs=EXAM.questions, right=0, wrong=0;
+  qs.forEach(function(q,i){ if(answers[i]===q.ans) right++; else if(answers[i]>=0) wrong++; });
+  var score=Math.round((right-(EXAM.neg||0)*wrong)*100)/100;
+  var usedSec=Math.round((Date.now()-startedAt)/1000), total=qs.length, pct=Math.round(score/total*100);
+  document.getElementById("resEmoji").textContent= pct>=80?"🏆":(pct>=50?"🎉":(pct>=33?"💪":"📚"));
+  document.getElementById("resHead").textContent=(auto?"⏰ সময় শেষ! ":"")+EXAM.name+" — তোমার ফলাফল";
+  document.getElementById("resScore").textContent=bn(score)+"/"+bn(total);
+  document.getElementById("resMeta").textContent="সঠিক "+bn(right)+"টি • ভুল "+bn(wrong)+"টি • ফাঁকা "+bn(total-right-wrong)+"টি"+((EXAM.neg||0)>0?(" • নেগেটিভ: প্রতি ভুলে −"+bn(EXAM.neg)):"")+" • মোট "+bn(pct)+"% • সময় লেগেছে "+bn(Math.floor(usedSec/60))+":"+((usedSec%60)<10?"০":"")+bn(usedSec%60)+" • নির্ধারিত "+bn(EXAM.minutes)+" মিনিট";
+  var host=document.getElementById("reviewList"); host.innerHTML="";
+  qs.forEach(function(q,qi){
+    var div=document.createElement("div"); div.className="q";
+    var h=document.createElement("h3"); var sn=document.createElement("span"); sn.className="qn"; sn.textContent=bn(qi+1)+"."; h.appendChild(sn); h.appendChild(document.createTextNode(q.q)); div.appendChild(h);
+    var fe=figEl(q); if(fe)div.appendChild(fe);
+    var opts=document.createElement("div"); opts.className="opts";
+    q.opts.forEach(function(op,oi){
+      var b=document.createElement("button"); b.type="button"; b.className="opt"; b.disabled=true;
+      optContent(b,q,oi,"কখগঘঙ"[oi]+") "+op+(oi===q.ans?" ✓ সঠিক উত্তর":(oi===answers[qi]?" ✗ তোমার উত্তর":"")));
+      if(oi===q.ans)b.classList.add("right"); else if(oi===answers[qi])b.classList.add("wrong");
+      opts.appendChild(b);
+    });
+    div.appendChild(opts); host.appendChild(div);
+  });
+  Array.prototype.forEach.call(host.children,function(div,qi){ var q=qs[qi]; if(q&&q.why){ var wp=document.createElement("p"); wp.className="mut"; wp.style.cssText="margin-top:10px;font-size:15px"; wp.textContent="💡 ব্যাখ্যা: "+q.why; div.appendChild(wp); } });
+  renderMath(host);
+  show("stResult");
+  var note=document.getElementById("saveNote");
+  if(STATIC_MODE){ note.textContent="⚡ অফলাইন মোড: ফলাফল শুধু এখানে দেখানো হয়েছে — লিডারবোর্ডে জমা হয়নি (এই নেটওয়ার্কে Firebase খুলছে না)।"; note.style.color="#0a7a4b"; if(window.lupAddResult){ try{ window.lupAddResult({e:EXAM_ID,t:EXAM.title||EXAM_ID,s:score,n:total,p:pct,ts:Date.now()}); }catch(e){} } return; }
+  note.textContent="ফলাফল সেভ হচ্ছে…";
+  var TS=firebase.firestore.FieldValue.serverTimestamp();
+  db.collection("examResults").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,usedSec:usedSec,mins:EXAM.minutes,answers:answers,ts:TS}).catch(function(){});
+  db.collection("examBoard").add({name:EXAM.name,examId:EXAM_ID,score:score,total:total,pct:pct,mins:EXAM.minutes,ts:TS})
+    .then(function(ref){ note.textContent="✓ ফলাফল সংরক্ষিত হয়েছে"; note.style.color="#0a7a4b"; loadBoard(ref.id); })
+    .catch(function(e){ note.textContent="ফলাফল সংরক্ষণ হয়নি ("+(e&&e.code?e.code:"error")+")"; note.style.color="#b42318"; });
+  if(window.lupAddResult){ try{ window.lupAddResult({e:EXAM_ID,t:EXAM.title||EXAM_ID,s:score,n:total,p:pct,ts:Date.now()}); }catch(e){} }
+}
+function loadBoard(myId){
+  db.collection("examBoard").where("examId","==",EXAM_ID).get().then(function(snap){
+    var rows=[];
+    snap.forEach(function(doc){ var d=doc.data(); rows.push({id:doc.id,name:d.name,score:d.score,total:d.total,pct:d.pct,mins:d.mins||0,t:(d.ts&&d.ts.toMillis)?d.ts.toMillis():Date.now()}); });
+    rows.sort(function(a,b){ if(b.score!==a.score) return b.score-a.score; if(a.t!==b.t) return a.t-b.t; return a.name<b.name?-1:1; });
+    var box=document.getElementById("boardBox"), list=document.getElementById("boardList");
+    document.getElementById("boardCnt").textContent="মোট "+bn(rows.length)+" জন পরীক্ষার্থী";
+    list.innerHTML="";
+    var medals=["🥇","🥈","🥉"], myRank=-1;
+    rows.forEach(function(r,i){ if(r.id===myId) myRank=i; });
+    function rowEl(r,i){
+      var div=document.createElement("div"); div.className="brow"+(r.id===myId?" me":"");
+      var rk=document.createElement("span"); rk.className="rk"; rk.textContent=(i<3?medals[i]:bn(i+1));
+      var nm=document.createElement("span"); nm.className="nm"; nm.textContent=r.name+(r.id===myId?" (তুমি)":"");
+      var sc=document.createElement("span"); sc.className="sc"; sc.textContent=bn(r.score)+"/"+bn(r.total)+" • "+bn(r.pct)+"%"+(r.mins?" • ⏱"+bn(r.mins)+"মি":"");
+      div.appendChild(rk); div.appendChild(nm); div.appendChild(sc); return div;
+    }
+    rows.slice(0,10).forEach(function(r,i){ list.appendChild(rowEl(r,i)); });
+    if(myRank>=10){ var sep=document.createElement("p"); sep.className="cnt"; sep.textContent="···"; list.appendChild(sep); list.appendChild(rowEl(rows[myRank],myRank)); }
+    box.style.display="block";
+  }).catch(function(){});
+}
+function askSubmit(){ document.getElementById("cfmText").textContent="উত্তর "+bn(answered())+"/"+bn(EXAM.questions.length)+"টি দেওয়া হয়েছে। জমা দিলে আর বদলানো যাবে না।"; document.getElementById("cfm").classList.add("on"); }
+document.getElementById("btnSubmit").addEventListener("click",askSubmit);
+document.getElementById("btnSubmit2").addEventListener("click",askSubmit);
+document.getElementById("cfmNo").addEventListener("click",function(){ document.getElementById("cfm").classList.remove("on"); });
+document.getElementById("cfmYes").addEventListener("click",function(){ document.getElementById("cfm").classList.remove("on"); submitExam(false); });
+})();
+</script>
+<script src="cursor.js" defer></script>
+<script src="login.js" defer></script>
+</body></html>
