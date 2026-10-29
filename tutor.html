@@ -134,7 +134,6 @@ html{scroll-behavior:smooth}
 .cols{column-count:2;column-gap:26px;column-rule:1px solid #ccc}
 .pq{break-inside:avoid;margin:0 0 2px;font-size:12pt;line-height:1.2}
 .pq .qt{font-weight:700}
-.pq .mk2{font-weight:600;color:#444}
 .pq .og{display:grid;grid-template-columns:1fr 1fr;gap:1px 12px;margin-top:1px}
 .pq .og span{font-size:11.5pt}
 .pq .og img{display:block;max-width:100%;max-height:110px;margin-top:4px}
@@ -561,7 +560,6 @@ function renderPrint(withKey){
     var div = document.createElement('div'); div.className = 'pq';
     var qt = document.createElement('span'); qt.className = 'qt';
     qt.textContent = bn(idx + 1) + '। ' + (multiCh ? ('[' + r.ch + ' • ' + r.topic + '] ') : '') + item.q + ' '; div.appendChild(qt);
-    var mk = document.createElement('span'); mk.className = 'mk2'; mk.textContent = '[' + bn(st.mark) + ']'; div.appendChild(mk);
     if(item.fig){ var f = document.createElement('div'); f.className = 'pfig'; var im = document.createElement('img'); im.src = item.fig; im.alt = ''; im.loading = 'lazy'; f.appendChild(im); div.appendChild(f); }
     if(item.figcap){ var fc = document.createElement('div'); fc.style.cssText = 'font-size:10pt;color:#555;text-align:center'; fc.textContent = item.figcap; div.appendChild(fc); }
     var og = document.createElement('div'); og.className = 'og';
