@@ -257,8 +257,8 @@ function loadCustom(){
         chSet["গতি"]=1; lvSet["SSC"]=1;
       } else {
         raw.slice(0,200).forEach(function(p){
-          var m=/^([sa])(\d+):(\d+):(\d+)$/.exec(p); if(!m) return;
-          var c=(m[1]==="s"?"SSC":"Admission");
+          var m=/^([sapd])(\d+):(\d+):(\d+)$/.exec(p); if(!m) return;
+          var c=(m[1]==="s"?"SSC":m[1]==="p"?"HSC ১ম পত্র":m[1]==="d"?"HSC ২য় পত্র":"Admission");
           var chs=FQ_DATA[c].chapters; var chn=chs[+m[2]]; if(!chn) return;
           var tps=FQ_DATA[c].topics[chn]; var tp=tps[+m[3]]; if(!tp) return;
           var arr=(FQ_DATA[c].questions[chn]||{})[tp] || []; var it=arr[+m[4]]; if(!it) return;

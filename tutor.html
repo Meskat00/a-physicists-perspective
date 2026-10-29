@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>🎓 Tutor — প্রশ্নপত্র বানান | A Physicist's Perspective</title>
-<meta name="description" content="টিউটরের জন্য প্রশ্নপত্র বানানোর ঘর — SSC ও Admission-এর প্রশ্ন থেকে বেছে নিন, প্রিন্ট করুন বা অনলাইন পরীক্ষার লিংক বানান।">
+<meta name="description" content="টিউটরের জন্য প্রশ্নপত্র বানানোর ঘর — SSC, HSC ও Admission-এর প্রশ্ন থেকে বেছে নিন, প্রিন্ট করুন বা অনলাইন পরীক্ষার লিংক বানান।">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
@@ -200,7 +200,7 @@ html{scroll-behavior:smooth}
   <div class="akey" id="printKey" style="display:none"></div>
   <p class="pfoot">A Physicist's Perspective</p>
 </div>
-<p class="note">SSC-এর সব অধ্যায় ও Admission-এর সব বিভাগ এখানে আছে। <b>HSC পরে যোগ হবে।</b></p>
+<p class="note">SSC ও HSC-এর সব অধ্যায়, HSC বোর্ড প্রশ্ন আর Admission-এর সব বিভাগ এখানে আছে।</p>
 </main>
 <button type="button" class="scrollbtn" id="btnTop" aria-label="উপরে যান">↑</button>
 <button type="button" class="scrollbtn" id="btnDown" aria-label="নিচে যান">↓</button>
@@ -217,11 +217,11 @@ function renderMath(el){ try{ if(window.renderMathInElement){ renderMathInElemen
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
 
 var FQD = (typeof FQ_DATA !== 'undefined') ? FQ_DATA : null;
-var CLASSES = ['SSC', 'Admission'];
-var CODE = {SSC: 's', Admission: 'a'};
-var CODE_REV = {s: 'SSC', a: 'Admission'};
+var CLASSES = ['SSC', 'HSC ১ম পত্র', 'HSC ২য় পত্র', 'Admission'];
+var CODE = {SSC: 's', 'HSC ১ম পত্র': 'p', 'HSC ২য় পত্র': 'd', Admission: 'a'};
+var CODE_REV = {s: 'SSC', p: 'HSC ১ম পত্র', d: 'HSC ২য় পত্র', a: 'Admission'};
 var cls = 'SSC', ch = null, curTopic = -1, curChapter = null, selOnly = false;
-var sel = new Map(); // key "s<chIdx>:<t>:<i>" -> true
+var sel = new Map(); // key "<code><chIdx>:<t>:<i>" (code: s=SSC, p=HSC ১ম, d=HSC ২য়, a=Admission) -> true
 
 function chapters(){ return (FQD && FQD[cls] && FQD[cls].chapters) || []; }
 function topicsOf(){ return (FQD && FQD[cls] && FQD[cls].topics[ch]) || []; }
@@ -264,7 +264,7 @@ function allItems(){
 }
 function refOf(t, i){ return CODE[cls] + chIdx() + ':' + t + ':' + i; }
 function resolve(ref){
-  var m = /^([sa])(\d+):(\d+):(\d+)$/.exec(ref || '');
+  var m = /^([sapd])(\d+):(\d+):(\d+)$/.exec(ref || '');
   if(!m) return null;
   var c = CODE_REV[m[1]]; if(!c || !FQD[c]) return null;
   var chs = FQD[c].chapters || []; var chn = chs[+m[2]]; if(!chn) return null;
