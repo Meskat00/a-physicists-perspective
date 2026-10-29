@@ -1,0 +1,11 @@
+{
+  "name": "A Physicist's Perspective",
+  "short_name": "Physicist's Perspective",
+  "description": "SSC, HSC ও Admission পদার্থবিজ্ঞান — টাইমড MCQ পরীক্ষা, ফ্লিপ-কার্ড প্র্যাকটিস, Tutor",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a2a20",
+  "theme_color": "#0a2a20",
+  "lang": "bn"
+}

@@ -1,3 +1,12 @@
 User-agent: *
 Allow: /
+Disallow: /seed-adm-fig.html
+Disallow: /seed-diagram.html
+Disallow: /seed-graph.html
+Disallow: /zz-reseed.html
+Disallow: /zz-reseed-k4.html
+Disallow: /seed-adm-fig-data.js
+Disallow: /seed-diagram-data.js
+Disallow: /seed-graph-data.js
+Disallow: /owner-stats.html
 Sitemap: https://meskat00.github.io/a-physicists-perspective/sitemap.xml

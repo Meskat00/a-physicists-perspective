@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="manifest.webmanifest">
 <title>🎓 Tutor — প্রশ্নপত্র বানান | A Physicist's Perspective</title>
 <meta name="description" content="টিউটরের জন্য প্রশ্নপত্র বানানোর ঘর — SSC, HSC ও Admission-এর প্রশ্ন থেকে বেছে নিন, প্রিন্ট করুন বা অনলাইন পরীক্ষার লিংক বানান।">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
@@ -12,7 +13,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script defer src="flip-data.js"></script>
-<style>
+<style>.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#0a2a20;color:#fff;padding:10px 16px;border-radius:0 0 12px 0;font-weight:700;text-decoration:none}.skip-link:focus{left:0}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Hind Siliguri',system-ui,sans-serif;background:#eef3ef;color:#12211a;line-height:1.6}
 a{text-decoration:none;color:inherit}
@@ -153,10 +154,12 @@ html{scroll-behavior:smooth}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">মূল কনটেন্টে যাও →</a>
+<noscript><p style="background:#fff3cd;border:2px solid #f5b301;color:#5a4300;padding:14px 18px;border-radius:12px;margin:16px auto;max-width:860px;text-align:center;font-weight:700">⚠️ এই সাইট চালাতে JavaScript চালু করতে হবে — JavaScript ছাড়া পরীক্ষা, ফ্লিপ কার্ড আর Tutor কাজ করবে না।</p></noscript>
 <nav><div class="nav-in"><a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>SSC • HSC • Admission — ফিজিক্স শেখার ঘর</small></a><div class="nav-links"><a href="index.html">🏠 Home</a><a href="exams.html">📝 Exam</a><a href="lectures.html">🎬 Lecture</a><a href="problems.html">🧩 Game</a><a href="tutor.html" class="on">🎓 Tutor</a><a href="about.html">👨‍🏫 About</a></div></div></nav>
 <header class="hero"><div class="wrap"><h1>🎓 Tutor — প্রশ্নপত্র বানান</h1><p id="heroLine"></p></div></header>
 
-<main class="wrap">
+<main class="wrap" id="main">
 <div class="card">
   <h2>সেটের তথ্য</h2>
   <div style="margin-bottom:12px"><label class="fld" for="hdIn">প্রশ্নপত্রের হেডিং</label>
@@ -178,7 +181,7 @@ html{scroll-behavior:smooth}
     <div class="casrow" id="casRowD" style="display:none"><label class="fld" id="casLabelD">সাল</label><div class="casblocks" id="casD"></div></div>
   </div>
   <label class="fld" style="margin-top:12px" for="searchIn">খুঁজুন (প্রশ্নের লেখা দিয়ে)</label>
-  <input type="text" id="searchIn" placeholder="যেমন: বেগ, ত্বরণ, লেখচিত্র…">
+  <input type="text" id="searchIn" aria-label="প্রশ্ন খুঁজুন" placeholder="যেমন: বেগ, ত্বরণ, লেখচিত্র…">
   <div class="tool">
     <button type="button" class="btn btn-w" id="btnAllVis">এই ফিল্টারের সব প্রশ্ন নিন</button>
     <button type="button" class="btn btn-w" id="btnClearVis">এই ফিল্টারের সব বাদ দিন</button>
