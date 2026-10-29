@@ -35,11 +35,35 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:16.
 input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4b;background:#fff}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-.chip{border:1.5px solid #dde8df;background:#fff;border-radius:99px;padding:8px 15px;font:inherit;font-weight:700;cursor:pointer;font-size:15px}
-.chip.on{background:#0a2a20;color:#fff;border-color:#0a2a20}
-.chip small{opacity:.75;font-weight:600}
+.casrow{margin-top:14px}
+.casrow:first-child{margin-top:0}
+.casblocks{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.cas{position:relative;overflow:hidden;border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;font-size:15.5px;cursor:pointer;text-align:left;transition:transform .2s ease,box-shadow .2s ease,background .2s ease,filter .2s ease}
+.cas small{display:block;font-weight:600;opacity:.75;font-size:12.5px}
+.cas:hover{transform:translateY(-2px)}
+.cas1{background:#0a2a20;color:#fff;box-shadow:0 8px 18px -10px rgba(10,42,32,.5)}
+.cas1:hover{box-shadow:0 14px 24px -10px rgba(10,42,32,.55)}
+.cas1.on{background:#ffc800;color:#231a00}
+.cas1.open{outline:3px solid #ffc800;outline-offset:2px}
+.cas2{background:#0a7a4b;color:#fff;box-shadow:0 8px 18px -10px rgba(10,122,75,.5)}
+.cas2:hover{box-shadow:0 14px 24px -10px rgba(10,122,75,.55)}
+.cas2.on{background:#ffc800;color:#231a00}
+.cas2.open{outline:3px solid #ffc800;outline-offset:2px}
+.cas3{background:#fff;color:#12211a;border:1.5px solid #8fd0a8}
+.cas3::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.7) 48%,transparent 62%);transform:translateX(-130%);transition:transform .7s ease;pointer-events:none}
+.cas3:hover{background:linear-gradient(120deg,#e9faf0,#d2f0dd);box-shadow:0 14px 24px -10px rgba(10,122,75,.35)}
+.cas3:hover::after{transform:translateX(130%)}
+.cas3.on{background:#0a7a4b;color:#fff;border-color:#0a7a4b}
+.cas3.open{outline:3px solid #ffc800;outline-offset:2px}
+.cas4{background:#fffbe8;color:#12211a;border:1.5px solid #e8c547}
+.cas4::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.7) 48%,transparent 62%);transform:translateX(-130%);transition:transform .7s ease;pointer-events:none}
+.cas4:hover{background:#ffedb0;box-shadow:0 14px 24px -10px rgba(200,150,0,.35)}
+.cas4:hover::after{transform:translateX(130%)}
+.cas4.on{background:#f5b800;color:#231a00;border-color:#f5b800}
+.cas4.open{outline:3px solid #ffc800;outline-offset:2px}
+.casall{border-style:dashed}
 .tool{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.bar{position:sticky;bottom:14px;z-index:40;background:#0a2a20;color:#fff;border-radius:18px;padding:14px 18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;box-shadow:0 18px 34px -12px rgba(10,42,32,.6);margin-top:18px}
 .btn{font:inherit;font-weight:800;font-size:15.5px;border:0;border-radius:99px;padding:11px 20px;cursor:pointer}
 .btn-g{background:#0a7a4b;color:#fff}
 .btn-y{background:#ffc800;color:#231a00}
@@ -72,25 +96,7 @@ html{scroll-behavior:smooth}
 .btn{transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}
 .btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
 .btn:active{transform:translateY(0) scale(.98)}
-.chcard{position:relative;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
-.chcard::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.7) 48%,transparent 62%);transform:translateX(-130%);transition:transform .7s ease;pointer-events:none;z-index:0}
-.chcard>*{position:relative;z-index:1}
-.chcard:hover{transform:translateY(-6px);box-shadow:0 18px 30px -14px rgba(10,122,75,.35)}
-.chcard:hover::after{transform:translateX(130%)}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.qitem,.chip,.btn,.chcard,.ogrid .o{animation:none!important;transition:none!important}}
-.chgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
-.chcard{background:#fff;border:1.5px solid #dde8df;border-radius:16px;padding:14px 16px;box-shadow:0 8px 20px -14px rgba(10,42,32,.25)}
-.chcard:hover,.chcard.open{border-color:#8fd0a8}
-.chhead{display:flex;width:100%;align-items:center;gap:10px;background:none;border:0;font:inherit;text-align:left;cursor:pointer}
-.chhead .chsub{display:block;font-size:12.5px;color:#0a7a4b;font-weight:700}
-.chhead .chname{display:block;font-size:17px;font-weight:800;line-height:1.4}
-.chhead .chmeta{margin-left:auto;font-size:13.5px;color:#5b6b62;font-weight:700;white-space:nowrap}
-.chhead .chev{color:#0a7a4b;font-weight:800;transition:transform .2s}
-.chcard.open .chev{transform:rotate(180deg)}
-.chtopics{display:none;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:12px;border-top:1px dashed #dde8df}
-.chcard:hover .chtopics,.chcard.open .chtopics{display:flex}
-.chtopics .chip{font-size:14px;padding:6px 12px}
-.chtopics .chip.chall{border-style:dashed;border-color:#9fd8bd;background:#f4fcf7}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.qitem,.cas,.btn,.ogrid .o{animation:none!important;transition:none!important}}
 .bar{position:sticky;bottom:14px;z-index:40;background:#0a2a20;color:#fff;border-radius:18px;padding:14px 18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;box-shadow:0 18px 34px -12px rgba(10,42,32,.6);margin-top:18px}
 .bar .sum{flex:1;font-weight:700;font-size:15.5px}
 .bar .sum b{color:#ffd968}
@@ -158,12 +164,12 @@ html{scroll-behavior:smooth}
 
 <div class="card">
   <h2>প্রশ্ন বাছুন</h2>
-  <label class="fld">ক্লাস</label>
-  <div class="chips" id="classChips"></div>
-  <label class="fld" style="margin-top:12px">অধ্যায় / বিভাগ</label>
-  <div class="chips" id="chapterChips"></div>
-  <label class="fld" style="margin-top:12px" id="topicLabel">টপিক</label>
-  <div class="chips" id="topicChips"></div>
+  <div id="casWrap">
+    <div class="casrow"><label class="fld">ক্লাস</label><div class="casblocks" id="casA"></div></div>
+    <div class="casrow"><label class="fld">অধ্যায় / বিভাগ</label><div class="casblocks" id="casB"></div></div>
+    <div class="casrow" id="casRowC" style="display:none"><label class="fld" id="casLabelC">টপিক</label><div class="casblocks" id="casC"></div></div>
+    <div class="casrow" id="casRowD" style="display:none"><label class="fld" id="casLabelD">সাল</label><div class="casblocks" id="casD"></div></div>
+  </div>
   <label class="fld" style="margin-top:12px" for="searchIn">খুঁজুন (প্রশ্নের লেখা দিয়ে)</label>
   <input type="text" id="searchIn" placeholder="যেমন: বেগ, ত্বরণ, লেখচিত্র…">
   <div class="tool">
@@ -220,7 +226,10 @@ var FQD = (typeof FQ_DATA !== 'undefined') ? FQ_DATA : null;
 var CLASSES = ['SSC', 'HSC ১ম পত্র', 'HSC ২য় পত্র', 'Admission'];
 var CODE = {SSC: 's', 'HSC ১ম পত্র': 'p', 'HSC ২য় পত্র': 'd', Admission: 'a'};
 var CODE_REV = {s: 'SSC', p: 'HSC ১ম পত্র', d: 'HSC ২য় পত্র', a: 'Admission'};
-var cls = 'SSC', ch = null, curTopic = -1, curChapter = null, selOnly = false;
+var cls = 'SSC', ch = null, selOnly = false;
+var fSet = null, fLabel = '';
+var hovCls = null, hovCh = null, hovSub = null, selSub = null;
+var hoverLocked = false;
 var sel = new Map(); // key "<code><chIdx>:<t>:<i>" (code: s=SSC, p=HSC ১ম, d=HSC ২য়, a=Admission) -> true
 
 function chapters(){ return (FQD && FQD[cls] && FQD[cls].chapters) || []; }
@@ -231,8 +240,10 @@ var NCTB = ['ভৌত জগৎ ও পরিমাপ','ভেক্টর','�
 function chapterMode(){ return cls === 'Admission' && ch === 'অধ্যায়ভিত্তিক'; }
 function chapterOf(tp){ var pre = (tp.split(' — ')[0] || tp); if(pre.indexOf('তাড়িতচ') === 0) pre = 'তাড়িতচুম্বকীয় আবেশ ও পরিবর্তী প্রবাহ'; return pre; }
 function shortTopic(tp){ if(chapterMode()){ var p = tp.split(' — '); return p.length > 1 ? p.slice(1).join(' — ') : tp; } return tp; }
-function chapterGroups(){
-  var tps = topicsOf(), QQ = qOf(), groups = [], byName = {};
+function topicsOf2(c, chn){ return (FQD[c] && FQD[c].topics[chn]) || []; }
+function qOf2(c, chn){ return (FQD[c] && FQD[c].questions[chn]) || {}; }
+function chapterGroups2(c, chn){
+  var tps = topicsOf2(c, chn), QQ = qOf2(c, chn), groups = [], byName = {};
   tps.forEach(function(tp, ti){
     var cn = chapterOf(tp), g = byName[cn];
     if(!g){ g = {name: cn, topics: [], n: 0}; byName[cn] = g; groups.push(g); }
@@ -251,12 +262,33 @@ function chapterLabel(g){
   if(i < 10) return '১ম পত্র • অধ্যায় ' + bn(i + 1);
   return '২য় পত্র • অধ্যায় ' + bn(i - 9);
 }
-function chapterTopicIdx(){
-  if(!curChapter) return null;
-  var out = [];
-  chapterGroups().forEach(function(g){ if(g.name === curChapter) g.topics.forEach(function(t){ out.push(t.ti); }); });
-  return out;
+function shortTopic2(tp, c, chn){ if(c === 'Admission' && chn === 'অধ্যায়ভিত্তিক'){ var p = tp.split(' — '); return p.length > 1 ? p.slice(1).join(' — ') : tp; } return tp; }
+function boardGroups2(c, chn){
+  var tps = topicsOf2(c, chn), QQ = qOf2(c, chn), boards = [], byName = {}, leaves = [];
+  tps.forEach(function(tp, ti){
+    var m = /^(.+? বোর্ড)\s+([০-৯]{4})$/.exec(tp);
+    var n = (QQ[tp] || []).length;
+    if(!m){ leaves.push({tp: tp, ti: ti, n: n}); return; }
+    var g = byName[m[1]];
+    if(!g){ g = {name: m[1], years: [], n: 0}; byName[m[1]] = g; boards.push(g); }
+    g.years.push({label: m[2], full: tp, ti: ti, n: n}); g.n += n;
+  });
+  return {boards: boards, leaves: leaves};
 }
+function uniGroups2(c, chn){
+  var tps = topicsOf2(c, chn), QQ = qOf2(c, chn), unis = [], byName = {}, leaves = [];
+  tps.forEach(function(tp, ti){
+    var m = /^(.+?)\s+([০-৯]{4}-[০-৯]{2})(.*)$/.exec(tp);
+    var n = (QQ[tp] || []).length;
+    if(!m){ leaves.push({tp: tp, ti: ti, n: n}); return; }
+    var g = byName[m[1]];
+    if(!g){ g = {name: m[1], sessions: [], n: 0}; byName[m[1]] = g; unis.push(g); }
+    g.sessions.push({label: (m[2] + (m[3] || '')).trim(), full: tp, ti: ti, n: n}); g.n += n;
+  });
+  return {unis: unis, leaves: leaves};
+}
+function chTotal2(c, chn){ var QQ = qOf2(c, chn), n = 0; Object.keys(QQ).forEach(function(tp){ n += (QQ[tp] || []).length; }); return n; }
+function topicCount2(c, chn, ti){ var tp = topicsOf2(c, chn)[ti]; return ((qOf2(c, chn)[tp]) || []).length; }
 function allItems(){
   var out = [], tps = topicsOf(), QQ = qOf();
   tps.forEach(function(tp, ti){ (QQ[tp] || []).forEach(function(item, qi){ out.push({t: ti, i: qi, q: item}); }); });
@@ -295,70 +327,157 @@ function settings(){
   return {head: document.getElementById('hdIn').value.trim() || 'প্রশ্নপত্র', mins: mins, mark: mark, neg: document.getElementById('negSel').value};
 }
 function heroLine(){
-  var n = allItems().length, label = cls + ' • ' + ch;
-  if(chapterMode() && curChapter){
-    var g = null; chapterGroups().forEach(function(x){ if(x.name === curChapter) g = x; });
-    if(g){ label += ' • ' + curChapter; n = g.n; if(curTopic >= 0){ label += ' • ' + shortTopic(topicsOf()[curTopic]); n = (qOf()[topicsOf()[curTopic]] || []).length; } }
-  }
+  var n = 0, label = cls + ' • ' + ch;
+  if(fSet){ fSet.forEach(function(ti){ n += topicCount2(cls, ch, ti); }); if(fLabel) label += ' • ' + fLabel; }
+  else n = allItems().length;
   document.getElementById('heroLine').textContent = label + ' • ' + bn(n) + 'টি প্রশ্ন থেকে বেছে নিন';
 }
-function chipBtn(label, n, on, fn){
-  var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (on ? ' on' : '');
-  b.innerHTML = esc(label) + (n !== null ? ' <small>' + bn(n) + '</small>' : '');
-  b.addEventListener('click', fn);
+function casBlock(clsName, label, sub, expandable, on, open, hov, onClick){
+  var b = document.createElement('button'); b.type = 'button'; b.className = clsName + (on ? ' on' : '') + (open ? ' open' : '');
+  b.innerHTML = '<span>' + esc(label) + (expandable ? ' ▾' : '') + '</span>' + (sub ? '<small>' + esc(sub) + '</small>' : '');
+  if(hov){ b._hovLevel = hov[0]; b._hovVal = hov[1]; }
+  b.addEventListener('click', onClick);
   return b;
 }
-function renderClassChips(){
-  var host = document.getElementById('classChips'); host.innerHTML = '';
+function setHov(level, val){
+  if(hoverLocked) return;
+  if(level === 'cls' && hovCls !== val){ hovCls = val; renderCascade(); }
+  else if(level === 'ch' && hovCh !== val){ hovCh = val; renderCascade(); }
+  else if(level === 'sub'){
+    var curKey = hovSub ? hovSub.key : null, newKey = val ? val.key : null;
+    if(curKey !== newKey){ hovSub = val; renderCascade(); }
+  }
+}
+function commitSel(o){
+  if(o.c) cls = o.c;
+  if(o.chn) ch = o.chn;
+  hovCls = null; hovCh = null; hovSub = null; selOnly = false;
+  hoverLocked = true;
+  document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন';
+  if(o.leaf){
+    fSet = [o.leaf.ti]; fLabel = o.leaf.full || o.leaf.label; selSub = o.sub || null;
+  } else if(o.all === 'sub' && o.sub){
+    fSet = o.sub.topics.slice(); fLabel = o.sub.label; selSub = o.sub;
+  } else if(o.sub){
+    if(o.sub.kind === 'topic'){ fSet = [o.sub.ti]; fLabel = o.sub.label; selSub = null; }
+    else { fSet = o.sub.topics.slice(); fLabel = o.sub.label; selSub = o.sub; }
+  } else { fSet = null; fLabel = ''; selSub = null; }
+  renderCascade(); renderList();
+}
+function subItemsFor(vCls, vCh){
+  var tps = topicsOf2(vCls, vCh), QQ = qOf2(vCls, vCh);
+  if(vCls === 'Admission' && vCh === 'অধ্যায়ভিত্তিক'){
+    var gs = chapterGroups2(vCls, vCh);
+    return {label: 'অধ্যায় (NCTB ক্রমে)', items: gs.map(function(g){
+      return {key: 'ch:' + g.name, kind: 'chapter', label: g.name, sub: chapterLabel(g) + ' • ' + bn(g.topics.length) + 'টি টপিক', n: g.n,
+        topics: g.topics.map(function(t){ return t.ti; }),
+        children: g.topics.map(function(t){ var s = shortTopic2(t.tp, vCls, vCh); return {label: s, full: s, ti: t.ti, n: (QQ[t.tp] || []).length}; })};
+    })};
+  }
+  if(vCh === '🏫 বোর্ড প্রশ্ন'){
+    var bg = boardGroups2(vCls, vCh);
+    var items = bg.boards.map(function(b){
+      return {key: 'bd:' + b.name, kind: 'board', label: b.name, sub: bn(b.years.length) + 'টি সাল', n: b.n,
+        topics: b.years.map(function(y){ return y.ti; }),
+        children: b.years.map(function(y){ return {label: y.label, full: y.full, ti: y.ti, n: y.n}; })};
+    });
+    bg.leaves.forEach(function(l){ items.push({key: 't' + l.ti, kind: 'topic', label: l.tp, ti: l.ti, n: l.n}); });
+    return {label: 'বোর্ড', items: items};
+  }
+  if(vCls === 'Admission' && (vCh === 'বিশ্ববিদ্যালয়' || vCh === 'ইঞ্জিনিয়ারিং' || vCh === 'মেডিকেল')){
+    var ug = uniGroups2(vCls, vCh);
+    var items2 = ug.unis.map(function(u){
+      return {key: 'un:' + u.name, kind: 'uni', label: u.name, sub: bn(u.sessions.length) + 'টি সেশন', n: u.n,
+        topics: u.sessions.map(function(s){ return s.ti; }),
+        children: u.sessions.map(function(s){ return {label: s.label, full: s.full, ti: s.ti, n: s.n}; })};
+    });
+    ug.leaves.forEach(function(l){ items2.push({key: 't' + l.ti, kind: 'topic', label: l.tp, ti: l.ti, n: l.n}); });
+    return {label: 'বিশ্ববিদ্যালয়', items: items2};
+  }
+  return {label: 'টপিক', items: tps.map(function(tp, ti){
+    return {key: 't' + ti, kind: 'topic', label: tp, ti: ti, n: (QQ[tp] || []).length};
+  })};
+}
+function leafLabelFor(sub){
+  if(sub.kind === 'chapter') return 'টপিক';
+  if(sub.kind === 'board') return 'সাল';
+  if(sub.kind === 'uni') return 'সেশন';
+  return '';
+}
+function renderCascade(){
+  var aHost = document.getElementById('casA'); aHost.innerHTML = '';
   CLASSES.forEach(function(c){
     var tot = 0, chs = (FQD[c] && FQD[c].chapters) || [];
-    chs.forEach(function(chn){ var QQ = (FQD[c].questions[chn] || {}); Object.keys(QQ).forEach(function(tp){ tot += (QQ[tp] || []).length; }); });
-    host.appendChild(chipBtn(c, tot, cls === c, function(){ if(cls !== c){ cls = c; var cc = chapters(); ch = cc.length ? cc[0] : null; curTopic = -1; curChapter = null; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderChapterChips(); renderTopicChips(); renderList(); } }));
+    chs.forEach(function(chn){ tot += chTotal2(c, chn); });
+    aHost.appendChild(casBlock('cas cas1', c, bn(tot) + 'টি প্রশ্ন', false, cls === c, hovCls === c,
+      ['cls', c],
+      function(){ commitSel({c: c, chn: (chs.length ? chs[0] : null)}); }));
   });
-}
-function renderChapterChips(){
-  var host = document.getElementById('chapterChips'); host.innerHTML = '';
-  chapters().forEach(function(chn){
-    var QQ = (FQD[cls].questions[chn] || {}), n = 0;
-    Object.keys(QQ).forEach(function(tp){ n += (QQ[tp] || []).length; });
-    host.appendChild(chipBtn(chn, n, ch === chn, function(){ if(ch !== chn){ ch = chn; curTopic = -1; curChapter = null; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderChapterChips(); renderTopicChips(); renderList(); } }));
+  var viewCls = hovCls || cls;
+  var bHost = document.getElementById('casB'); bHost.innerHTML = '';
+  var chsB = (FQD[viewCls] && FQD[viewCls].chapters) || [];
+  chsB.forEach(function(chn){
+    var sub = '';
+    if(chn === 'অধ্যায়ভিত্তিক'){ var gs = chapterGroups2(viewCls, chn); sub = bn(gs.length) + 'টি অধ্যায় • ' + bn(chTotal2(viewCls, chn)) + 'টি প্রশ্ন'; }
+    else if(chn === '🏫 বোর্ড প্রশ্ন'){ var bg = boardGroups2(viewCls, chn); sub = bn(bg.boards.length) + 'টি বোর্ড • ' + bn(chTotal2(viewCls, chn)) + 'টি প্রশ্ন'; }
+    else if(viewCls === 'Admission' && (chn === 'বিশ্ববিদ্যালয়' || chn === 'ইঞ্জিনিয়ারিং' || chn === 'মেডিকেল')){ var ug = uniGroups2(viewCls, chn); sub = bn(ug.unis.length) + 'টি বিশ্ববিদ্যালয় • ' + bn(chTotal2(viewCls, chn)) + 'টি প্রশ্ন'; }
+    else { var tpsB = topicsOf2(viewCls, chn); sub = bn(tpsB.length) + 'টি টপিক • ' + bn(chTotal2(viewCls, chn)) + 'টি প্রশ্ন'; }
+    bHost.appendChild(casBlock('cas cas2', chn, sub, true, viewCls === cls && ch === chn, hovCh === chn,
+      ['ch', chn],
+      function(){ commitSel({c: viewCls, chn: chn}); }));
   });
-  heroLine();
-}
-function renderTopicChips(){
-  var host = document.getElementById('topicChips'); host.innerHTML = '';
-  var tps = topicsOf(), QQ = qOf();
-  heroLine();
-  host.appendChild(chipBtn('সব', allItems().length, curTopic === -1 && !curChapter, function(){ curTopic = -1; curChapter = null; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); }));
-  if(chapterMode()){
-    document.getElementById('topicLabel').textContent = 'অধ্যায় (NCTB ক্রমে) — অধ্যায়ের ওপর hover / ট্যাপ করলে টপিক দেখাবে';
-    host.classList.add('chhost');
-    var grid = document.createElement('div'); grid.className = 'chgrid';
-    chapterGroups().forEach(function(g){
-      var card = document.createElement('div'); card.className = 'chcard' + (curChapter === g.name ? ' open' : '');
-      var head = document.createElement('button'); head.type = 'button'; head.className = 'chhead';
-      head.innerHTML = '<span><span class="chsub">' + esc(chapterLabel(g)) + '</span><span class="chname">' + esc(g.name) + '</span></span><span class="chmeta">' + bn(g.topics.length) + 'টি টপিক • ' + bn(g.n) + 'টি প্রশ্ন</span><span class="chev">▾</span>';
-      head.addEventListener('click', function(){ var was = card.classList.contains('open'); grid.querySelectorAll('.chcard').forEach(function(c){ c.classList.remove('open'); }); if(!was) card.classList.add('open'); });
-      card.appendChild(head);
-      var topics = document.createElement('div'); topics.className = 'chtopics';
-      var all = document.createElement('button'); all.type = 'button'; all.className = 'chip chall' + (curChapter === g.name && curTopic === -1 ? ' on' : '');
-      all.textContent = 'এই অধ্যায়ের সব প্রশ্ন';
-      all.addEventListener('click', function(){ curChapter = g.name; curTopic = -1; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); });
-      topics.appendChild(all);
-      g.topics.forEach(function(t){
-        topics.appendChild(chipBtn(shortTopic(t.tp), (QQ[t.tp] || []).length, curTopic === t.ti, function(){ curChapter = g.name; curTopic = t.ti; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); }));
-      });
-      card.appendChild(topics); grid.appendChild(card);
+  var viewCh = hovCh || (hovCls ? null : ch);
+  var rowC = document.getElementById('casRowC'), cHost = document.getElementById('casC');
+  var rowD = document.getElementById('casRowD'), dHost = document.getElementById('casD');
+  var effSub = hovSub || (selSub && !hovCh && !hovCls ? selSub : null);
+  if(!viewCh){ rowC.style.display = 'none'; rowD.style.display = 'none'; }
+  else {
+    var sub = subItemsFor(viewCls, viewCh);
+    document.getElementById('casLabelC').textContent = sub.label;
+    cHost.innerHTML = '';
+    var cTotal = chTotal2(viewCls, viewCh);
+    var allOn = (fSet === null && !selSub && viewCls === cls && viewCh === ch);
+    cHost.appendChild(casBlock('cas cas3 casall', 'সব', bn(cTotal) + 'টি প্রশ্ন', false, allOn, false, null,
+      function(){ commitSel({c: viewCls, chn: viewCh}); }));
+    sub.items.forEach(function(it){
+      var isOpen = effSub && effSub.key === it.key;
+      var isOn = false;
+      if(it.kind === 'topic' && fSet && fSet.length === 1 && fSet[0] === it.ti && viewCls === cls && viewCh === ch) isOn = true;
+      if(selSub && selSub.key === it.key && viewCls === cls && viewCh === ch) isOn = true;
+      cHost.appendChild(casBlock('cas cas3', it.label, (it.sub ? it.sub + ' • ' : '') + bn(it.n) + 'টি প্রশ্ন', !!it.children, isOn, !!isOpen,
+        it.children ? ['sub', it] : null,
+        function(){ commitSel({c: viewCls, chn: viewCh, sub: it}); }));
     });
-    host.appendChild(grid);
-    return;
+    rowC.style.display = 'block';
+    if(!effSub || !effSub.children){ rowD.style.display = 'none'; }
+    else {
+      document.getElementById('casLabelD').textContent = leafLabelFor(effSub);
+      dHost.innerHTML = '';
+      var dAllOn = (fSet && selSub && selSub.key === effSub.key && fSet.length === effSub.topics.length);
+      dHost.appendChild(casBlock('cas cas4 casall', 'সব', bn(effSub.n) + 'টি প্রশ্ন', false, dAllOn, false, null,
+        function(){ commitSel({c: viewCls, chn: viewCh, sub: effSub, all: 'sub'}); }));
+      effSub.children.forEach(function(leaf){
+        var leafOn = (fSet && fSet.length === 1 && fSet[0] === leaf.ti && viewCls === cls && viewCh === ch);
+        dHost.appendChild(casBlock('cas cas4', leaf.label, bn(leaf.n) + 'টি প্রশ্ন', false, leafOn, false, null,
+          function(){ commitSel({c: viewCls, chn: viewCh, sub: effSub, leaf: leaf}); }));
+      });
+      rowD.style.display = 'block';
+    }
   }
-  document.getElementById('topicLabel').textContent = 'টপিক';
-  host.classList.remove('chhost');
-  tps.forEach(function(tp, ti){
-    host.appendChild(chipBtn(tp, (QQ[tp] || []).length, curTopic === ti, function(){ curTopic = ti; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); }));
-  });
+  heroLine();
 }
+document.getElementById('casWrap').addEventListener('mouseover', function(e){
+  var t = e.target && e.target.closest ? e.target.closest('.cas') : null;
+  if(t && t._hovLevel && !hoverLocked) setHov(t._hovLevel, t._hovVal);
+});
+document.getElementById('casWrap').addEventListener('mousemove', function(){
+  if(hoverLocked){
+    hoverLocked = false;
+    var h = document.querySelector('#casWrap .cas:hover');
+    if(h && h._hovLevel) setHov(h._hovLevel, h._hovVal);
+  }
+});
+document.getElementById('casWrap').addEventListener('mouseleave', function(){ if(hovCls !== null || hovCh !== null || hovSub !== null){ hovCls = null; hovCh = null; hovSub = null; renderCascade(); } });
 function visible(){
   var kw = document.getElementById('searchIn').value.trim();
   if(selOnly){
@@ -371,9 +490,7 @@ function visible(){
     return out;
   }
   return allItems().filter(function(r){
-    var cti = chapterTopicIdx();
-    if(cti && cti.indexOf(r.t) < 0) return false;
-    if(curTopic >= 0 && r.t !== curTopic) return false;
+    if(fSet && fSet.indexOf(r.t) < 0) return false;
     if(kw && r.q.q.indexOf(kw) === -1) return false;
     return true;
   }).map(function(r){ return {key: refOf(r.t, r.i), r: {cls: cls, ch: ch, topic: topicsOf()[r.t], item: r.q}}; });
@@ -495,7 +612,7 @@ document.getElementById('btnDown').addEventListener('click', function(){ window.
 if('IntersectionObserver' in window){
   new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && printDirty){ renderPrint(false); } }); }, {rootMargin: '200px'}).observe(document.getElementById('printPaper'));
 }
-renderClassChips(); renderChapterChips(); renderTopicChips(); renderList();
+renderCascade(); renderList();
 });
 </script>
 
