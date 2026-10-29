@@ -35,31 +35,33 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:16.
 input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4b;background:#fff}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+@property --ba{syntax:'<angle>';initial-value:0deg;inherits:false}
 .casrow{margin-top:14px}
 .casrow:first-child{margin-top:0}
 .casblocks{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-.cas{position:relative;overflow:hidden;border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;font-size:15.5px;cursor:pointer;text-align:left;transition:transform .2s ease,box-shadow .2s ease,background .2s ease,filter .2s ease}
+.cas{position:relative;overflow:hidden;border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:700;font-size:15.5px;cursor:pointer;text-align:left;transition:transform .22s ease,box-shadow .22s ease,filter .22s ease}
 .cas small{display:block;font-weight:600;opacity:.75;font-size:12.5px}
 .cas:hover{transform:translateY(-2px)}
-.cas1{background:#0a2a20;color:#fff;box-shadow:0 8px 18px -10px rgba(10,42,32,.5)}
-.cas1:hover{box-shadow:0 14px 24px -10px rgba(10,42,32,.55)}
-.cas1.on{background:#ffc800;color:#231a00}
+.cas::before{content:"";position:absolute;inset:0;border-radius:12px;padding:2px;background:conic-gradient(from var(--ba),transparent 0%,var(--arc,#ffd968) 10%,transparent 22%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s ease;pointer-events:none}
+.cas:hover::before{opacity:1;animation:casring 2.4s linear infinite}
+@keyframes casring{to{--ba:360deg}}
+.cas::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.85) 48%,transparent 62%);transform:translateX(-130%);transition:transform .7s ease;pointer-events:none}
+.cas:hover::after{transform:translateX(130%)}
+.cas1{--arc:#ffd968;background:linear-gradient(135deg,#115e43,#0a2a20);color:#fff;box-shadow:0 10px 20px -10px rgba(10,42,32,.55)}
+.cas1:hover{box-shadow:0 16px 26px -10px rgba(10,42,32,.6);filter:brightness(1.12)}
+.cas1.on{background:linear-gradient(135deg,#ffe08a,#f5b800);color:#231a00}
 .cas1.open{outline:3px solid #ffc800;outline-offset:2px}
-.cas2{background:#0a7a4b;color:#fff;box-shadow:0 8px 18px -10px rgba(10,122,75,.5)}
-.cas2:hover{box-shadow:0 14px 24px -10px rgba(10,122,75,.55)}
-.cas2.on{background:#ffc800;color:#231a00}
+.cas2{--arc:#ffffff;background:linear-gradient(135deg,#14c07f,#0a7a4b);color:#fff;box-shadow:0 10px 20px -10px rgba(10,122,75,.55)}
+.cas2:hover{box-shadow:0 16px 26px -10px rgba(10,122,75,.6);filter:brightness(1.1)}
+.cas2.on{background:linear-gradient(135deg,#ffe08a,#f5b800);color:#231a00}
 .cas2.open{outline:3px solid #ffc800;outline-offset:2px}
-.cas3{background:#fff;color:#12211a;border:1.5px solid #8fd0a8}
-.cas3::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.7) 48%,transparent 62%);transform:translateX(-130%);transition:transform .7s ease;pointer-events:none}
-.cas3:hover{background:linear-gradient(120deg,#e9faf0,#d2f0dd);box-shadow:0 14px 24px -10px rgba(10,122,75,.35)}
-.cas3:hover::after{transform:translateX(130%)}
-.cas3.on{background:#0a7a4b;color:#fff;border-color:#0a7a4b}
+.cas3{--arc:#0a7a4b;background:linear-gradient(135deg,#ffffff,#dff5e6);color:#12211a;border:1.5px solid #8fd0a8}
+.cas3:hover{box-shadow:0 16px 26px -10px rgba(10,122,75,.4)}
+.cas3.on{background:linear-gradient(135deg,#14c07f,#0a7a4b);color:#fff;border-color:#0a7a4b}
 .cas3.open{outline:3px solid #ffc800;outline-offset:2px}
-.cas4{background:#fffbe8;color:#12211a;border:1.5px solid #e8c547}
-.cas4::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.7) 48%,transparent 62%);transform:translateX(-130%);transition:transform .7s ease;pointer-events:none}
-.cas4:hover{background:#ffedb0;box-shadow:0 14px 24px -10px rgba(200,150,0,.35)}
-.cas4:hover::after{transform:translateX(130%)}
-.cas4.on{background:#f5b800;color:#231a00;border-color:#f5b800}
+.cas4{--arc:#b45309;background:linear-gradient(135deg,#fff8d6,#ffdf8a);color:#12211a;border:1.5px solid #e8c547}
+.cas4:hover{box-shadow:0 16px 26px -10px rgba(200,150,0,.4)}
+.cas4.on{background:linear-gradient(135deg,#f5b800,#e8a800);color:#231a00;border-color:#e8a800}
 .cas4.open{outline:3px solid #ffc800;outline-offset:2px}
 .casall{border-style:dashed}
 .tool{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
@@ -96,7 +98,7 @@ html{scroll-behavior:smooth}
 .btn{transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}
 .btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
 .btn:active{transform:translateY(0) scale(.98)}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.qitem,.cas,.btn,.ogrid .o{animation:none!important;transition:none!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.qitem,.cas,.btn,.ogrid .o{animation:none!important;transition:none!important}.cas::before,.cas::after{animation:none!important;transition:none!important}}
 .bar{position:sticky;bottom:14px;z-index:40;background:#0a2a20;color:#fff;border-radius:18px;padding:14px 18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;box-shadow:0 18px 34px -12px rgba(10,42,32,.6);margin-top:18px}
 .bar .sum{flex:1;font-weight:700;font-size:15.5px}
 .bar .sum b{color:#ffd968}
@@ -228,8 +230,7 @@ var CODE = {SSC: 's', 'HSC ১ম পত্র': 'p', 'HSC ২য় পত্�
 var CODE_REV = {s: 'SSC', p: 'HSC ১ম পত্র', d: 'HSC ২য় পত্র', a: 'Admission'};
 var cls = 'SSC', ch = null, selOnly = false;
 var fSet = null, fLabel = '';
-var hovCls = null, hovCh = null, hovSub = null, selSub = null;
-var hoverLocked = false;
+var selSub = null;
 var sel = new Map(); // key "<code><chIdx>:<t>:<i>" (code: s=SSC, p=HSC ১ম, d=HSC ২য়, a=Admission) -> true
 
 function chapters(){ return (FQD && FQD[cls] && FQD[cls].chapters) || []; }
@@ -332,27 +333,16 @@ function heroLine(){
   else n = allItems().length;
   document.getElementById('heroLine').textContent = label + ' • ' + bn(n) + 'টি প্রশ্ন থেকে বেছে নিন';
 }
-function casBlock(clsName, label, sub, expandable, on, open, hov, onClick){
+function casBlock(clsName, label, sub, expandable, on, open, onClick){
   var b = document.createElement('button'); b.type = 'button'; b.className = clsName + (on ? ' on' : '') + (open ? ' open' : '');
   b.innerHTML = '<span>' + esc(label) + (expandable ? ' ▾' : '') + '</span>' + (sub ? '<small>' + esc(sub) + '</small>' : '');
-  if(hov){ b._hovLevel = hov[0]; b._hovVal = hov[1]; }
   b.addEventListener('click', onClick);
   return b;
-}
-function setHov(level, val){
-  if(hoverLocked) return;
-  if(level === 'cls' && hovCls !== val){ hovCls = val; renderCascade(); }
-  else if(level === 'ch' && hovCh !== val){ hovCh = val; renderCascade(); }
-  else if(level === 'sub'){
-    var curKey = hovSub ? hovSub.key : null, newKey = val ? val.key : null;
-    if(curKey !== newKey){ hovSub = val; renderCascade(); }
-  }
 }
 function commitSel(o){
   if(o.c) cls = o.c;
   if(o.chn) ch = o.chn;
-  hovCls = null; hovCh = null; hovSub = null; selOnly = false;
-  hoverLocked = true;
+  selOnly = false;
   document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন';
   if(o.leaf){
     fSet = [o.leaf.ti]; fLabel = o.leaf.full || o.leaf.label; selSub = o.sub || null;
@@ -409,75 +399,57 @@ function renderCascade(){
   CLASSES.forEach(function(c){
     var tot = 0, chs = (FQD[c] && FQD[c].chapters) || [];
     chs.forEach(function(chn){ tot += chTotal2(c, chn); });
-    aHost.appendChild(casBlock('cas cas1', c, bn(tot) + 'টি প্রশ্ন', false, cls === c, hovCls === c,
-      ['cls', c],
+    aHost.appendChild(casBlock('cas cas1', c, bn(tot) + 'টি প্রশ্ন', false, cls === c, false,
       function(){ commitSel({c: c, chn: (chs.length ? chs[0] : null)}); }));
   });
-  var viewCls = hovCls || cls;
   var bHost = document.getElementById('casB'); bHost.innerHTML = '';
-  var chsB = (FQD[viewCls] && FQD[viewCls].chapters) || [];
+  var chsB = (FQD[cls] && FQD[cls].chapters) || [];
   chsB.forEach(function(chn){
     var sub = '';
-    if(chn === 'অধ্যায়ভিত্তিক'){ var gs = chapterGroups2(viewCls, chn); sub = bn(gs.length) + 'টি অধ্যায় • ' + bn(chTotal2(viewCls, chn)) + 'টি প্রশ্ন'; }
-    else if(chn === '🏫 বোর্ড প্রশ্ন'){ var bg = boardGroups2(viewCls, chn); sub = bn(bg.boards.length) + 'টি বোর্ড • ' + bn(chTotal2(viewCls, chn)) + 'টি প্রশ্ন'; }
-    else if(viewCls === 'Admission' && (chn === 'বিশ্ববিদ্যালয়' || chn === 'ইঞ্জিনিয়ারিং' || chn === 'মেডিকেল')){ var ug = uniGroups2(viewCls, chn); sub = bn(ug.unis.length) + 'টি বিশ্ববিদ্যালয় • ' + bn(chTotal2(viewCls, chn)) + 'টি প্রশ্ন'; }
-    else { var tpsB = topicsOf2(viewCls, chn); sub = bn(tpsB.length) + 'টি টপিক • ' + bn(chTotal2(viewCls, chn)) + 'টি প্রশ্ন'; }
-    bHost.appendChild(casBlock('cas cas2', chn, sub, true, viewCls === cls && ch === chn, hovCh === chn,
-      ['ch', chn],
-      function(){ commitSel({c: viewCls, chn: chn}); }));
+    if(chn === 'অধ্যায়ভিত্তিক'){ var gs = chapterGroups2(cls, chn); sub = bn(gs.length) + 'টি অধ্যায় • ' + bn(chTotal2(cls, chn)) + 'টি প্রশ্ন'; }
+    else if(chn === '🏫 বোর্ড প্রশ্ন'){ var bg = boardGroups2(cls, chn); sub = bn(bg.boards.length) + 'টি বোর্ড • ' + bn(chTotal2(cls, chn)) + 'টি প্রশ্ন'; }
+    else if(cls === 'Admission' && (chn === 'বিশ্ববিদ্যালয়' || chn === 'ইঞ্জিনিয়ারিং' || chn === 'মেডিকেল')){ var ug = uniGroups2(cls, chn); sub = bn(ug.unis.length) + 'টি বিশ্ববিদ্যালয় • ' + bn(chTotal2(cls, chn)) + 'টি প্রশ্ন'; }
+    else { var tpsB = topicsOf2(cls, chn); sub = bn(tpsB.length) + 'টি টপিক • ' + bn(chTotal2(cls, chn)) + 'টি প্রশ্ন'; }
+    bHost.appendChild(casBlock('cas cas2', chn, sub, true, ch === chn, false,
+      function(){ commitSel({c: cls, chn: chn}); }));
   });
-  var viewCh = hovCh || (hovCls ? null : ch);
   var rowC = document.getElementById('casRowC'), cHost = document.getElementById('casC');
   var rowD = document.getElementById('casRowD'), dHost = document.getElementById('casD');
-  var effSub = hovSub || (selSub && !hovCh && !hovCls ? selSub : null);
-  if(!viewCh){ rowC.style.display = 'none'; rowD.style.display = 'none'; }
+  if(!ch){ rowC.style.display = 'none'; rowD.style.display = 'none'; }
   else {
-    var sub = subItemsFor(viewCls, viewCh);
+    var sub = subItemsFor(cls, ch);
     document.getElementById('casLabelC').textContent = sub.label;
     cHost.innerHTML = '';
-    var cTotal = chTotal2(viewCls, viewCh);
-    var allOn = (fSet === null && !selSub && viewCls === cls && viewCh === ch);
-    cHost.appendChild(casBlock('cas cas3 casall', 'সব', bn(cTotal) + 'টি প্রশ্ন', false, allOn, false, null,
-      function(){ commitSel({c: viewCls, chn: viewCh}); }));
+    var cTotal = chTotal2(cls, ch);
+    var allOn = (fSet === null && !selSub);
+    cHost.appendChild(casBlock('cas cas3 casall', 'সব', bn(cTotal) + 'টি প্রশ্ন', false, allOn, false,
+      function(){ commitSel({c: cls, chn: ch}); }));
     sub.items.forEach(function(it){
-      var isOpen = effSub && effSub.key === it.key;
+      var isOpen = selSub && selSub.key === it.key;
       var isOn = false;
-      if(it.kind === 'topic' && fSet && fSet.length === 1 && fSet[0] === it.ti && viewCls === cls && viewCh === ch) isOn = true;
-      if(selSub && selSub.key === it.key && viewCls === cls && viewCh === ch) isOn = true;
+      if(it.kind === 'topic' && fSet && fSet.length === 1 && fSet[0] === it.ti) isOn = true;
+      if(selSub && selSub.key === it.key) isOn = true;
       cHost.appendChild(casBlock('cas cas3', it.label, (it.sub ? it.sub + ' • ' : '') + bn(it.n) + 'টি প্রশ্ন', !!it.children, isOn, !!isOpen,
-        it.children ? ['sub', it] : null,
-        function(){ commitSel({c: viewCls, chn: viewCh, sub: it}); }));
+        function(){ commitSel({c: cls, chn: ch, sub: it}); }));
     });
     rowC.style.display = 'block';
-    if(!effSub || !effSub.children){ rowD.style.display = 'none'; }
+    if(!selSub || !selSub.children){ rowD.style.display = 'none'; }
     else {
-      document.getElementById('casLabelD').textContent = leafLabelFor(effSub);
+      document.getElementById('casLabelD').textContent = leafLabelFor(selSub);
       dHost.innerHTML = '';
-      var dAllOn = (fSet && selSub && selSub.key === effSub.key && fSet.length === effSub.topics.length);
-      dHost.appendChild(casBlock('cas cas4 casall', 'সব', bn(effSub.n) + 'টি প্রশ্ন', false, dAllOn, false, null,
-        function(){ commitSel({c: viewCls, chn: viewCh, sub: effSub, all: 'sub'}); }));
-      effSub.children.forEach(function(leaf){
-        var leafOn = (fSet && fSet.length === 1 && fSet[0] === leaf.ti && viewCls === cls && viewCh === ch);
-        dHost.appendChild(casBlock('cas cas4', leaf.label, bn(leaf.n) + 'টি প্রশ্ন', false, leafOn, false, null,
-          function(){ commitSel({c: viewCls, chn: viewCh, sub: effSub, leaf: leaf}); }));
+      var dAllOn = (fSet && fSet.length === selSub.topics.length);
+      dHost.appendChild(casBlock('cas cas4 casall', 'সব', bn(selSub.n) + 'টি প্রশ্ন', false, dAllOn, false,
+        function(){ commitSel({c: cls, chn: ch, sub: selSub, all: 'sub'}); }));
+      selSub.children.forEach(function(leaf){
+        var leafOn = (fSet && fSet.length === 1 && fSet[0] === leaf.ti);
+        dHost.appendChild(casBlock('cas cas4', leaf.label, bn(leaf.n) + 'টি প্রশ্ন', false, leafOn, false,
+          function(){ commitSel({c: cls, chn: ch, sub: selSub, leaf: leaf}); }));
       });
       rowD.style.display = 'block';
     }
   }
   heroLine();
 }
-document.getElementById('casWrap').addEventListener('mouseover', function(e){
-  var t = e.target && e.target.closest ? e.target.closest('.cas') : null;
-  if(t && t._hovLevel && !hoverLocked) setHov(t._hovLevel, t._hovVal);
-});
-document.getElementById('casWrap').addEventListener('mousemove', function(){
-  if(hoverLocked){
-    hoverLocked = false;
-    var h = document.querySelector('#casWrap .cas:hover');
-    if(h && h._hovLevel) setHov(h._hovLevel, h._hovVal);
-  }
-});
-document.getElementById('casWrap').addEventListener('mouseleave', function(){ if(hovCls !== null || hovCh !== null || hovSub !== null){ hovCls = null; hovCh = null; hovSub = null; renderCascade(); } });
 function visible(){
   var kw = document.getElementById('searchIn').value.trim();
   if(selOnly){
