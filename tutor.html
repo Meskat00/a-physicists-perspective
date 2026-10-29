@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>🎓 Tutor — প্রশ্নপত্র বানান | A Physicist's Perspective</title>
-<meta name="description" content="টিউটরের জন্য প্রশ্নপত্র বানানোর ঘর — SSC গতি অধ্যায়ের প্রশ্ন থেকে বেছে নিন, প্রিন্ট করুন বা অনলাইন পরীক্ষার লিংক বানান।">
+<meta name="description" content="টিউটরের জন্য প্রশ্নপত্র বানানোর ঘর — SSC ও Admission-এর প্রশ্ন থেকে বেছে নিন, প্রিন্ট করুন বা অনলাইন পরীক্ষার লিংক বানান।">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
@@ -89,10 +89,13 @@ input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4
 @page{size:A4;margin:8mm}
 @media(max-width:820px){.tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:#0a2a20;padding:6px 4px calc(6px + env(safe-area-inset-bottom));justify-content:space-around;box-shadow:0 -4px 16px rgba(0,0,0,.18)}
 .tabbar a{color:#e7f4ee;font-size:12px;font-weight:700;text-align:center;line-height:1.3}}
+.scrollbtn{position:fixed;right:14px;z-index:60;width:46px;height:46px;border-radius:50%;border:0;background:#0a7a4b;color:#fff;font-size:22px;line-height:1;box-shadow:0 6px 16px rgba(0,0,0,.28);cursor:pointer}
+#btnTop{bottom:164px}
+#btnDown{bottom:108px}
 @media print{
   body{background:#fff}
   .pfoot{position:fixed;bottom:0;left:0;right:0;margin:0;font-size:9pt}
-  nav,.hero,.card,.sec-title,.sec-sub,.note,.bar{display:none !important}
+  nav,.hero,.card,.sec-title,.sec-sub,.note,.bar,.scrollbtn{display:none !important}
   .sheet{box-shadow:none;border:0;border-radius:0;padding:0}
   .sheet h1{font-size:18pt}
   .pq{font-size:12pt}.pq .og span{font-size:11.5pt}
@@ -102,7 +105,7 @@ input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4
 </head>
 <body>
 <nav><div class="nav-in"><a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>SSC • HSC • Admission — ফিজিক্স শেখার ঘর</small></a><div class="nav-links"><a href="index.html">🏠 Home</a><a href="exams.html">📝 Exam</a><a href="lectures.html">🎬 Lecture</a><a href="problems.html">🧩 Game</a><a href="tutor.html" class="on">🎓 Tutor</a><a href="about.html">👨‍🏫 About</a></div></div></nav>
-<header class="hero"><div class="wrap"><h1>🎓 Tutor — প্রশ্নপত্র বানান</h1><p>SSC • গতি অধ্যায় • <span id="totalCount"></span>টি প্রশ্ন থেকে বেছে নিন</p></div></header>
+<header class="hero"><div class="wrap"><h1>🎓 Tutor — প্রশ্নপত্র বানান</h1><p id="heroLine"></p></div></header>
 
 <main class="wrap">
 <div class="card">
@@ -118,10 +121,15 @@ input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4
 </div>
 
 <div class="card">
-  <h2>প্রশ্ন বাছুন — গতি অধ্যায়</h2>
-  <label class="fld" for="searchIn">খুঁজুন (প্রশ্নের লেখা দিয়ে)</label>
-  <input type="text" id="searchIn" placeholder="যেমন: বেগ, ত্বরণ, লেখচিত্র…">
+  <h2>প্রশ্ন বাছুন</h2>
+  <label class="fld">ক্লাস</label>
+  <div class="chips" id="classChips"></div>
+  <label class="fld" style="margin-top:12px">অধ্যায় / বিভাগ</label>
+  <div class="chips" id="chapterChips"></div>
+  <label class="fld" style="margin-top:12px">টপিক</label>
   <div class="chips" id="topicChips"></div>
+  <label class="fld" style="margin-top:12px" for="searchIn">খুঁজুন (প্রশ্নের লেখা দিয়ে)</label>
+  <input type="text" id="searchIn" placeholder="যেমন: বেগ, ত্বরণ, লেখচিত্র…">
   <div class="tool">
     <button type="button" class="btn btn-w" id="btnAllVis">এই তালিকার সবগুলো নিন</button>
     <button type="button" class="btn btn-w" id="btnClearVis">এই তালিকার সব বাদ দিন</button>
@@ -145,11 +153,9 @@ input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4
     <button type="button" class="btn btn-g" id="btnCopy">📋 লিংক কপি করো</button>
     <a class="btn btn-y" id="linkOpen" href="#" target="_blank" rel="noopener">লিংক খুলে দেখুন ↗</a>
   </div>
-  <p>এটা কাস্টম সেট — ছাত্র টাইমারসহ পরীক্ষা দিতে পারবে, স্কোর আর সঠিক উত্তর দেখতে পাবে। লিডারবোর্ডে জমা হয় না (কাস্টম সেট সবার বোর্ডে মিশে যেত)। কোনো Firebase অ্যাকাউন্ট ছাড়াই চলে — যেকোনো WiFi-তে খুলবে।</p>
 </div>
 
 <h2 class="sec-title">প্রিন্ট প্রিভিউ — যেমনটা কাগজে ছাপা হবে</h2>
-<p class="sec-sub">এক পেজ দুই ভাগে ভাগ করা, ১২ সাইজের লেখা, প্রতি প্রশ্নের নিচে ২×২ অপশন। Print বোতামে ক্লিক করলে শুধু এই প্রশ্নপত্রটাই ছাপা হবে।</p>
 <div class="sheet" id="printPaper">
   <h1 id="printTitle">পদার্থবিজ্ঞান — মডেল টেস্ট</h1>
   <p class="smeta" id="printMeta"></p>
@@ -158,8 +164,10 @@ input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4
   <div class="akey" id="printKey" style="display:none"></div>
   <p class="pfoot">A Physicist's Perspective</p>
 </div>
-<p class="note">এটা Tutor-এর প্রথম সংস্করণ — শুধু <b>SSC গতি অধ্যায়</b>। পছন্দ হলে বাকি অধ্যায় আর ক্লাসগুলোও এখানে যোগ করা হবে।</p>
+<p class="note">SSC-এর সব অধ্যায় ও Admission-এর সব বিভাগ এখানে আছে। <b>HSC পরে যোগ হবে।</b></p>
 </main>
+<button type="button" class="scrollbtn" id="btnTop" aria-label="উপরে যান">↑</button>
+<button type="button" class="scrollbtn" id="btnDown" aria-label="নিচে যান">↓</button>
 <nav class="tabbar" aria-label="দ্রুত নেভিগেশন">
 <a href="index.html">🏠<br>Home</a><a href="exams.html">📝<br>Exam</a><a href="lectures.html">🎬<br>Lecture</a><a href="problems.html">🧩<br>Game</a><a href="tutor.html">🎓<br>Tutor</a><a href="about.html">👨‍🏫<br>About</a>
 </nav>
@@ -167,83 +175,139 @@ input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 "use strict";
-var CHAPTER = 'গতি';
 var BN = '০১২৩৪৫৬৭৮৯';
 function bn(n){ return String(n).replace(/[0-9]/g, function(d){ return BN[+d]; }); }
 function renderMath(el){ try{ if(window.renderMathInElement){ renderMathInElement(el, {delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}], throwOnError:false}); } }catch(e){} }
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
 
 var FQD = (typeof FQ_DATA !== 'undefined') ? FQ_DATA : null;
-var topics = (FQD && FQD.SSC && FQD.SSC.topics[CHAPTER]) || [];
-var Q = (FQD && FQD.SSC && FQD.SSC.questions[CHAPTER]) || {};
-var all = []; // {t: topicIdx, i: qIdx, q: item}
-topics.forEach(function(tp, ti){ (Q[tp] || []).forEach(function(item, qi){ all.push({t: ti, i: qi, q: item}); }); });
-document.getElementById('totalCount').textContent = bn(all.length);
+var CLASSES = ['SSC', 'Admission'];
+var CODE = {SSC: 's', Admission: 'a'};
+var CODE_REV = {s: 'SSC', a: 'Admission'};
+var cls = 'SSC', ch = null, curTopic = -1, selOnly = false;
+var sel = new Map(); // key "s<chIdx>:<t>:<i>" -> true
 
-var sel = new Map(); // key "t:i" -> ref
-var curTopic = -1, selOnly = false;
+function chapters(){ return (FQD && FQD[cls] && FQD[cls].chapters) || []; }
+function topicsOf(){ return (FQD && FQD[cls] && FQD[cls].topics[ch]) || []; }
+function qOf(){ return (FQD && FQD[cls] && FQD[cls].questions[ch]) || {}; }
+function chIdx(){ return chapters().indexOf(ch); }
+function allItems(){
+  var out = [], tps = topicsOf(), QQ = qOf();
+  tps.forEach(function(tp, ti){ (QQ[tp] || []).forEach(function(item, qi){ out.push({t: ti, i: qi, q: item}); }); });
+  return out;
+}
+function refOf(t, i){ return CODE[cls] + chIdx() + ':' + t + ':' + i; }
+function resolve(ref){
+  var m = /^([sa])(\d+):(\d+):(\d+)$/.exec(ref || '');
+  if(!m) return null;
+  var c = CODE_REV[m[1]]; if(!c || !FQD[c]) return null;
+  var chs = FQD[c].chapters || []; var chn = chs[+m[2]]; if(!chn) return null;
+  var tps = FQD[c].topics[chn] || []; var tp = tps[+m[3]]; if(!tp) return null;
+  var arr = (FQD[c].questions[chn] || {})[tp] || []; var it = arr[+m[4]]; if(!it) return null;
+  return {cls: c, ch: chn, topic: tp, item: it};
+}
 try{
-  var saved = JSON.parse(localStorage.getItem('tutor_ssc_motion_v2') || 'null');
-  if(saved && saved.sel){ saved.sel.forEach(function(k){ sel.set(k, true); }); }
-  if(saved && saved.head) document.getElementById('hdIn').value = saved.head;
-  if(saved && saved.mins) document.getElementById('minsIn').value = saved.mins;
-  if(saved && saved.mark) document.getElementById('markIn').value = saved.mark;
-  if(saved && saved.neg !== undefined) document.getElementById('negSel').value = saved.neg;
+  var saved = JSON.parse(localStorage.getItem('tutor_v3') || 'null');
+  if(saved){
+    if(CLASSES.indexOf(saved.cls) >= 0) cls = saved.cls;
+    var chs0 = (FQD && FQD[cls] && FQD[cls].chapters) || [];
+    if(saved.ch && chs0.indexOf(saved.ch) >= 0) ch = saved.ch;
+    if(saved.head) document.getElementById('hdIn').value = saved.head;
+    if(saved.mins) document.getElementById('minsIn').value = saved.mins;
+    if(saved.mark) document.getElementById('markIn').value = saved.mark;
+    if(saved.neg !== undefined) document.getElementById('negSel').value = saved.neg;
+    if(saved.sel) saved.sel.forEach(function(k){ if(resolve(k)) sel.set(k, true); });
+  }
 }catch(e){}
-function keyOf(r){ return r.t + ':' + r.i; }
+if(!ch){ var c0 = chapters(); ch = c0.length ? c0[0] : null; }
 function saveDraft(){
-  try{ localStorage.setItem('tutor_ssc_motion_v2', JSON.stringify({sel: Array.from(sel.keys()), head: document.getElementById('hdIn').value, mins: document.getElementById('minsIn').value, mark: document.getElementById('markIn').value, neg: document.getElementById('negSel').value})); }catch(e){}
+  try{ localStorage.setItem('tutor_v3', JSON.stringify({sel: Array.from(sel.keys()), head: document.getElementById('hdIn').value, mins: document.getElementById('minsIn').value, mark: document.getElementById('markIn').value, neg: document.getElementById('negSel').value, cls: cls, ch: ch})); }catch(e){}
 }
 function settings(){
   var mins = parseInt(document.getElementById('minsIn').value, 10); if(isNaN(mins) || mins < 1) mins = 30; if(mins > 180) mins = 180;
   var mark = parseInt(document.getElementById('markIn').value, 10); if(isNaN(mark) || mark < 1) mark = 1;
   return {head: document.getElementById('hdIn').value.trim() || 'প্রশ্নপত্র', mins: mins, mark: mark, neg: document.getElementById('negSel').value};
 }
+function heroLine(){
+  var n = allItems().length;
+  document.getElementById('heroLine').textContent = cls + ' • ' + ch + ' • ' + bn(n) + 'টি প্রশ্ন থেকে বেছে নিন';
+}
+function chipBtn(label, n, on, fn){
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (on ? ' on' : '');
+  b.innerHTML = esc(label) + (n !== null ? ' <small>' + bn(n) + '</small>' : '');
+  b.addEventListener('click', fn);
+  return b;
+}
+function renderClassChips(){
+  var host = document.getElementById('classChips'); host.innerHTML = '';
+  CLASSES.forEach(function(c){
+    var tot = 0, chs = (FQD[c] && FQD[c].chapters) || [];
+    chs.forEach(function(chn){ var QQ = (FQD[c].questions[chn] || {}); Object.keys(QQ).forEach(function(tp){ tot += (QQ[tp] || []).length; }); });
+    host.appendChild(chipBtn(c, tot, cls === c, function(){ if(cls !== c){ cls = c; var cc = chapters(); ch = cc.length ? cc[0] : null; curTopic = -1; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderChapterChips(); renderTopicChips(); renderList(); } }));
+  });
+}
+function renderChapterChips(){
+  var host = document.getElementById('chapterChips'); host.innerHTML = '';
+  chapters().forEach(function(chn){
+    var QQ = (FQD[cls].questions[chn] || {}), n = 0;
+    Object.keys(QQ).forEach(function(tp){ n += (QQ[tp] || []).length; });
+    host.appendChild(chipBtn(chn, n, ch === chn, function(){ if(ch !== chn){ ch = chn; curTopic = -1; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderChapterChips(); renderTopicChips(); renderList(); } }));
+  });
+  heroLine();
+}
+function renderTopicChips(){
+  var host = document.getElementById('topicChips'); host.innerHTML = '';
+  var tps = topicsOf(), QQ = qOf();
+  host.appendChild(chipBtn('সব', allItems().length, curTopic === -1, function(){ curTopic = -1; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); }));
+  tps.forEach(function(tp, ti){
+    host.appendChild(chipBtn(tp, (QQ[tp] || []).length, curTopic === ti, function(){ curTopic = ti; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); }));
+  });
+}
 function visible(){
   var kw = document.getElementById('searchIn').value.trim();
-  return all.filter(function(r){
-    if(selOnly && !sel.has(keyOf(r))) return false;
+  if(selOnly){
+    var out = [];
+    sel.forEach(function(_, k){
+      var r = resolve(k); if(!r) return;
+      if(kw && r.item.q.indexOf(kw) === -1) return;
+      out.push({key: k, r: r});
+    });
+    return out;
+  }
+  return allItems().filter(function(r){
     if(curTopic >= 0 && r.t !== curTopic) return false;
     if(kw && r.q.q.indexOf(kw) === -1) return false;
     return true;
-  });
+  }).map(function(r){ return {key: refOf(r.t, r.i), r: {cls: cls, ch: ch, topic: topicsOf()[r.t], item: r.q}}; });
 }
-function renderChips(){
-  var host = document.getElementById('topicChips'); host.innerHTML = '';
-  function mk(label, ti, n){
-    var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (curTopic === ti ? ' on' : '');
-    b.innerHTML = esc(label) + ' <small>' + bn(n) + '</small>';
-    b.addEventListener('click', function(){ curTopic = ti; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderChips(); renderList(); });
-    host.appendChild(b);
-  }
-  mk('সব', -1, all.length);
-  topics.forEach(function(tp, ti){ mk(tp, ti, (Q[tp] || []).length); });
+function itemEl(key, r){
+  var item = r.item, tagText = selOnly ? (r.ch + ' • ' + r.topic) : r.topic;
+  var div = document.createElement('div'); div.className = 'qitem' + (sel.has(key) ? ' sel' : '');
+  var hd = document.createElement('div'); hd.className = 'qhead';
+  var cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = sel.has(key);
+  cb.addEventListener('change', function(){ if(cb.checked) sel.set(key, true); else sel.delete(key); div.classList.toggle('sel', cb.checked); saveDraft(); updateSum(); });
+  var tx = document.createElement('div'); tx.className = 'qt';
+  var tag = document.createElement('span'); tag.className = 'tptag'; tag.textContent = tagText; tx.appendChild(tag);
+  var qt = document.createElement('div'); qt.textContent = item.q; tx.appendChild(qt);
+  if(item.fig){ var f = document.createElement('div'); f.className = 'qfig'; var im = document.createElement('img'); im.src = item.fig; im.alt = 'প্রশ্নের চিত্র'; im.loading = 'lazy'; f.appendChild(im); tx.appendChild(f); }
+  if(item.figcap){ var fc = document.createElement('div'); fc.style.cssText = 'font-size:13.5px;color:#5b6b62;text-align:center'; fc.textContent = item.figcap; tx.appendChild(fc); }
+  var og = document.createElement('div'); og.className = 'ogrid';
+  item.opts.forEach(function(op, oi){
+    var o = document.createElement('div'); o.className = 'o';
+    var b = document.createElement('b'); b.textContent = 'কখগঘঙ'[oi] + ')'; o.appendChild(b);
+    o.appendChild(document.createTextNode(op));
+    if(item.ofig && item.ofig[oi]){ var oi2 = document.createElement('img'); oi2.src = item.ofig[oi]; oi2.alt = ''; oi2.loading = 'lazy'; o.appendChild(oi2); }
+    og.appendChild(o);
+  });
+  tx.appendChild(og);
+  hd.appendChild(cb); hd.appendChild(tx); div.appendChild(hd);
+  return div;
 }
 function renderList(){
   var host = document.getElementById('qList'); host.innerHTML = '';
   var vis = visible();
-  if(!vis.length){ host.innerHTML = '<p class="empty">এই ফিল্টারে কোনো প্রশ্ন নেই।</p>'; return; }
-  vis.forEach(function(r){
-    var item = r.q, k = keyOf(r);
-    var div = document.createElement('div'); div.className = 'qitem' + (sel.has(k) ? ' sel' : '');
-    var hd = document.createElement('div'); hd.className = 'qhead';
-    var cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = sel.has(k);
-    cb.addEventListener('change', function(){ if(cb.checked) sel.set(k, true); else sel.delete(k); div.classList.toggle('sel', cb.checked); saveDraft(); updateSum(); });
-    var tx = document.createElement('div'); tx.className = 'qt';
-    var tag = document.createElement('span'); tag.className = 'tptag'; tag.textContent = topics[r.t]; tx.appendChild(tag);
-    var qt = document.createElement('div'); qt.textContent = item.q; tx.appendChild(qt);
-    if(item.fig){ var f = document.createElement('div'); f.className = 'qfig'; var im = document.createElement('img'); im.src = item.fig; im.alt = 'প্রশ্নের চিত্র'; im.loading = 'lazy'; f.appendChild(im); tx.appendChild(f); }
-    var og = document.createElement('div'); og.className = 'ogrid';
-    item.opts.forEach(function(op, oi){
-      var o = document.createElement('div'); o.className = 'o';
-      var b = document.createElement('b'); b.textContent = 'কখগঘঙ'[oi] + ')'; o.appendChild(b);
-      o.appendChild(document.createTextNode(op));
-      if(item.ofig && item.ofig[oi]){ var oi2 = document.createElement('img'); oi2.src = item.ofig[oi]; oi2.alt = ''; oi2.loading = 'lazy'; o.appendChild(oi2); }
-      og.appendChild(o);
-    });
-    tx.appendChild(og);
-    hd.appendChild(cb); hd.appendChild(tx); div.appendChild(hd); host.appendChild(div);
-  });
+  if(!vis.length){ host.innerHTML = '<p class="empty">এই ফিল্টারে কোনো প্রশ্ন নেই।</p>'; }
+  else vis.forEach(function(v){ host.appendChild(itemEl(v.key, v.r)); });
   renderMath(host); updateSum();
 }
 function updateSum(){
@@ -257,14 +321,20 @@ function renderPrint(withKey){
   document.getElementById('printTitle').textContent = st.head;
   document.getElementById('printMeta').textContent = 'সময়: ' + bn(st.mins) + ' মিনিট    •    পূর্ণমান: ' + bn(sel.size * st.mark) + ' নম্বর';
   var cols = document.getElementById('printCols'); cols.innerHTML = '';
-  var refs = Array.from(sel.keys()).map(function(k){ var p = k.split(':'); return {t: +p[0], i: +p[1]}; });
+  var refs = [];
+  sel.forEach(function(_, k){ var r = resolve(k); if(r) refs.push(r); });
   if(!refs.length){ cols.innerHTML = '<p style="font-size:12pt">এখনো কোনো প্রশ্ন নির্বাচন করা হয়নি — উপরে টিক দিয়ে প্রশ্ন বাছুন।</p>'; }
+  var multiCh = false, seenCh = {};
+  refs.forEach(function(r){ if(!seenCh[r.cls + '|' + r.ch]){ seenCh[r.cls + '|' + r.ch] = 1; } });
+  multiCh = Object.keys(seenCh).length > 1;
   refs.forEach(function(r, idx){
-    var item = Q[topics[r.t]][r.i]; if(!item) return;
+    var item = r.item;
     var div = document.createElement('div'); div.className = 'pq';
-    var qt = document.createElement('span'); qt.className = 'qt'; qt.textContent = bn(idx + 1) + '। ' + item.q + ' '; div.appendChild(qt);
+    var qt = document.createElement('span'); qt.className = 'qt';
+    qt.textContent = bn(idx + 1) + '। ' + (multiCh ? ('[' + r.ch + ' • ' + r.topic + '] ') : '') + item.q + ' '; div.appendChild(qt);
     var mk = document.createElement('span'); mk.className = 'mk2'; mk.textContent = '[' + bn(st.mark) + ']'; div.appendChild(mk);
     if(item.fig){ var f = document.createElement('div'); f.className = 'pfig'; var im = document.createElement('img'); im.src = item.fig; im.alt = ''; im.loading = 'lazy'; f.appendChild(im); div.appendChild(f); }
+    if(item.figcap){ var fc = document.createElement('div'); fc.style.cssText = 'font-size:10pt;color:#555;text-align:center'; fc.textContent = item.figcap; div.appendChild(fc); }
     var og = document.createElement('div'); og.className = 'og';
     item.opts.forEach(function(op, oi){
       var s = document.createElement('span'); s.textContent = '(' + 'কখগঘঙ'[oi] + ') ' + op;
@@ -276,14 +346,14 @@ function renderPrint(withKey){
   var keyEl = document.getElementById('printKey');
   if(withKey && refs.length){
     var html = '<b>উত্তরপত্র (শিক্ষকের জন্য)</b><br>';
-    refs.forEach(function(r, idx){ var item = Q[topics[r.t]][r.i]; html += bn(idx + 1) + ' — ' + 'কখগঘঙ'[item.ans] + '&nbsp;&nbsp;&nbsp; '; });
+    refs.forEach(function(r, idx){ html += bn(idx + 1) + ' — ' + 'কখগঘঙ'[r.item.ans] + '&nbsp;&nbsp;&nbsp; '; });
     keyEl.innerHTML = html; keyEl.style.display = 'block';
   } else { keyEl.style.display = 'none'; keyEl.innerHTML = ''; }
   renderMath(cols);
 }
 document.getElementById('searchIn').addEventListener('input', renderList);
-document.getElementById('btnAllVis').addEventListener('click', function(){ visible().forEach(function(r){ sel.set(keyOf(r), true); }); saveDraft(); renderList(); });
-document.getElementById('btnClearVis').addEventListener('click', function(){ visible().forEach(function(r){ sel.delete(keyOf(r)); }); saveDraft(); renderList(); });
+document.getElementById('btnAllVis').addEventListener('click', function(){ visible().forEach(function(v){ sel.set(v.key, true); }); saveDraft(); renderList(); });
+document.getElementById('btnClearVis').addEventListener('click', function(){ visible().forEach(function(v){ sel.delete(v.key); }); saveDraft(); renderList(); });
 document.getElementById('btnSelOnly').addEventListener('click', function(){ selOnly = !selOnly; this.textContent = selOnly ? '☑ সব প্রশ্ন দেখুন' : '☑ শুধু নির্বাচিত দেখুন'; renderList(); });
 ['hdIn','minsIn','markIn','negSel'].forEach(function(id){ document.getElementById(id).addEventListener('input', function(){ saveDraft(); updateSum(); }); document.getElementById(id).addEventListener('change', function(){ saveDraft(); updateSum(); }); });
 document.getElementById('btnPrint').addEventListener('click', function(){ if(!sel.size){ alert('আগে অন্তত ১টি প্রশ্ন নির্বাচন করুন।'); return; } renderPrint(false); window.print(); });
@@ -291,9 +361,10 @@ document.getElementById('btnPrintAns').addEventListener('click', function(){ if(
 document.getElementById('btnOnline').addEventListener('click', function(){
   if(!sel.size){ alert('আগে অন্তত ১টি প্রশ্ন নির্বাচন করুন।'); return; }
   var st = settings();
-  var cq = Array.from(sel.keys()).join(',');
+  var keys = Array.from(sel.keys());
+  if(keys.length > 200){ alert('অনলাইন লিংকে সর্বোচ্চ ২০০টি প্রশ্ন যাবে — প্রথম ২০০টি নেওয়া হলো। বাকিগুলো প্রিন্টে পাবেন।'); keys = keys.slice(0, 200); }
   var base = location.href.split('tutor.html')[0];
-  var url = base + 'timed-exam.html?custom=1&csrc=ssc-motion&cq=' + encodeURIComponent(cq) + '&ctitle=' + encodeURIComponent(st.head) + '&cmins=' + st.mins + '&cneg=' + st.neg;
+  var url = base + 'timed-exam.html?custom=1&cq=' + encodeURIComponent(keys.join(',')) + '&ctitle=' + encodeURIComponent(st.head) + '&cmins=' + st.mins + '&cneg=' + st.neg;
   document.getElementById('linkOut').value = url;
   document.getElementById('linkOpen').href = url;
   document.getElementById('linkBox').classList.add('on');
@@ -304,8 +375,11 @@ document.getElementById('btnCopy').addEventListener('click', function(){
   try{ document.execCommand('copy'); this.textContent = '✓ কপি হয়েছে'; var self = this; setTimeout(function(){ self.textContent = '📋 লিংক কপি করো'; }, 2000); }
   catch(e){ if(navigator.clipboard) navigator.clipboard.writeText(inp.value); }
 });
-renderChips(); renderList();
+document.getElementById('btnTop').addEventListener('click', function(){ window.scrollTo({top: 0, behavior: 'smooth'}); });
+document.getElementById('btnDown').addEventListener('click', function(){ window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}); });
+renderClassChips(); renderChapterChips(); renderTopicChips(); renderList();
 });
 </script>
+
 </body>
 </html>

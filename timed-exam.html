@@ -186,7 +186,8 @@ var CFG={apiKey:"AIzaSyAfD5wwaIhmtPbl50Z6d-Zlvzqk6Ob_FW8",authDomain:"physicists
 var EXAM_ID=(new URLSearchParams(location.search).get("exam")||"hsc1-physical-world").toLowerCase();
 if(!/^[a-z0-9-]+$/.test(EXAM_ID)) EXAM_ID="hsc1-physical-world";
 var CUSTOM_QP=new URLSearchParams(location.search);
-var CUSTOM=(CUSTOM_QP.get("custom")==="1"&&CUSTOM_QP.get("csrc")==="ssc-motion"&&!!CUSTOM_QP.get("cq"));
+var CUSTOM=(CUSTOM_QP.get("custom")==="1"&&!!CUSTOM_QP.get("cq"));
+var CUSTOM_ID="custom-set";
 var BN="০১২৩৪৫৬৭৮৯";
 function bn(n){ return String(n).replace(/[0-9]/g,function(d){return BN[+d]}); }
 function renderMath(el){ try{ if(el&&window.renderMathInElement){ renderMathInElement(el,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"$$",right:"$$",display:true}],throwOnError:false}); } }catch(e){} }
@@ -242,22 +243,39 @@ function loadExam(attempt){
   });
 }
 function loadCustom(){
-  var refs=CUSTOM_QP.get("cq").split(",").map(function(p){ var a=p.split(":"); return {t:parseInt(a[0],10), i:parseInt(a[1],10)}; }).filter(function(r){ return !isNaN(r.t)&&!isNaN(r.i)&&r.t>=0&&r.i>=0; });
-  if(!refs.length){ fail("কাস্টম লিংকে কোনো প্রশ্ন পাওয়া যায়নি। Tutor পেজ থেকে আবার লিংক বানান।"); return; }
+  var raw=(CUSTOM_QP.get("cq")||"").split(",").filter(function(x){ return !!x; });
+  var isOld=CUSTOM_QP.get("csrc")==="ssc-motion";
+  if(isOld) CUSTOM_ID="custom-ssc-motion";
   var s=document.createElement("script"); s.src="flip-data.js";
   s.onload=function(){
     try{
-      var topics=FQ_DATA.SSC.topics["গতি"], QQ=FQ_DATA.SSC.questions["গতি"], qs=[];
-      refs.slice(0,200).forEach(function(r){ var tp=topics[r.t]; var arr=tp?QQ[tp]:null; var it=arr?arr[r.i]:null; if(it) qs.push({q:it.q,opts:it.opts,ans:it.ans,why:it.why,fig:it.fig,ofig:it.ofig,figcap:it.figcap}); });
-      if(!qs.length){ fail("কাস্টম প্রশ্ন খুঁজে পাওয়া যায়নি।"); return; }
+      var qs=[], chSet={}, lvSet={};
+      if(isOld){
+        var refs=raw.map(function(p){ var a=p.split(":"); return {t:parseInt(a[0],10), i:parseInt(a[1],10)}; }).filter(function(r){ return !isNaN(r.t)&&!isNaN(r.i)&&r.t>=0&&r.i>=0; });
+        var topics=FQ_DATA.SSC.topics["গতি"], QQ=FQ_DATA.SSC.questions["গতি"];
+        refs.slice(0,200).forEach(function(r){ var tp=topics[r.t]; var arr=tp?QQ[tp]:null; var it=arr?arr[r.i]:null; if(it) qs.push({q:it.q,opts:it.opts,ans:it.ans,why:it.why,fig:it.fig,ofig:it.ofig,figcap:it.figcap}); });
+        chSet["গতি"]=1; lvSet["SSC"]=1;
+      } else {
+        raw.slice(0,200).forEach(function(p){
+          var m=/^([sa])(\d+):(\d+):(\d+)$/.exec(p); if(!m) return;
+          var c=(m[1]==="s"?"SSC":"Admission");
+          var chs=FQ_DATA[c].chapters; var chn=chs[+m[2]]; if(!chn) return;
+          var tps=FQ_DATA[c].topics[chn]; var tp=tps[+m[3]]; if(!tp) return;
+          var arr=(FQ_DATA[c].questions[chn]||{})[tp] || []; var it=arr[+m[4]]; if(!it) return;
+          qs.push({q:it.q,opts:it.opts,ans:it.ans,why:it.why,fig:it.fig,ofig:it.ofig,figcap:it.figcap});
+          chSet[chn]=1; lvSet[c]=1;
+        });
+      }
+      if(!qs.length){ fail("কাস্টম লিংকে কোনো প্রশ্ন পাওয়া যায়নি। Tutor পেজ থেকে আবার লিংক বানান।"); return; }
       var title=CUSTOM_QP.get("ctitle")||"কাস্টম পরীক্ষা";
       var mins=parseInt(CUSTOM_QP.get("cmins"),10); if(isNaN(mins)||mins<1) mins=30; if(mins>180) mins=180;
       var neg=parseFloat(CUSTOM_QP.get("cneg")); if(isNaN(neg)) neg=0;
-      EXAM={title:title, chapter:"গতি", level:"SSC", minutes:mins, neg:neg, questions:qs};
+      var chNames=Object.keys(chSet), lvNames=Object.keys(lvSet);
+      EXAM={title:title, chapter:(chNames.length===1?chNames[0]:"একাধিক অধ্যায়"), level:(lvNames.length===1?lvNames[0]:"মিশ্র"), minutes:mins, neg:neg, questions:qs};
       document.title=EXAM.title+" | A Physicist's Perspective";
       answers=new Array(qs.length).fill(-1);
       document.getElementById("exTitle").textContent=EXAM.title;
-      document.getElementById("exMeta").textContent="গতি • SSC • "+bn(qs.length)+"টি প্রশ্ন • পূর্ণমান "+bn(qs.length);
+      document.getElementById("exMeta").textContent=EXAM.chapter+" • "+EXAM.level+" • "+bn(qs.length)+"টি প্রশ্ন • পূর্ণমান "+bn(qs.length);
       if(EXAM.neg>0){ document.getElementById("ruleNeg").innerHTML="প্রতিটি সঠিক উত্তরে ১ নম্বর; প্রতিটি <b>ভুল উত্তরে "+bn(EXAM.neg)+" নম্বর কাটা</b> যাবে (নেগেটিভ মার্কিং)।"; }
       var rb=document.getElementById("ruleBoard"); if(rb) rb.textContent="জমা দিলেই স্কোর ও সঠিক উত্তর দেখা যাবে (কাস্টম সেট — লিডারবোর্ডে জমা হয় না)।";
       buildChips(EXAM.minutes);
@@ -368,7 +386,7 @@ function submitExam(auto){
     .then(function(ref){ note.textContent="✓ ফলাফল সংরক্ষিত হয়েছে"; note.style.color="#0a7a4b"; loadBoard(ref.id); })
     .catch(function(e){ note.textContent="ফলাফল সংরক্ষণ হয়নি ("+(e&&e.code?e.code:"error")+")"; note.style.color="#b42318"; });
   }
-  if(window.lupAddResult){ try{ window.lupAddResult({e:(CUSTOM?"custom-ssc-motion":EXAM_ID),t:EXAM.title||EXAM_ID,s:score,n:total,p:pct,ts:Date.now()}); }catch(e){} }
+  if(window.lupAddResult){ try{ window.lupAddResult({e:(CUSTOM?CUSTOM_ID:EXAM_ID),t:EXAM.title||EXAM_ID,s:score,n:total,p:pct,ts:Date.now()}); }catch(e){} }
 }
 function loadBoard(myId){
   db.collection("examBoard").where("examId","==",EXAM_ID).get().then(function(snap){
