@@ -46,18 +46,38 @@ input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4
 .btn-w{background:#eef4f1;color:#12211a;border:1.5px solid #dde8df}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 .cnt{font-weight:800;color:#0a7a4b}
-.qitem{border:1.5px solid #dde8df;border-radius:16px;padding:16px;margin-top:12px;background:#fff}
+.qitem{border:1.5px solid #dde8df;border-radius:16px;padding:16px;margin-top:12px;background:#fff;box-shadow:0 12px 26px -16px rgba(10,42,32,.35);min-width:0}
 .qitem.sel{border-color:#0a7a4b;background:#f2faf5}
 .qhead{display:flex;gap:10px;align-items:flex-start}
 .qhead input{width:20px;height:20px;flex:0 0 auto;margin-top:4px;accent-color:#0a7a4b;cursor:pointer}
-.qhead .qt{flex:1;font-size:18.5px;font-weight:600;line-height:1.7}
+.qhead .qt{flex:1;min-width:0;font-size:18.5px;font-weight:600;line-height:1.7;overflow-wrap:anywhere}
 .tptag{display:inline-block;font-size:11px;font-weight:700;color:#444;background:transparent;border:1px solid #ccc;padding:2px 8px;border-radius:6px;margin-bottom:8px}
 .qfig{margin:10px 0 2px;text-align:center}
 .qfig img{max-width:100%;max-height:280px;border-radius:8px}
-.ogrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.ogrid .o{border:1.5px solid #e2eae6;border-radius:12px;padding:10px 12px;font-size:16.5px;font-weight:600;background:#fbfdfc}
+.ogrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-top:12px}
+.ogrid .o{position:relative;overflow:hidden;display:flex;gap:10px;align-items:flex-start;border:1.5px solid #e2eae6;border-radius:14px;padding:10px 12px;font-size:16.5px;font-weight:600;background:#fbfdfc;min-width:0;overflow-wrap:anywhere;transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease}
+.ogrid .o>*{position:relative;z-index:1}
+.ogrid .o .ol{flex:0 0 auto;width:30px;height:30px;font-size:14.5px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eef4f0;color:#0a7a4b;font-weight:800;border:1.5px solid rgba(18,183,106,.35);transition:background .22s ease,color .22s ease,transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.ogrid .o .ot{flex:1;min-width:0}
 .ogrid .o img{display:block;max-width:100%;max-height:120px;margin-top:6px;border-radius:6px}
-.ogrid .o b{color:#0a7a4b;margin-right:4px}
+.ogrid .o::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.7) 48%,transparent 62%);transform:translateX(-130%);transition:transform .7s ease;pointer-events:none;z-index:0}
+.ogrid .o:hover{border-color:#8fd0a8;background:linear-gradient(120deg,#e9faf0,#d2f0dd);transform:translateY(-3px);box-shadow:0 14px 26px -10px rgba(10,122,75,.35),0 4px 14px -6px rgba(0,0,0,.2)}
+.ogrid .o:hover::after{transform:translateX(130%)}
+.ogrid .o:hover .ol{background:#0a7a4b;color:#fff;border-color:#0a7a4b;transform:scale(1.12);box-shadow:0 4px 10px -2px rgba(10,122,75,.6)}
+.chips.chhost{display:block}
+.chgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.chcard{background:#fff;border:1.5px solid #dde8df;border-radius:16px;padding:14px 16px;box-shadow:0 8px 20px -14px rgba(10,42,32,.25)}
+.chcard:hover,.chcard.open{border-color:#8fd0a8}
+.chhead{display:flex;width:100%;align-items:center;gap:10px;background:none;border:0;font:inherit;text-align:left;cursor:pointer}
+.chhead .chsub{display:block;font-size:12.5px;color:#0a7a4b;font-weight:700}
+.chhead .chname{display:block;font-size:17px;font-weight:800;line-height:1.4}
+.chhead .chmeta{margin-left:auto;font-size:13.5px;color:#5b6b62;font-weight:700;white-space:nowrap}
+.chhead .chev{color:#0a7a4b;font-weight:800;transition:transform .2s}
+.chcard.open .chev{transform:rotate(180deg)}
+.chtopics{display:none;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:12px;border-top:1px dashed #dde8df}
+.chcard:hover .chtopics,.chcard.open .chtopics{display:flex}
+.chtopics .chip{font-size:14px;padding:6px 12px}
+.chtopics .chip.chall{border-style:dashed;border-color:#9fd8bd;background:#f4fcf7}
 .bar{position:sticky;bottom:14px;z-index:40;background:#0a2a20;color:#fff;border-radius:18px;padding:14px 18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;box-shadow:0 18px 34px -12px rgba(10,42,32,.6);margin-top:18px}
 .bar .sum{flex:1;font-weight:700;font-size:15.5px}
 .bar .sum b{color:#ffd968}
@@ -87,11 +107,14 @@ input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4
 .note b{color:#0a7a4b}
 .empty{text-align:center;color:#5b6b62;padding:30px 10px;font-size:16px}
 @page{size:A4;margin:8mm}
-@media(max-width:820px){.tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:#0a2a20;padding:6px 4px calc(6px + env(safe-area-inset-bottom));justify-content:space-around;box-shadow:0 -4px 16px rgba(0,0,0,.18)}
+.tabbar{display:none}
+@media(max-width:820px){.nav-links{display:none}.bar{bottom:calc(70px + env(safe-area-inset-bottom));padding:12px 14px}.bar .sum{flex-basis:100%;font-size:14.5px}.bar .btn{flex:1 1 40%;padding:11px 8px;font-size:14.5px;text-align:center}
+.tabbar{display:flex;position:fixed;top:auto;left:0;right:0;bottom:0;z-index:55;background:#0a2a20;padding:6px 4px calc(6px + env(safe-area-inset-bottom));justify-content:space-around;box-shadow:0 -4px 16px rgba(0,0,0,.18)}
 .tabbar a{color:#e7f4ee;font-size:12px;font-weight:700;text-align:center;line-height:1.3}}
 .scrollbtn{position:fixed;right:14px;z-index:60;width:46px;height:46px;border-radius:50%;border:0;background:#0a7a4b;color:#fff;font-size:22px;line-height:1;box-shadow:0 6px 16px rgba(0,0,0,.28);cursor:pointer}
 #btnTop{bottom:164px}
 #btnDown{bottom:108px}
+@media(max-width:820px){#btnDown{bottom:calc(240px + env(safe-area-inset-bottom))}#btnTop{bottom:calc(296px + env(safe-area-inset-bottom))}}
 @media print{
   body{background:#fff}
   .pfoot{position:fixed;bottom:0;left:0;right:0;margin:0;font-size:9pt}
@@ -126,7 +149,7 @@ input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#0a7a4
   <div class="chips" id="classChips"></div>
   <label class="fld" style="margin-top:12px">অধ্যায় / বিভাগ</label>
   <div class="chips" id="chapterChips"></div>
-  <label class="fld" style="margin-top:12px">টপিক</label>
+  <label class="fld" style="margin-top:12px" id="topicLabel">টপিক</label>
   <div class="chips" id="topicChips"></div>
   <label class="fld" style="margin-top:12px" for="searchIn">খুঁজুন (প্রশ্নের লেখা দিয়ে)</label>
   <input type="text" id="searchIn" placeholder="যেমন: বেগ, ত্বরণ, লেখচিত্র…">
@@ -184,13 +207,43 @@ var FQD = (typeof FQ_DATA !== 'undefined') ? FQ_DATA : null;
 var CLASSES = ['SSC', 'Admission'];
 var CODE = {SSC: 's', Admission: 'a'};
 var CODE_REV = {s: 'SSC', a: 'Admission'};
-var cls = 'SSC', ch = null, curTopic = -1, selOnly = false;
+var cls = 'SSC', ch = null, curTopic = -1, curChapter = null, selOnly = false;
 var sel = new Map(); // key "s<chIdx>:<t>:<i>" -> true
 
 function chapters(){ return (FQD && FQD[cls] && FQD[cls].chapters) || []; }
 function topicsOf(){ return (FQD && FQD[cls] && FQD[cls].topics[ch]) || []; }
 function qOf(){ return (FQD && FQD[cls] && FQD[cls].questions[ch]) || {}; }
 function chIdx(){ return chapters().indexOf(ch); }
+var NCTB = ['ভৌত জগৎ ও পরিমাপ','ভেক্টর','গতিবিদ্যা','নিউটনীয় বলবিদ্যা','কাজ, শক্তি ও ক্ষমতা','মহাকর্ষ ও অভিকর্ষ','পদার্থের গাঠনিক ধর্ম','পর্যাবৃত্ত গতি','তরঙ্গ','আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব','তাপগতিবিদ্যা','স্থির তড়িৎ','চল তড়িৎ','তড়িৎ প্রবাহের চৌম্বক ক্রিয়া ও চুম্বকত্ব','তাড়িতচুম্বকীয় আবেশ ও পরিবর্তী প্রবাহ','জ্যামিতিক আলোকবিজ্ঞান','ভৌত আলোকবিজ্ঞান','আধুনিক পদার্থবিজ্ঞানের সূচনা','পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান','সেমিকন্ডাক্টর ও ইলেকট্রনিক্স','জ্যোতির্বিজ্ঞান'];
+function chapterMode(){ return cls === 'Admission' && ch === 'অধ্যায়ভিত্তিক'; }
+function chapterOf(tp){ var pre = (tp.split(' — ')[0] || tp); if(pre.indexOf('তাড়িতচ') === 0) pre = 'তাড়িতচুম্বকীয় আবেশ ও পরিবর্তী প্রবাহ'; return pre; }
+function shortTopic(tp){ if(chapterMode()){ var p = tp.split(' — '); return p.length > 1 ? p.slice(1).join(' — ') : tp; } return tp; }
+function chapterGroups(){
+  var tps = topicsOf(), QQ = qOf(), groups = [], byName = {};
+  tps.forEach(function(tp, ti){
+    var cn = chapterOf(tp), g = byName[cn];
+    if(!g){ g = {name: cn, topics: [], n: 0}; byName[cn] = g; groups.push(g); }
+    g.topics.push({tp: tp, ti: ti}); g.n += (QQ[tp] || []).length;
+  });
+  var order = {}; NCTB.forEach(function(nm, i){ order[nm] = i; });
+  groups.sort(function(a, b){
+    var oa = (order[a.name] !== undefined) ? order[a.name] : 1000, ob = (order[b.name] !== undefined) ? order[b.name] : 1000;
+    return oa - ob;
+  });
+  return groups;
+}
+function chapterLabel(g){
+  var i = NCTB.indexOf(g.name);
+  if(i < 0) return 'অন্যান্য';
+  if(i < 10) return '১ম পত্র • অধ্যায় ' + bn(i + 1);
+  return '২য় পত্র • অধ্যায় ' + bn(i - 9);
+}
+function chapterTopicIdx(){
+  if(!curChapter) return null;
+  var out = [];
+  chapterGroups().forEach(function(g){ if(g.name === curChapter) g.topics.forEach(function(t){ out.push(t.ti); }); });
+  return out;
+}
 function allItems(){
   var out = [], tps = topicsOf(), QQ = qOf();
   tps.forEach(function(tp, ti){ (QQ[tp] || []).forEach(function(item, qi){ out.push({t: ti, i: qi, q: item}); }); });
@@ -229,8 +282,12 @@ function settings(){
   return {head: document.getElementById('hdIn').value.trim() || 'প্রশ্নপত্র', mins: mins, mark: mark, neg: document.getElementById('negSel').value};
 }
 function heroLine(){
-  var n = allItems().length;
-  document.getElementById('heroLine').textContent = cls + ' • ' + ch + ' • ' + bn(n) + 'টি প্রশ্ন থেকে বেছে নিন';
+  var n = allItems().length, label = cls + ' • ' + ch;
+  if(chapterMode() && curChapter){
+    var g = null; chapterGroups().forEach(function(x){ if(x.name === curChapter) g = x; });
+    if(g){ label += ' • ' + curChapter; n = g.n; if(curTopic >= 0){ label += ' • ' + shortTopic(topicsOf()[curTopic]); n = (qOf()[topicsOf()[curTopic]] || []).length; } }
+  }
+  document.getElementById('heroLine').textContent = label + ' • ' + bn(n) + 'টি প্রশ্ন থেকে বেছে নিন';
 }
 function chipBtn(label, n, on, fn){
   var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (on ? ' on' : '');
@@ -243,7 +300,7 @@ function renderClassChips(){
   CLASSES.forEach(function(c){
     var tot = 0, chs = (FQD[c] && FQD[c].chapters) || [];
     chs.forEach(function(chn){ var QQ = (FQD[c].questions[chn] || {}); Object.keys(QQ).forEach(function(tp){ tot += (QQ[tp] || []).length; }); });
-    host.appendChild(chipBtn(c, tot, cls === c, function(){ if(cls !== c){ cls = c; var cc = chapters(); ch = cc.length ? cc[0] : null; curTopic = -1; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderChapterChips(); renderTopicChips(); renderList(); } }));
+    host.appendChild(chipBtn(c, tot, cls === c, function(){ if(cls !== c){ cls = c; var cc = chapters(); ch = cc.length ? cc[0] : null; curTopic = -1; curChapter = null; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderChapterChips(); renderTopicChips(); renderList(); } }));
   });
 }
 function renderChapterChips(){
@@ -251,14 +308,40 @@ function renderChapterChips(){
   chapters().forEach(function(chn){
     var QQ = (FQD[cls].questions[chn] || {}), n = 0;
     Object.keys(QQ).forEach(function(tp){ n += (QQ[tp] || []).length; });
-    host.appendChild(chipBtn(chn, n, ch === chn, function(){ if(ch !== chn){ ch = chn; curTopic = -1; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderChapterChips(); renderTopicChips(); renderList(); } }));
+    host.appendChild(chipBtn(chn, n, ch === chn, function(){ if(ch !== chn){ ch = chn; curTopic = -1; curChapter = null; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderChapterChips(); renderTopicChips(); renderList(); } }));
   });
   heroLine();
 }
 function renderTopicChips(){
   var host = document.getElementById('topicChips'); host.innerHTML = '';
   var tps = topicsOf(), QQ = qOf();
-  host.appendChild(chipBtn('সব', allItems().length, curTopic === -1, function(){ curTopic = -1; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); }));
+  heroLine();
+  host.appendChild(chipBtn('সব', allItems().length, curTopic === -1 && !curChapter, function(){ curTopic = -1; curChapter = null; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); }));
+  if(chapterMode()){
+    document.getElementById('topicLabel').textContent = 'অধ্যায় (NCTB ক্রমে) — অধ্যায়ের ওপর hover / ট্যাপ করলে টপিক দেখাবে';
+    host.classList.add('chhost');
+    var grid = document.createElement('div'); grid.className = 'chgrid';
+    chapterGroups().forEach(function(g){
+      var card = document.createElement('div'); card.className = 'chcard' + (curChapter === g.name ? ' open' : '');
+      var head = document.createElement('button'); head.type = 'button'; head.className = 'chhead';
+      head.innerHTML = '<span><span class="chsub">' + esc(chapterLabel(g)) + '</span><span class="chname">' + esc(g.name) + '</span></span><span class="chmeta">' + bn(g.topics.length) + 'টি টপিক • ' + bn(g.n) + 'টি প্রশ্ন</span><span class="chev">▾</span>';
+      head.addEventListener('click', function(){ var was = card.classList.contains('open'); grid.querySelectorAll('.chcard').forEach(function(c){ c.classList.remove('open'); }); if(!was) card.classList.add('open'); });
+      card.appendChild(head);
+      var topics = document.createElement('div'); topics.className = 'chtopics';
+      var all = document.createElement('button'); all.type = 'button'; all.className = 'chip chall' + (curChapter === g.name && curTopic === -1 ? ' on' : '');
+      all.textContent = 'এই অধ্যায়ের সব প্রশ্ন';
+      all.addEventListener('click', function(){ curChapter = g.name; curTopic = -1; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); });
+      topics.appendChild(all);
+      g.topics.forEach(function(t){
+        topics.appendChild(chipBtn(shortTopic(t.tp), (QQ[t.tp] || []).length, curTopic === t.ti, function(){ curChapter = g.name; curTopic = t.ti; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); }));
+      });
+      card.appendChild(topics); grid.appendChild(card);
+    });
+    host.appendChild(grid);
+    return;
+  }
+  document.getElementById('topicLabel').textContent = 'টপিক';
+  host.classList.remove('chhost');
   tps.forEach(function(tp, ti){
     host.appendChild(chipBtn(tp, (QQ[tp] || []).length, curTopic === ti, function(){ curTopic = ti; selOnly = false; document.getElementById('btnSelOnly').textContent = '☑ শুধু নির্বাচিত দেখুন'; renderTopicChips(); renderList(); }));
   });
@@ -275,13 +358,15 @@ function visible(){
     return out;
   }
   return allItems().filter(function(r){
+    var cti = chapterTopicIdx();
+    if(cti && cti.indexOf(r.t) < 0) return false;
     if(curTopic >= 0 && r.t !== curTopic) return false;
     if(kw && r.q.q.indexOf(kw) === -1) return false;
     return true;
   }).map(function(r){ return {key: refOf(r.t, r.i), r: {cls: cls, ch: ch, topic: topicsOf()[r.t], item: r.q}}; });
 }
 function itemEl(key, r){
-  var item = r.item, tagText = selOnly ? (r.ch + ' • ' + r.topic) : r.topic;
+  var item = r.item, tagText = selOnly ? (r.ch + ' • ' + r.topic) : (chapterMode() ? shortTopic(r.topic) : r.topic);
   var div = document.createElement('div'); div.className = 'qitem' + (sel.has(key) ? ' sel' : '');
   var hd = document.createElement('div'); hd.className = 'qhead';
   var cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = sel.has(key);
@@ -294,9 +379,10 @@ function itemEl(key, r){
   var og = document.createElement('div'); og.className = 'ogrid';
   item.opts.forEach(function(op, oi){
     var o = document.createElement('div'); o.className = 'o';
-    var b = document.createElement('b'); b.textContent = 'কখগঘঙ'[oi] + ')'; o.appendChild(b);
-    o.appendChild(document.createTextNode(op));
-    if(item.ofig && item.ofig[oi]){ var oi2 = document.createElement('img'); oi2.src = item.ofig[oi]; oi2.alt = ''; oi2.loading = 'lazy'; o.appendChild(oi2); }
+    var badge = document.createElement('span'); badge.className = 'ol'; badge.textContent = 'কখগঘঙ'[oi]; o.appendChild(badge);
+    var tx2 = document.createElement('span'); tx2.className = 'ot'; tx2.appendChild(document.createTextNode(op));
+    if(item.ofig && item.ofig[oi]){ var oi2 = document.createElement('img'); oi2.src = item.ofig[oi]; oi2.alt = ''; oi2.loading = 'lazy'; tx2.appendChild(oi2); }
+    o.appendChild(tx2);
     og.appendChild(o);
   });
   tx.appendChild(og);
