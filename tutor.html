@@ -123,11 +123,14 @@ html{scroll-behavior:smooth}
 .sheet h1{font-size:18pt;text-align:center;margin:0;line-height:1.35}
 .sheet .smeta{text-align:center;font-size:12pt;font-weight:700;margin:4px 0 0}
 .sheet hr{border:0;border-top:2px solid #12211a;margin:4px 0 6px}
-.printDonate{break-inside:avoid;border:1.5px dashed #0a7a4b;border-radius:10px;background:#f4fcf7;padding:8px 12px;margin:0 0 10px;text-align:center}
-.printDonate .dn-row{display:flex;align-items:center;justify-content:center;gap:10px}
-.printDonate svg{flex:none;width:34px;height:34px}
-.printDonate .dn-msg{font-size:11.5pt;font-weight:700;color:#0a2a20;line-height:1.4}
-.printDonate .dn-num{font-size:10pt;color:#5b6b62;margin-top:2px}
+.tutorDonate{break-inside:avoid;border:2px solid transparent;border-radius:16px;padding:18px 20px 16px;text-align:center;background:linear-gradient(#151517,#151517) padding-box,linear-gradient(120deg,#FF5A1F,#B5179E,#FF8C1A,#FF5A1F) border-box;margin:0 0 14px;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.tutorDonate .td-tag{color:#ff8c1a;letter-spacing:.14em;font-size:12px;font-weight:700}
+.tutorDonate .td-msg{color:#fff;font-size:19px;font-weight:700;margin:8px 0 10px;line-height:1.5}
+.tutorDonate .td-pay{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.tutorDonate .td-chip{display:inline-block;padding:4px 12px;border-radius:999px;color:#fff;font-size:13px;font-weight:700}
+.tutorDonate .td-bk{background:#e2136e}
+.tutorDonate .td-ng{background:#f6921e}
+.tutorDonate .td-num{font-size:24px;font-weight:800;color:#ffc93c}
 .cols{column-count:2;column-gap:26px;column-rule:1px solid #ccc}
 .pq{break-inside:avoid;margin:0 0 2px;font-size:12pt;line-height:1.2}
 .pq .qt{font-weight:700}
@@ -220,11 +223,11 @@ html{scroll-behavior:smooth}
 </div>
 
 <h2 class="sec-title">প্রিন্ট প্রিভিউ — যেমনটা কাগজে ছাপা হবে</h2>
+<div class="tutorDonate" id="tutorDonate"><div class="td-tag">💜 DONATE — SUPPORT FREE LEARNING</div><div class="td-msg">উপকৃত হলে, ইচ্ছানুযায়ী Donate করতে পারো।</div><div class="td-pay"><span class="td-chip td-bk">bKash</span><span class="td-chip td-ng">Nagad</span><span class="td-num">01731871692</span></div></div>
 <div class="sheet" id="printPaper">
   <h1 id="printTitle">পদার্থবিজ্ঞান — মডেল টেস্ট</h1>
   <p class="smeta" id="printMeta"></p>
   <hr>
-  <div class="printDonate" id="printDonate" style="display:none"><div class="dn-row"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="12" fill="#0a7a4b"/><path d="M24 36C14 29 9 23.5 9 18.5 9 14.5 12 11.5 15.8 11.5c3 0 5.8 1.8 8.2 5 2.4-3.2 5.2-5 8.2-5C36 11.5 39 14.5 39 18.5 39 23.5 34 29 24 36Z" fill="#ffd968"/></svg><span class="dn-msg">উপকৃত হলে, ইচ্ছানুযায়ী Donate করতে পারো।</span></div><div class="dn-num">bKash / Nagad: 01731871692</div></div>
   <div class="cols" id="printCols"></div>
   <div class="akey" id="printKey" style="display:none"></div>
   <p class="pfoot">A Physicist's Perspective</p>
@@ -550,7 +553,6 @@ function renderPrint(withKey){
   var refs = [];
   sel.forEach(function(_, k){ var r = resolve(k); if(r) refs.push(r); });
   if(!refs.length){ cols.innerHTML = '<p style="font-size:12pt">এখনো কোনো প্রশ্ন নির্বাচন করা হয়নি — উপরে টিক দিয়ে প্রশ্ন বাছুন।</p>'; }
-  document.getElementById('printDonate').style.display = refs.length ? 'block' : 'none';
   var multiCh = false, seenCh = {};
   refs.forEach(function(r){ if(!seenCh[r.cls + '|' + r.ch]){ seenCh[r.cls + '|' + r.ch] = 1; } });
   multiCh = Object.keys(seenCh).length > 1;
@@ -622,7 +624,6 @@ function autoPreview(){
     document.getElementById('printMeta').textContent = 'মোট ' + bn(sel.size) + 'টি প্রশ্ন    •    সময়: ' + bn(st.mins) + ' মিনিট    •    পূর্ণমান: ' + bn(sel.size * st.mark) + ' নম্বর';
     document.getElementById('printCols').innerHTML = '<p style="font-size:12pt">' + bn(sel.size) + 'টি প্রশ্ন নির্বাচিত। এত বড় পেপারের প্রিভিউ নিজে থেকে বানানো হয় না — “সব নির্বাচন বাদ দিন” চাপলে সিলেকশন মুছে যাবে, অথবা Print / উত্তরসহ প্রিন্ট চাপলে প্রিভিউ তৈরি হবে।</p>';
     var keyEl0 = document.getElementById('printKey'); keyEl0.style.display = 'none'; keyEl0.innerHTML = '';
-    document.getElementById('printDonate').style.display = 'none';
     return;
   }
   renderPrint(false);
