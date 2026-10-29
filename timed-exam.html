@@ -144,6 +144,7 @@ document.getElementById('dmodeX').addEventListener('click',function(){b.style.di
 <div class="card state" id="stStart">
 <h2 class="center" id="exTitle">বহুনির্বাচনি পরীক্ষা</h2>
 <p class="center mut" id="exMeta"></p>
+<p class="center" id="staticNote" style="display:none;margin:10px 0 0;padding:10px 14px;border-radius:12px;background:#e9faf0;border:1.5px solid #8fd0a8;font-size:15px;font-weight:700;color:#0a5c38">Offline Mode আপনার Internet connection এ সমস্যা থাকায় পরিক্ষার পর Leader Board নাম দেখতে পারবেন না, চাইলে Mobile data চালু করে Online Mode এ পরিক্ষাও দিতে পারবেন।</p>
 <div class="rules"><b>নিয়ম:</b><ul>
 <li>শুরু করলেই টাইমার চালু হবে; সময় শেষে উত্তর অটো-সাবমিট হবে।</li>
 <li id="ruleNeg">প্রতিটি প্রশ্নের মান ১; নেগেটিভ মার্কিং নেই।</li>
@@ -188,18 +189,20 @@ if(!/^[a-z0-9-]+$/.test(EXAM_ID)) EXAM_ID="hsc1-physical-world";
 var CUSTOM_QP=new URLSearchParams(location.search);
 var CUSTOM=(CUSTOM_QP.get("custom")==="1"&&!!CUSTOM_QP.get("cq"));
 var CUSTOM_ID="custom-set";
+var MODE_STATIC=(CUSTOM_QP.get("mode")==="static");
+var STATIC_MODE=false;
 var BN="০১২৩৪৫৬৭৮৯";
 function bn(n){ return String(n).replace(/[0-9]/g,function(d){return BN[+d]}); }
 function renderMath(el){ try{ if(el&&window.renderMathInElement){ renderMathInElement(el,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"$$",right:"$$",display:true}],throwOnError:false}); } }catch(e){} }
 function show(id){ ["stLoad","stError","stStart","stExam","stResult"].forEach(function(s){ document.getElementById(s).classList.toggle("on", s===id); }); window.scrollTo({top:0}); }
 function fail(msg){ document.getElementById("errMsg").textContent=msg; show("stError"); }
-var db, EXAM=null, answers=[], startedAt=0, endAt=0, tick=null, submitted=false;
+var db, EXAM=null, answers=[], startedAt=0, endAt=0, tick=null, submitted=false, FB_DEAD=false;
 if(!CUSTOM){
 try{
   if(!firebase.apps.length) firebase.initializeApp(CFG);
   try{ var _acp=(firebase.appCheck.ReCaptchaEnterpriseProvider?new firebase.appCheck.ReCaptchaEnterpriseProvider("6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T"):"6LeG3PotAAAAADlJ4FodEFapAdlI14Hz2KDpPS8T"); firebase.appCheck().activate(_acp, true); }catch(e){}
   db=firebase.firestore();
-}catch(e){ fail("Firebase চালু হয়নি — ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করো।"); return; }
+}catch(e){ FB_DEAD=true; }
 }
 function acToken(force){
   return new Promise(function(res){
@@ -228,6 +231,30 @@ function onSnap(snap){
   document.getElementById("stuMins").value=EXAM.minutes;
   show("stStart");
 }
+function onStaticDoc(d){
+  var qs=d.questions;
+  if(typeof qs==="string"){ try{ qs=JSON.parse(qs); }catch(e){ qs=null; } }
+  if(!Array.isArray(qs)||!qs.length){ fail("সাইটের ফাইলে এই পরীক্ষার প্রশ্ন পাওয়া যায়নি।"); return; }
+  STATIC_MODE=true;
+  EXAM={title:d.title||"বহুনির্বাচনি পরীক্ষা", chapter:d.chapter||"", level:d.level||"", minutes:(+d.minutes)||25, neg:(+d.neg)||0, questions:qs};
+  document.title=EXAM.title+" | A Physicist's Perspective";
+  answers=new Array(qs.length).fill(-1);
+  document.getElementById("exTitle").textContent=EXAM.title;
+  document.getElementById("exMeta").textContent=(EXAM.chapter?EXAM.chapter+" • ":"")+(EXAM.level?EXAM.level+" • ":"")+bn(qs.length)+"টি প্রশ্ন • পূর্ণমান "+bn(qs.length);
+  if(EXAM.neg>0){ document.getElementById("ruleNeg").innerHTML="প্রতিটি সঠিক উত্তরে ১ নম্বর; প্রতিটি <b>ভুল উত্তরে "+bn(EXAM.neg)+" নম্বর কাটা</b> যাবে (নেগেটিভ মার্কিং)।"; }
+  var rb=document.getElementById("ruleBoard"); if(rb) rb.textContent="জমা দিলেই স্কোর ও সঠিক উত্তর দেখা যাবে (অফলাইন মোড — লিডারবোর্ডে জমা হয় না)।";
+  document.getElementById("staticNote").style.display="block";
+  buildChips(EXAM.minutes);
+  document.getElementById("stuMins").value=EXAM.minutes;
+  show("stStart");
+}
+function tryStatic(){
+  var lm=document.getElementById("loadMsg");
+  if(lm) lm.textContent="Firebase খুলছে না — সাইটের ফাইল থেকে প্রশ্ন আনার চেষ্টা হচ্ছে…";
+  fetch("static-exams/"+EXAM_ID+".json").then(function(r){ if(!r.ok) throw new Error("static-missing"); return r.json(); }).then(onStaticDoc).catch(function(){
+    fail("প্রশ্ন লোড করা যায়নি। এই নেটওয়ার্কে Firebase খুলছে না এবং সাইটের ফাইলে এই পরীক্ষার অফলাইন কপিও নেই।");
+  });
+}
 function loadExam(attempt){
   db.collection("exams").doc(EXAM_ID).get().then(onSnap).catch(function(e){
     var code=(e&&e.code)?e.code:"network";
@@ -239,7 +266,7 @@ function loadExam(attempt){
       setTimeout(function(){ acToken(true).then(function(){ loadExam(attempt+1); }); }, wait);
       return;
     }
-    fail("প্রশ্ন লোড করা যায়নি ("+code+")। ইন্টারনেট সংযোগ ধীর থাকলে এমন হতে পারে — কিছুক্ষণ পরে আবার চেষ্টা করো।");
+    tryStatic();
   });
 }
 function loadCustom(){
@@ -286,7 +313,7 @@ function loadCustom(){
   s.onerror=function(){ fail("প্রশ্নের ডেটা লোড হয়নি — ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করো।"); };
   document.head.appendChild(s);
 }
-if(CUSTOM){ loadCustom(); } else { acToken(false).then(function(){ loadExam(1); }); }
+if(CUSTOM){ loadCustom(); } else if(MODE_STATIC||FB_DEAD){ tryStatic(); } else { acToken(false).then(function(){ loadExam(1); }); }
 function buildChips(def){
   var host=document.getElementById("tChips"); host.innerHTML="";
   [10,15,20,25,30,45,60].forEach(function(m){
@@ -375,6 +402,7 @@ function submitExam(auto){
   renderMath(host);
   show("stResult");
   var note=document.getElementById("saveNote");
+  if(STATIC_MODE){ note.textContent="Offline Mode আপনার Internet connection এ সমস্যা থাকায় পরিক্ষার পর Leader Board নাম দেখতে পারবেন না, চাইলে Mobile data চালু করে Online Mode এ পরিক্ষাও দিতে পারবেন।"; note.style.color="#0a7a4b"; if(window.lupAddResult){ try{ window.lupAddResult({e:EXAM_ID,t:EXAM.title||EXAM_ID,s:score,n:total,p:pct,ts:Date.now()}); }catch(e){} } return; }
   if(CUSTOM){
     note.textContent="✓ কাস্টম পরীক্ষা — ফলাফল এখানেই দেখানো হয়েছে (লিডারবোর্ডে জমা হয় না)।";
     note.style.color="#0a7a4b";
