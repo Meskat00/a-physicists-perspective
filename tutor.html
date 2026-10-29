@@ -518,6 +518,8 @@ function updateSum(){
   document.getElementById('selCount').textContent = 'নির্বাচিত: ' + bn(n) + 'টি';
   document.getElementById('barSum').innerHTML = 'নির্বাচিত <b>' + bn(n) + 'টি</b> প্রশ্ন • সময় <b>' + bn(st.mins) + ' মিনিট</b> • পূর্ণমান <b>' + bn(n * st.mark) + '</b>';
   printDirty = true;
+  var pp = document.getElementById('printPaper');
+  if(pp){ var r = pp.getBoundingClientRect(); if(r.top < window.innerHeight + 200 && r.bottom > -200) autoPreview(); }
 }
 var printDirty = true;
 function renderPrint(withKey){
@@ -570,8 +572,8 @@ document.getElementById('btnClearAll').addEventListener('click', function(){
 });
 document.getElementById('btnSelOnly').addEventListener('click', function(){ selOnly = !selOnly; this.textContent = selOnly ? '☑ সব প্রশ্ন দেখুন' : '☑ শুধু নির্বাচিত দেখুন'; renderList(); });
 ['hdIn','minsIn','markIn','negSel'].forEach(function(id){ document.getElementById(id).addEventListener('input', function(){ saveDraft(); updateSum(); }); document.getElementById(id).addEventListener('change', function(){ saveDraft(); updateSum(); }); });
-document.getElementById('btnPrint').addEventListener('click', function(){ if(!sel.size){ alert('আগে অন্তত ১টি প্রশ্ন নির্বাচন করুন।'); return; } renderPrint(false); window.print(); });
-document.getElementById('btnPrintAns').addEventListener('click', function(){ if(!sel.size){ alert('আগে অন্তত ১টি প্রশ্ন নির্বাচন করুন।'); return; } renderPrint(true); window.print(); });
+document.getElementById('btnPrint').addEventListener('click', function(){ if(!sel.size){ alert('আগে অন্তত ১টি প্রশ্ন নির্বাচন করুন।'); return; } if(sel.size > 300 && !confirm(bn(sel.size) + 'টি প্রশ্নের পেপার ছাপা হবে — এত বড় পেপার তৈরি হতে সময় লাগবে, চালিয়ে যাবেন?')) return; renderPrint(false); window.print(); });
+document.getElementById('btnPrintAns').addEventListener('click', function(){ if(!sel.size){ alert('আগে অন্তত ১টি প্রশ্ন নির্বাচন করুন।'); return; } if(sel.size > 300 && !confirm(bn(sel.size) + 'টি প্রশ্নের পেপার ছাপা হবে — এত বড় পেপার তৈরি হতে সময় লাগবে, চালিয়ে যাবেন?')) return; renderPrint(true); window.print(); });
 document.getElementById('btnOnline').addEventListener('click', function(){
   if(!sel.size){ alert('আগে অন্তত ১টি প্রশ্ন নির্বাচন করুন।'); return; }
   var st = settings();
@@ -591,8 +593,21 @@ document.getElementById('btnCopy').addEventListener('click', function(){
 });
 document.getElementById('btnTop').addEventListener('click', function(){ window.scrollTo({top: 0, behavior: 'smooth'}); });
 document.getElementById('btnDown').addEventListener('click', function(){ window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}); });
+function autoPreview(){
+  if(!printDirty) return;
+  if(sel.size > 300){
+    printDirty = false;
+    var st = settings();
+    document.getElementById('printTitle').textContent = st.head;
+    document.getElementById('printMeta').textContent = 'সময়: ' + bn(st.mins) + ' মিনিট    •    পূর্ণমান: ' + bn(sel.size * st.mark) + ' নম্বর';
+    document.getElementById('printCols').innerHTML = '<p style="font-size:12pt">' + bn(sel.size) + 'টি প্রশ্ন নির্বাচিত। এত বড় পেপারের প্রিভিউ নিজে থেকে বানানো হয় না — “সব নির্বাচন বাদ দিন” চাপলে সিলেকশন মুছে যাবে, অথবা Print / উত্তরসহ প্রিন্ট চাপলে প্রিভিউ তৈরি হবে।</p>';
+    var keyEl0 = document.getElementById('printKey'); keyEl0.style.display = 'none'; keyEl0.innerHTML = '';
+    return;
+  }
+  renderPrint(false);
+}
 if('IntersectionObserver' in window){
-  new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && printDirty){ renderPrint(false); } }); }, {rootMargin: '200px'}).observe(document.getElementById('printPaper'));
+  new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) autoPreview(); }); }, {rootMargin: '200px'}).observe(document.getElementById('printPaper'));
 }
 renderCascade(); renderList();
 });
