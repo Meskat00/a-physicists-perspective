@@ -24,8 +24,9 @@ body{font-family:'Hind Siliguri',system-ui,sans-serif;background:#eef3ef;color:#
 @media(hover:none){#curDot,#curRing{display:none}}
 :root{--mx:50vw;--my:35vh}
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(760px 540px at 0% 0%,rgba(255,183,3,.17),rgba(255,183,3,0) 60%),radial-gradient(820px 600px at 100% 100%,rgba(14,122,67,.16),rgba(14,122,67,0) 62%),radial-gradient(rgba(13,90,56,.13) 1.1px,transparent 1.3px);background-size:auto,auto,22px 22px}
-body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(rgba(255,140,26,.4) 2.7px,transparent 3px);background-size:22px 22px;-webkit-mask-image:radial-gradient(270px circle at var(--mx) var(--my),#000 0%,rgba(0,0,0,.5) 45%,transparent 72%);mask-image:radial-gradient(270px circle at var(--mx) var(--my),#000 0%,rgba(0,0,0,.5) 45%,transparent 72%)}
-@media print{body::before,body::after{display:none}}
+body::after{display:none}/* spotlight moved to #spot below: a small transform-following layer, so mouse moves no longer repaint a full-screen masked layer every frame */
+#spot{position:fixed;left:0;top:0;width:540px;height:540px;z-index:0;pointer-events:none;background:radial-gradient(rgba(255,140,26,.4) 2.7px,transparent 3px);background-size:22px 22px;-webkit-mask-image:radial-gradient(270px circle at center,#000 0%,rgba(0,0,0,.5) 45%,transparent 72%);mask-image:radial-gradient(270px circle at center,#000 0%,rgba(0,0,0,.5) 45%,transparent 72%);will-change:transform;transform:translate(calc(50vw - 270px),calc(35vh - 270px))}
+@media print{body::before,body::after,#spot{display:none}}
 a{text-decoration:none;color:inherit}
 .wrap{max-width:900px;margin:0 auto;padding:0 16px}
 nav{position:sticky;top:0;z-index:50;background:rgba(10,42,32,.96);color:#fff}
@@ -167,6 +168,7 @@ html{scroll-behavior:smooth}
 </style>
 </head>
 <body>
+<div id="spot"></div>
 <a class="skip-link" href="#main">মূল কনটেন্টে যাও →</a>
 <noscript><p style="background:#fff3cd;border:2px solid #f5b301;color:#5a4300;padding:14px 18px;border-radius:12px;margin:16px auto;max-width:860px;text-align:center;font-weight:700">⚠️ এই সাইট চালাতে JavaScript চালু করতে হবে — JavaScript ছাড়া পরীক্ষা, ফ্লিপ কার্ড আর Tutor কাজ করবে না।</p></noscript>
 <nav><div class="nav-in"><a class="logo" href="index.html">A Physicist's <b>Perspective</b><small>SSC • HSC • Admission — ফিজিক্স শেখার ঘর</small></a><div class="nav-links"><a href="index.html">🏠 Home</a><a href="exams.html">📝 Exam</a><a href="lectures.html">🎬 Lecture</a><a href="problems.html">🧩 Game</a><a href="tutor.html" class="on">🎓 Tutor</a><a href="about.html">👨‍🏫 About</a></div></div></nav>
