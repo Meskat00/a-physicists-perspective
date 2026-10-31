@@ -552,14 +552,11 @@ function renderPrint(withKey){
   var refs = [];
   sel.forEach(function(_, k){ var r = resolve(k); if(r) refs.push(r); });
   if(!refs.length){ cols.innerHTML = '<p style="font-size:12pt">এখনো কোনো প্রশ্ন নির্বাচন করা হয়নি — উপরে টিক দিয়ে প্রশ্ন বাছুন।</p>'; }
-  var multiCh = false, seenCh = {};
-  refs.forEach(function(r){ if(!seenCh[r.cls + '|' + r.ch]){ seenCh[r.cls + '|' + r.ch] = 1; } });
-  multiCh = Object.keys(seenCh).length > 1;
   refs.forEach(function(r, idx){
     var item = r.item;
     var div = document.createElement('div'); div.className = 'pq';
     var qt = document.createElement('span'); qt.className = 'qt';
-    qt.textContent = bn(idx + 1) + '। ' + (multiCh ? ('[' + r.ch + ' • ' + r.topic + '] ') : '') + item.q + ' '; div.appendChild(qt);
+    qt.textContent = bn(idx + 1) + '। ' + item.q + ' '; div.appendChild(qt);
     if(item.fig){ var f = document.createElement('div'); f.className = 'pfig'; var im = document.createElement('img'); im.src = item.fig; im.alt = ''; im.loading = 'lazy'; f.appendChild(im); div.appendChild(f); }
     if(item.figcap){ var fc = document.createElement('div'); fc.style.cssText = 'font-size:10pt;color:#555;text-align:center'; fc.textContent = item.figcap; div.appendChild(fc); }
     var og = document.createElement('div'); og.className = 'og';
