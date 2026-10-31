@@ -26,13 +26,15 @@ requestAnimationFrame(loop);})();
 /*DOTFX*/
 (function(){try{
 if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-var tick=false;
+var tick=false,spot=document.getElementById("spot");
 document.addEventListener("pointermove",function(e){
 if(tick)return;tick=true;
 var x=e.clientX,y=e.clientY;
 requestAnimationFrame(function(){
 document.documentElement.style.setProperty("--mx",x+"px");
 document.documentElement.style.setProperty("--my",y+"px");
+if(!spot)spot=document.getElementById("spot");
+if(spot)spot.style.transform="translate("+(x-270)+"px,"+(y-270)+"px)";
 tick=false;});
 },{passive:true});
 }catch(e){}})();
